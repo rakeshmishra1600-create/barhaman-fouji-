@@ -7,402 +7,314 @@
 <title>Barhaman Fouji</title>
 
 <style>
-* {
-  box-sizing: border-box;
+*{box-sizing:border-box}
+
+html{scroll-behavior:smooth}
+
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#111;
+  color:white;
+  overflow-x:hidden;
 }
 
-html {
-  scroll-behavior: smooth;
+/* ================= HERO ================= */
+
+.hero{
+  min-height:100vh;
+  padding:40px 20px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  background:linear-gradient(135deg,#111,#333);
 }
 
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #111;
-  color: white;
-  overflow-x: hidden;
+.profile-photo{
+  width:180px;
+  height:180px;
+  object-fit:cover;
+  border-radius:50%;
+  border:5px solid white;
+  margin-bottom:20px;
+  animation:glow 2s infinite alternate;
 }
 
-/* ================= HOME ================= */
-
-.hero {
-  min-height: 100vh;
-  padding: 40px 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  background: linear-gradient(135deg, #111, #333);
+@keyframes glow{
+  from{box-shadow:0 0 10px rgba(255,255,255,.4)}
+  to{box-shadow:0 0 35px rgba(255,255,255,.9)}
 }
 
-.profile-photo {
-  width: 180px;
-  height: 180px;
-  object-fit: cover;
-  border-radius: 50%;
-  border: 5px solid white;
-  margin-bottom: 20px;
-  animation: photoGlow 2s infinite alternate;
+h1{
+  font-size:42px;
+  margin:10px;
 }
 
-@keyframes photoGlow {
-  from {
-    box-shadow: 0 0 10px rgba(255,255,255,.4);
-  }
-
-  to {
-    box-shadow: 0 0 35px rgba(255,255,255,.9);
-  }
-}
-
-h1 {
-  font-size: 42px;
-  margin: 10px;
-}
-
-.hero p {
-  font-size: 19px;
-  color: #ddd;
+.hero p{
+  font-size:19px;
+  color:#ddd;
 }
 
 /* ================= BUTTONS ================= */
 
-.buttons {
-  margin-top: 25px;
+.buttons{
+  margin-top:25px;
 }
 
-.buttons a {
-  display: inline-block;
-  padding: 13px 22px;
-  margin: 7px;
-  border-radius: 30px;
-  background: white;
-  color: #111;
-  text-decoration: none;
-  font-weight: bold;
-  transition: .3s;
+.buttons a{
+  display:inline-block;
+  padding:13px 22px;
+  margin:7px;
+  border-radius:30px;
+  background:white;
+  color:#111;
+  text-decoration:none;
+  font-weight:bold;
+  transition:.3s;
 }
 
-.buttons a:hover {
-  transform: translateY(-5px) scale(1.05);
-  box-shadow: 0 8px 20px rgba(255,255,255,.35);
+.buttons a:hover{
+  transform:translateY(-5px) scale(1.05);
+  box-shadow:0 8px 20px rgba(255,255,255,.35);
 }
 
-.buttons a:active {
-  transform: scale(.92);
+/* ================= SECTION ================= */
+
+.section{
+  padding:50px 20px;
+  text-align:center;
+  background:#f5f5f5;
+  color:#222;
 }
 
-/* ================= SECTIONS ================= */
-
-.section {
-  padding: 50px 20px;
-  text-align: center;
-  background: #f5f5f5;
-  color: #222;
+.card{
+  max-width:650px;
+  margin:auto;
+  padding:30px;
+  background:white;
+  border-radius:20px;
+  box-shadow:0 5px 20px rgba(0,0,0,.15);
 }
 
-.card {
-  max-width: 650px;
-  margin: auto;
-  padding: 30px;
-  background: white;
-  border-radius: 20px;
-  box-shadow: 0 5px 20px rgba(0,0,0,.15);
-}
-
-/* ================= FOOTER ================= */
-
-footer {
-  padding: 25px;
-  text-align: center;
-  background: #111;
+footer{
+  padding:25px;
+  text-align:center;
+  background:#111;
 }
 
 /* ================= TOP BUTTON ================= */
 
-#topBtn {
-  position: fixed;
-  right: 20px;
-  bottom: 20px;
-  padding: 12px 18px;
-  border: 0;
-  border-radius: 25px;
-  background: #111;
-  color: white;
-  font-weight: bold;
-  z-index: 9999;
-  cursor: pointer;
+#topBtn{
+  position:fixed;
+  right:20px;
+  bottom:20px;
+  padding:12px 18px;
+  border:0;
+  border-radius:25px;
+  background:#111;
+  color:white;
+  font-weight:bold;
+  z-index:9999;
+  cursor:pointer;
 }
 
-/* =================================================
-   ANIME GIRL LIVE ANIMATION
-   ================================================= */
+/* =====================================================
+   ANIMATED ANIME GIRL
+   ===================================================== */
 
-.anime-stage {
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 230px;
-  z-index: 500;
-  pointer-events: none;
-  overflow: hidden;
+.anime-stage{
+  position:fixed;
+  left:0;
+  bottom:0;
+  width:100%;
+  height:245px;
+  overflow:hidden;
+  pointer-events:none;
+  z-index:500;
 }
 
-/* Character */
+/* जमीन की shadow */
 
-.anime-girl {
-  position: absolute;
-  left: -160px;
-  bottom: 0;
-  width: 125px;
-  height: 220px;
+.girl-shadow{
+  position:absolute;
+  bottom:3px;
+  left:-150px;
+  width:75px;
+  height:12px;
+  border-radius:50%;
+  background:rgba(0,0,0,.45);
+
+  animation:shadowMove 16s linear infinite;
+}
+
+@keyframes shadowMove{
+  0%{left:-150px;transform:scale(.8)}
+  42%{left:44%;transform:scale(1)}
+  58%{left:44%;transform:scale(1)}
+  100%{left:110%;transform:scale(.8)}
+}
+
+/* पूरा character */
+
+.anime-girl{
+  position:absolute;
+  left:-170px;
+  bottom:0;
+  width:130px;
+  height:235px;
 
   animation:
-    girlMove 14s linear infinite,
-    girlBounce .6s ease-in-out infinite alternate;
+    walkAcross 16s linear infinite,
+    bounce .55s ease-in-out infinite alternate;
 }
 
-/* Character walks across screen */
-
-@keyframes girlMove {
-
-  0% {
-    left: -160px;
-  }
-
-  30% {
-    left: 25%;
-  }
-
-  40% {
-    left: 42%;
-  }
-
-  60% {
-    left: 42%;
-  }
-
-  70% {
-    left: 60%;
-  }
-
-  100% {
-    left: 110%;
-  }
+@keyframes walkAcross{
+  0%{left:-170px}
+  35%{left:40%}
+  45%{left:46%}
+  58%{left:46%}
+  70%{left:62%}
+  100%{left:110%}
 }
 
-/* Body movement */
-
-@keyframes girlBounce {
-
-  from {
-    transform: translateY(0);
-  }
-
-  to {
-    transform: translateY(-6px);
-  }
+@keyframes bounce{
+  from{transform:translateY(0)}
+  to{transform:translateY(-6px)}
 }
 
-/* Hair movement */
+/* बाल */
 
-.hair {
-  transform-origin: 60px 45px;
-  animation: hairMove .8s ease-in-out infinite alternate;
+.hair{
+  transform-origin:62px 45px;
+  animation:hair .7s ease-in-out infinite alternate;
 }
 
-@keyframes hairMove {
+@keyframes hair{
+  from{transform:rotate(-3deg)}
+  to{transform:rotate(4deg)}
+}
 
-  from {
-    transform: rotate(-3deg);
+/* बायां हाथ */
+
+.leftArm{
+  transform-origin:43px 85px;
+  animation:leftArm .65s ease-in-out infinite alternate;
+}
+
+@keyframes leftArm{
+  from{transform:rotate(18deg)}
+  to{transform:rotate(-20deg)}
+}
+
+/* दायां हाथ */
+
+.rightArm{
+  transform-origin:80px 85px;
+  animation:rightArm .65s ease-in-out infinite alternate;
+}
+
+@keyframes rightArm{
+  from{transform:rotate(-18deg)}
+  to{transform:rotate(20deg)}
+}
+
+/* पैर */
+
+.leftLeg{
+  transform-origin:54px 145px;
+  animation:leftLeg .65s ease-in-out infinite alternate;
+}
+
+@keyframes leftLeg{
+  from{transform:rotate(18deg)}
+  to{transform:rotate(-18deg)}
+}
+
+.rightLeg{
+  transform-origin:72px 145px;
+  animation:rightLeg .65s ease-in-out infinite alternate;
+}
+
+@keyframes rightLeg{
+  from{transform:rotate(-18deg)}
+  to{transform:rotate(18deg)}
+}
+
+/* स्कर्ट */
+
+.skirt{
+  transform-origin:62px 120px;
+  animation:skirt .65s ease-in-out infinite alternate;
+}
+
+@keyframes skirt{
+  from{transform:rotate(-2deg)}
+  to{transform:rotate(2deg)}
+}
+
+/* चमक */
+
+.spark{
+  position:absolute;
+  font-size:18px;
+  opacity:0;
+  animation:spark 2s linear infinite;
+}
+
+.spark1{
+  left:35%;
+  bottom:150px;
+}
+
+.spark2{
+  left:55%;
+  bottom:100px;
+  animation-delay:1s;
+}
+
+@keyframes spark{
+  0%{
+    opacity:0;
+    transform:translateY(20px) scale(.5);
   }
-
-  to {
-    transform: rotate(4deg);
-  }
-}
-
-/* Left arm */
-
-.armLeft {
-  transform-origin: 45px 85px;
-  animation: armLeft .7s ease-in-out infinite alternate;
-}
-
-@keyframes armLeft {
-
-  from {
-    transform: rotate(15deg);
-  }
-
-  to {
-    transform: rotate(-20deg);
-  }
-}
-
-/* Right arm */
-
-.armRight {
-  transform-origin: 78px 85px;
-  animation: armRight .7s ease-in-out infinite alternate;
-}
-
-@keyframes armRight {
-
-  from {
-    transform: rotate(-15deg);
-  }
-
-  to {
-    transform: rotate(20deg);
-  }
-}
-
-/* Legs */
-
-.legLeft {
-  transform-origin: 55px 140px;
-  animation: legLeft .7s ease-in-out infinite alternate;
-}
-
-@keyframes legLeft {
-
-  from {
-    transform: rotate(18deg);
-  }
-
-  to {
-    transform: rotate(-18deg);
-  }
-}
-
-.legRight {
-  transform-origin: 70px 140px;
-  animation: legRight .7s ease-in-out infinite alternate;
-}
-
-@keyframes legRight {
-
-  from {
-    transform: rotate(-18deg);
-  }
-
-  to {
-    transform: rotate(18deg);
-  }
-}
-
-/* Skirt movement */
-
-.skirt {
-  transform-origin: 60px 120px;
-  animation: skirtMove .7s ease-in-out infinite alternate;
-}
-
-@keyframes skirtMove {
-
-  from {
-    transform: rotate(-2deg);
-  }
-
-  to {
-    transform: rotate(2deg);
-  }
-}
-
-/* Floating sparkle */
-
-.sparkle {
-  position: absolute;
-  font-size: 20px;
-  opacity: 0;
-  animation: sparkleMove 2s linear infinite;
-}
-
-.sparkle1 {
-  left: 35%;
-  bottom: 160px;
-}
-
-.sparkle2 {
-  left: 55%;
-  bottom: 120px;
-  animation-delay: 1s;
-}
-
-@keyframes sparkleMove {
-
-  0% {
-    opacity: 0;
-    transform: translateY(20px) scale(.5);
-  }
-
-  40% {
-    opacity: 1;
-  }
-
-  100% {
-    opacity: 0;
-    transform: translateY(-30px) scale(1.2);
-  }
-}
-
-/* Shadow */
-
-.anime-shadow {
-  position: absolute;
-  bottom: 3px;
-  left: 42%;
-  width: 80px;
-  height: 13px;
-  border-radius: 50%;
-  background: rgba(0,0,0,.35);
-
-  animation: shadowAnimation .6s ease-in-out infinite alternate;
-}
-
-@keyframes shadowAnimation {
-
-  from {
-    transform: scaleX(.85);
-  }
-
-  to {
-    transform: scaleX(1.1);
+  40%{opacity:1}
+  100%{
+    opacity:0;
+    transform:translateY(-30px) scale(1.2);
   }
 }
 
 /* ================= MOBILE ================= */
 
-@media (max-width: 600px) {
+@media(max-width:600px){
 
-  h1 {
-    font-size: 32px;
+  h1{
+    font-size:32px;
   }
 
-  .profile-photo {
-    width: 150px;
-    height: 150px;
+  .profile-photo{
+    width:150px;
+    height:150px;
   }
 
-  .anime-stage {
-    height: 175px;
+  .anime-stage{
+    height:185px;
   }
 
-  .anime-girl {
-    width: 95px;
-    height: 170px;
+  .anime-girl{
+    width:100px;
+    height:180px;
   }
 
-  #topBtn {
-    right: 15px;
-    bottom: 15px;
+  #topBtn{
+    right:15px;
+    bottom:15px;
   }
 
-  .buttons a {
-    padding: 11px 16px;
+  .buttons a{
+    padding:11px 16px;
   }
 }
 </style>
@@ -410,47 +322,55 @@ footer {
 
 <body>
 
-<!-- =================================================
-     ANIMATED ANIME GIRL
-     ================================================= -->
+<!-- =====================================================
+     ANIMATED GIRL
+     ===================================================== -->
 
 <div class="anime-stage">
 
-  <div class="sparkle sparkle1">✨</div>
-  <div class="sparkle sparkle2">✨</div>
+  <div class="spark spark1">✨</div>
+  <div class="spark spark2">✨</div>
 
-  <div class="anime-shadow"></div>
+  <div class="girl-shadow"></div>
 
   <div class="anime-girl">
 
-    <svg viewBox="0 0 125 220"
-         width="125"
-         height="220">
+    <svg viewBox="0 0 130 235"
+         width="130"
+         height="235">
 
       <!-- HAIR -->
 
       <g class="hair">
 
         <path
-          d="M37 45
-             Q30 10 61 7
-             Q92 10 90 45
-             L85 75
-             L72 55
-             L63 72
-             L53 55
-             L42 73
-             Z"
-          fill="#f0a34b"
+          d="M38 49
+             Q29 13 62 7
+             Q96 12 91 50
+             L88 78
+             L74 56
+             L64 75
+             L53 56
+             L41 76 Z"
+          fill="#e79a45"
         />
 
         <path
-          d="M70 14
-             Q102 20 94 70
-             L82 55
-             L86 30
-             Z"
-          fill="#4b80d8"
+          d="M72 14
+             Q104 22 96 70
+             L83 55
+             L87 30 Z"
+          fill="#5c91e8"
+        />
+
+        <!-- बालों की लट -->
+
+        <path
+          d="M43 25 Q27 55 39 90"
+          fill="none"
+          stroke="#e79a45"
+          stroke-width="9"
+          stroke-linecap="round"
         />
 
       </g>
@@ -459,9 +379,9 @@ footer {
       <!-- FACE -->
 
       <circle
-        cx="62"
-        cy="40"
-        r="20"
+        cx="63"
+        cy="42"
+        r="21"
         fill="#f3c7a5"
       />
 
@@ -469,26 +389,52 @@ footer {
       <!-- EYES -->
 
       <ellipse
-        cx="54"
-        cy="41"
-        rx="3"
+        cx="55"
+        cy="43"
+        rx="3.2"
         ry="5"
-        fill="#222"
+        fill="#252044"
       />
 
       <ellipse
-        cx="70"
-        cy="41"
-        rx="3"
+        cx="71"
+        cy="43"
+        rx="3.2"
         ry="5"
-        fill="#222"
+        fill="#252044"
+      />
+
+      <!-- EYE SHINE -->
+
+      <circle
+        cx="56"
+        cy="41"
+        r="1"
+        fill="white"
+      />
+
+      <circle
+        cx="72"
+        cy="41"
+        r="1"
+        fill="white"
+      />
+
+
+      <!-- NOSE -->
+
+      <path
+        d="M63 45 L61 50 L65 50"
+        fill="none"
+        stroke="#c17f6b"
+        stroke-width="1"
       />
 
 
       <!-- MOUTH -->
 
       <path
-        d="M57 52 Q62 55 68 52"
+        d="M57 54 Q63 58 69 54"
         fill="none"
         stroke="#9b4545"
         stroke-width="2"
@@ -499,70 +445,66 @@ footer {
 
       <rect
         x="55"
-        y="58"
-        width="15"
+        y="61"
+        width="16"
         height="13"
         fill="#f3c7a5"
       />
 
 
-      <!-- BODY / JACKET -->
+      <!-- BODY -->
 
       <path
-        d="M41 68
-           L81 68
-           L91 124
-           L68 136
-           L61 100
-           L52 136
-           L31 124
-           Z"
-        fill="#463d9c"
+        d="M40 72
+           L83 72
+           L94 126
+           L70 139
+           L62 101
+           L53 139
+           L29 126 Z"
+        fill="#493d9d"
       />
 
 
       <!-- WHITE SHIRT -->
 
       <path
-        d="M52 68
-           L69 68
-           L66 105
-           L61 112
-           L54 103
-           Z"
+        d="M52 72
+           L70 72
+           L67 107
+           L62 114
+           L54 105 Z"
         fill="white"
       />
 
 
-      <!-- RED TIE -->
+      <!-- TIE -->
 
       <path
-        d="M58 71
-           L65 71
-           L66 101
-           L61 108
-           L57 101
-           Z"
-        fill="#d33d3d"
+        d="M58 74
+           L66 74
+           L67 102
+           L62 110
+           L57 102 Z"
+        fill="#d33b3b"
       />
 
 
       <!-- LEFT ARM -->
 
-      <g class="armLeft">
+      <g class="leftArm">
 
         <path
-          d="M42 72
-             L27 104
-             L36 110
-             L52 84
-             Z"
-          fill="#463d9c"
+          d="M41 74
+             L25 106
+             L35 112
+             L53 86 Z"
+          fill="#493d9d"
         />
 
         <circle
-          cx="32"
-          cy="108"
+          cx="30"
+          cy="109"
           r="7"
           fill="#f3c7a5"
         />
@@ -572,20 +514,19 @@ footer {
 
       <!-- RIGHT ARM -->
 
-      <g class="armRight">
+      <g class="rightArm">
 
         <path
-          d="M80 72
-             L91 104
-             L83 110
-             L70 84
-             Z"
-          fill="#463d9c"
+          d="M82 74
+             L95 105
+             L85 112
+             L70 86 Z"
+          fill="#493d9d"
         />
 
         <circle
-          cx="87"
-          cy="107"
+          cx="90"
+          cy="109"
           r="7"
           fill="#f3c7a5"
         />
@@ -598,12 +539,19 @@ footer {
       <g class="skirt">
 
         <path
-          d="M42 119
-             L78 119
-             L89 146
-             L30 146
-             Z"
-          fill="#292765"
+          d="M42 121
+             L79 121
+             L92 150
+             L28 150 Z"
+          fill="#29265f"
+        />
+
+        <path
+          d="M35 140
+             Q62 151 86 140"
+          fill="none"
+          stroke="#e79a45"
+          stroke-width="3"
         />
 
       </g>
@@ -611,24 +559,22 @@ footer {
 
       <!-- LEFT LEG -->
 
-      <g class="legLeft">
+      <g class="leftLeg">
 
         <path
-          d="M43 143
-             L59 143
-             L57 184
-             L42 184
-             Z"
-          fill="#a75c78"
+          d="M43 147
+             L59 147
+             L57 188
+             L41 188 Z"
+          fill="#b05f7c"
         />
 
         <path
-          d="M41 180
-             L58 180
-             L60 196
-             L39 196
-             Z"
-          fill="#463d9c"
+          d="M40 183
+             L58 183
+             L61 201
+             L38 201 Z"
+          fill="#493d9d"
         />
 
       </g>
@@ -636,24 +582,22 @@ footer {
 
       <!-- RIGHT LEG -->
 
-      <g class="legRight">
+      <g class="rightLeg">
 
         <path
-          d="M61 143
-             L77 143
-             L81 184
-             L66 184
-             Z"
-          fill="#a75c78"
+          d="M64 147
+             L80 147
+             L83 188
+             L67 188 Z"
+          fill="#b05f7c"
         />
 
         <path
-          d="M66 180
-             L82 180
-             L88 196
-             L67 196
-             Z"
-          fill="#463d9c"
+          d="M67 183
+             L83 183
+             L91 201
+             L68 201 Z"
+          fill="#493d9d"
         />
 
       </g>
@@ -662,35 +606,32 @@ footer {
       <!-- SHOES -->
 
       <path
-        d="M38 193
-           L60 193
-           L62 202
-           L35 202
-           Z"
-        fill="#222"
+        d="M37 198
+           L61 198
+           L63 208
+           L34 208 Z"
+        fill="#202020"
       />
 
       <path
-        d="M67 193
-           L88 193
-           L94 202
-           L68 202
-           Z"
-        fill="#222"
+        d="M68 198
+           L90 198
+           L97 208
+           L69 208 Z"
+        fill="#202020"
       />
 
     </svg>
 
   </div>
-
 </div>
 
 
-<!-- ================= TOP BUTTON ================= -->
+<!-- ================= TOP ================= -->
 
 <button
   id="topBtn"
-  onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+  onclick="window.scrollTo({top:0,behavior:'smooth'})">
   🔝 Top
 </button>
 
@@ -718,29 +659,22 @@ footer {
     <a href="#about">About Me</a>
     <a href="#gallery">Gallery</a>
     <a href="#videos">Videos</a>
+    <a href="#social">Social</a>
     <a href="#contact">Contact</a>
 
-    <a
-      href="https://wa.me/917050042886"
-      target="_blank">
+    <a href="https://wa.me/917050042886" target="_blank">
       💬 WhatsApp
     </a>
 
-    <a
-      href="https://youtube.com/@handstand_boy"
-      target="_blank">
+    <a href="https://youtube.com/@handstand_boy" target="_blank">
       ▶️ YouTube
     </a>
 
-    <a
-      href="https://www.instagram.com/barhaman_fouji_10k/"
-      target="_blank">
+    <a href="https://www.instagram.com/barhaman_fouji_10k/" target="_blank">
       📸 Instagram
     </a>
 
-    <a
-      href="https://www.facebook.com/profile.php?id=100077267425201"
-      target="_blank">
+    <a href="https://www.facebook.com/profile.php?id=100077267425201" target="_blank">
       👍 Facebook
     </a>
 
@@ -785,7 +719,7 @@ footer {
     <img
       src="IMG_20260614_152003_968.webp"
       alt="Rakesh Mishra"
-      style="width:100%; max-width:500px; border-radius:20px;"
+      style="width:100%;max-width:500px;border-radius:20px;"
     >
 
     <h3>Rakesh Mishra</h3>
@@ -807,41 +741,41 @@ footer {
 
     <p>मेरे YouTube Shorts 🇮🇳</p>
 
-    <div style="display:grid; gap:20px;">
+    <div style="display:grid;gap:20px;">
 
       <iframe
         src="https://www.youtube.com/embed/JPReWkMD-5s"
-        style="width:100%; aspect-ratio:9/16; border:0; border-radius:15px;"
+        style="width:100%;aspect-ratio:9/16;border:0;border-radius:15px;"
         allowfullscreen>
       </iframe>
 
       <iframe
         src="https://www.youtube.com/embed/UMP-rLHMBLU"
-        style="width:100%; aspect-ratio:9/16; border:0; border-radius:15px;"
+        style="width:100%;aspect-ratio:9/16;border:0;border-radius:15px;"
         allowfullscreen>
       </iframe>
 
       <iframe
         src="https://www.youtube.com/embed/Crflxy4mULE"
-        style="width:100%; aspect-ratio:9/16; border:0; border-radius:15px;"
+        style="width:100%;aspect-ratio:9/16;border:0;border-radius:15px;"
         allowfullscreen>
       </iframe>
 
       <iframe
         src="https://www.youtube.com/embed/zjmyvB1EoTE"
-        style="width:100%; aspect-ratio:9/16; border:0; border-radius:15px;"
+        style="width:100%;aspect-ratio:9/16;border:0;border-radius:15px;"
         allowfullscreen>
       </iframe>
 
       <iframe
         src="https://www.youtube.com/embed/BCFl8sBXoTs"
-        style="width:100%; aspect-ratio:9/16; border:0; border-radius:15px;"
+        style="width:100%;aspect-ratio:9/16;border:0;border-radius:15px;"
         allowfullscreen>
       </iframe>
 
       <iframe
         src="https://www.youtube.com/embed/R7p-6laN60Y"
-        style="width:100%; aspect-ratio:9/16; border:0; border-radius:15px;"
+        style="width:100%;aspect-ratio:9/16;border:0;border-radius:15px;"
         allowfullscreen>
       </iframe>
 
@@ -852,7 +786,7 @@ footer {
 </section>
 
 
-<!-- ================= FOLLOW ME ================= -->
+<!-- ================= SOCIAL ================= -->
 
 <section class="section" id="social">
 
@@ -864,27 +798,19 @@ footer {
 
     <div class="buttons">
 
-      <a
-        href="https://youtube.com/@handstand_boy"
-        target="_blank">
+      <a href="https://youtube.com/@handstand_boy" target="_blank">
         ▶️ YouTube
       </a>
 
-      <a
-        href="https://www.instagram.com/barhaman_fouji_10k/"
-        target="_blank">
+      <a href="https://www.instagram.com/barhaman_fouji_10k/" target="_blank">
         📸 Instagram
       </a>
 
-      <a
-        href="https://www.facebook.com/profile.php?id=100077267425201"
-        target="_blank">
+      <a href="https://www.facebook.com/profile.php?id=100077267425201" target="_blank">
         👍 Facebook
       </a>
 
-      <a
-        href="https://wa.me/917050042886"
-        target="_blank">
+      <a href="https://wa.me/917050042886" target="_blank">
         💬 WhatsApp
       </a>
 
@@ -904,14 +830,12 @@ footer {
     <h2>📞 Contact Me</h2>
 
     <p>
-      मुझसे जुड़ने के लिए WhatsApp पर संपर्क करें। 🙏
+      मुझसे जुड़ने के लिए नीचे दिए गए platform पर संपर्क करें। 🙏
     </p>
 
     <div class="buttons">
 
-      <a
-        href="https://wa.me/917050042886"
-        target="_blank">
+      <a href="https://wa.me/917050042886" target="_blank">
         💬 Chat on WhatsApp
       </a>
 
