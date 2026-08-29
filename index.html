@@ -6,8 +6,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>🔱 Barhaman Fouji 🇮🇳</title>
+
 <meta name="description"
-content="Barhaman Fouji - Rakesh Mishra की official website. Photos, videos और social links.">
+content="Barhaman Fouji - Rakesh Mishra की official website. Photos, videos, music, files और social links.">
 
 <meta name="keywords"
 content="Barhaman Fouji, Brahman Fouji, Barhaman Foji, Rakesh Mishra">
@@ -37,7 +38,6 @@ body{
 
 /* ==================================================
    BACKGROUND
-   PREMANAND MAHARAJ JI
 ================================================== */
 
 body::before{
@@ -72,10 +72,11 @@ body::before{
   background-repeat:
     no-repeat,
     no-repeat;
+
+  transition:.5s;
 }
 
 
-/* हल्का dark layer */
 body::after{
 
   content:"";
@@ -152,10 +153,182 @@ body::after{
 
   color:#ff39dc;
 
-  text-shadow:
-    0 0 12px #ff39dc;
+  text-shadow:0 0 12px #ff39dc;
 
   transform:scale(1.08);
+}
+
+
+/* ==================================================
+   FILE MENU BUTTON
+   BLACK THEME - NAVBAR KE ANDAR
+================================================== */
+
+.file-menu-btn{
+
+  position:absolute;
+
+  left:12px;
+
+  bottom:-48px;
+
+  width:48px;
+
+  height:42px;
+
+  border:2px solid #333;
+
+  border-radius:12px;
+
+  color:white;
+
+  background:#050505;
+
+  font-size:22px;
+
+  cursor:pointer;
+
+  box-shadow:
+    0 0 8px #111,
+    inset 0 0 8px #222;
+
+  z-index:1500;
+
+  transition:.3s;
+}
+
+
+.file-menu-btn:hover{
+
+  background:#101010;
+
+  transform:scale(1.05);
+
+  box-shadow:
+    0 0 12px #444;
+}
+
+
+/* ==================================================
+   FILE PANEL
+================================================== */
+
+.file-panel{
+
+  position:fixed;
+
+  left:12px;
+
+  top:112px;
+
+  width:290px;
+
+  max-width:85%;
+
+  max-height:75vh;
+
+  overflow-y:auto;
+
+  padding:18px;
+
+  background:#030303;
+
+  border:2px solid #222;
+
+  border-radius:18px;
+
+  box-shadow:
+    0 0 20px #000,
+    0 0 35px rgba(255,255,255,.08);
+
+  z-index:1400;
+
+  display:none;
+}
+
+
+.file-panel.show{
+
+  display:block;
+
+  animation:fileOpen .25s ease;
+}
+
+
+@keyframes fileOpen{
+
+  from{
+    opacity:0;
+    transform:translateY(-10px);
+  }
+
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+
+}
+
+
+.file-panel h2{
+
+  margin:5px 0 15px;
+
+  color:white;
+
+  font-size:21px;
+
+  border-bottom:1px solid #333;
+
+  padding-bottom:10px;
+}
+
+
+.file-item{
+
+  display:block;
+
+  width:100%;
+
+  margin:8px 0;
+
+  padding:12px;
+
+  color:white;
+
+  text-decoration:none;
+
+  background:#090909;
+
+  border:1px solid #222;
+
+  border-radius:10px;
+
+  text-align:left;
+
+  transition:.3s;
+}
+
+
+.file-item:hover{
+
+  background:#151515;
+
+  border-color:#555;
+
+  transform:translateX(4px);
+}
+
+
+.file-note{
+
+  font-size:12px;
+
+  color:#999;
+
+  line-height:1.5;
+
+  margin-top:12px;
 }
 
 
@@ -167,7 +340,7 @@ body::after{
 
   min-height:90vh;
 
-  padding:70px 20px;
+  padding:100px 20px 55px;
 
   text-align:center;
 
@@ -181,27 +354,35 @@ body::after{
 }
 
 
-/* महाराज जी के सामने title साफ दिखे */
+/* ==================================================
+   TITLE
+   थोड़ा छोटा + महाराज जी की फोटो के नीचे
+================================================== */
+
 .hero h1{
 
-  font-size:clamp(35px,7vw,62px);
+  font-size:clamp(30px,5.5vw,48px);
 
-  margin:10px;
+  margin:25px 10px 8px;
 
   color:#d889ff;
 
   text-shadow:
-    0 0 10px #ff00d4,
-    0 0 25px #633cff,
-    0 0 45px #ff00d4;
+    0 0 8px #ff00d4,
+    0 0 20px #633cff,
+    0 0 35px #ff00d4;
+
+  position:relative;
+
+  z-index:2;
 }
 
 
 .hero h2{
 
-  margin:5px;
+  margin:4px;
 
-  font-size:28px;
+  font-size:27px;
 
   text-shadow:
     0 0 12px #633cff;
@@ -300,8 +481,7 @@ body::after{
 
   text-align:center;
 
-  background:
-    rgba(4,2,25,.60);
+  background:rgba(4,2,25,.60);
 }
 
 
@@ -315,8 +495,7 @@ body::after{
 
   border-radius:25px;
 
-  background:
-    rgba(5,5,30,.88);
+  background:rgba(5,5,30,.88);
 
   border:2px solid #704dff;
 
@@ -330,8 +509,7 @@ body::after{
 
   color:#ff2bd0;
 
-  text-shadow:
-    0 0 12px #ff2bd0;
+  text-shadow:0 0 12px #ff2bd0;
 
   font-size:28px;
 }
@@ -406,6 +584,165 @@ body::after{
 
 
 /* ==================================================
+   YOUTUBE MENU
+================================================== */
+
+.youtube-box{
+
+  margin-top:20px;
+
+  padding:15px;
+
+  background:#050505;
+
+  border:1px solid #333;
+
+  border-radius:15px;
+}
+
+
+.youtube-box a{
+
+  display:inline-block;
+
+  padding:12px 18px;
+
+  margin:5px;
+
+  color:white;
+
+  background:#111;
+
+  border:1px solid #444;
+
+  border-radius:25px;
+
+  text-decoration:none;
+}
+
+
+/* ==================================================
+   MUSIC
+================================================== */
+
+.music-box{
+
+  margin-top:20px;
+
+  padding:18px;
+
+  border-radius:18px;
+
+  background:#050505;
+
+  border:1px solid #333;
+}
+
+
+.music-box audio{
+
+  width:100%;
+
+  max-width:600px;
+}
+
+
+/* ==================================================
+   LIGHT / DARK BUTTON
+================================================== */
+
+#lightBtn{
+
+  position:fixed;
+
+  left:18px;
+
+  bottom:20px;
+
+  width:55px;
+
+  height:55px;
+
+  border:2px solid #ffcc00;
+
+  border-radius:50%;
+
+  color:white;
+
+  background:
+    linear-gradient(
+      135deg,
+      #ffcc00,
+      #ff6600
+    );
+
+  font-size:25px;
+
+  cursor:pointer;
+
+  box-shadow:
+    0 0 15px #ffcc00,
+    0 0 30px #ff6600;
+
+  z-index:2000;
+}
+
+
+/* ==================================================
+   DARK MODE
+================================================== */
+
+body.dark-mode{
+
+  background:#000 !important;
+}
+
+
+body.dark-mode::before{
+
+  opacity:0 !important;
+}
+
+
+body.dark-mode::after{
+
+  background:#000 !important;
+}
+
+
+body.dark-mode .section{
+
+  background:#000 !important;
+}
+
+
+body.dark-mode .card{
+
+  background:#030303 !important;
+
+  border-color:#222;
+
+  box-shadow:0 0 10px #111;
+}
+
+
+/* ==================================================
+   BRIGHT MODE
+================================================== */
+
+body.bright-mode::before{
+
+  filter:brightness(1.5);
+}
+
+
+body.bright-mode::after{
+
+  background:rgba(0,0,0,.05);
+}
+
+
+/* ==================================================
    FOOTER
 ================================================== */
 
@@ -417,8 +754,7 @@ footer{
 
   background:#03000d;
 
-  border-top:
-    2px solid #ff00bb;
+  border-top:2px solid #ff00bb;
 
   box-shadow:
     0 -5px 25px
@@ -432,8 +768,7 @@ footer h3{
 
   font-size:27px;
 
-  text-shadow:
-    0 0 12px #ff00cc;
+  text-shadow:0 0 12px #ff00cc;
 }
 
 
@@ -470,8 +805,7 @@ footer h3{
 
   cursor:pointer;
 
-  box-shadow:
-    0 0 15px #ff00cc;
+  box-shadow:0 0 15px #ff00cc;
 
   z-index:2000;
 }
@@ -501,18 +835,48 @@ footer h3{
   }
 
 
+  .file-menu-btn{
+
+    left:5px;
+
+    bottom:-45px;
+
+    width:43px;
+
+    height:38px;
+
+    font-size:19px;
+  }
+
+
+  .file-panel{
+
+    left:8px;
+
+    top:105px;
+
+    width:280px;
+  }
+
+
   .hero{
 
     min-height:85vh;
 
     padding:
-      55px 12px;
+      105px 12px 45px;
   }
 
 
+  /* छोटा और फोटो के नीचे अच्छा adjustment */
+
   .hero h1{
 
-    font-size:38px;
+    font-size:34px;
+
+    margin-top:18px;
+
+    margin-bottom:6px;
   }
 
 
@@ -524,8 +888,7 @@ footer h3{
 
   .card{
 
-    padding:
-      20px 15px;
+    padding:20px 15px;
   }
 
 
@@ -537,17 +900,11 @@ footer h3{
 
   .buttons a{
 
-    padding:
-      11px 15px;
+    padding:11px 15px;
 
     font-size:13px;
   }
 
-
-  /*
-     मोबाइल पर महाराज जी की फोटो
-     थोड़ी छोटी लेकिन साफ
-  */
 
   body::before{
 
@@ -583,27 +940,116 @@ footer h3{
 
 <nav class="navbar">
 
-  <a href="#home">
-    🏠 Home
-  </a>
+  <a href="#home">🏠 Home</a>
 
-  <a href="#about">
-    👤 About
-  </a>
+  <a href="#about">👤 About</a>
 
-  <a href="#gallery">
-    🖼️ Gallery
-  </a>
+  <a href="#gallery">🖼️ Gallery</a>
 
-  <a href="#videos">
-    🎥 Videos
-  </a>
+  <a href="#videos">🎥 Videos</a>
 
-  <a href="#contact">
-    📞 Contact
-  </a>
+  <a href="#contact">📞 Contact</a>
+
+  <!-- FILE MENU -->
+  <button
+    class="file-menu-btn"
+    onclick="toggleFiles()"
+    aria-label="File Menu"
+  >
+    📁
+  </button>
 
 </nav>
+
+
+<!-- ==================================================
+     FILE MENU
+================================================== -->
+
+<div
+  id="filePanel"
+  class="file-panel"
+>
+
+  <h2>📁 My File Menu</h2>
+
+
+  <!-- PHOTO -->
+
+  <a
+    class="file-item"
+    href="IMG_20260614_152003_968.webp"
+    target="_blank"
+  >
+    🖼️ My Photo
+  </a>
+
+
+  <!-- MUSIC -->
+
+  <a
+    class="file-item"
+    href="Shri Bhairav Tandav _ Shri Dhananjay Tiwari _ Vidhan Gangwal _ Sadashiv _kaalbhairavashtami2024(MP3_160K).mp3"
+    target="_blank"
+  >
+    🎵 Shri Bhairav Tandav MP3
+  </a>
+
+
+  <!-- YOUTUBE -->
+
+  <a
+    class="file-item"
+    href="https://youtube.com/@handstand_boy"
+    target="_blank"
+  >
+    ▶️ My YouTube Channel
+  </a>
+
+
+  <!-- INSTAGRAM -->
+
+  <a
+    class="file-item"
+    href="https://www.instagram.com/barhaman_fouji_10k/"
+    target="_blank"
+  >
+    📸 My Instagram
+  </a>
+
+
+  <!-- FACEBOOK -->
+
+  <a
+    class="file-item"
+    href="https://www.facebook.com/profile.php?id=100077267425201"
+    target="_blank"
+  >
+    👍 My Facebook
+  </a>
+
+
+  <!-- EDUCATION / PDF -->
+
+  <a
+    class="file-item"
+    href="education.pdf"
+    target="_blank"
+  >
+    📚 Education / PDF
+  </a>
+
+
+  <div class="file-note">
+
+    💡 इस मेनू में आगे जब भी कोई नई
+    फोटो, वीडियो, PDF, डॉक्यूमेंट या दूसरी
+    फाइल जोड़नी हो, उसका नाम यहाँ एक
+    नए file-item के रूप में जोड़ सकते हो।
+
+  </div>
+
+</div>
 
 
 
@@ -616,6 +1062,7 @@ footer h3{
   id="home"
 >
 
+  <!-- महाराज जी की फोटो के नीचे -->
   <h1>
     🔱 Barhaman Fouji 🇮🇳
   </h1>
@@ -637,7 +1084,6 @@ footer h3{
 
 
   <div class="buttons">
-
 
     <a href="#about">
       👤 About Me
@@ -689,7 +1135,6 @@ footer h3{
     >
       👍 Facebook
     </a>
-
 
   </div>
 
@@ -841,6 +1286,64 @@ footer h3{
 
     </div>
 
+
+    <!-- YOUTUBE CHANNEL -->
+
+    <div class="youtube-box">
+
+      <p>
+        📺 मेरे सभी YouTube Videos देखने के लिए
+      </p>
+
+
+      <a
+        href="https://youtube.com/@handstand_boy"
+        target="_blank"
+      >
+        ▶️ Open My YouTube Channel
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- ==================================================
+     MUSIC
+================================================== -->
+
+<section class="section">
+
+  <div class="card">
+
+    <h2>
+      🎵 My Music
+    </h2>
+
+
+    <p>
+      Shri Bhairav Tandav
+    </p>
+
+
+    <div class="music-box">
+
+      <audio controls>
+
+        <source
+          src="Shri Bhairav Tandav _ Shri Dhananjay Tiwari _ Vidhan Gangwal _ Sadashiv _kaalbhairavashtami2024(MP3_160K).mp3"
+          type="audio/mpeg"
+        >
+
+        आपका browser audio support नहीं करता।
+
+      </audio>
+
+    </div>
+
   </div>
 
 </section>
@@ -857,7 +1360,6 @@ footer h3{
 >
 
   <div class="card">
-
 
     <h2>
       📞 Contact Me
@@ -956,6 +1458,20 @@ footer h3{
 
 
 <!-- ==================================================
+     LIGHT / DARK BUTTON
+================================================== -->
+
+<button
+  id="lightBtn"
+  onclick="toggleLight()"
+  aria-label="Light Dark Mode"
+>
+  💡
+</button>
+
+
+
+<!-- ==================================================
      TOP BUTTON
 ================================================== -->
 
@@ -970,6 +1486,96 @@ footer h3{
 >
   ↑
 </button>
+
+
+
+<!-- ==================================================
+     JAVASCRIPT
+================================================== -->
+
+<script>
+
+/* ===============================
+   FILE MENU
+================================ */
+
+function toggleFiles(){
+
+  const panel =
+    document.getElementById("filePanel");
+
+  panel.classList.toggle("show");
+
+}
+
+
+/* ===============================
+   LIGHT / DARK
+================================ */
+
+function toggleLight(){
+
+  const body =
+    document.body;
+
+  const button =
+    document.getElementById("lightBtn");
+
+
+  if(
+    body.classList.contains("dark-mode")
+  ){
+
+    body.classList.remove("dark-mode");
+
+    body.classList.add("bright-mode");
+
+    button.innerHTML="💡";
+
+  }
+
+  else{
+
+    body.classList.remove("bright-mode");
+
+    body.classList.add("dark-mode");
+
+    button.innerHTML="🌑";
+
+  }
+
+}
+
+
+/* ===============================
+   FILE MENU OUTSIDE CLICK
+================================ */
+
+document.addEventListener(
+  "click",
+  function(event){
+
+    const panel =
+      document.getElementById("filePanel");
+
+    const button =
+      document.querySelector(".file-menu-btn");
+
+
+    if(
+      panel.classList.contains("show") &&
+      !panel.contains(event.target) &&
+      !button.contains(event.target)
+    ){
+
+      panel.classList.remove("show");
+
+    }
+
+  }
+);
+
+</script>
 
 
 </body>
