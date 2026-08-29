@@ -1,99 +1,142 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Barhaman Fouji</title>
+<title>Barhaman Fouji</title>
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f4f4f4;
-      color: #222;
-    }
+<style>
+* {
+  box-sizing: border-box;
+}
 
-    header {
-      background: #111;
-      color: white;
-      text-align: center;
-      padding: 30px 15px;
-    }
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #111;
+  color: white;
+}
 
-    nav {
-      background: #222;
-      text-align: center;
-      padding: 12px;
-    }
+.hero {
+  min-height: 100vh;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(135deg, #111, #333);
+}
 
-    nav a {
-      color: white;
-      text-decoration: none;
-      margin: 10px;
-      font-weight: bold;
-    }
+.profile-photo {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 5px solid white;
+  margin-bottom: 20px;
+}
 
-    section {
-      padding: 25px 20px;
-    }
+h1 {
+  font-size: 42px;
+  margin: 10px;
+}
 
-    .card {
-      background: white;
-      padding: 20px;
-      margin: 20px 0;
-      border-radius: 15px;
-    }
+.hero p {
+  font-size: 19px;
+  color: #ddd;
+}
 
-    footer {
-      background: #111;
-      color: white;
-      text-align: center;
-      padding: 20px;
-    }
-  </style>
+.buttons {
+  margin-top: 25px;
+}
+
+.buttons a {
+  display: inline-block;
+  padding: 13px 22px;
+  margin: 7px;
+  border-radius: 30px;
+  background: white;
+  color: #111;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.section {
+  padding: 50px 20px;
+  text-align: center;
+  background: #f5f5f5;
+  color: #222;
+}
+
+.card {
+  max-width: 650px;
+  margin: auto;
+  padding: 30px;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+}
+
+footer {
+  padding: 25px;
+  text-align: center;
+  background: #111;
+}
+</style>
 </head>
 
 <body>
 
-<header>
+<section class="hero">
+
+  <img
+    src="IMG_20260614_152003_968.webp"
+    class="profile-photo"
+    alt="Barhaman Fouji"
+  >
+
   <h1>🔱 Barhaman Fouji 🇮🇳</h1>
-  <p>जय श्री राम 🙏 | भारत माता की जय 🇮🇳</p>
-</header>
 
-<nav>
-  <a href="#home">Home</a>
-  <a href="#about">About</a>
-  <a href="#photos">Photos</a>
-  <a href="#videos">Videos</a>
-</nav>
+  <p>जय श्री राम 🙏</p>
 
-<section id="home">
+  <p>Welcome to my official website</p>
 
-  <div class="card">
-    <h2>Welcome to Barhaman Fouji 🔱</h2>
-    <p>आप सभी का हमारी official website पर स्वागत है।</p>
-  </div>
-
-  <div class="card" id="about">
-    <h2>About Me 👤</h2>
-    <p>यह Barhaman Fouji की personal official website है।</p>
-  </div>
-
-  <div class="card" id="photos">
-    <h2>📸 My Photos</h2>
-    <img src="IMG_20260614_152003_968.webp" style="width:100%; max-width:500px;">
-  </div>
-
-  <div class="card" id="videos">
-    <h2>🎥 My Videos</h2>
-    <p>जल्द ही यहाँ मेरे videos दिखाई जाएँगे।</p>
+  <div class="buttons">
+    <a href="#about">About Me</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#contact">Contact</a>
   </div>
 
 </section>
 
+<section class="section" id="about">
+  <div class="card">
+    <h2>👤 About Me</h2>
+    <p>
+      Welcome to my personal website.
+      यहाँ मेरे बारे में जानकारी जल्द ही जोड़ी जाएगी।
+    </p>
+  </div>
+</section>
+
+<section class="section" id="gallery">
+  <div class="card">
+    <h2>📸 My Gallery</h2>
+    <p>मेरी photos और videos यहाँ दिखाई जाएँगी।</p>
+  </div>
+</section>
+
+<section class="section" id="contact">
+  <div class="card">
+    <h2>📞 Contact</h2>
+    <p>Contact information जल्द ही यहाँ जोड़ी जाएगी।</p>
+  </div>
+</section>
+
 <footer>
-  © 2026 Barhaman Fouji
+  © 2026 Barhaman Fouji 🇮🇳
 </footer>
 
 </body>
