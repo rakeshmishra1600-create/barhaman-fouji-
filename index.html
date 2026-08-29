@@ -36,6 +36,19 @@ body {
   border-radius: 50%;
   border: 5px solid white;
   margin-bottom: 20px;
+  animation: photoGlow 2s infinite alternate;
+}
+
+@keyframes photoGlow {
+  from {
+    box-shadow: 0 0 10px rgba(255,255,255,0.4);
+    transform: scale(1);
+  }
+
+  to {
+    box-shadow: 0 0 35px rgba(255,255,255,0.9);
+    transform: scale(1.04);
+  }
 }
 
 h1 {
