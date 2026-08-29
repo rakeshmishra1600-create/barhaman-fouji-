@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
@@ -741,26 +742,6 @@ audio{
  border:1px solid #333;
 }
 
-/* SLIDESHOW */
-
-.slideshow{
- position:relative;
- max-width:600px;
- margin:20px auto;
-}
-
-.slideshow img{
- width:100%;
- max-height:450px;
- object-fit:contain;
- border-radius:20px;
- border:1px solid #ff20c8;
-}
-
-.slide-controls{
- margin-top:10px;
-}
-
 /* FOOTER */
 
 footer{
@@ -907,7 +888,7 @@ footer h3{
 <a href="#about">👤 About</a>
 <a href="#gallery">🖼️ Gallery</a>
 
-<!-- OLD FILE MENU -->
+<!-- FILE MENU -->
 
 <div class="file-menu">
 
@@ -953,7 +934,7 @@ onclick="closeFiles()">
 
 </div>
 
-<!-- NEW TOOLS MENU -->
+<!-- TOOLS MENU -->
 
 <div class="tool-menu">
 
@@ -1011,15 +992,6 @@ onclick="closeTools()">
 
 <a
 class="file-item"
-href="#socialDownloader"
-onclick="closeTools()">
-📥 Media Tool
-</a>
-
-<!-- MOVED TO TOOLS -->
-
-<a
-class="file-item"
 href="#quiz"
 onclick="closeTools()">
 🧠 Quiz
@@ -1064,16 +1036,17 @@ onclick="closeTools()">
 <div class="buttons">
 
 <a href="#about">👤 About Me</a>
+
 <a href="#gallery">🖼️ Gallery</a>
+
 <a href="#tools">🛠️ Tools</a>
+
 <a href="#youtube">▶️ YouTube</a>
+
 <a href="#contact">📞 Contact</a>
 
-<a href="#socialDownloader">
-📥 Media Tool
-</a>
-
-<a href="#"
+<a
+href="#"
 onclick="shareSite();return false">
 📤 Share Website
 </a>
@@ -1151,42 +1124,17 @@ videos और अपने बारे में कुछ खास बात�
 
 <div class="card">
 
-<h2>🖼️ Photo Slideshow</h2>
-
-<div class="slideshow">
-
-<img
-id="slideImage"
-src="IMG_20260614_152003_968.webp"
-alt="Gallery">
-
-<div class="slide-controls">
-
-<button
-class="tool-btn"
-onclick="previousSlide()">
-⬅️
-</button>
-
-<button
-class="tool-btn"
-onclick="nextSlide()">
-➡️
-</button>
-
-</div>
-
-</div>
-
-<p>
-📌 Photo पर क्लिक करके Full Screen में देखें।
-</p>
+<h2>🖼️ My Gallery</h2>
 
 <img
 class="gallery-img"
 src="IMG_20260614_152003_968.webp"
 onclick="openPhoto()"
 alt="Rakesh Mishra">
+
+<p>
+📌 Photo पर क्लिक करके Full Screen में देखें।
+</p>
 
 </div>
 
@@ -1286,7 +1234,7 @@ id="imageInput"
 type="file"
 accept="image/*"
 hidden
-onchange="compressImage">
+onchange="compressImage()">
 
 </label>
 
@@ -1350,59 +1298,6 @@ onclick="randomFun()">
 <div id="funResult" class="fun-result">
 कुछ मजेदार पाने के लिए दबाएं 😄
 </div>
-
-</div>
-
-<!-- MEDIA TOOL -->
-
-<div
-class="tool-card searchable"
-id="socialDownloader">
-
-<h3>📥 Social Media Media Tool</h3>
-
-<p>
-Instagram, Facebook, YouTube, TikTok, X आदि का
-public या authorized link यहाँ paste करके platform check करें।
-</p>
-
-<input
-id="socialUrl"
-class="tool-input"
-type="url"
-placeholder="🔗 Social Media Link paste करें...">
-
-<div class="buttons">
-
-<button
-class="tool-btn"
-onclick="checkSocialMedia()">
-🔍 Check Link
-</button>
-
-<button
-class="tool-btn"
-onclick="copyMediaLink()">
-📋 Copy
-</button>
-
-</div>
-
-<div
-id="socialResult"
-class="tool-result">
-🔗 Link डालकर Check दबाएँ।
-</div>
-
-<div
-id="socialActions"
-style="margin-top:12px">
-</div>
-
-<p style="font-size:12px;color:#999">
-⚠️ केवल अपने या डाउनलोड की अनुमति वाले
-photos/videos इस्तेमाल करें।
-</p>
 
 </div>
 
@@ -1962,41 +1857,6 @@ function closePhoto(e){
 }
 
 
-/* SLIDESHOW */
-
-const slides=[
- "IMG_20260614_152003_968.webp"
-];
-
-let slideIndex=0;
-
-function showSlide(){
-
- document.getElementById(
-   "slideImage"
- ).src=slides[slideIndex];
-
-}
-
-function nextSlide(){
-
- slideIndex=
- (slideIndex+1)%slides.length;
-
- showSlide();
-
-}
-
-function previousSlide(){
-
- slideIndex=
- (slideIndex-1+slides.length)%slides.length;
-
- showSlide();
-
-}
-
-
 /* QR */
 
 function generateQR(){
@@ -2524,163 +2384,6 @@ function playMusic(i){
 }
 
 
-/* SOCIAL MEDIA TOOL */
-
-function detectSocialPlatform(host){
-
- host=host.toLowerCase();
-
- if(
-   host.includes("youtube.com")||
-   host.includes("youtu.be")
- )
-   return "▶️ YouTube";
-
- if(host.includes("instagram.com"))
-   return "📸 Instagram";
-
- if(
-   host.includes("facebook.com")||
-   host.includes("fb.watch")
- )
-   return "📘 Facebook";
-
- if(host.includes("tiktok.com"))
-   return "🎵 TikTok";
-
- if(
-   host.includes("x.com")||
-   host.includes("twitter.com")
- )
-   return "𝕏 X / Twitter";
-
- return "🌐 Website";
-
-}
-
-
-function checkSocialMedia(){
-
- const input=
- document.getElementById("socialUrl");
-
- const result=
- document.getElementById("socialResult");
-
- const actions=
- document.getElementById("socialActions");
-
- const url=input.value.trim();
-
- actions.innerHTML="";
-
- if(!url){
-
-   result.textContent=
-   "⚠️ पहले link paste करें।";
-
-   return;
-
- }
-
- let parsed;
-
- try{
-
-   parsed=new URL(url);
-
- }catch(e){
-
-   result.textContent=
-   "❌ यह valid URL नहीं है।";
-
-   return;
-
- }
-
- const platform=
- detectSocialPlatform(parsed.hostname);
-
- result.innerHTML=
- "✅ Platform: <b>"+
- platform+
- "</b><br>"+
- "🔗 Link successfully detected.";
-
- const openBtn=
- document.createElement("a");
-
- openBtn.href=url;
- openBtn.target="_blank";
- openBtn.rel="noopener noreferrer";
- openBtn.className="tool-btn";
- openBtn.textContent="🌐 Open / View";
-
- actions.appendChild(openBtn);
-
- const mediaExtensions=
- /\.(jpg|jpeg|png|gif|webp|mp4|webm|mov|m4v|ogv)(\?.*)?$/i;
-
- if(mediaExtensions.test(parsed.pathname)){
-
-   const downloadBtn=
-   document.createElement("a");
-
-   downloadBtn.href=url;
-   downloadBtn.target="_blank";
-   downloadBtn.rel="noopener noreferrer";
-   downloadBtn.download="";
-   downloadBtn.className="tool-btn";
-   downloadBtn.style.marginLeft="8px";
-   downloadBtn.textContent="📥 Download";
-
-   actions.appendChild(downloadBtn);
-
-   result.innerHTML+=
-   "<br>📥 Direct media file detected.";
-
-   toast("📥 Download option available!");
-
- }else{
-
-   result.innerHTML+=
-   "<br>ℹ️ यह social-media/page URL है। "+
-   "Direct media file URL उपलब्ध होने पर ही download option दिखेगा।";
-
-   toast("🔗 Link check complete!");
-
- }
-
-}
-
-
-/* COPY MEDIA LINK */
-
-function copyMediaLink(){
-
- const url=
- document.getElementById("socialUrl")
- .value.trim();
-
- if(!url)
-   return toast("⚠️ पहले link डालें");
-
- navigator.clipboard.writeText(url)
- .then(()=>toast("📋 Link copied!"))
- .catch(()=>toast("❌ Copy नहीं हुआ"));
-
-}
-
-
-document.getElementById("socialUrl")
-.addEventListener("keydown",e=>{
-
- if(e.key==="Enter")
-   checkSocialMedia();
-
-});
-
-
 /* FEEDBACK */
 
 let selectedRating=0;
@@ -2801,20 +2504,14 @@ function getBotReply(text){
    q.includes("tool")||
    q.includes("टूल")
  )
- return "🛠️ Tools menu में QR Generator, Notes, Image Compressor, Copy, Translator, Random Fun, Media Tool, Quiz, AI Support और Feedback हैं।";
-
- if(
-   q.includes("download")||
-   q.includes("डाउनलोड")
- )
- return "📥 Media Tool public/authorized links को check करता है। Direct media URL उपलब्ध होने पर download option दिखाई देगा।";
+ return "🛠️ Tools menu में QR Generator, Notes, Image Compressor, Copy, Translator, Random Fun, Quiz, AI Support और Feedback हैं।";
 
  if(
    q.includes("photo")||
    q.includes("फोटो")||
    q.includes("gallery")
  )
- return "🖼️ Gallery में photo slideshow और Full Screen photo उपलब्ध है।";
+ return "🖼️ Gallery में आपकी photo उपलब्ध है। Photo पर क्लिक करके Full Screen में देख सकते हैं।";
 
  if(
    q.includes("quiz")||
@@ -2840,7 +2537,7 @@ function getBotReply(text){
  if(q.includes("rakesh"))
  return "🔱 Rakesh Mishra इस website के owner हैं। जय श्री राम 🙏";
 
- return "🤖 मैं website के Tools, Gallery, Quiz, YouTube, Music, Feedback, Media Tool और Contact के बारे में मदद कर सकता हूँ।";
+ return "🤖 मैं website के Tools, Gallery, Quiz, YouTube, Music, Feedback और Contact के बारे में मदद कर सकता हूँ।";
 
 }
 
