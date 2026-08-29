@@ -11,7 +11,7 @@
 content="Barhaman Fouji - Rakesh Mishra की personal website. Photos, videos, music और useful online tools.">
 
 <meta name="keywords"
-content="Barhaman Fouji, Brahman Fouji, Rakesh Mishra, QR Generator, Notes, Image Compressor">
+content="Barhaman Fouji, Brahman Fouji, Rakesh Mishra, QR Generator, Notes, Image Compressor, Lucky Spin">
 
 <meta name="author" content="Rakesh Mishra">
 
@@ -32,8 +32,6 @@ body{
  user-select:none;
 }
 
-/* BACKGROUND */
-
 body::before{
  content:"";
  position:fixed;
@@ -44,7 +42,6 @@ body::before{
  url("https://static.toiimg.com/thumb/resizemode-4,width-1280,height-720,msid-129320147/129320147.jpg");
  background-size:cover,500px auto;
  background-position:center,center 75px;
- transition:opacity .35s ease;
 }
 
 body::after{
@@ -60,8 +57,6 @@ body::after{
  );
 }
 
-/* DARK MODE */
-
 body.dark-mode::before{
  opacity:0;
 }
@@ -70,14 +65,10 @@ body.dark-mode .section{
  background:#000;
 }
 
-/* LIGHT MODE */
-
 body.bright-mode::before{
  opacity:1;
  filter:none;
 }
-
-/* PROGRESS */
 
 #progress{
  position:fixed;
@@ -94,8 +85,6 @@ body.bright-mode::before{
  );
  box-shadow:0 0 12px #ff00cc;
 }
-
-/* NAVBAR */
 
 .navbar{
  position:sticky;
@@ -128,8 +117,6 @@ body.bright-mode::before{
  color:#ff35dc;
  text-shadow:0 0 12px #ff00cc;
 }
-
-/* MENU */
 
 .file-menu,
 .tool-menu{
@@ -195,8 +182,6 @@ body.bright-mode::before{
  background:#211027;
 }
 
-/* HERO */
-
 .hero{
  min-height:88vh;
  padding:35px 15px 60px;
@@ -231,8 +216,6 @@ body.bright-mode::before{
 .hero p{
  font-size:18px;
 }
-
-/* BUTTONS */
 
 .buttons{
  display:flex;
@@ -271,8 +254,6 @@ body.bright-mode::before{
  0 0 35px #633cff;
 }
 
-/* SECTIONS */
-
 .section{
  padding:55px 20px;
  min-height:40vh;
@@ -300,8 +281,6 @@ body.bright-mode::before{
  font-size:18px;
  line-height:1.7;
 }
-
-/* PROFILE */
 
 .profile-card{
  max-width:600px;
@@ -349,8 +328,6 @@ body.bright-mode::before{
  font-weight:bold;
 }
 
-/* GALLERY */
-
 .gallery-img{
  width:100%;
  max-width:450px;
@@ -397,8 +374,6 @@ body.bright-mode::before{
  font-size:28px;
  cursor:pointer;
 }
-
-/* TOOLS */
 
 .tools-grid{
  display:grid;
@@ -473,8 +448,6 @@ textarea.tool-input{
  border-radius:10px;
 }
 
-/* NOTES */
-
 .notes-list{
  text-align:left;
  margin-top:15px;
@@ -509,9 +482,8 @@ textarea.tool-input{
  color:#fff;
  border-radius:8px;
  padding:7px 10px;
+ cursor:pointer;
 }
-
-/* IMAGE COMPRESSOR */
 
 .upload-box{
  display:block;
@@ -545,8 +517,6 @@ textarea.tool-input{
  font-weight:bold;
 }
 
-/* MUSIC */
-
 .music-box{
  margin-top:20px;
  padding:20px;
@@ -576,8 +546,6 @@ audio{
  cursor:pointer;
 }
 
-/* YOUTUBE */
-
 .youtube-grid{
  display:grid;
  grid-template-columns:
@@ -599,8 +567,6 @@ audio{
  border:0;
  border-radius:12px;
 }
-
-/* FEEDBACK */
 
 .feedback-box,
 .chat-box,
@@ -637,8 +603,6 @@ audio{
  margin-top:12px;
  color:#7dffb2;
 }
-
-/* CHAT */
 
 .chat-box{
  padding:0;
@@ -700,8 +664,6 @@ audio{
  color:#fff;
 }
 
-/* DAILY */
-
 .announcement{
  border:1px solid #ff20c8;
  box-shadow:0 0 18px rgba(255,0,200,.2);
@@ -742,7 +704,109 @@ audio{
  border:1px solid #333;
 }
 
-/* FOOTER */
+/* LUCKY SPIN */
+
+.lucky-wheel-wrap{
+ position:relative;
+ width:250px;
+ height:250px;
+ margin:25px auto;
+}
+
+.lucky-pointer{
+ position:absolute;
+ top:-12px;
+ left:50%;
+ transform:translateX(-50%);
+ z-index:5;
+ font-size:35px;
+ filter:drop-shadow(0 0 5px #fff);
+}
+
+#spinWheel{
+ width:240px;
+ height:240px;
+ border-radius:50%;
+ border:6px solid #fff;
+ margin:auto;
+ background:conic-gradient(
+   #ff0099 0deg 45deg,
+   #633cff 45deg 90deg,
+   #00c8ff 90deg 135deg,
+   #ffcc00 135deg 180deg,
+   #00cc66 180deg 225deg,
+   #ff6600 225deg 270deg,
+   #cc33ff 270deg 315deg,
+   #ff3366 315deg 360deg
+ );
+ box-shadow:
+   0 0 20px #ff20c8,
+   0 0 40px #633cff;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ font-size:55px;
+ transition:transform 4s cubic-bezier(.17,.67,.12,.99);
+}
+
+.lucky-center{
+ width:65px;
+ height:65px;
+ border-radius:50%;
+ background:#080808;
+ border:3px solid #fff;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ font-size:28px;
+}
+
+.lucky-result{
+ margin-top:20px;
+ padding:18px;
+ border-radius:18px;
+ background:#090909;
+ border:1px solid #ff20c8;
+ font-size:20px;
+ font-weight:bold;
+ min-height:25px;
+}
+
+.support-box{
+ max-width:650px;
+ margin:25px auto;
+ padding:25px;
+ border-radius:20px;
+ background:linear-gradient(
+   145deg,
+   #090909,
+   #26052d
+ );
+ border:1px solid #ff20c8;
+ box-shadow:0 0 20px rgba(255,0,200,.25);
+}
+
+.upi-id{
+ display:inline-block;
+ padding:10px 18px;
+ margin:10px;
+ background:#050505;
+ border:1px solid #555;
+ border-radius:15px;
+ font-weight:bold;
+ letter-spacing:.5px;
+}
+
+.policy-box{
+ text-align:left;
+ max-width:850px;
+ margin:auto;
+ line-height:1.8;
+}
+
+.policy-box h3{
+ color:#ffe500;
+}
 
 footer{
  padding:35px 20px;
@@ -755,8 +819,6 @@ footer h3{
  color:#df83ff;
  font-size:26px;
 }
-
-/* LIGHT / DARK BUTTON */
 
 #lightBtn,
 #topBtn{
@@ -775,8 +837,6 @@ footer h3{
 
 #lightBtn{left:15px}
 #topBtn{right:15px}
-
-/* TOAST */
 
 .toast{
  position:fixed;
@@ -803,8 +863,6 @@ footer h3{
  translateX(-50%)
  translateY(0);
 }
-
-/* MOBILE */
 
 @media(max-width:600px){
 
@@ -870,6 +928,16 @@ footer h3{
   height:130px;
  }
 
+ #spinWheel{
+  width:210px;
+  height:210px;
+ }
+
+ .lucky-wheel-wrap{
+  width:220px;
+  height:220px;
+ }
+
 }
 
 </style>
@@ -880,15 +948,11 @@ footer h3{
 <div id="progress"></div>
 <div id="toast" class="toast"></div>
 
-<!-- NAVBAR -->
-
 <nav class="navbar">
 
 <a href="#home">🏠 Home</a>
 <a href="#about">👤 About</a>
 <a href="#gallery">🖼️ Gallery</a>
-
-<!-- FILE MENU -->
 
 <div class="file-menu">
 
@@ -933,8 +997,6 @@ onclick="closeFiles()">
 </div>
 
 </div>
-
-<!-- TOOLS MENU -->
 
 <div class="tool-menu">
 
@@ -992,6 +1054,13 @@ onclick="closeTools()">
 
 <a
 class="file-item"
+href="#luckySpinTool"
+onclick="closeTools()">
+🎡 Lucky Spin
+</a>
+
+<a
+class="file-item"
 href="#quiz"
 onclick="closeTools()">
 🧠 Quiz
@@ -1021,8 +1090,6 @@ onclick="closeTools()">
 
 </nav>
 
-<!-- HOME -->
-
 <section class="hero" id="home">
 
 <h1>🔱 Barhaman Fouji 🇮🇳</h1>
@@ -1036,17 +1103,16 @@ onclick="closeTools()">
 <div class="buttons">
 
 <a href="#about">👤 About Me</a>
-
 <a href="#gallery">🖼️ Gallery</a>
-
 <a href="#tools">🛠️ Tools</a>
-
 <a href="#youtube">▶️ YouTube</a>
-
 <a href="#contact">📞 Contact</a>
 
-<a
-href="#"
+<a href="#support">
+💰 Support
+</a>
+
+<a href="#"
 onclick="shareSite();return false">
 📤 Share Website
 </a>
@@ -1054,8 +1120,6 @@ onclick="shareSite();return false">
 </div>
 
 </section>
-
-<!-- ANNOUNCEMENT -->
 
 <section class="section" id="announcement">
 
@@ -1076,8 +1140,6 @@ onclick="shareSite();return false">
 </div>
 
 </section>
-
-<!-- ABOUT -->
 
 <section class="section" id="about">
 
@@ -1118,13 +1180,11 @@ videos और अपने बारे में कुछ खास बात�
 
 </section>
 
-<!-- GALLERY -->
-
 <section class="section" id="gallery">
 
 <div class="card">
 
-<h2>🖼️ My Gallery</h2>
+<h2>🖼️ My Photo</h2>
 
 <img
 class="gallery-img"
@@ -1140,8 +1200,6 @@ alt="Rakesh Mishra">
 
 </section>
 
-<!-- TOOLS -->
-
 <section class="section" id="tools">
 
 <div class="card">
@@ -1155,8 +1213,6 @@ placeholder="🔍 Tool search करें..."
 oninput="filterTools()">
 
 <div class="tools-grid" id="toolsGrid">
-
-<!-- QR -->
 
 <div class="tool-card searchable" id="qrTool">
 
@@ -1179,8 +1235,6 @@ onclick="generateQR()">
 
 </div>
 
-<!-- COPY -->
-
 <div class="tool-card searchable" id="copyTool">
 
 <h3>📋 Copy Text</h3>
@@ -1197,8 +1251,6 @@ onclick="copyText()">
 </button>
 
 </div>
-
-<!-- NOTES -->
 
 <div class="tool-card searchable" id="notesTool">
 
@@ -1218,8 +1270,6 @@ onclick="addNote()">
 <div id="notesList" class="notes-list"></div>
 
 </div>
-
-<!-- COMPRESSOR -->
 
 <div class="tool-card searchable" id="compressTool">
 
@@ -1262,8 +1312,6 @@ download="compressed-image.jpg">
 
 </div>
 
-<!-- TRANSLATOR -->
-
 <div class="tool-card searchable" id="translateTool">
 
 <h3>🌐 Hindi ↔ English</h3>
@@ -1283,8 +1331,6 @@ onclick="translateText()">
 
 </div>
 
-<!-- RANDOM -->
-
 <div class="tool-card searchable" id="randomTool">
 
 <h3>🎲 Random Fun Generator</h3>
@@ -1301,13 +1347,54 @@ onclick="randomFun()">
 
 </div>
 
+<div class="tool-card searchable" id="luckySpinTool">
+
+<h3>🎡 Lucky Spin</h3>
+
+<p>
+Spin करें और देखें आज का Fun Lucky Result! 🍀
+</p>
+
+<div class="lucky-wheel-wrap">
+
+<div class="lucky-pointer">
+▼
+</div>
+
+<div id="spinWheel">
+
+<div class="lucky-center">
+🎡
+</div>
+
+</div>
+
+</div>
+
+<button
+id="spinButton"
+class="tool-btn"
+onclick="spinLucky()">
+🎯 SPIN
+</button>
+
+<div
+id="luckyResult"
+class="lucky-result">
+Spin करके Lucky Result देखें! 🍀
+</div>
+
+<p style="font-size:12px;color:#999">
+⚠️ यह केवल मनोरंजन के लिए है। इसमें कोई real-money reward नहीं है।
+</p>
+
+</div>
+
 </div>
 
 </div>
 
 </section>
-
-<!-- DAILY -->
 
 <section class="section" id="daily">
 
@@ -1341,8 +1428,6 @@ onclick="completeChallenge()">
 
 </section>
 
-<!-- QUIZ -->
-
 <section class="section" id="quiz">
 
 <div class="card">
@@ -1364,8 +1449,6 @@ onclick="newQuiz()">
 </div>
 
 </section>
-
-<!-- MUSIC -->
 
 <section class="section" id="music">
 
@@ -1400,8 +1483,6 @@ type="audio/mpeg">
 </div>
 
 </section>
-
-<!-- CHAT -->
 
 <section class="section" id="chat">
 
@@ -1446,8 +1527,6 @@ onclick="sendChat()">
 
 </section>
 
-<!-- FEEDBACK -->
-
 <section class="section" id="feedback">
 
 <div class="card">
@@ -1474,8 +1553,7 @@ placeholder="आपका नाम">
 <textarea
 id="visitorMessage"
 class="tool-input"
-placeholder="अपना feedback लिखें...">
-</textarea>
+placeholder="अपना feedback लिखें"></textarea>
 
 <button
 class="tool-btn"
@@ -1494,7 +1572,48 @@ class="feedback-message">
 
 </section>
 
-<!-- YOUTUBE -->
+<section class="section" id="support">
+
+<div class="card">
+
+<h2>💰 Support Barhaman Fouji</h2>
+
+<div class="support-box">
+
+<h3>❤️ Website पसंद आई?</h3>
+
+<p>
+अगर आपको मेरी website पसंद आती है और आप मुझे support करना चाहते हैं,
+तो आप अपने UPI app से voluntary support भेज सकते हैं।
+</p>
+
+<div class="upi-id">
+rakeshmishra04@ptyes
+</div>
+
+<br>
+
+<button
+class="tool-btn"
+onclick="copyUPI()">
+📋 Copy UPI ID
+</button>
+
+<a
+class="tool-btn"
+href="upi://pay?pa=rakeshmishra04@ptyes&pn=Rakesh%20Mishra&cu=INR">
+💸 UPI से Support करें
+</a>
+
+<p style="font-size:12px;color:#999">
+⚠️ यह voluntary support है। कोई खरीदारी या guaranteed reward नहीं है।
+</p>
+
+</div>
+
+</div>
+
+</section>
 
 <section class="section" id="youtube">
 
@@ -1540,7 +1659,8 @@ class="feedback-message">
 
 <a
 href="https://youtube.com/@handstand_boy"
-target="_blank">
+target="_blank"
+rel="noopener">
 ▶️ पूरा YouTube Channel
 </a>
 
@@ -1549,8 +1669,6 @@ target="_blank">
 </div>
 
 </section>
-
-<!-- CONTACT -->
 
 <section class="section" id="contact">
 
@@ -1566,25 +1684,29 @@ target="_blank">
 
 <a
 href="https://wa.me/917050042886"
-target="_blank">
+target="_blank"
+rel="noopener">
 💬 WhatsApp
 </a>
 
 <a
 href="https://youtube.com/@handstand_boy"
-target="_blank">
+target="_blank"
+rel="noopener">
 ▶️ YouTube
 </a>
 
 <a
 href="https://www.instagram.com/barhaman_fouji_10k/"
-target="_blank">
+target="_blank"
+rel="noopener">
 📸 Instagram
 </a>
 
 <a
 href="https://www.facebook.com/profile.php?id=100077267425201"
-target="_blank">
+target="_blank"
+rel="noopener">
 👍 Facebook
 </a>
 
@@ -1600,7 +1722,140 @@ onclick="shareSite();return false">
 
 </section>
 
-<!-- FOOTER -->
+<section class="section" id="privacy">
+
+<div class="card">
+
+<h2>🔒 Privacy Policy</h2>
+
+<div class="policy-box">
+
+<p>
+Barhaman Fouji website पर आपकी privacy का सम्मान किया जाता है।
+यह website सामान्य जानकारी, photos, videos और useful online tools
+प्रदान करने के उद्देश्य से बनाई गई है।
+</p>
+
+<h3>📌 Information</h3>
+
+<p>
+कुछ tools जैसे Notes और Visitor Counter आपके browser के
+local storage/session storage का उपयोग कर सकते हैं।
+यह जानकारी सामान्यतः आपके अपने device/browser में रहती है।
+</p>
+
+<h3>🍪 Cookies</h3>
+
+<p>
+भविष्य में advertising या third-party services जोड़ी जाने पर
+उनकी अपनी cookies या similar technologies हो सकती हैं।
+</p>
+
+<h3>🔗 Third-Party Links</h3>
+
+<p>
+Website पर YouTube, Instagram, Facebook, WhatsApp आदि के links हैं।
+इन websites की अपनी privacy policies और terms हो सकती हैं।
+</p>
+
+<h3>📧 Contact</h3>
+
+<p>
+Privacy से संबंधित किसी प्रश्न के लिए Contact section के माध्यम से
+संपर्क किया जा सकता है।
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="section" id="terms">
+
+<div class="card">
+
+<h2>📜 Terms & Conditions</h2>
+
+<div class="policy-box">
+
+<h3>1. Website Use</h3>
+
+<p>
+इस website का उपयोग सामान्य जानकारी, मनोरंजन और उपलब्ध online
+tools के लिए किया जा सकता है।
+</p>
+
+<h3>2. Tools</h3>
+
+<p>
+Website के tools सुविधा के लिए दिए गए हैं। इनके परिणामों की
+पूर्ण accuracy की guarantee नहीं दी जाती।
+</p>
+
+<h3>3. Content</h3>
+
+<p>
+Website पर उपलब्ध personal content को बिना अनुमति copy या
+reproduce न करें।
+</p>
+
+<h3>4. External Links</h3>
+
+<p>
+Third-party websites पर जाने के बाद उनकी अपनी terms लागू हो सकती हैं।
+</p>
+
+<h3>5. Changes</h3>
+
+<p>
+Website के features, content या terms को भविष्य में बदला जा सकता है।
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="section" id="disclaimer">
+
+<div class="card">
+
+<h2>⚠️ Disclaimer</h2>
+
+<div class="policy-box">
+
+<p>
+Barhaman Fouji website पर उपलब्ध जानकारी और tools सामान्य
+information और entertainment purposes के लिए हैं।
+</p>
+
+<p>
+हम यह guarantee नहीं करते कि website के सभी tools हर device,
+browser या परिस्थिति में हमेशा बिना error के काम करेंगे।
+</p>
+
+<p>
+Third-party websites, social-media platforms और external services
+पर उपलब्ध content के लिए उनकी respective policies लागू होती हैं।
+</p>
+
+<p>
+🎡 Lucky Spin केवल मनोरंजन के लिए है। यह gambling या real-money
+reward system नहीं है।
+</p>
+
+<p>
+💰 UPI Support voluntary है। Support भेजने से किसी product,
+service या guaranteed benefit का अधिकार प्राप्त नहीं होता।
+</p>
+
+</div>
+
+</div>
+
+</section>
 
 <footer>
 
@@ -1610,13 +1865,19 @@ onclick="shareSite();return false">
 
 <p>जय श्री राम 🙏</p>
 
+<div class="buttons">
+
+<a href="#privacy">🔒 Privacy Policy</a>
+<a href="#terms">📜 Terms</a>
+<a href="#disclaimer">⚠️ Disclaimer</a>
+
+</div>
+
 <p>
 © 2026 Barhaman Fouji. All Rights Reserved.
 </p>
 
 </footer>
-
-<!-- PHOTO MODAL -->
 
 <div
 id="photoModal"
@@ -1635,15 +1896,11 @@ alt="Rakesh Mishra">
 
 </div>
 
-<!-- LIGHT BUTTON -->
-
 <button
 id="lightBtn"
 onclick="toggleLight()">
 💡
 </button>
-
-<!-- TOP BUTTON -->
 
 <button
 id="topBtn"
@@ -1766,6 +2023,19 @@ function copyText(){
  navigator.clipboard.writeText(text)
  .then(()=>toast("📋 Text copied!"))
  .catch(()=>toast("⚠️ Copy नहीं हो पाया"));
+
+}
+
+
+/* COPY UPI */
+
+function copyUPI(){
+
+ const upi="rakeshmishra04@ptyes";
+
+ navigator.clipboard.writeText(upi)
+ .then(()=>toast("💰 UPI ID copied!"))
+ .catch(()=>toast("⚠️ UPI ID copy नहीं हुई"));
 
 }
 
@@ -2214,6 +2484,75 @@ function randomFun(){
 }
 
 
+/* LUCKY SPIN */
+
+const luckyResults=[
+
+ "🏆 आज आप बहुत Lucky हैं!",
+ "⭐ Lucky Star!",
+ "🎁 Surprise मिला!",
+ "🔥 आज का दिन शानदार बनाओ!",
+ "😎 Awesome!",
+ "🍀 बहुत Lucky!",
+ "💪 Keep Going!",
+ "❤️ आज मुस्कुराते रहो!"
+
+];
+
+let spinRotation=0;
+let spinning=false;
+
+function spinLucky(){
+
+ if(spinning)
+   return;
+
+ spinning=true;
+
+ const wheel=
+ document.getElementById("spinWheel");
+
+ const result=
+ document.getElementById("luckyResult");
+
+ const button=
+ document.getElementById("spinButton");
+
+ const randomIndex=
+ Math.floor(
+   Math.random()*luckyResults.length
+ );
+
+ spinRotation+=
+ 1440+
+ Math.floor(Math.random()*360);
+
+ wheel.style.transform=
+ "rotate("+spinRotation+"deg)";
+
+ result.textContent=
+ "🎡 Spinning...";
+
+ button.disabled=true;
+ button.style.opacity=".5";
+
+ setTimeout(()=>{
+
+   result.textContent=
+   luckyResults[randomIndex];
+
+   button.disabled=false;
+   button.style.opacity="1";
+
+   spinning=false;
+
+   toast("🎉 Lucky Result!");
+
+ },4000);
+
+}
+
+
 /* DAILY */
 
 const tips=[
@@ -2504,7 +2843,13 @@ function getBotReply(text){
    q.includes("tool")||
    q.includes("टूल")
  )
- return "🛠️ Tools menu में QR Generator, Notes, Image Compressor, Copy, Translator, Random Fun, Quiz, AI Support और Feedback हैं।";
+ return "🛠️ Tools menu में QR Generator, Notes, Image Compressor, Copy, Translator, Random Fun, Lucky Spin, Quiz, AI Support और Feedback हैं।";
+
+ if(
+   q.includes("download")||
+   q.includes("डाउनलोड")
+ )
+ return "🖼️ Website में Image Compressor से compressed image download की जा सकती है।";
 
  if(
    q.includes("photo")||
@@ -2518,6 +2863,13 @@ function getBotReply(text){
    q.includes("क्विज")
  )
  return "🧠 Quiz section में सवालों के जवाब देकर score बढ़ाइए!";
+
+ if(
+   q.includes("lucky")||
+   q.includes("spin")||
+   q.includes("स्पिन")
+ )
+ return "🎡 Tools में Lucky Spin खोलिए और SPIN दबाकर एक fun result पाइए!";
 
  if(
    q.includes("youtube")||
@@ -2534,10 +2886,17 @@ function getBotReply(text){
  )
  return "📞 Contact section में WhatsApp, Instagram, Facebook और YouTube links हैं।";
 
+ if(
+   q.includes("support")||
+   q.includes("upi")||
+   q.includes("पैसा")
+ )
+ return "💰 Support section में UPI ID दी गई है। Support पूरी तरह voluntary है।";
+
  if(q.includes("rakesh"))
  return "🔱 Rakesh Mishra इस website के owner हैं। जय श्री राम 🙏";
 
- return "🤖 मैं website के Tools, Gallery, Quiz, YouTube, Music, Feedback और Contact के बारे में मदद कर सकता हूँ।";
+ return "🤖 मैं website के Tools, Gallery, Lucky Spin, Quiz, YouTube, Music, Feedback, Support और Contact के बारे में मदद कर सकता हूँ।";
 
 }
 
@@ -2577,7 +2936,7 @@ document.getElementById("chatInput")
 });
 
 
-/* LIGHT / DARK BUTTON */
+/* LIGHT / DARK */
 
 function toggleLight(){
 
