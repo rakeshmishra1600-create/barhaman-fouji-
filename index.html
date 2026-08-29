@@ -1,26 +1,23 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
 <title>🔱 Barhaman Fouji 🇮🇳 | Rakesh Mishra</title>
 
 <meta name="description"
-content="Barhaman Fouji - Rakesh Mishra की personal website. Photos, videos, music और useful online tools.">
+content="Barhaman Fouji - Rakesh Mishra की personal website. Photos, videos, music, useful tools और Premium Zone.">
 
 <meta name="keywords"
-content="Barhaman Fouji, Brahman Fouji, Rakesh Mishra, QR Generator, Notes, Image Compressor, Lucky Spin">
+content="Barhaman Fouji, Brahman Fouji, Rakesh Mishra, QR Generator, Notes, Image Compressor, Translator, Lucky Spin">
 
 <meta name="author" content="Rakesh Mishra">
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 <style>
-
 *{box-sizing:border-box}
-
 html{scroll-behavior:smooth}
 
 body{
@@ -50,25 +47,13 @@ body::after{
  inset:0;
  z-index:-2;
  pointer-events:none;
- background:radial-gradient(
-   circle,
-   rgba(100,40,255,.12),
-   transparent 55%
- );
+ background:radial-gradient(circle,
+ rgba(100,40,255,.12),transparent 55%);
 }
 
-body.dark-mode::before{
- opacity:0;
-}
-
-body.dark-mode .section{
- background:#000;
-}
-
-body.bright-mode::before{
- opacity:1;
- filter:none;
-}
+body.dark-mode::before{opacity:0}
+body.dark-mode .section{background:#000}
+body.bright-mode::before{opacity:1;filter:none}
 
 #progress{
  position:fixed;
@@ -77,14 +62,11 @@ body.bright-mode::before{
  height:4px;
  width:0;
  z-index:99999;
- background:linear-gradient(
-   90deg,
-   #ff0099,
-   #633cff,
-   #00c8ff
- );
+ background:linear-gradient(90deg,#ff0099,#633cff,#00c8ff);
  box-shadow:0 0 12px #ff00cc;
 }
+
+/* NAVBAR */
 
 .navbar{
  position:sticky;
@@ -102,7 +84,6 @@ body.bright-mode::before{
 }
 
 .navbar a,
-.file-btn,
 .tool-menu-btn{
  display:inline-block;
  color:#fff;
@@ -118,13 +99,11 @@ body.bright-mode::before{
  text-shadow:0 0 12px #ff00cc;
 }
 
-.file-menu,
 .tool-menu{
  display:inline-block;
  position:relative;
 }
 
-.file-btn,
 .tool-menu-btn{
  border:1px solid #333;
  border-radius:18px;
@@ -133,7 +112,6 @@ body.bright-mode::before{
  font-size:13px;
 }
 
-.file-dropdown,
 .tool-dropdown{
  display:none;
  position:absolute;
@@ -152,10 +130,7 @@ body.bright-mode::before{
  z-index:3000;
 }
 
-.file-dropdown.show,
-.tool-dropdown.show{
- display:block;
-}
+.tool-dropdown.show{display:block}
 
 .file-title{
  text-align:center;
@@ -178,9 +153,9 @@ body.bright-mode::before{
  font-size:14px;
 }
 
-.file-item:hover{
- background:#211027;
-}
+.file-item:hover{background:#211027}
+
+/* HERO */
 
 .hero{
  min-height:88vh;
@@ -213,9 +188,7 @@ body.bright-mode::before{
  font-size:25px;
 }
 
-.hero p{
- font-size:18px;
-}
+.hero p{font-size:18px}
 
 .buttons{
  display:flex;
@@ -235,12 +208,7 @@ body.bright-mode::before{
  font-weight:bold;
  border-radius:25px;
  border:1px solid #777;
- background:linear-gradient(
-   135deg,
-   #ff0099,
-   #742cff,
-   #087cff
- );
+ background:linear-gradient(135deg,#ff0099,#742cff,#087cff);
  box-shadow:0 0 10px rgba(255,0,200,.5);
  transition:.3s;
  cursor:pointer;
@@ -249,10 +217,10 @@ body.bright-mode::before{
 .buttons a:hover,
 .tool-btn:hover{
  transform:translateY(-4px) scale(1.04);
- box-shadow:
- 0 0 20px #ff00cc,
- 0 0 35px #633cff;
+ box-shadow:0 0 20px #ff00cc,0 0 35px #633cff;
 }
+
+/* SECTIONS */
 
 .section{
  padding:55px 20px;
@@ -282,16 +250,14 @@ body.bright-mode::before{
  line-height:1.7;
 }
 
+/* PROFILE */
+
 .profile-card{
  max-width:600px;
  margin:20px auto;
  padding:25px;
  border-radius:25px;
- background:linear-gradient(
-   145deg,
-   #0f0f0f,
-   #2d0537
- );
+ background:linear-gradient(145deg,#0f0f0f,#2d0537);
  border:1px solid #ff20c8;
  box-shadow:0 0 20px rgba(255,0,200,.35);
 }
@@ -302,9 +268,7 @@ body.bright-mode::before{
  object-fit:cover;
  border-radius:50%;
  border:3px solid #ff20c8;
- box-shadow:
- 0 0 15px #ff20c8,
- 0 0 30px #633cff;
+ box-shadow:0 0 15px #ff20c8,0 0 30px #633cff;
 }
 
 .profile-card h3{
@@ -312,30 +276,24 @@ body.bright-mode::before{
  color:#ffe500;
 }
 
-.profile-name{
- color:#e9a5ff!important;
-}
+.profile-name{color:#e9a5ff!important}
 
 .profile-badge{
  display:inline-block;
  padding:7px 15px;
  border-radius:20px;
- background:linear-gradient(
-   135deg,
-   #ff0099,
-   #633cff
- );
+ background:linear-gradient(135deg,#ff0099,#633cff);
  font-weight:bold;
 }
+
+/* GALLERY */
 
 .gallery-img{
  width:100%;
  max-width:450px;
  border-radius:20px;
  border:1px solid #ff20c8;
- box-shadow:
- 0 0 15px #ff20c8,
- 0 0 30px #633cff;
+ box-shadow:0 0 15px #ff20c8,0 0 30px #633cff;
  cursor:pointer;
 }
 
@@ -350,9 +308,7 @@ body.bright-mode::before{
  padding:20px;
 }
 
-.photo-modal.show{
- display:flex;
-}
+.photo-modal.show{display:flex}
 
 .photo-modal img{
  max-width:95%;
@@ -375,22 +331,17 @@ body.bright-mode::before{
  cursor:pointer;
 }
 
+/* TOOLS */
+
 .tools-grid{
  display:grid;
- grid-template-columns:repeat(
-   auto-fit,
-   minmax(250px,1fr)
- );
+ grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
  gap:20px;
  margin-top:20px;
 }
 
 .tool-card{
- background:linear-gradient(
-   145deg,
-   #090909,
-   #19091d
- );
+ background:linear-gradient(145deg,#090909,#19091d);
  border:1px solid #3b2450;
  border-radius:20px;
  padding:22px;
@@ -448,6 +399,8 @@ textarea.tool-input{
  border-radius:10px;
 }
 
+/* NOTES */
+
 .notes-list{
  text-align:left;
  margin-top:15px;
@@ -482,8 +435,9 @@ textarea.tool-input{
  color:#fff;
  border-radius:8px;
  padding:7px 10px;
- cursor:pointer;
 }
+
+/* COMPRESSOR */
 
 .upload-box{
  display:block;
@@ -507,15 +461,129 @@ textarea.tool-input{
  margin-top:12px;
  color:#fff;
  text-decoration:none;
- background:linear-gradient(
-   135deg,
-   #ff0099,
-   #633cff
- );
+ background:linear-gradient(135deg,#ff0099,#633cff);
  padding:10px 15px;
  border-radius:20px;
  font-weight:bold;
 }
+
+/* TRANSLATOR */
+
+.translator{
+ background:#090909;
+ border:1px solid #333;
+ border-radius:20px;
+ padding:18px;
+ margin-top:10px;
+}
+
+.language-row{
+ display:flex;
+ justify-content:center;
+ align-items:center;
+ gap:8px;
+ margin-bottom:12px;
+ flex-wrap:wrap;
+}
+
+.language-select{
+ padding:10px 14px;
+ border-radius:12px;
+ background:#111;
+ color:#fff;
+ border:1px solid #555;
+ font-weight:bold;
+}
+
+.swap-btn{
+ width:45px;
+ height:45px;
+ border-radius:50%;
+ background:#181018;
+ color:#fff;
+ border:1px solid #555;
+ cursor:pointer;
+ font-size:20px;
+}
+
+.translate-grid{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:12px;
+}
+
+.translate-panel{
+ background:#050505;
+ border:1px solid #292929;
+ border-radius:15px;
+ padding:12px;
+}
+
+.translate-panel textarea{
+ width:100%;
+ min-height:180px;
+ resize:vertical;
+ background:transparent;
+ color:#fff;
+ border:0;
+ outline:none;
+ font-size:17px;
+ line-height:1.6;
+}
+
+.translate-label{
+ display:flex;
+ justify-content:space-between;
+ color:#bbb;
+ font-size:13px;
+ margin-bottom:5px;
+}
+
+.translate-actions{
+ display:flex;
+ gap:7px;
+ flex-wrap:wrap;
+ margin-top:10px;
+}
+
+.small-btn{
+ padding:9px 13px;
+ border-radius:18px;
+ background:#151515;
+ color:#fff;
+ border:1px solid #444;
+ cursor:pointer;
+}
+
+.small-btn:hover{
+ background:#28122d;
+}
+
+.history-box{
+ margin-top:15px;
+ text-align:left;
+}
+
+.history-item{
+ background:#080808;
+ border:1px solid #292929;
+ border-radius:12px;
+ padding:10px;
+ margin:7px 0;
+ cursor:pointer;
+}
+
+.history-item:hover{
+ background:#171017;
+}
+
+.translate-note{
+ font-size:12px!important;
+ color:#999;
+ margin-top:10px;
+}
+
+/* MUSIC */
 
 .music-box{
  margin-top:20px;
@@ -525,9 +593,7 @@ textarea.tool-input{
  border-radius:18px;
 }
 
-.music-box h3{
- color:#ffe500;
-}
+.music-box h3{color:#ffe500}
 
 audio{
  width:100%;
@@ -546,10 +612,11 @@ audio{
  cursor:pointer;
 }
 
+/* YOUTUBE */
+
 .youtube-grid{
  display:grid;
- grid-template-columns:
- repeat(auto-fit,minmax(160px,1fr));
+ grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
  gap:18px;
  margin-top:25px;
 }
@@ -567,6 +634,8 @@ audio{
  border:0;
  border-radius:12px;
 }
+
+/* FEEDBACK */
 
 .feedback-box,
 .chat-box,
@@ -604,6 +673,8 @@ audio{
  color:#7dffb2;
 }
 
+/* CHAT */
+
 .chat-box{
  padding:0;
  overflow:hidden;
@@ -611,11 +682,7 @@ audio{
 
 .chat-header{
  padding:15px;
- background:linear-gradient(
-   135deg,
-   #ff0099,
-   #633cff
- );
+ background:linear-gradient(135deg,#ff0099,#633cff);
  font-weight:bold;
 }
 
@@ -640,11 +707,7 @@ audio{
 }
 
 .user-msg{
- background:linear-gradient(
-   135deg,
-   #ff0099,
-   #633cff
- );
+ background:linear-gradient(135deg,#ff0099,#633cff);
  margin-left:auto;
 }
 
@@ -664,35 +727,14 @@ audio{
  color:#fff;
 }
 
+/* DAILY */
+
 .announcement{
  border:1px solid #ff20c8;
  box-shadow:0 0 18px rgba(255,0,200,.2);
 }
 
-.announcement h3{
- color:#ffe500;
-}
-
-.quiz-question{
- font-size:20px;
- font-weight:bold;
- margin:15px 0;
-}
-
-.quiz-options button{
- width:100%;
- padding:12px;
- margin:5px;
- border-radius:12px;
- background:#111;
- color:#fff;
- border:1px solid #444;
- cursor:pointer;
-}
-
-.quiz-options button:hover{
- background:#2b1230;
-}
+.announcement h3{color:#ffe500}
 
 .challenge,
 .daily-tip,
@@ -706,107 +748,132 @@ audio{
 
 /* LUCKY SPIN */
 
-.lucky-wheel-wrap{
- position:relative;
- width:250px;
- height:250px;
- margin:25px auto;
-}
-
-.lucky-pointer{
- position:absolute;
- top:-12px;
- left:50%;
- transform:translateX(-50%);
- z-index:5;
- font-size:35px;
- filter:drop-shadow(0 0 5px #fff);
-}
-
-#spinWheel{
- width:240px;
- height:240px;
- border-radius:50%;
- border:6px solid #fff;
- margin:auto;
- background:conic-gradient(
-   #ff0099 0deg 45deg,
-   #633cff 45deg 90deg,
-   #00c8ff 90deg 135deg,
-   #ffcc00 135deg 180deg,
-   #00cc66 180deg 225deg,
-   #ff6600 225deg 270deg,
-   #cc33ff 270deg 315deg,
-   #ff3366 315deg 360deg
- );
- box-shadow:
-   0 0 20px #ff20c8,
-   0 0 40px #633cff;
- display:flex;
- align-items:center;
- justify-content:center;
- font-size:55px;
- transition:transform 4s cubic-bezier(.17,.67,.12,.99);
-}
-
-.lucky-center{
- width:65px;
- height:65px;
- border-radius:50%;
- background:#080808;
- border:3px solid #fff;
- display:flex;
- align-items:center;
- justify-content:center;
- font-size:28px;
-}
-
-.lucky-result{
- margin-top:20px;
- padding:18px;
- border-radius:18px;
- background:#090909;
- border:1px solid #ff20c8;
- font-size:20px;
- font-weight:bold;
- min-height:25px;
-}
-
-.support-box{
- max-width:650px;
+.spin-box{
+ max-width:600px;
  margin:25px auto;
  padding:25px;
- border-radius:20px;
- background:linear-gradient(
-   145deg,
-   #090909,
-   #26052d
- );
- border:1px solid #ff20c8;
- box-shadow:0 0 20px rgba(255,0,200,.25);
+ background:linear-gradient(145deg,#090909,#21082b);
+ border:2px solid #633cff;
+ border-radius:25px;
+ box-shadow:0 0 25px rgba(255,0,200,.25);
 }
 
-.upi-id{
- display:inline-block;
- padding:10px 18px;
- margin:10px;
- background:#050505;
- border:1px solid #555;
- border-radius:15px;
+.wheel-wrap{
+ position:relative;
+ width:280px;
+ height:280px;
+ margin:20px auto;
+}
+
+#wheel{
+ width:280px;
+ height:280px;
+ border-radius:50%;
+ border:8px solid #fff;
+ box-shadow:0 0 25px #ff20c8;
+ transition:transform 4s cubic-bezier(.15,.75,.2,1);
+}
+
+.wheel-pointer{
+ position:absolute;
+ top:-15px;
+ left:50%;
+ transform:translateX(-50%);
+ font-size:35px;
+ z-index:5;
+}
+
+.spin-result{
+ min-height:30px;
+ margin-top:18px;
+ font-size:20px;
  font-weight:bold;
- letter-spacing:.5px;
-}
-
-.policy-box{
- text-align:left;
- max-width:850px;
- margin:auto;
- line-height:1.8;
-}
-
-.policy-box h3{
  color:#ffe500;
 }
+
+/* PREMIUM */
+
+.premium-box{
+ max-width:850px;
+ margin:20px auto;
+ padding:30px 20px;
+ border-radius:25px;
+ border:2px solid #ffe500;
+ background:linear-gradient(145deg,#0b0b0b,#261900);
+ box-shadow:0 0 25px rgba(255,220,0,.2);
+}
+
+.premium-title{
+ font-size:30px;
+ color:#ffe500;
+ text-shadow:0 0 15px #ff9900;
+}
+
+.premium-grid{
+ display:grid;
+ grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+ gap:15px;
+ margin-top:25px;
+}
+
+.premium-card{
+ padding:20px;
+ border-radius:18px;
+ background:#090909;
+ border:1px solid #6d5a00;
+}
+
+.premium-card h3{
+ color:#ffe500;
+}
+
+.lock{
+ font-size:30px;
+}
+
+.premium-price{
+ font-size:25px;
+ color:#7dffb2;
+ font-weight:bold;
+}
+
+.premium-btn{
+ background:linear-gradient(135deg,#ffcc00,#ff7b00)!important;
+ color:#000!important;
+ border-color:#ffe500!important;
+}
+
+/* QUIZ */
+
+.quiz-question{
+ font-size:21px!important;
+ font-weight:bold;
+}
+
+.quiz-options{
+ display:grid;
+ grid-template-columns:repeat(2,1fr);
+ gap:10px;
+ max-width:700px;
+ margin:20px auto;
+}
+
+.quiz-options button{
+ padding:13px;
+ border-radius:15px;
+ background:#111;
+ color:#fff;
+ border:1px solid #444;
+ cursor:pointer;
+ font-size:16px;
+}
+
+.quiz-options button:hover{
+ background:#25102b;
+ border-color:#ff20c8;
+}
+
+/* FOOTER */
 
 footer{
  padding:35px 20px;
@@ -819,6 +886,8 @@ footer h3{
  color:#df83ff;
  font-size:26px;
 }
+
+/* FLOAT */
 
 #lightBtn,
 #topBtn{
@@ -838,13 +907,13 @@ footer h3{
 #lightBtn{left:15px}
 #topBtn{right:15px}
 
+/* TOAST */
+
 .toast{
  position:fixed;
  left:50%;
  bottom:85px;
- transform:
- translateX(-50%)
- translateY(30px);
+ transform:translateX(-50%) translateY(30px);
  background:#111;
  color:#fff;
  padding:13px 20px;
@@ -859,10 +928,10 @@ footer h3{
 
 .toast.show{
  opacity:1;
- transform:
- translateX(-50%)
- translateY(0);
+ transform:translateX(-50%) translateY(0);
 }
+
+/* MOBILE */
 
 @media(max-width:600px){
 
@@ -877,7 +946,6 @@ footer h3{
   padding:6px;
  }
 
- .file-dropdown,
  .tool-dropdown{
   position:fixed;
   top:100px;
@@ -889,25 +957,13 @@ footer h3{
   padding:30px 10px 50px;
  }
 
- .hero h1{
-  font-size:31px;
- }
+ .hero h1{font-size:31px}
+ .hero h2{font-size:22px}
+ .hero p{font-size:16px}
 
- .hero h2{
-  font-size:22px;
- }
+ .card{padding:20px 14px}
 
- .hero p{
-  font-size:16px;
- }
-
- .card{
-  padding:20px 14px;
- }
-
- .buttons{
-  gap:7px;
- }
+ .buttons{gap:7px}
 
  .buttons a,
  .tool-btn{
@@ -915,31 +971,34 @@ footer h3{
   font-size:12px;
  }
 
- .tools-grid{
+ .tools-grid{grid-template-columns:1fr}
+
+ .youtube-grid{grid-template-columns:1fr 1fr}
+
+ .profile-photo{
+  width:150px;
+  height:150px;
+ }
+
+ .wheel-wrap,
+ #wheel{
+  width:240px;
+  height:240px;
+ }
+
+ .translate-grid{
   grid-template-columns:1fr;
  }
 
- .youtube-grid{
-  grid-template-columns:1fr 1fr;
+ .translate-panel textarea{
+  min-height:150px;
  }
 
- .profile-photo{
-  width:130px;
-  height:130px;
- }
-
- #spinWheel{
-  width:210px;
-  height:210px;
- }
-
- .lucky-wheel-wrap{
-  width:220px;
-  height:220px;
+ .quiz-options{
+  grid-template-columns:1fr;
  }
 
 }
-
 </style>
 </head>
 
@@ -954,50 +1013,6 @@ footer h3{
 <a href="#about">👤 About</a>
 <a href="#gallery">🖼️ Gallery</a>
 
-<div class="file-menu">
-
-<button class="file-btn" onclick="toggleFiles()">
-📁 Files
-</button>
-
-<div id="fileDropdown" class="file-dropdown">
-
-<div class="file-title">
-📁 My Files
-</div>
-
-<a
-class="file-item"
-href="IMG_20260614_152003_968.webp"
-target="_blank">
-🖼️ My Photo
-</a>
-
-<a
-class="file-item"
-href="#music"
-onclick="closeFiles()">
-🎵 Music
-</a>
-
-<a
-class="file-item"
-href="#youtube"
-onclick="closeFiles()">
-▶️ YouTube
-</a>
-
-<a
-class="file-item"
-href="#contact"
-onclick="closeFiles()">
-📞 Contact
-</a>
-
-</div>
-
-</div>
-
 <div class="tool-menu">
 
 <button class="tool-menu-btn" onclick="toggleTools()">
@@ -1006,82 +1021,57 @@ onclick="closeFiles()">
 
 <div id="toolDropdown" class="tool-dropdown">
 
-<div class="file-title">
-🛠️ All Useful Tools
-</div>
+<div class="file-title">🛠️ All Useful Tools</div>
 
-<a
-class="file-item"
-href="#qrTool"
-onclick="closeTools()">
+<a class="file-item" href="#qrTool" onclick="closeTools()">
 📱 QR Code Generator
 </a>
 
-<a
-class="file-item"
-href="#copyTool"
-onclick="closeTools()">
+<a class="file-item" href="#copyTool" onclick="closeTools()">
 📋 Copy Text
 </a>
 
-<a
-class="file-item"
-href="#notesTool"
-onclick="closeTools()">
+<a class="file-item" href="#notesTool" onclick="closeTools()">
 📝 Notes / To-Do
 </a>
 
-<a
-class="file-item"
-href="#compressTool"
-onclick="closeTools()">
+<a class="file-item" href="#compressTool" onclick="closeTools()">
 🖼️ Image Compressor
 </a>
 
-<a
-class="file-item"
-href="#translateTool"
-onclick="closeTools()">
-🌐 Hindi ↔ English
+<a class="file-item" href="#translateTool" onclick="closeTools()">
+🌐 Hindi ↔ English Translator
 </a>
 
-<a
-class="file-item"
-href="#randomTool"
-onclick="closeTools()">
+<a class="file-item" href="#randomTool" onclick="closeTools()">
 🎲 Random Fun
 </a>
 
-<a
-class="file-item"
-href="#luckySpinTool"
-onclick="closeTools()">
-🎡 Lucky Spin
+<a class="file-item" href="#luckySpin" onclick="closeTools()">
+🎰 Lucky Spin
 </a>
 
-<a
-class="file-item"
-href="#quiz"
-onclick="closeTools()">
+<a class="file-item" href="#music" onclick="closeTools()">
+🎵 Free Music
+</a>
+
+<a class="file-item" href="#premium" onclick="closeTools()">
+💎 Premium Zone
+</a>
+
+<a class="file-item" href="#quiz" onclick="closeTools()">
 🧠 Quiz
 </a>
 
-<a
-class="file-item"
-href="#chat"
-onclick="closeTools()">
+<a class="file-item" href="#chat" onclick="closeTools()">
 🤖 AI Support
 </a>
 
-<a
-class="file-item"
-href="#feedback"
-onclick="closeTools()">
+<a class="file-item" href="#feedback" onclick="closeTools()">
 💬 Feedback
 </a>
 
 </div>
-
 </div>
 
 <a href="#daily">💡 Daily</a>
@@ -1093,9 +1083,7 @@ onclick="closeTools()">
 <section class="hero" id="home">
 
 <h1>🔱 Barhaman Fouji 🇮🇳</h1>
-
 <h2>Rakesh Mishra</h2>
-
 <p>जय श्री राम 🙏</p>
 
 <div id="visitorCount"></div>
@@ -1108,12 +1096,7 @@ onclick="closeTools()">
 <a href="#youtube">▶️ YouTube</a>
 <a href="#contact">📞 Contact</a>
 
-<a href="#support">
-💰 Support
-</a>
-
-<a href="#"
-onclick="shareSite();return false">
+<a href="#" onclick="shareSite();return false">
 📤 Share Website
 </a>
 
@@ -1121,7 +1104,7 @@ onclick="shareSite();return false">
 
 </section>
 
-<section class="section" id="announcement">
+<section class="section">
 
 <div class="card">
 
@@ -1156,9 +1139,7 @@ alt="Rakesh Mishra">
 
 <h3>Rakesh Mishra</h3>
 
-<p class="profile-name">
-🔱 Barhaman Fouji 🇮🇳
-</p>
+<p class="profile-name">🔱 Barhaman Fouji 🇮🇳</p>
 
 <p>
 नमस्ते 🙏 मेरा नाम Rakesh Mishra है।
@@ -1192,9 +1173,7 @@ src="IMG_20260614_152003_968.webp"
 onclick="openPhoto()"
 alt="Rakesh Mishra">
 
-<p>
-📌 Photo पर क्लिक करके Full Screen में देखें।
-</p>
+<p>📌 Photo पर क्लिक करके Full Screen में देखें।</p>
 
 </div>
 
@@ -1225,9 +1204,7 @@ id="qrText"
 class="tool-input"
 placeholder="Text या Link">
 
-<button
-class="tool-btn"
-onclick="generateQR()">
+<button class="tool-btn" onclick="generateQR()">
 🔲 QR बनाएं
 </button>
 
@@ -1244,9 +1221,7 @@ id="copyText"
 class="tool-input"
 placeholder="यहाँ text लिखें..."></textarea>
 
-<button
-class="tool-btn"
-onclick="copyText()">
+<button class="tool-btn" onclick="copyText()">
 📋 Copy
 </button>
 
@@ -1261,9 +1236,7 @@ id="noteInput"
 class="tool-input"
 placeholder="जैसे: पढ़ाई करनी है">
 
-<button
-class="tool-btn"
-onclick="addNote()">
+<button class="tool-btn" onclick="addNote()">
 ➕ Add Task
 </button>
 
@@ -1314,20 +1287,110 @@ download="compressed-image.jpg">
 
 <div class="tool-card searchable" id="translateTool">
 
-<h3>🌐 Hindi ↔ English</h3>
+<h3>🌐 Hindi ↔ English Translator</h3>
+
+<div class="translator">
+
+<div class="language-row">
+
+<select id="sourceLang" class="language-select">
+<option value="hi">🇮🇳 Hindi</option>
+<option value="en">🇺🇸 English</option>
+</select>
+
+<button class="swap-btn" onclick="swapLanguages()">
+⇄
+</button>
+
+<select id="targetLang" class="language-select">
+<option value="en">🇺🇸 English</option>
+<option value="hi">🇮🇳 Hindi</option>
+</select>
+
+</div>
+
+<div class="translate-grid">
+
+<div class="translate-panel">
+
+<div class="translate-label">
+<span>Input</span>
+<span id="inputCount">0 characters</span>
+</div>
 
 <textarea
 id="translateInput"
-class="tool-input"
-placeholder="Text लिखें..."></textarea>
+placeholder="Hindi या English text यहाँ लिखें..."></textarea>
 
-<button
-class="tool-btn"
-onclick="translateText()">
+<div class="translate-actions">
+
+<button class="small-btn" onclick="startVoice()">
+🎤 Voice
+</button>
+
+<button class="small-btn" onclick="clearTranslation()">
+🗑️ Clear
+</button>
+
+</div>
+
+</div>
+
+<div class="translate-panel">
+
+<div class="translate-label">
+<span>Translation</span>
+<span id="outputCount">0 characters</span>
+</div>
+
+<textarea
+id="translateResult"
+readonly
+placeholder="Translation यहाँ दिखाई देगा..."></textarea>
+
+<div class="translate-actions">
+
+<button class="small-btn" onclick="copyTranslation()">
+📋 Copy
+</button>
+
+<button class="small-btn" onclick="speakTranslation()">
+🔊 Listen
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="buttons">
+
+<button class="tool-btn" onclick="translateText()">
 🔄 Translate
 </button>
 
-<div id="translateResult" class="tool-result"></div>
+</div>
+
+<p class="translate-note">
+ℹ️ यह built-in browser translator है।
+</p>
+
+<div class="history-box">
+
+<h4>🕘 Translation History</h4>
+
+<div id="translationHistory"></div>
+
+<button
+class="small-btn"
+onclick="clearHistory()">
+🗑️ Clear History
+</button>
+
+</div>
+
+</div>
 
 </div>
 
@@ -1335,9 +1398,7 @@ onclick="translateText()">
 
 <h3>🎲 Random Fun Generator</h3>
 
-<button
-class="tool-btn"
-onclick="randomFun()">
+<button class="tool-btn" onclick="randomFun()">
 🎲 Generate
 </button>
 
@@ -1347,46 +1408,112 @@ onclick="randomFun()">
 
 </div>
 
-<div class="tool-card searchable" id="luckySpinTool">
+</div>
 
-<h3>🎡 Lucky Spin</h3>
+</div>
+
+</section>
+
+<section class="section" id="luckySpin">
+
+<div class="card">
+
+<h2>🎰 Lucky Spin</h2>
+
+<div class="spin-box">
 
 <p>
-Spin करें और देखें आज का Fun Lucky Result! 🍀
+🎯 Wheel घुमाइए और देखें आज आपको क्या मिलता है!
 </p>
 
-<div class="lucky-wheel-wrap">
+<div class="wheel-wrap">
 
-<div class="lucky-pointer">
-▼
-</div>
+<div class="wheel-pointer">🔻</div>
 
-<div id="spinWheel">
-
-<div class="lucky-center">
-🎡
-</div>
-
-</div>
+<canvas id="wheel" width="280" height="280"></canvas>
 
 </div>
 
 <button
-id="spinButton"
 class="tool-btn"
-onclick="spinLucky()">
-🎯 SPIN
+onclick="spinWheel()">
+🎰 SPIN NOW
 </button>
 
-<div
-id="luckyResult"
-class="lucky-result">
-Spin करके Lucky Result देखें! 🍀
+<div id="spinResult" class="spin-result">
+Spin करने के लिए बटन दबाएँ 😄
 </div>
 
-<p style="font-size:12px;color:#999">
-⚠️ यह केवल मनोरंजन के लिए है। इसमें कोई real-money reward नहीं है।
+<p style="font-size:13px;color:#999">
+ℹ️ यह केवल मनोरंजन के लिए है। इसमें कोई वास्तविक cash prize नहीं है।
 </p>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="section" id="premium">
+
+<div class="card">
+
+<div class="premium-box">
+
+<div class="premium-title">
+💎 Premium Zone 👑
+</div>
+
+<p>
+Premium Zone में future में advanced features और exclusive tools दिए जाएंगे।
+</p>
+
+<div class="premium-grid">
+
+<div class="premium-card">
+<div class="lock">🔒</div>
+<h3>🎨 Premium QR</h3>
+<p>Custom design, colors और advanced QR features.</p>
+<span class="premium-price">Coming Soon</span>
+</div>
+
+<div class="premium-card">
+<div class="lock">🔒</div>
+<h3>🖼️ Pro Image Tools</h3>
+<p>Advanced image processing और extra options.</p>
+<span class="premium-price">Coming Soon</span>
+</div>
+
+<div class="premium-card">
+<div class="lock">🔒</div>
+<h3>🌐 Pro Translator</h3>
+<p>Future में advanced translation features.</p>
+<span class="premium-price">Coming Soon</span>
+</div>
+
+<div class="premium-card">
+<div class="lock">🔒</div>
+<h3>👑 Premium Badge</h3>
+<p>Premium members के लिए special profile badge.</p>
+<span class="premium-price">Coming Soon</span>
+</div>
+
+<div class="premium-card">
+<div class="lock">🔒</div>
+<h3>🚀 Pro Tools</h3>
+<p>Future में नए advanced tools यहाँ मिलेंगे।</p>
+<span class="premium-price">Coming Soon</span>
+</div>
+
+</div>
+
+<div class="buttons">
+
+<button
+class="tool-btn premium-btn"
+onclick="premiumComingSoon()">
+💎 Get Premium
+</button>
 
 </div>
 
@@ -1454,7 +1581,7 @@ onclick="newQuiz()">
 
 <div class="card">
 
-<h2>🎵 Music Playlist</h2>
+<h2>🎵 Free Music Playlist</h2>
 
 <div class="music-box">
 
@@ -1496,9 +1623,7 @@ type="audio/mpeg">
 🤖 Barhaman Fouji Assistant
 </div>
 
-<div
-id="chatMessages"
-class="chat-messages">
+<div id="chatMessages" class="chat-messages">
 
 <div class="chat-msg bot-msg">
 नमस्ते! 🙏 मैं Barhaman Fouji Assistant हूँ।
@@ -1561,53 +1686,7 @@ onclick="submitFeedback()">
 📨 Feedback भेजें
 </button>
 
-<div
-id="feedbackMessage"
-class="feedback-message">
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<section class="section" id="support">
-
-<div class="card">
-
-<h2>💰 Support Barhaman Fouji</h2>
-
-<div class="support-box">
-
-<h3>❤️ Website पसंद आई?</h3>
-
-<p>
-अगर आपको मेरी website पसंद आती है और आप मुझे support करना चाहते हैं,
-तो आप अपने UPI app से voluntary support भेज सकते हैं।
-</p>
-
-<div class="upi-id">
-rakeshmishra04@ptyes
-</div>
-
-<br>
-
-<button
-class="tool-btn"
-onclick="copyUPI()">
-📋 Copy UPI ID
-</button>
-
-<a
-class="tool-btn"
-href="upi://pay?pa=rakeshmishra04@ptyes&pn=Rakesh%20Mishra&cu=INR">
-💸 UPI से Support करें
-</a>
-
-<p style="font-size:12px;color:#999">
-⚠️ यह voluntary support है। कोई खरीदारी या guaranteed reward नहीं है।
-</p>
+<div id="feedbackMessage" class="feedback-message"></div>
 
 </div>
 
@@ -1659,8 +1738,7 @@ href="upi://pay?pa=rakeshmishra04@ptyes&pn=Rakesh%20Mishra&cu=INR">
 
 <a
 href="https://youtube.com/@handstand_boy"
-target="_blank"
-rel="noopener">
+target="_blank">
 ▶️ पूरा YouTube Channel
 </a>
 
@@ -1684,172 +1762,31 @@ rel="noopener">
 
 <a
 href="https://wa.me/917050042886"
-target="_blank"
-rel="noopener">
+target="_blank">
 💬 WhatsApp
 </a>
 
 <a
 href="https://youtube.com/@handstand_boy"
-target="_blank"
-rel="noopener">
+target="_blank">
 ▶️ YouTube
 </a>
 
 <a
 href="https://www.instagram.com/barhaman_fouji_10k/"
-target="_blank"
-rel="noopener">
+target="_blank">
 📸 Instagram
 </a>
 
 <a
 href="https://www.facebook.com/profile.php?id=100077267425201"
-target="_blank"
-rel="noopener">
+target="_blank">
 👍 Facebook
 </a>
 
-<a
-href="#"
-onclick="shareSite();return false">
+<a href="#" onclick="shareSite();return false">
 📤 Share Website
 </a>
-
-</div>
-
-</div>
-
-</section>
-
-<section class="section" id="privacy">
-
-<div class="card">
-
-<h2>🔒 Privacy Policy</h2>
-
-<div class="policy-box">
-
-<p>
-Barhaman Fouji website पर आपकी privacy का सम्मान किया जाता है।
-यह website सामान्य जानकारी, photos, videos और useful online tools
-प्रदान करने के उद्देश्य से बनाई गई है।
-</p>
-
-<h3>📌 Information</h3>
-
-<p>
-कुछ tools जैसे Notes और Visitor Counter आपके browser के
-local storage/session storage का उपयोग कर सकते हैं।
-यह जानकारी सामान्यतः आपके अपने device/browser में रहती है।
-</p>
-
-<h3>🍪 Cookies</h3>
-
-<p>
-भविष्य में advertising या third-party services जोड़ी जाने पर
-उनकी अपनी cookies या similar technologies हो सकती हैं।
-</p>
-
-<h3>🔗 Third-Party Links</h3>
-
-<p>
-Website पर YouTube, Instagram, Facebook, WhatsApp आदि के links हैं।
-इन websites की अपनी privacy policies और terms हो सकती हैं।
-</p>
-
-<h3>📧 Contact</h3>
-
-<p>
-Privacy से संबंधित किसी प्रश्न के लिए Contact section के माध्यम से
-संपर्क किया जा सकता है।
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-<section class="section" id="terms">
-
-<div class="card">
-
-<h2>📜 Terms & Conditions</h2>
-
-<div class="policy-box">
-
-<h3>1. Website Use</h3>
-
-<p>
-इस website का उपयोग सामान्य जानकारी, मनोरंजन और उपलब्ध online
-tools के लिए किया जा सकता है।
-</p>
-
-<h3>2. Tools</h3>
-
-<p>
-Website के tools सुविधा के लिए दिए गए हैं। इनके परिणामों की
-पूर्ण accuracy की guarantee नहीं दी जाती।
-</p>
-
-<h3>3. Content</h3>
-
-<p>
-Website पर उपलब्ध personal content को बिना अनुमति copy या
-reproduce न करें।
-</p>
-
-<h3>4. External Links</h3>
-
-<p>
-Third-party websites पर जाने के बाद उनकी अपनी terms लागू हो सकती हैं।
-</p>
-
-<h3>5. Changes</h3>
-
-<p>
-Website के features, content या terms को भविष्य में बदला जा सकता है।
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-<section class="section" id="disclaimer">
-
-<div class="card">
-
-<h2>⚠️ Disclaimer</h2>
-
-<div class="policy-box">
-
-<p>
-Barhaman Fouji website पर उपलब्ध जानकारी और tools सामान्य
-information और entertainment purposes के लिए हैं।
-</p>
-
-<p>
-हम यह guarantee नहीं करते कि website के सभी tools हर device,
-browser या परिस्थिति में हमेशा बिना error के काम करेंगे।
-</p>
-
-<p>
-Third-party websites, social-media platforms और external services
-पर उपलब्ध content के लिए उनकी respective policies लागू होती हैं।
-</p>
-
-<p>
-🎡 Lucky Spin केवल मनोरंजन के लिए है। यह gambling या real-money
-reward system नहीं है।
-</p>
-
-<p>
-💰 UPI Support voluntary है। Support भेजने से किसी product,
-service या guaranteed benefit का अधिकार प्राप्त नहीं होता।
-</p>
 
 </div>
 
@@ -1862,20 +1799,8 @@ service या guaranteed benefit का अधिकार प्राप्�
 <h3>🔱 Barhaman Fouji 🇮🇳</h3>
 
 <p>Rakesh Mishra</p>
-
 <p>जय श्री राम 🙏</p>
-
-<div class="buttons">
-
-<a href="#privacy">🔒 Privacy Policy</a>
-<a href="#terms">📜 Terms</a>
-<a href="#disclaimer">⚠️ Disclaimer</a>
-
-</div>
-
-<p>
-© 2026 Barhaman Fouji. All Rights Reserved.
-</p>
+<p>© 2026 Barhaman Fouji. All Rights Reserved.</p>
 
 </footer>
 
@@ -1896,6 +1821,7 @@ alt="Rakesh Mishra">
 
 </div>
 
+<!-- FIXED LIGHT BUTTON -->
 <button
 id="lightBtn"
 onclick="toggleLight()">
@@ -1908,6 +1834,8 @@ onclick="window.scrollTo({top:0,behavior:'smooth'})">
 ↑
 </button>
 
+<div id="toast" class="toast"></div>
+
 <script>
 
 /* TOAST */
@@ -1917,7 +1845,6 @@ function toast(message){
  const t=document.getElementById("toast");
 
  t.textContent=message;
-
  t.classList.add("show");
 
  clearTimeout(window.toastTimer);
@@ -1929,13 +1856,11 @@ function toast(message){
 
 }
 
-
-/* SCROLL PROGRESS */
+/* PROGRESS */
 
 window.addEventListener("scroll",()=>{
 
  const h=document.documentElement;
-
  const max=h.scrollHeight-h.clientHeight;
 
  const progress=max>0
@@ -1947,30 +1872,6 @@ window.addEventListener("scroll",()=>{
 
 });
 
-
-/* FILE MENU */
-
-function toggleFiles(){
-
- document
- .getElementById("fileDropdown")
- .classList.toggle("show");
-
- document
- .getElementById("toolDropdown")
- .classList.remove("show");
-
-}
-
-function closeFiles(){
-
- document
- .getElementById("fileDropdown")
- .classList.remove("show");
-
-}
-
-
 /* TOOLS MENU */
 
 function toggleTools(){
@@ -1978,10 +1879,6 @@ function toggleTools(){
  document
  .getElementById("toolDropdown")
  .classList.toggle("show");
-
- document
- .getElementById("fileDropdown")
- .classList.remove("show");
 
 }
 
@@ -1993,29 +1890,21 @@ function closeTools(){
 
 }
 
-
 document.addEventListener("click",e=>{
 
- const fileMenu=document.querySelector(".file-menu");
- const toolMenu=document.querySelector(".tool-menu");
+ const menu=document.querySelector(".tool-menu");
 
- if(!fileMenu.contains(e.target)){
-   closeFiles();
- }
-
- if(!toolMenu.contains(e.target)){
+ if(!menu.contains(e.target)){
    closeTools();
  }
 
 });
 
-
 /* COPY */
 
 function copyText(){
 
- const text=
- document.getElementById("copyText").value;
+ const text=document.getElementById("copyText").value;
 
  if(!text)
    return toast("⚠️ पहले text लिखें");
@@ -2026,32 +1915,14 @@ function copyText(){
 
 }
 
-
-/* COPY UPI */
-
-function copyUPI(){
-
- const upi="rakeshmishra04@ptyes";
-
- navigator.clipboard.writeText(upi)
- .then(()=>toast("💰 UPI ID copied!"))
- .catch(()=>toast("⚠️ UPI ID copy नहीं हुई"));
-
-}
-
-
 /* SHARE */
 
 async function shareSite(){
 
  const data={
-
    title:"🔱 Barhaman Fouji 🇮🇳",
-
    text:"Rakesh Mishra की website देखें ❤️",
-
    url:location.href
-
  };
 
  try{
@@ -2072,7 +1943,6 @@ async function shareSite(){
 
 }
 
-
 /* VISITOR COUNTER */
 
 let visitors=parseInt(
@@ -2083,30 +1953,19 @@ if(!sessionStorage.getItem("barhamanVisit")){
 
  visitors++;
 
- localStorage.setItem(
-   "barhamanVisitors",
-   visitors
- );
-
- sessionStorage.setItem(
-   "barhamanVisit",
-   "1"
- );
+ localStorage.setItem("barhamanVisitors",visitors);
+ sessionStorage.setItem("barhamanVisit","1");
 
 }
 
-document.getElementById(
- "visitorCount"
-).textContent=
-"👥 Visitors: "+visitors;
-
+document.getElementById("visitorCount")
+.textContent="👥 Visitors: "+visitors;
 
 /* PHOTO */
 
 function openPhoto(){
 
- document
- .getElementById("photoModal")
+ document.getElementById("photoModal")
  .classList.add("show");
 
  document.body.style.overflow="hidden";
@@ -2118,24 +1977,19 @@ function closePhoto(e){
  if(e && e.target.tagName==="IMG")
    return;
 
- document
- .getElementById("photoModal")
+ document.getElementById("photoModal")
  .classList.remove("show");
 
  document.body.style.overflow="";
 
 }
 
-
 /* QR */
 
 function generateQR(){
 
- const text=
- document.getElementById("qrText").value.trim();
-
- const qr=
- document.getElementById("qrcode");
+ const text=document.getElementById("qrText").value.trim();
+ const qr=document.getElementById("qrcode");
 
  qr.innerHTML="";
 
@@ -2146,20 +2000,17 @@ function generateQR(){
    return toast("⚠️ QR library load नहीं हुई");
 
  new QRCode(qr,{
-
    text:text,
    width:180,
    height:180,
    colorDark:"#000",
    colorLight:"#fff",
    correctLevel:QRCode.CorrectLevel.H
-
  });
 
  toast("✅ QR Code बन गया!");
 
 }
-
 
 /* NOTES */
 
@@ -2184,9 +2035,7 @@ function showNotes(){
 
  if(!notes.length){
 
-   list.innerHTML=
-   "<p>📝 अभी कोई task नहीं है।</p>";
-
+   list.innerHTML="<p>📝 अभी कोई task नहीं है।</p>";
    return;
 
  }
@@ -2194,13 +2043,10 @@ function showNotes(){
  notes.forEach((note,index)=>{
 
    const item=document.createElement("div");
-
    item.className="note-item";
 
    const text=document.createElement("span");
-
    text.className="note-text";
-
    text.textContent=note.text;
 
    if(note.done)
@@ -2209,22 +2055,18 @@ function showNotes(){
    text.onclick=()=>{
 
      notes[index].done=!notes[index].done;
-
      saveNotes();
      showNotes();
 
    };
 
    const del=document.createElement("button");
-
    del.className="note-delete";
-
    del.textContent="🗑️";
 
    del.onclick=()=>{
 
      notes.splice(index,1);
-
      saveNotes();
      showNotes();
 
@@ -2233,7 +2075,6 @@ function showNotes(){
    };
 
    item.append(text,del);
-
    list.appendChild(item);
 
  });
@@ -2243,7 +2084,6 @@ function showNotes(){
 function addNote(){
 
  const input=document.getElementById("noteInput");
-
  const text=input.value.trim();
 
  if(!text)
@@ -2257,7 +2097,6 @@ function addNote(){
  saveNotes();
 
  input.value="";
-
  showNotes();
 
  toast("✅ Task saved");
@@ -2274,7 +2113,6 @@ document.getElementById("noteInput")
 
 showNotes();
 
-
 /* IMAGE COMPRESSOR */
 
 function compressImage(){
@@ -2285,7 +2123,6 @@ function compressImage(){
    return;
 
  const file=input.files[0];
-
  const reader=new FileReader();
 
  reader.onload=e=>{
@@ -2317,8 +2154,7 @@ function compressImage(){
      canvas.style.display="block";
 
      document.getElementById("compressInfo")
-     .textContent=
-     "Original: "+formatBytes(file.size);
+     .textContent="Original: "+formatBytes(file.size);
 
      updateCompressedImage();
 
@@ -2332,7 +2168,6 @@ function compressImage(){
 
 }
 
-
 function updateCompressedImage(){
 
  const canvas=document.getElementById("compressCanvas");
@@ -2340,8 +2175,7 @@ function updateCompressedImage(){
  if(!canvas.width)
    return;
 
- const quality=
- parseFloat(
+ const quality=parseFloat(
    document.getElementById("qualityRange").value
  );
 
@@ -2351,38 +2185,27 @@ function updateCompressedImage(){
 
    const url=URL.createObjectURL(blob);
 
-   const link=
-   document.getElementById("downloadCompressed");
+   const link=document.getElementById("downloadCompressed");
 
    link.href=url;
-
    link.style.display="inline-block";
 
    link.textContent=
-   "⬇️ Download ("+
-   formatBytes(blob.size)+
-   ")";
+   "⬇️ Download ("+formatBytes(blob.size)+")";
 
  },"image/jpeg",quality);
 
 }
 
-
 document.getElementById("qualityRange")
 .addEventListener("input",updateCompressedImage);
-
 
 function formatBytes(bytes){
 
  if(!bytes)
    return "0 Bytes";
 
- const sizes=[
-   "Bytes",
-   "KB",
-   "MB",
-   "GB"
- ];
+ const sizes=["Bytes","KB","MB","GB"];
 
  const i=Math.floor(
    Math.log(bytes)/Math.log(1024)
@@ -2390,23 +2213,18 @@ function formatBytes(bytes){
 
  return parseFloat(
    (bytes/Math.pow(1024,i)).toFixed(2)
- )+
- " "+
- sizes[i];
+ )+" "+sizes[i];
 
 }
-
 
 /* TOOL SEARCH */
 
 function filterTools(){
 
- const q=
- document.getElementById("toolSearch")
+ const q=document.getElementById("toolSearch")
  .value.toLowerCase();
 
- document
- .querySelectorAll(".searchable")
+ document.querySelectorAll(".searchable")
  .forEach(card=>{
 
    card.style.display=
@@ -2418,48 +2236,408 @@ function filterTools(){
 
 }
 
+/* TRANSLATOR */
 
-/* TRANSLATION */
+const dictionaryHI_EN={
+
+ "नमस्ते":"Hello",
+ "धन्यवाद":"Thank you",
+ "शुक्रिया":"Thank you",
+ "सुप्रभात":"Good morning",
+ "शुभ रात्रि":"Good night",
+ "आप कैसे हैं":"How are you",
+ "मैं ठीक हूँ":"I am fine",
+ "मेरा नाम राकेश है":"My name is Rakesh",
+ "मेरा नाम राकेश मिश्रा है":"My name is Rakesh Mishra",
+ "आपका नाम क्या है":"What is your name",
+ "तुम कहाँ रहते हो":"Where do you live",
+ "मैं भारत में रहता हूँ":"I live in India",
+ "मुझे मदद चाहिए":"I need help",
+ "मुझे समझ नहीं आया":"I did not understand",
+ "कृपया मेरी मदद करें":"Please help me",
+ "बहुत अच्छा":"Very good",
+ "अच्छा":"Good",
+ "बुरा":"Bad",
+ "हाँ":"Yes",
+ "नहीं":"No",
+ "क्यों":"Why",
+ "क्या":"What",
+ "कहाँ":"Where",
+ "कब":"When",
+ "कैसे":"How",
+ "आज":"Today",
+ "कल":"Tomorrow",
+ "जय श्री राम":"Jai Shri Ram",
+ "मुझे यह पसंद है":"I like this",
+ "मुझे यह पसंद नहीं है":"I do not like this",
+ "मैं वेबसाइट बना रहा हूँ":"I am making a website",
+ "मुझे वेबसाइट पसंद है":"I like the website",
+ "यह बहुत अच्छा है":"This is very good",
+ "आपका स्वागत है":"You are welcome",
+ "फिर मिलेंगे":"See you again",
+ "शुभकामनाएँ":"Best wishes"
+
+};
+
+const dictionaryEN_HI={
+
+ "hello":"नमस्ते",
+ "hi":"नमस्ते",
+ "thank you":"धन्यवाद",
+ "thanks":"धन्यवाद",
+ "good morning":"सुप्रभात",
+ "good night":"शुभ रात्रि",
+ "how are you":"आप कैसे हैं",
+ "i am fine":"मैं ठीक हूँ",
+ "my name is rakesh":"मेरा नाम राकेश है",
+ "my name is rakesh mishra":"मेरा नाम राकेश मिश्रा है",
+ "what is your name":"आपका नाम क्या है",
+ "where do you live":"तुम कहाँ रहते हो",
+ "i live in india":"मैं भारत में रहता हूँ",
+ "i need help":"मुझे मदद चाहिए",
+ "please help me":"कृपया मेरी मदद करें",
+ "very good":"बहुत अच्छा",
+ "good":"अच्छा",
+ "bad":"बुरा",
+ "yes":"हाँ",
+ "no":"नहीं",
+ "why":"क्यों",
+ "what":"क्या",
+ "where":"कहाँ",
+ "when":"कब",
+ "how":"कैसे",
+ "today":"आज",
+ "tomorrow":"कल",
+ "jai shri ram":"जय श्री राम",
+ "i like this":"मुझे यह पसंद है",
+ "i do not like this":"मुझे यह पसंद नहीं है",
+ "this is very good":"यह बहुत अच्छा है",
+ "you are welcome":"आपका स्वागत है",
+ "see you again":"फिर मिलेंगे",
+ "best wishes":"शुभकामनाएँ"
+
+};
 
 function translateText(){
 
- const text=
- document.getElementById("translateInput")
- .value.trim();
+ const input=document.getElementById("translateInput").value.trim();
+ const source=document.getElementById("sourceLang").value;
+ const target=document.getElementById("targetLang").value;
+ const output=document.getElementById("translateResult");
 
- const result=
- document.getElementById("translateResult");
+ if(!input){
 
- if(!text){
+   output.value="";
+   updateTranslateCount();
 
-   result.textContent="⚠️ Text लिखें";
+   return toast("⚠️ पहले text लिखें");
+
+ }
+
+ if(source===target){
+
+   output.value=input;
+   updateTranslateCount();
 
    return;
 
  }
 
- const dictionary={
+ let result="";
 
-   "नमस्ते":"Hello",
-   "धन्यवाद":"Thank you",
-   "जय श्री राम":"Jai Shri Ram",
-   "मेरा नाम राकेश है":"My name is Rakesh",
-   "आप कैसे हैं":"How are you",
-   "hello":"नमस्ते",
-   "thank you":"धन्यवाद",
-   "good morning":"सुप्रभात",
-   "how are you":"आप कैसे हैं"
+ if(source==="hi" && target==="en"){
 
- };
+   result=translateWithDictionary(
+     input,
+     dictionaryHI_EN
+   );
 
- result.textContent=
- dictionary[text.toLowerCase()]||
- "🔄 Basic offline translation: "+text;
+ }else{
+
+   result=translateWithDictionary(
+     input,
+     dictionaryEN_HI
+   );
+
+ }
+
+ output.value=result;
+
+ updateTranslateCount();
+
+ saveTranslationHistory(
+   input,
+   result,
+   source,
+   target
+ );
+
+ toast("✅ Translation तैयार है!");
 
 }
 
+function translateWithDictionary(text,dict){
 
-/* RANDOM */
+ const exact=dict[text.toLowerCase()];
+
+ if(exact)
+   return exact;
+
+ let result=text;
+
+ const keys=Object.keys(dict)
+ .sort((a,b)=>b.length-a.length);
+
+ keys.forEach(key=>{
+
+   const escaped=
+   key.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
+
+   const regex=new RegExp(escaped,"gi");
+
+   result=result.replace(regex,dict[key]);
+
+ });
+
+ if(result===text){
+
+   return "🔄 Built-in translation को इस sentence का exact result नहीं मिला।";
+
+ }
+
+ return result;
+
+}
+
+function swapLanguages(){
+
+ const source=document.getElementById("sourceLang");
+ const target=document.getElementById("targetLang");
+
+ const oldSource=source.value;
+
+ source.value=target.value;
+ target.value=oldSource;
+
+ const input=document.getElementById("translateInput");
+ const output=document.getElementById("translateResult");
+
+ const oldInput=input.value;
+
+ input.value=output.value;
+ output.value=oldInput;
+
+ updateTranslateCount();
+
+}
+
+function clearTranslation(){
+
+ document.getElementById("translateInput").value="";
+ document.getElementById("translateResult").value="";
+
+ updateTranslateCount();
+
+ toast("🗑️ Translation cleared");
+
+}
+
+async function copyTranslation(){
+
+ const text=document.getElementById("translateResult").value;
+
+ if(!text)
+   return toast("⚠️ पहले translation करें");
+
+ try{
+
+   await navigator.clipboard.writeText(text);
+   toast("📋 Translation copied!");
+
+ }catch(e){
+
+   toast("⚠️ Copy नहीं हो पाया");
+
+ }
+
+}
+
+function speakTranslation(){
+
+ const text=document.getElementById("translateResult").value;
+
+ if(!text)
+   return toast("⚠️ पहले translation करें");
+
+ if(!("speechSynthesis" in window))
+   return toast("⚠️ Speech support नहीं है");
+
+ const target=document.getElementById("targetLang").value;
+
+ const utterance=new SpeechSynthesisUtterance(text);
+
+ utterance.lang=target==="hi"?"hi-IN":"en-US";
+
+ speechSynthesis.cancel();
+ speechSynthesis.speak(utterance);
+
+}
+
+function startVoice(){
+
+ const SpeechRecognition=
+ window.SpeechRecognition||
+ window.webkitSpeechRecognition;
+
+ if(!SpeechRecognition)
+   return toast("⚠️ Voice input supported नहीं है");
+
+ const recognition=new SpeechRecognition();
+
+ const source=document.getElementById("sourceLang").value;
+
+ recognition.lang=source==="hi"?"hi-IN":"en-US";
+ recognition.interimResults=false;
+ recognition.maxAlternatives=1;
+
+ recognition.start();
+
+ toast("🎤 बोलना शुरू करें...");
+
+ recognition.onresult=e=>{
+
+   document.getElementById("translateInput").value=
+   e.results[0][0].transcript;
+
+   updateTranslateCount();
+
+ };
+
+ recognition.onerror=()=>{
+   toast("⚠️ Voice input में समस्या हुई");
+ };
+
+}
+
+function updateTranslateCount(){
+
+ const input=document.getElementById("translateInput").value;
+ const output=document.getElementById("translateResult").value;
+
+ document.getElementById("inputCount")
+ .textContent=input.length+" characters";
+
+ document.getElementById("outputCount")
+ .textContent=output.length+" characters";
+
+}
+
+document.getElementById("translateInput")
+.addEventListener("input",updateTranslateCount);
+
+function saveTranslationHistory(input,output,source,target){
+
+ if(!output || output.startsWith("🔄"))
+   return;
+
+ let history=JSON.parse(
+   localStorage.getItem("barhamanTranslationHistory")||"[]"
+ );
+
+ history.unshift({
+   input:input,
+   output:output,
+   source:source,
+   target:target,
+   date:new Date().toLocaleString()
+ });
+
+ history=history.slice(0,10);
+
+ localStorage.setItem(
+   "barhamanTranslationHistory",
+   JSON.stringify(history)
+ );
+
+ showTranslationHistory();
+
+}
+
+function showTranslationHistory(){
+
+ const box=document.getElementById("translationHistory");
+
+ let history=JSON.parse(
+   localStorage.getItem("barhamanTranslationHistory")||"[]"
+ );
+
+ box.innerHTML="";
+
+ if(!history.length){
+
+   box.innerHTML=
+   "<p style='color:#777'>अभी कोई history नहीं है।</p>";
+
+   return;
+
+ }
+
+ history.forEach(item=>{
+
+   const div=document.createElement("div");
+
+   div.className="history-item";
+
+   div.innerHTML=
+   "<strong>"+escapeHTML(item.input)+
+   "</strong><br>➡️ "+
+   escapeHTML(item.output)+
+   "<br><small style='color:#777'>"+
+   escapeHTML(item.date)+
+   "</small>";
+
+   div.onclick=()=>{
+
+     document.getElementById("translateInput").value=item.input;
+     document.getElementById("translateResult").value=item.output;
+     document.getElementById("sourceLang").value=item.source;
+     document.getElementById("targetLang").value=item.target;
+
+     updateTranslateCount();
+
+   };
+
+   box.appendChild(div);
+
+ });
+
+}
+
+function clearHistory(){
+
+ localStorage.removeItem("barhamanTranslationHistory");
+
+ showTranslationHistory();
+
+ toast("🗑️ Translation history cleared");
+
+}
+
+function escapeHTML(str){
+
+ return String(str)
+ .replace(/&/g,"&amp;")
+ .replace(/</g,"&lt;")
+ .replace(/>/g,"&gt;")
+ .replace(/"/g,"&quot;")
+ .replace(/'/g,"&#039;");
+
+}
+
+showTranslationHistory();
+updateTranslateCount();
+
+/* RANDOM FUN */
 
 const funItems=[
 
@@ -2469,7 +2647,20 @@ const funItems=[
  "💪 हार मत मानो!",
  "🚀 अपने लक्ष्य की तरफ बढ़ते रहो!",
  "❤️ परिवार को समय दो!",
- "🧠 दिमाग को भी आराम दो!"
+ "🧠 दिमाग को भी आराम दो!",
+ "🌟 आज खुद पर विश्वास रखो!",
+ "📚 20 मिनट कुछ नया पढ़ो!",
+ "🎯 एक छोटा लक्ष्य पूरा करो!",
+ "😄 किसी को आज हँसाओ!",
+ "💡 कोई नया idea लिखो!",
+ "🏃 थोड़ा walk करो!",
+ "🙏 किसी की मदद करो!",
+ "📵 कुछ समय phone से दूर रहो!",
+ "🎵 अपना favorite music सुनो!",
+ "☀️ सुबह जल्दी उठने की कोशिश करो!",
+ "💧 पानी पीना याद रखें!",
+ "🧹 अपना कमरा साफ करो!",
+ "❤️ अपने परिवार को धन्यवाद बोलो!"
 
 ];
 
@@ -2477,81 +2668,138 @@ function randomFun(){
 
  document.getElementById("funResult")
  .textContent=
- funItems[
-   Math.floor(Math.random()*funItems.length)
- ];
+ funItems[Math.floor(Math.random()*funItems.length)];
 
 }
 
-
 /* LUCKY SPIN */
 
-const luckyResults=[
+const wheelItems=[
 
- "🏆 आज आप बहुत Lucky हैं!",
- "⭐ Lucky Star!",
- "🎁 Surprise मिला!",
- "🔥 आज का दिन शानदार बनाओ!",
- "😎 Awesome!",
- "🍀 बहुत Lucky!",
- "💪 Keep Going!",
- "❤️ आज मुस्कुराते रहो!"
+ "🎁 Bonus",
+ "⭐ 10 Points",
+ "😎 Try Again",
+ "🔥 Super Luck",
+ "❤️ Good Day",
+ "🏆 Winner",
+ "😂 Fun Prize",
+ "🚀 Next Spin"
 
 ];
 
-let spinRotation=0;
 let spinning=false;
+let wheelRotation=0;
 
-function spinLucky(){
+function drawWheel(){
+
+ const canvas=document.getElementById("wheel");
+ const ctx=canvas.getContext("2d");
+
+ const cx=canvas.width/2;
+ const cy=canvas.height/2;
+ const radius=canvas.width/2-8;
+
+ const slice=(Math.PI*2)/wheelItems.length;
+
+ ctx.clearRect(0,0,canvas.width,canvas.height);
+
+ wheelItems.forEach((item,i)=>{
+
+   const start=i*slice;
+   const end=start+slice;
+
+   ctx.beginPath();
+   ctx.moveTo(cx,cy);
+
+   ctx.arc(
+     cx,
+     cy,
+     radius,
+     start,
+     end
+   );
+
+   ctx.closePath();
+
+   ctx.fillStyle=i%2===0
+   ?"rgba(255,0,153,.8)"
+   :"rgba(99,60,255,.8)";
+
+   ctx.fill();
+
+   ctx.strokeStyle="#fff";
+   ctx.lineWidth=2;
+   ctx.stroke();
+
+   ctx.save();
+
+   ctx.translate(cx,cy);
+   ctx.rotate(start+slice/2);
+
+   ctx.textAlign="right";
+   ctx.fillStyle="#fff";
+   ctx.font="bold 14px Arial";
+
+   ctx.fillText(
+     item,
+     radius-12,
+     5
+   );
+
+   ctx.restore();
+
+ });
+
+}
+
+function spinWheel(){
 
  if(spinning)
    return;
 
  spinning=true;
 
- const wheel=
- document.getElementById("spinWheel");
+ const wheel=document.getElementById("wheel");
 
- const result=
- document.getElementById("luckyResult");
+ const extra=Math.floor(Math.random()*360);
 
- const button=
- document.getElementById("spinButton");
-
- const randomIndex=
- Math.floor(
-   Math.random()*luckyResults.length
- );
-
- spinRotation+=
- 1440+
- Math.floor(Math.random()*360);
+ wheelRotation+=1440+extra;
 
  wheel.style.transform=
- "rotate("+spinRotation+"deg)";
-
- result.textContent=
- "🎡 Spinning...";
-
- button.disabled=true;
- button.style.opacity=".5";
+ "rotate("+wheelRotation+"deg)";
 
  setTimeout(()=>{
 
-   result.textContent=
-   luckyResults[randomIndex];
+   const index=
+   Math.floor(Math.random()*wheelItems.length);
 
-   button.disabled=false;
-   button.style.opacity="1";
+   document.getElementById("spinResult")
+   .textContent=
+   "🎉 Result: "+wheelItems[index];
+
+   toast("🎉 Lucky Spin complete!");
 
    spinning=false;
 
-   toast("🎉 Lucky Result!");
-
- },4000);
+ },4200);
 
 }
 
+drawWheel();
+
+/* PREMIUM */
+
+function premiumComingSoon(){
+
+ toast("💎 Premium अभी Coming Soon है!");
+
+ alert(
+   "💎 Premium Zone\n\n"+
+   "Premium Membership अभी तैयार हो रही है।\n\n"+
+   "जल्द ही यहाँ advanced tools और features जोड़े जाएंगे।"
+ );
+
+}
 
 /* DAILY */
 
@@ -2561,7 +2809,22 @@ const tips=[
  "📚 रोज़ थोड़ा सीखना लंबे समय में बहुत बड़ा फायदा देता है।",
  "💪 अपने लक्ष्य पर लगातार काम करते रहें।",
  "📱 Screen time के बीच छोटे breaks लें।",
- "🙏 परिवार और दोस्तों के साथ समय बिताएँ।"
+ "🙏 परिवार और दोस्तों के साथ समय बिताएँ।",
+ "🧠 रोज़ कुछ नया सीखने की कोशिश करें।",
+ "🎯 अपने बड़े लक्ष्य को छोटे steps में बाँटें।",
+ "😴 पर्याप्त आराम और नींद का ध्यान रखें।",
+ "🧹 अपना आसपास साफ रखें।",
+ "❤️ अच्छे लोगों के साथ समय बिताएँ।",
+ "🚶 थोड़ी physical activity जरूर करें।",
+ "📵 जरूरी काम के समय distractions कम करें।",
+ "💡 अपने ideas को लिखकर रखें।",
+ "😊 छोटी उपलब्धियों की भी खुशी मनाएँ।",
+ "🔥 असफलता से सीखें और फिर कोशिश करें।",
+ "📖 रोज़ किताब या useful article पढ़ें।",
+ "🌱 पौधों की देखभाल करें और प्रकृति के करीब रहें।",
+ "🤝 जरूरत पड़ने पर दूसरों की मदद करें।",
+ "💰 खर्च करने से पहले जरूरत जरूर सोचें।",
+ "⭐ खुद की तुलना दूसरों से नहीं, अपने पुराने version से करें।"
 
 ];
 
@@ -2571,18 +2834,33 @@ const challenges=[
  "आज किसी एक काम को बिना टाले पूरा करो।",
  "आज 10 मिनट exercise करो।",
  "आज कोई नई चीज सीखो।",
- "आज किसी की मदद करो।"
+ "आज किसी की मदद करो।",
+ "आज 30 मिनट phone से break लो।",
+ "आज अपनी gallery से बेकार photos हटाओ।",
+ "आज अपने कमरे की सफाई करो।",
+ "आज 10 नए English words सीखो।",
+ "आज किसी family member से अच्छे से बात करो।",
+ "आज 15 मिनट walk करो।",
+ "आज अपने अगले goal की planning करो।",
+ "आज एक useful video से कुछ सीखो।",
+ "आज कोई pending छोटा काम पूरा करो।",
+ "आज एक अच्छा विचार लिखो।",
+ "आज पानी ज्यादा पीने का ध्यान रखो।",
+ "आज social media का समय कम करो।",
+ "आज किसी को धन्यवाद बोलो।",
+ "आज 20 मिनट किताब पढ़ो।",
+ "आज रात सोने से पहले अगले दिन की योजना बनाओ।"
 
 ];
 
-const day=new Date().getDate();
+const dayIndex=
+Math.floor(new Date().getTime()/86400000);
 
 document.getElementById("dailyTip")
-.textContent=tips[day%tips.length];
+.textContent=tips[dayIndex%tips.length];
 
 document.getElementById("dailyChallenge")
-.textContent=challenges[day%challenges.length];
-
+.textContent=challenges[dayIndex%challenges.length];
 
 function completeChallenge(){
 
@@ -2594,7 +2872,6 @@ function completeChallenge(){
  toast("🏆 Daily Challenge Complete!");
 
 }
-
 
 /* QUIZ */
 
@@ -2622,6 +2899,132 @@ const quizData=[
   q:"2 + 2 कितना होता है?",
   o:["3","4","5","6"],
   a:1
+ },
+
+ {
+  q:"भारत का राष्ट्रीय पक्षी कौन है?",
+  o:["तोता","मोर","कबूतर","गरुड़"],
+  a:1
+ },
+
+ {
+  q:"भारत में कितने राज्य हैं?",
+  o:["26","28","29","30"],
+  a:1
+ },
+
+ {
+  q:"पानी का रासायनिक सूत्र क्या है?",
+  o:["CO2","O2","H2O","NaCl"],
+  a:2
+ },
+
+ {
+  q:"पृथ्वी का उपग्रह कौन है?",
+  o:["सूर्य","चंद्रमा","मंगल","शुक्र"],
+  a:1
+ },
+
+ {
+  q:"1 किलो में कितने ग्राम होते हैं?",
+  o:["100","500","1000","1500"],
+  a:2
+ },
+
+ {
+  q:"भारत का राष्ट्रीय फूल कौन सा है?",
+  o:["गुलाब","कमल","गेंदा","चमेली"],
+  a:1
+ },
+
+ {
+  q:"लाल ग्रह किसे कहा जाता है?",
+  o:["बुध","शुक्र","मंगल","बृहस्पति"],
+  a:2
+ },
+
+ {
+  q:"विश्व का सबसे बड़ा महासागर कौन सा है?",
+  o:["हिंद महासागर","प्रशांत महासागर","अटलांटिक","आर्कटिक"],
+  a:1
+ },
+
+ {
+  q:"CPU का पूरा नाम क्या है?",
+  o:["Central Processing Unit","Computer Power Unit","Central Program Utility","Control Processing User"],
+  a:0
+ },
+
+ {
+  q:"HTML का उपयोग मुख्य रूप से किसके लिए होता है?",
+  o:["Website structure","Photo editing","Gaming only","Antivirus"],
+  a:0
+ },
+
+ {
+  q:"CSS का उपयोग किसके लिए किया जाता है?",
+  o:["Database","Website styling","Calling","File storage"],
+  a:1
+ },
+
+ {
+  q:"JavaScript क्या कर सकता है?",
+  o:["Website interactive बनाना","केवल photo print","केवल music","कुछ नहीं"],
+  a:0
+ },
+
+ {
+  q:"5 × 5 कितना है?",
+  o:["20","25","30","35"],
+  a:1
+ },
+
+ {
+  q:"भारत का राष्ट्रीय फल कौन सा है?",
+  o:["सेब","आम","केला","संतरा"],
+  a:1
+ },
+
+ {
+  q:"सौरमंडल का सबसे बड़ा ग्रह कौन सा है?",
+  o:["पृथ्वी","शनि","बृहस्पति","मंगल"],
+  a:2
+ },
+
+ {
+  q:"इंद्रधनुष में सामान्यतः कितने रंग माने जाते हैं?",
+  o:["5","6","7","8"],
+  a:2
+ },
+
+ {
+  q:"भारत का राष्ट्रीय खेल आधिकारिक रूप से क्या है?",
+  o:["हॉकी","क्रिकेट","कोई आधिकारिक राष्ट्रीय खेल नहीं","फुटबॉल"],
+  a:2
+ },
+
+ {
+  q:"Google Chrome क्या है?",
+  o:["Web browser","Operating system","Game","Camera"],
+  a:0
+ },
+
+ {
+  q:"URL का उपयोग किससे संबंधित है?",
+  o:["Web address","Battery","Speaker","Camera"],
+  a:0
+ },
+
+ {
+  q:"Email का उपयोग किसलिए होता है?",
+  o:["Electronic messages","Cooking","Exercise","Driving"],
+  a:0
+ },
+
+ {
+  q:"100 ÷ 10 कितना है?",
+  o:["5","10","20","100"],
+  a:1
  }
 
 ];
@@ -2636,12 +3039,10 @@ function newQuiz(){
 
  const q=quizData[currentQuiz];
 
- document.getElementById(
-   "quizQuestion"
- ).textContent=q.q;
+ document.getElementById("quizQuestion")
+ .textContent=q.q;
 
- const box=
- document.getElementById("quizOptions");
+ const box=document.getElementById("quizOptions");
 
  box.innerHTML="";
 
@@ -2659,10 +3060,8 @@ function newQuiz(){
 
  });
 
- document.getElementById(
-   "quizScore"
- ).textContent=
- "🏆 Score: "+score;
+ document.getElementById("quizScore")
+ .textContent="🏆 Score: "+score;
 
 }
 
@@ -2681,17 +3080,14 @@ function answerQuiz(i){
 
  }
 
- document.getElementById(
-   "quizScore"
- ).textContent=
- "🏆 Score: "+score;
+ document.getElementById("quizScore")
+ .textContent="🏆 Score: "+score;
 
  setTimeout(newQuiz,700);
 
 }
 
 newQuiz();
-
 
 /* MUSIC */
 
@@ -2708,8 +3104,7 @@ const music=[
 
 function playMusic(i){
 
- const audio=
- document.getElementById("audioPlayer");
+ const audio=document.getElementById("audioPlayer");
 
  document.getElementById("musicTitle")
  .textContent=music[i].title;
@@ -2722,7 +3117,6 @@ function playMusic(i){
 
 }
 
-
 /* FEEDBACK */
 
 let selectedRating=0;
@@ -2731,8 +3125,7 @@ function setRating(n){
 
  selectedRating=n;
 
- document
- .querySelectorAll(".rating button")
+ document.querySelectorAll(".rating button")
  .forEach((b,i)=>{
 
    b.classList.toggle("active",i<n);
@@ -2741,34 +3134,26 @@ function setRating(n){
 
 }
 
-
 function submitFeedback(){
 
- const name=
- document.getElementById("visitorName")
+ const name=document.getElementById("visitorName")
  .value.trim();
 
- const message=
- document.getElementById("visitorMessage")
+ const message=document.getElementById("visitorMessage")
  .value.trim();
 
- const result=
- document.getElementById("feedbackMessage");
+ const result=document.getElementById("feedbackMessage");
 
  if(!name||!message){
 
-   result.textContent=
-   "⚠️ नाम और feedback दोनों लिखें।";
-
+   result.textContent="⚠️ नाम और feedback दोनों लिखें।";
    return;
 
  }
 
  if(!selectedRating){
 
-   result.textContent=
-   "⭐ Rating चुनें।";
-
+   result.textContent="⭐ Rating चुनें।";
    return;
 
  }
@@ -2778,12 +3163,10 @@ function submitFeedback(){
  );
 
  data.push({
-
    name:name,
    message:message,
    rating:selectedRating,
    date:new Date().toLocaleString()
-
  });
 
  localStorage.setItem(
@@ -2800,25 +3183,20 @@ function submitFeedback(){
 
  selectedRating=0;
 
- document
- .querySelectorAll(".rating button")
+ document.querySelectorAll(".rating button")
  .forEach(b=>b.classList.remove("active"));
 
 }
-
 
 /* CHAT */
 
 function addChatMessage(text,type){
 
- const box=
- document.getElementById("chatMessages");
+ const box=document.getElementById("chatMessages");
 
- const msg=
- document.createElement("div");
+ const msg=document.createElement("div");
 
  msg.className="chat-msg "+type;
-
  msg.textContent=text;
 
  box.appendChild(msg);
@@ -2826,7 +3204,6 @@ function addChatMessage(text,type){
  box.scrollTop=box.scrollHeight;
 
 }
-
 
 function getBotReply(text){
 
@@ -2843,33 +3220,47 @@ function getBotReply(text){
    q.includes("tool")||
    q.includes("टूल")
  )
- return "🛠️ Tools menu में QR Generator, Notes, Image Compressor, Copy, Translator, Random Fun, Lucky Spin, Quiz, AI Support और Feedback हैं।";
+ return "🛠️ Tools में QR Generator, Notes, Image Compressor, Translator, Copy, Random Fun, Lucky Spin और Free Music हैं।";
 
  if(
-   q.includes("download")||
-   q.includes("डाउनलोड")
+   q.includes("translate")||
+   q.includes("translator")||
+   q.includes("अनुवाद")
  )
- return "🖼️ Website में Image Compressor से compressed image download की जा सकती है।";
+ return "🌐 Translator में Hindi ↔ English, Voice Input, Copy, Listen, Swap और History options हैं।";
+
+ if(
+   q.includes("premium")||
+   q.includes("प्रीमियम")
+ )
+ return "💎 Premium Zone में future में advanced tools और exclusive features जोड़े जाएंगे।";
+
+ if(
+   q.includes("spin")||
+   q.includes("लकी")||
+   q.includes("स्पिन")
+ )
+ return "🎰 Lucky Spin section में wheel घुमाकर fun result पा सकते हैं।";
+
+ if(
+   q.includes("music")||
+   q.includes("म्यूजिक")||
+   q.includes("गाना")
+ )
+ return "🎵 Free Music section में उपलब्ध audio playlist चला सकते हैं।";
 
  if(
    q.includes("photo")||
    q.includes("फोटो")||
    q.includes("gallery")
  )
- return "🖼️ Gallery में आपकी photo उपलब्ध है। Photo पर क्लिक करके Full Screen में देख सकते हैं।";
+ return "🖼️ Gallery में photo उपलब्ध है। Photo पर क्लिक करके Full Screen में देखें।";
 
  if(
    q.includes("quiz")||
    q.includes("क्विज")
  )
  return "🧠 Quiz section में सवालों के जवाब देकर score बढ़ाइए!";
-
- if(
-   q.includes("lucky")||
-   q.includes("spin")||
-   q.includes("स्पिन")
- )
- return "🎡 Tools में Lucky Spin खोलिए और SPIN दबाकर एक fun result पाइए!";
 
  if(
    q.includes("youtube")||
@@ -2886,26 +3277,16 @@ function getBotReply(text){
  )
  return "📞 Contact section में WhatsApp, Instagram, Facebook और YouTube links हैं।";
 
- if(
-   q.includes("support")||
-   q.includes("upi")||
-   q.includes("पैसा")
- )
- return "💰 Support section में UPI ID दी गई है। Support पूरी तरह voluntary है।";
-
  if(q.includes("rakesh"))
  return "🔱 Rakesh Mishra इस website के owner हैं। जय श्री राम 🙏";
 
- return "🤖 मैं website के Tools, Gallery, Lucky Spin, Quiz, YouTube, Music, Feedback, Support और Contact के बारे में मदद कर सकता हूँ।";
+ return "🤖 मैं website के Tools, Translator, Gallery, Lucky Spin, Free Music, Premium, Quiz, YouTube, Feedback और Contact के बारे में मदद कर सकता हूँ।";
 
 }
 
-
 function sendChat(){
 
- const input=
- document.getElementById("chatInput");
-
+ const input=document.getElementById("chatInput");
  const text=input.value.trim();
 
  if(!text)
@@ -2926,7 +3307,6 @@ function sendChat(){
 
 }
 
-
 document.getElementById("chatInput")
 .addEventListener("keydown",e=>{
 
@@ -2935,8 +3315,7 @@ document.getElementById("chatInput")
 
 });
 
-
-/* LIGHT / DARK */
+/* LIGHT / DARK - FIXED */
 
 function toggleLight(){
 
