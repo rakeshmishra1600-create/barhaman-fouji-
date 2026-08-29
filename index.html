@@ -1,12 +1,18 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>🔱 Barhaman Fouji 🇮🇳</title>
 
 <style>
+
+/* ==================================================
+   BASIC
+================================================== */
+
 *{
   box-sizing:border-box;
 }
@@ -23,46 +29,84 @@ body{
   overflow-x:hidden;
 }
 
-/* ===============================
-   PREMANAND MAHARAJ BACKGROUND
-================================ */
+
+/* ==================================================
+   BACKGROUND
+   PREMANAND MAHARAJ JI
+================================================== */
 
 body::before{
+
   content:"";
+
   position:fixed;
+
   inset:0;
-  z-index:-2;
 
-  background-image:url("premanand.jpg");
-  background-size:420px auto;
-  background-position:center center;
-  background-repeat:no-repeat;
+  z-index:-3;
 
-  background-color:#050014;
-}
-
-/* Dark layer — फोटो transparent नहीं होगी */
-body::after{
-  content:"";
-  position:fixed;
-  inset:0;
-  z-index:-1;
   pointer-events:none;
 
-  background:rgba(5,0,20,.25);
+  background-image:
+
+    linear-gradient(
+      rgba(2,0,15,.38),
+      rgba(2,0,15,.48)
+    ),
+
+    url("https://static.toiimg.com/thumb/resizemode-4,width-1280,height-720,msid-129320147/129320147.jpg");
+
+  background-size:
+    cover,
+    520px auto;
+
+  background-position:
+    center,
+    center 70px;
+
+  background-repeat:
+    no-repeat,
+    no-repeat;
 }
 
-/* ===============================
+
+/* हल्का dark layer */
+body::after{
+
+  content:"";
+
+  position:fixed;
+
+  inset:0;
+
+  z-index:-2;
+
+  pointer-events:none;
+
+  background:
+    linear-gradient(
+      rgba(0,0,15,.10),
+      rgba(0,0,15,.28)
+    );
+}
+
+
+/* ==================================================
    NAVBAR
-================================ */
+================================================== */
 
 .navbar{
+
   position:sticky;
+
   top:10px;
+
   z-index:1000;
 
   width:94%;
+
   margin:10px auto;
+
   padding:12px;
 
   text-align:center;
@@ -70,6 +114,7 @@ body::after{
   background:rgba(3,2,25,.90);
 
   border:2px solid #ff19d9;
+
   border-radius:30px;
 
   box-shadow:
@@ -79,79 +124,129 @@ body::after{
   backdrop-filter:blur(10px);
 }
 
+
 .navbar a{
+
   display:inline-block;
+
   color:white;
+
   text-decoration:none;
+
   font-weight:bold;
+
   margin:5px 9px;
+
   padding:7px;
+
   transition:.3s;
 }
 
+
 .navbar a:hover{
+
   color:#ff39dc;
-  text-shadow:0 0 12px #ff39dc;
+
+  text-shadow:
+    0 0 12px #ff39dc;
+
   transform:scale(1.08);
 }
 
-/* ===============================
+
+/* ==================================================
    HOME
-================================ */
+================================================== */
 
 .hero{
+
   min-height:90vh;
-  padding:80px 20px;
+
+  padding:70px 20px;
 
   text-align:center;
 
   display:flex;
+
   flex-direction:column;
+
   justify-content:center;
+
   align-items:center;
 }
 
+
+/* महाराज जी के सामने title साफ दिखे */
 .hero h1{
+
   font-size:clamp(35px,7vw,62px);
+
   margin:10px;
 
+  color:#d889ff;
+
   text-shadow:
-    0 0 15px #ff00d4,
-    0 0 30px #633cff;
+    0 0 10px #ff00d4,
+    0 0 25px #633cff,
+    0 0 45px #ff00d4;
 }
+
 
 .hero h2{
+
   margin:5px;
+
+  font-size:28px;
+
+  text-shadow:
+    0 0 12px #633cff;
 }
+
 
 .hero p{
+
   font-size:19px;
+
   color:#eee;
+
+  margin:8px;
 }
 
-/* ===============================
+
+/* ==================================================
    BUTTONS
-================================ */
+================================================== */
 
 .buttons{
+
   display:flex;
+
   justify-content:center;
+
   align-items:center;
+
   flex-wrap:wrap;
+
   gap:12px;
+
   margin-top:25px;
 }
 
+
 .buttons a{
+
   display:inline-block;
 
   padding:13px 21px;
 
   color:white;
+
   text-decoration:none;
+
   font-weight:bold;
 
   border-radius:30px;
+
   border:2px solid white;
 
   background:
@@ -169,38 +264,54 @@ body::after{
   transition:.3s;
 }
 
+
 .buttons a:hover{
-  transform:translateY(-5px) scale(1.05);
+
+  transform:
+    translateY(-5px)
+    scale(1.05);
 
   box-shadow:
     0 0 15px white,
     0 0 30px #ff00cc;
 }
 
+
 .buttons a:active{
+
   transform:scale(.92);
 }
 
-/* ===============================
+
+/* ==================================================
    SECTIONS
-================================ */
+================================================== */
 
 .section{
-  padding:70px 20px;
-  min-height:65vh;
+
+  padding:55px 20px;
+
+  min-height:60vh;
+
   text-align:center;
 
-  background:rgba(4,2,25,.60);
+  background:
+    rgba(4,2,25,.60);
 }
 
+
 .card{
-  max-width:850px;
+
+  max-width:900px;
+
   margin:auto;
+
   padding:30px;
 
   border-radius:25px;
 
-  background:rgba(5,5,30,.90);
+  background:
+    rgba(5,5,30,.88);
 
   border:2px solid #704dff;
 
@@ -209,24 +320,42 @@ body::after{
     inset 0 0 20px rgba(255,0,200,.1);
 }
 
+
 .card h2{
+
   color:#ff2bd0;
 
   text-shadow:
     0 0 12px #ff2bd0;
+
+  font-size:28px;
 }
 
+
+.card h3{
+
+  color:#ffe500;
+
+  font-size:20px;
+}
+
+
 .card p{
+
   font-size:18px;
+
   line-height:1.8;
 }
 
-/* ===============================
+
+/* ==================================================
    GALLERY
-================================ */
+================================================== */
 
 .gallery-img{
+
   width:100%;
+
   max-width:500px;
 
   border-radius:20px;
@@ -238,41 +367,89 @@ body::after{
     0 0 30px #633cff;
 }
 
-/* ===============================
+
+/* ==================================================
    VIDEOS
-================================ */
+================================================== */
 
 .video-grid{
+
   display:grid;
-  gap:20px;
+
+  grid-template-columns:
+    repeat(auto-fit,minmax(150px,1fr));
+
+  gap:15px;
+
   margin-top:20px;
 }
 
+
 .video-grid iframe{
+
   width:100%;
+
   aspect-ratio:9/16;
 
   border:0;
+
   border-radius:18px;
 
   box-shadow:
     0 0 15px #633cff;
 }
 
-/* ===============================
+
+/* ==================================================
+   FOOTER
+================================================== */
+
+footer{
+
+  padding:35px 20px;
+
+  text-align:center;
+
+  background:#03000d;
+
+  border-top:
+    2px solid #ff00bb;
+
+  box-shadow:
+    0 -5px 25px
+    rgba(255,0,200,.3);
+}
+
+
+footer h3{
+
+  color:#df83ff;
+
+  font-size:27px;
+
+  text-shadow:
+    0 0 12px #ff00cc;
+}
+
+
+/* ==================================================
    TOP BUTTON
-================================ */
+================================================== */
 
 #topBtn{
+
   position:fixed;
 
   right:18px;
+
   bottom:20px;
 
   width:55px;
+
   height:55px;
 
   border:0;
+
   border-radius:50%;
 
   color:white;
@@ -294,146 +471,263 @@ body::after{
   z-index:2000;
 }
 
-/* ===============================
-   FOOTER
-================================ */
 
-footer{
-  padding:35px 20px;
-  text-align:center;
-
-  background:#03000d;
-
-  border-top:2px solid #ff00bb;
-
-  box-shadow:
-    0 -5px 25px rgba(255,0,200,.3);
-}
-
-/* ===============================
+/* ==================================================
    MOBILE
-================================ */
+================================================== */
 
 @media(max-width:600px){
 
-  .navbar a{
-    font-size:12px;
-    margin:4px 5px;
+  .navbar{
+
+    width:96%;
+
+    padding:9px;
   }
+
+
+  .navbar a{
+
+    font-size:12px;
+
+    margin:4px 5px;
+
+    padding:6px;
+  }
+
 
   .hero{
-    padding:70px 12px;
+
+    min-height:85vh;
+
+    padding:
+      55px 12px;
   }
+
+
+  .hero h1{
+
+    font-size:38px;
+  }
+
+
+  .hero h2{
+
+    font-size:23px;
+  }
+
 
   .card{
-    padding:20px 15px;
+
+    padding:
+      20px 15px;
   }
 
+
+  .card h2{
+
+    font-size:24px;
+  }
+
+
   .buttons a{
-    padding:11px 15px;
+
+    padding:
+      11px 15px;
+
     font-size:13px;
   }
 
+
+  /*
+     मोबाइल पर महाराज जी की फोटो
+     थोड़ी छोटी लेकिन साफ
+  */
+
   body::before{
-    background-size:300px auto;
-    background-position:center center;
+
+    background-size:
+      cover,
+      350px auto;
+
+    background-position:
+      center,
+      center 85px;
   }
+
+
+  .video-grid{
+
+    grid-template-columns:
+      1fr 1fr;
+  }
+
 }
+
 </style>
+
 </head>
+
 
 <body>
 
-<!-- ===============================
+
+<!-- ==================================================
      NAVIGATION
-================================ -->
+================================================== -->
 
 <nav class="navbar">
 
-  <a href="#home">🏠 Home</a>
-  <a href="#about">👤 About</a>
-  <a href="#gallery">🖼️ Gallery</a>
-  <a href="#videos">▶️ Videos</a>
-  <a href="#contact">✉️ Contact</a>
+  <a href="#home">
+    🏠 Home
+  </a>
+
+  <a href="#about">
+    👤 About
+  </a>
+
+  <a href="#gallery">
+    🖼️ Gallery
+  </a>
+
+  <a href="#videos">
+    🎥 Videos
+  </a>
+
+  <a href="#contact">
+    📞 Contact
+  </a>
 
 </nav>
 
 
-<!-- ===============================
+
+<!-- ==================================================
      HOME
-================================ -->
+================================================== -->
 
-<section class="hero" id="home">
+<section
+  class="hero"
+  id="home"
+>
 
-  <h1>🔱 Barhaman Fouji 🇮🇳</h1>
+  <h1>
+    🔱 Barhaman Fouji 🇮🇳
+  </h1>
 
-  <h2>Rakesh Mishra</h2>
 
-  <p>जय श्री राम 🙏</p>
+  <h2>
+    Rakesh Mishra
+  </h2>
 
-  <p>Welcome to my official website ❤️</p>
+
+  <p>
+    जय श्री राम 🙏
+  </p>
+
+
+  <p>
+    Welcome to my official website ❤️
+  </p>
+
 
   <div class="buttons">
 
-    <a href="#about">👤 About Me</a>
 
-    <a href="#gallery">🖼️ Gallery</a>
+    <a href="#about">
+      👤 About Me
+    </a>
 
-    <a href="#videos">▶️ Videos</a>
 
-    <a href="#contact">✉️ Contact</a>
+    <a href="#gallery">
+      🖼️ Gallery
+    </a>
+
+
+    <a href="#videos">
+      🎥 Videos
+    </a>
+
+
+    <a href="#contact">
+      📞 Contact
+    </a>
+
 
     <a
       href="https://wa.me/917050042886"
-      target="_blank">
+      target="_blank"
+    >
       💬 WhatsApp
     </a>
 
+
     <a
       href="https://youtube.com/@handstand_boy"
-      target="_blank">
+      target="_blank"
+    >
       ▶️ YouTube
     </a>
 
+
     <a
       href="https://www.instagram.com/barhaman_fouji_10k/"
-      target="_blank">
+      target="_blank"
+    >
       📸 Instagram
     </a>
 
+
     <a
       href="https://www.facebook.com/profile.php?id=100077267425201"
-      target="_blank">
+      target="_blank"
+    >
       👍 Facebook
     </a>
+
 
   </div>
 
 </section>
 
 
-<!-- ===============================
-     ABOUT
-================================ -->
 
-<section class="section" id="about">
+<!-- ==================================================
+     ABOUT
+================================================== -->
+
+<section
+  class="section"
+  id="about"
+>
 
   <div class="card">
 
-    <h2>👤 About Me</h2>
+    <h2>
+      👤 About Me
+    </h2>
 
-    <h3>Rakesh Mishra</h3>
+
+    <h3>
+      Rakesh Mishra
+    </h3>
+
 
     <p>
+
       नमस्ते 🙏 मेरा नाम Rakesh Mishra है।
       यह मेरी personal website है, जहाँ मैं
       अपनी photos, videos और अपने बारे में
       कुछ खास बातें share करता हूँ।
+
     </p>
 
+
     <p>
+
       🇮🇳 हमेशा आगे बढ़ते रहो और अपने सपनों
       को पूरा करो। ❤️
+
     </p>
 
   </div>
@@ -441,15 +735,22 @@ footer{
 </section>
 
 
-<!-- ===============================
-     GALLERY
-================================ -->
 
-<section class="section" id="gallery">
+<!-- ==================================================
+     GALLERY
+================================================== -->
+
+<section
+  class="section"
+  id="gallery"
+>
 
   <div class="card">
 
-    <h2>📸 My Gallery</h2>
+    <h2>
+      📸 My Gallery
+    </h2>
+
 
     <img
       class="gallery-img"
@@ -457,7 +758,11 @@ footer{
       alt="Rakesh Mishra"
     >
 
-    <h3>Rakesh Mishra</h3>
+
+    <h3>
+      Rakesh Mishra
+    </h3>
+
 
     <p>
       Welcome to my photo gallery 🇮🇳
@@ -468,49 +773,66 @@ footer{
 </section>
 
 
-<!-- ===============================
-     VIDEOS
-================================ -->
 
-<section class="section" id="videos">
+<!-- ==================================================
+     VIDEOS
+================================================== -->
+
+<section
+  class="section"
+  id="videos"
+>
 
   <div class="card">
 
-    <h2>🎥 My Videos</h2>
+    <h2>
+      🎥 My Videos
+    </h2>
 
-    <p>मेरे YouTube Shorts 🇮🇳</p>
+
+    <p>
+      मेरे YouTube Shorts 🇮🇳
+    </p>
+
 
     <div class="video-grid">
+
 
       <iframe
         src="https://www.youtube.com/embed/JPReWkMD-5s"
         allowfullscreen>
       </iframe>
 
+
       <iframe
         src="https://www.youtube.com/embed/UMP-rLHMBLU"
         allowfullscreen>
       </iframe>
+
 
       <iframe
         src="https://www.youtube.com/embed/Crflxy4mULE"
         allowfullscreen>
       </iframe>
 
+
       <iframe
         src="https://www.youtube.com/embed/zjmyvB1EoTE"
         allowfullscreen>
       </iframe>
+
 
       <iframe
         src="https://www.youtube.com/embed/BCFl8sBXoTs"
         allowfullscreen>
       </iframe>
 
+
       <iframe
         src="https://www.youtube.com/embed/R7p-6laN60Y"
         allowfullscreen>
       </iframe>
+
 
     </div>
 
@@ -519,48 +841,69 @@ footer{
 </section>
 
 
-<!-- ===============================
-     CONTACT
-================================ -->
 
-<section class="section" id="contact">
+<!-- ==================================================
+     CONTACT
+================================================== -->
+
+<section
+  class="section"
+  id="contact"
+>
 
   <div class="card">
 
-    <h2>📞 Contact Me</h2>
+
+    <h2>
+      📞 Contact Me
+    </h2>
+
 
     <p>
+
       मुझसे जुड़ने के लिए नीचे दिए गए
       platform पर संपर्क करें। 🙏
+
     </p>
+
 
     <div class="buttons">
 
+
       <a
         href="https://wa.me/917050042886"
-        target="_blank">
+        target="_blank"
+      >
         💬 WhatsApp
       </a>
 
+
       <a
         href="https://youtube.com/@handstand_boy"
-        target="_blank">
+        target="_blank"
+      >
         ▶️ YouTube
       </a>
 
+
       <a
         href="https://www.instagram.com/barhaman_fouji_10k/"
-        target="_blank">
+        target="_blank"
+      >
         📸 Instagram
       </a>
 
+
       <a
         href="https://www.facebook.com/profile.php?id=100077267425201"
-        target="_blank">
+        target="_blank"
+      >
         👍 Facebook
       </a>
 
+
     </div>
+
 
     <p>
       ❤️ Thanks for visiting my website!
@@ -571,22 +914,33 @@ footer{
 </section>
 
 
-<!-- ===============================
+
+<!-- ==================================================
      FOOTER
-================================ -->
+================================================== -->
 
 <footer>
 
-  <h3>🔱 Barhaman Fouji 🇮🇳</h3>
+  <h3>
+    🔱 Barhaman Fouji 🇮🇳
+  </h3>
 
-  <p>Rakesh Mishra</p>
 
-  <p>जय श्री राम 🙏</p>
+  <p>
+    Rakesh Mishra
+  </p>
+
+
+  <p>
+    जय श्री राम 🙏
+  </p>
+
 
   <p>
     © 2026 Barhaman Fouji.
     All Rights Reserved.
   </p>
+
 
   <p>
     ❤️ Thanks for visiting my website!
@@ -595,9 +949,10 @@ footer{
 </footer>
 
 
-<!-- ===============================
+
+<!-- ==================================================
      TOP BUTTON
-================================ -->
+================================================== -->
 
 <button
   id="topBtn"
@@ -610,6 +965,7 @@ footer{
 >
   ↑
 </button>
+
 
 </body>
 </html>
