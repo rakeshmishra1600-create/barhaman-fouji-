@@ -116,8 +116,15 @@ function topFunction() {
   });
 }
 </script>
-<button id="homeBtn" onclick="homeFunction()">🏠 Home</button>
 
+<script>
+function homeFunction() {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+}
+</script>
 <script>
 function homeFunction() {
   window.scrollTo({
