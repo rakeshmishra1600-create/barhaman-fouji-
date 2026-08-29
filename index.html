@@ -106,7 +106,16 @@ footer {
 }
 </style>
 </head>
+<button id="topBtn" onclick="topFunction()">🔝 Top</button>
 
+<script>
+function topFunction() {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+}
+</script>
 <body>
 
 <section class="hero">
