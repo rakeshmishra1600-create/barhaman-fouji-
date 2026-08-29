@@ -11,11 +11,16 @@
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
   font-family: Arial, sans-serif;
   background: #111;
   color: white;
+  overflow-x: hidden;
 }
 
 .hero {
@@ -27,6 +32,8 @@ body {
   align-items: center;
   text-align: center;
   background: linear-gradient(135deg, #111, #333);
+  position: relative;
+  overflow: hidden;
 }
 
 .profile-photo {
@@ -64,6 +71,7 @@ h1 {
 .buttons {
   margin-top: 25px;
 }
+
 .buttons a {
   display: inline-block;
   padding: 13px 22px;
@@ -80,16 +88,18 @@ h1 {
   transform: translateY(-5px) scale(1.05);
   box-shadow: 0 8px 20px rgba(255,255,255,0.35);
 }
+
+.buttons a:active {
+  transform: scale(0.92);
+}
+
 .section {
   padding: 50px 20px;
   text-align: center;
   background: #f5f5f5;
   color: #222;
 }
-.buttons a:active {
-  transform: scale(0.92);
-  box-shadow: 0 3px 10px rgba(255,255,255,0.4);
-}
+
 .card {
   max-width: 650px;
   margin: auto;
@@ -104,6 +114,93 @@ footer {
   text-align: center;
   background: #111;
 }
+
+/* =========================
+   ANIME CHARACTERS
+   ========================= */
+
+.anime-character {
+  position: fixed;
+  bottom: 15px;
+  font-size: 55px;
+  z-index: 500;
+  pointer-events: none;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.warrior {
+  left: -80px;
+  animation: warriorWalk 12s linear infinite;
+}
+
+.commando {
+  right: -80px;
+  animation: commandoWalk 15s linear infinite;
+}
+
+@keyframes warriorWalk {
+  0% {
+    transform: translateX(0) translateY(0) rotate(-5deg);
+  }
+
+  25% {
+    transform: translateX(30vw) translateY(-8px) rotate(5deg);
+  }
+
+  50% {
+    transform: translateX(60vw) translateY(0) rotate(-5deg);
+  }
+
+  75% {
+    transform: translateX(90vw) translateY(-8px) rotate(5deg);
+  }
+
+  100% {
+    transform: translateX(115vw) translateY(0) rotate(-5deg);
+  }
+}
+
+@keyframes commandoWalk {
+  0% {
+    transform: translateX(0) translateY(0) rotate(5deg);
+  }
+
+  25% {
+    transform: translateX(-30vw) translateY(-8px) rotate(-5deg);
+  }
+
+  50% {
+    transform: translateX(-60vw) translateY(0) rotate(5deg);
+  }
+
+  75% {
+    transform: translateX(-90vw) translateY(-8px) rotate(-5deg);
+  }
+
+  100% {
+    transform: translateX(-115vw) translateY(0) rotate(5deg);
+  }
+}
+
+/* Floating effect */
+.anime-character span {
+  display: inline-block;
+  animation: bounce 0.6s ease-in-out infinite alternate;
+}
+
+@keyframes bounce {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(-8px);
+  }
+}
+
+/* Top button */
+
 #topBtn {
   position: fixed;
   bottom: 20px;
@@ -115,13 +212,51 @@ footer {
   color: white;
   font-weight: bold;
   z-index: 9999;
+  cursor: pointer;
+}
+
+@media (max-width: 600px) {
+
+  h1 {
+    font-size: 32px;
+  }
+
+  .profile-photo {
+    width: 150px;
+    height: 150px;
+  }
+
+  .anime-character {
+    font-size: 42px;
+  }
+
+  .buttons a {
+    padding: 11px 16px;
+  }
 }
 </style>
 </head>
+
 <body>
-<button id="topBtn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
-  🔝 Top
+
+<!-- Animated original characters -->
+
+<div class="anime-character warrior">
+  <span>🥷⚔️</span>
+</div>
+
+<div class="anime-character commando">
+  <span>🪖🕶️</span>
+</div>
+
+<!-- Top Button -->
+
+<button id="topBtn"
+onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+🔝 Top
 </button>
+
+<!-- HOME -->
 
 <section class="hero">
 
@@ -132,33 +267,49 @@ footer {
   >
 
   <h1>🔱 Barhaman Fouji 🇮🇳</h1>
-<h2>Rakesh Mishra</h2>
+
+  <h2>Rakesh Mishra</h2>
 
   <p>जय श्री राम 🙏</p>
 
   <p>Welcome to my official website</p>
 
   <div class="buttons">
-    <a href="#about">About Me</a>
-    <a href="#gallery">Gallery</a>
-    <a href="#contact">Contact</a>
-<a href="https://wa.me/917050042886" target="_blank">💬 WhatsApp</a>
-<a href="https://youtube.com/@handstand_boy" target="_blank">
-  ▶️ YouTube Channel
-</a>
-<a href="https://www.instagram.com/barhaman_fouji_10k/" target="_blank">
-  📸 Instagram
-</a>
 
-<a href="https://www.facebook.com/profile.php?id=100077267425201" target="_blank">
-  👍 Facebook
-</a>
+    <a href="#about">About Me</a>
+
+    <a href="#gallery">Gallery</a>
+
+    <a href="#videos">Videos</a>
+
+    <a href="#contact">Contact</a>
+
+    <a href="https://wa.me/917050042886" target="_blank">
+      💬 WhatsApp
+    </a>
+
+    <a href="https://youtube.com/@handstand_boy" target="_blank">
+      ▶️ YouTube
+    </a>
+
+    <a href="https://www.instagram.com/barhaman_fouji_10k/" target="_blank">
+      📸 Instagram
+    </a>
+
+    <a href="https://www.facebook.com/profile.php?id=100077267425201" target="_blank">
+      👍 Facebook
+    </a>
+
   </div>
 
 </section>
 
+<!-- ABOUT -->
+
 <section class="section" id="about">
+
   <div class="card">
+
     <h2>👤 About Me</h2>
 
     <h3>Rakesh Mishra</h3>
@@ -172,10 +323,17 @@ footer {
     <p>
       🇮🇳 हमेशा आगे बढ़ते रहो और अपने सपनों को पूरा करो।
     </p>
+
   </div>
+
 </section>
+
+<!-- GALLERY -->
+
 <section class="section" id="gallery">
+
   <div class="card">
+
     <h2>📸 My Gallery</h2>
 
     <img
@@ -185,12 +343,21 @@ footer {
     >
 
     <h3>Rakesh Mishra</h3>
+
     <p>Welcome to my photo gallery 🇮🇳</p>
+
   </div>
+
 </section>
+
+<!-- VIDEOS -->
+
 <section class="section" id="videos">
+
   <div class="card">
+
     <h2>🎥 My Videos</h2>
+
     <p>मेरे YouTube Shorts 🇮🇳</p>
 
     <div style="display:grid; gap:20px;">
@@ -232,25 +399,13 @@ footer {
       </iframe>
 
     </div>
-  </div>
-</section>
-<section class="section" id="social">
 
-  <div class="card">
-
-    <h2>🌐 Follow Me</h2>
-
-    <p>मुझे इन social platforms पर follow करें 👇</p>
-
-    <div class="buttons">
-
-      <a 
-<a href="https://wa.me/917050042886" target="_blank">
-  💬 Chat on WhatsApp
-</a>
   </div>
 
 </section>
+
+<!-- FOLLOW ME -->
+
 <section class="section" id="social">
 
   <div class="card">
@@ -280,7 +435,11 @@ footer {
     </div>
 
   </div>
+
 </section>
+
+<!-- CONTACT -->
+
 <section class="section" id="contact">
 
   <div class="card">
@@ -288,41 +447,13 @@ footer {
     <h2>📞 Contact Me</h2>
 
     <p>
-      मुझसे जुड़ने के लिए नीचे दिए गए किसी भी platform पर संपर्क करें। 🙏
+      मुझसे जुड़ने के लिए WhatsApp पर संपर्क करें। 🙏
     </p>
 
     <div class="buttons">
 
-      <div class="buttons">
-
-  <a href="https://wa.me/917050042886" target="_blank">
-    💬 WhatsApp
-  </a>
-
-  <a href="https://youtube.com/@handstand_boy" target="_blank">
-    ▶️ YouTube
-  </a>
-
-  <a href="https://www.instagram.com/barhaman_fouji_10k/" target="_blank">
-    📸 Instagram
-  </a>
-
-  <a href="https://www.facebook.com/profile.php?id=100077267425201" target="_blank">
-    👍 Facebook
-  </a>
-
-</div>
-
-      <a href="https://youtube.com/@handstand_boy" target="_blank">
-        ▶️ YouTube
-      </a>
-
-      <a href="https://www.instagram.com/barhaman_fouji_10k/" target="_blank">
-        📸 Instagram
-      </a>
-
-      <a href="https://www.facebook.com/profile.php?id=100077267425201" target="_blank">
-        👍 Facebook
+      <a href="https://wa.me/917050042886" target="_blank">
+        💬 Chat on WhatsApp
       </a>
 
     </div>
@@ -334,6 +465,9 @@ footer {
   </div>
 
 </section>
+
+<!-- FOOTER -->
+
 <footer>
 
   <h3>🔱 Barhaman Fouji 🇮🇳</h3>
@@ -351,5 +485,6 @@ footer {
   </p>
 
 </footer>
+
 </body>
 </html>
