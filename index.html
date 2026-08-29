@@ -23,6 +23,8 @@ body {
   overflow-x: hidden;
 }
 
+/* ================= HERO ================= */
+
 .hero {
   min-height: 100vh;
   padding: 40px 20px;
@@ -68,6 +70,8 @@ h1 {
   color: #ddd;
 }
 
+/* ================= BUTTONS ================= */
+
 .buttons {
   margin-top: 25px;
 }
@@ -93,6 +97,8 @@ h1 {
   transform: scale(0.92);
 }
 
+/* ================= SECTIONS ================= */
+
 .section {
   padding: 50px 20px;
   text-align: center;
@@ -109,97 +115,15 @@ h1 {
   box-shadow: 0 5px 20px rgba(0,0,0,0.15);
 }
 
+/* ================= FOOTER ================= */
+
 footer {
   padding: 25px;
   text-align: center;
   background: #111;
 }
 
-/* =========================
-   ANIME CHARACTERS
-   ========================= */
-
-.anime-character {
-  position: fixed;
-  bottom: 15px;
-  font-size: 55px;
-  z-index: 500;
-  pointer-events: none;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-}
-
-.warrior {
-  left: -80px;
-  animation: warriorWalk 12s linear infinite;
-}
-
-.commando {
-  right: -80px;
-  animation: commandoWalk 15s linear infinite;
-}
-
-@keyframes warriorWalk {
-  0% {
-    transform: translateX(0) translateY(0) rotate(-5deg);
-  }
-
-  25% {
-    transform: translateX(30vw) translateY(-8px) rotate(5deg);
-  }
-
-  50% {
-    transform: translateX(60vw) translateY(0) rotate(-5deg);
-  }
-
-  75% {
-    transform: translateX(90vw) translateY(-8px) rotate(5deg);
-  }
-
-  100% {
-    transform: translateX(115vw) translateY(0) rotate(-5deg);
-  }
-}
-
-@keyframes commandoWalk {
-  0% {
-    transform: translateX(0) translateY(0) rotate(5deg);
-  }
-
-  25% {
-    transform: translateX(-30vw) translateY(-8px) rotate(-5deg);
-  }
-
-  50% {
-    transform: translateX(-60vw) translateY(0) rotate(5deg);
-  }
-
-  75% {
-    transform: translateX(-90vw) translateY(-8px) rotate(-5deg);
-  }
-
-  100% {
-    transform: translateX(-115vw) translateY(0) rotate(5deg);
-  }
-}
-
-/* Floating effect */
-.anime-character span {
-  display: inline-block;
-  animation: bounce 0.6s ease-in-out infinite alternate;
-}
-
-@keyframes bounce {
-  from {
-    transform: translateY(0);
-  }
-
-  to {
-    transform: translateY(-8px);
-  }
-}
-
-/* Top button */
+/* ================= TOP BUTTON ================= */
 
 #topBtn {
   position: fixed;
@@ -214,6 +138,138 @@ footer {
   z-index: 9999;
   cursor: pointer;
 }
+
+/* =================================================
+   ORIGINAL ANIME FIGHT SCENE
+   ================================================= */
+
+.fight-scene {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 190px;
+  pointer-events: none;
+  z-index: 400;
+  overflow: hidden;
+}
+
+/* Characters */
+
+.fighter {
+  position: absolute;
+  bottom: 0;
+  width: 110px;
+  height: 180px;
+}
+
+.fighter1 {
+  left: -120px;
+  animation: fighter1Move 8s linear infinite;
+}
+
+.fighter2 {
+  right: -120px;
+  animation: fighter2Move 8s linear infinite;
+}
+
+/* SVG */
+
+.fighter svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+/* Sword movement */
+
+.sword1 {
+  transform-origin: 75px 90px;
+  animation: swordAttack1 1.2s ease-in-out infinite;
+}
+
+.sword2 {
+  transform-origin: 35px 90px;
+  animation: swordAttack2 1.2s ease-in-out infinite;
+}
+
+/* Character movement */
+
+@keyframes fighter1Move {
+
+  0% {
+    transform: translateX(0);
+  }
+
+  35% {
+    transform: translateX(40vw);
+  }
+
+  50% {
+    transform: translateX(43vw);
+  }
+
+  65% {
+    transform: translateX(40vw);
+  }
+
+  100% {
+    transform: translateX(115vw);
+  }
+
+}
+
+@keyframes fighter2Move {
+
+  0% {
+    transform: translateX(0);
+  }
+
+  35% {
+    transform: translateX(-40vw);
+  }
+
+  50% {
+    transform: translateX(-43vw);
+  }
+
+  65% {
+    transform: translateX(-40vw);
+  }
+
+  100% {
+    transform: translateX(-115vw);
+  }
+
+}
+
+/* Sword attacks */
+
+@keyframes swordAttack1 {
+
+  0%, 100% {
+    transform: rotate(-15deg);
+  }
+
+  50% {
+    transform: rotate(35deg);
+  }
+
+}
+
+@keyframes swordAttack2 {
+
+  0%, 100% {
+    transform: rotate(15deg);
+  }
+
+  50% {
+    transform: rotate(-35deg);
+  }
+
+}
+
+/* ================= MOBILE ================= */
 
 @media (max-width: 600px) {
 
@@ -230,33 +286,203 @@ footer {
     font-size: 42px;
   }
 
+  .fighter {
+    width: 80px;
+    height: 130px;
+  }
+
+  .fight-scene {
+    height: 140px;
+  }
+
   .buttons a {
     padding: 11px 16px;
   }
+
 }
 </style>
 </head>
 
 <body>
 
-<!-- Animated original characters -->
+<!-- ================= ANIME FIGHT ================= -->
 
-<div class="anime-character warrior">
-  <span>🥷⚔️</span>
+<div class="fight-scene">
+
+  <!-- ORIGINAL WARRIOR -->
+
+  <div class="fighter fighter1">
+
+    <svg viewBox="0 0 110 180">
+
+      <!-- Head -->
+      <circle cx="55" cy="25" r="16" fill="#f2c6a0"/>
+
+      <!-- Hair -->
+      <path
+        d="M39 25 Q42 5 55 7 Q70 5 72 25
+        L66 18 L60 25 L54 16 L48 25 L43 18 Z"
+        fill="#111"/>
+
+      <!-- Jacket -->
+      <path
+        d="M38 45 L72 45 L82 105
+        L63 110 L55 75 L47 110 L28 105 Z"
+        fill="#2d6a4f"/>
+
+      <!-- Shirt -->
+      <path
+        d="M48 45 L62 45 L64 78
+        L55 90 L46 78 Z"
+        fill="#222"/>
+
+      <!-- Left arm -->
+      <path
+        d="M38 50 L25 85 L34 90 L48 62 Z"
+        fill="#f2c6a0"/>
+
+      <!-- Right arm -->
+      <path
+        d="M72 50 L86 75 L79 81 L63 62 Z"
+        fill="#f2c6a0"/>
+
+      <!-- Pants -->
+      <path
+        d="M40 103 L55 103 L53 155 L35 155 Z"
+        fill="#222"/>
+
+      <path
+        d="M55 103 L70 103 L78 155 L59 155 Z"
+        fill="#222"/>
+
+      <!-- Boots -->
+      <path
+        d="M35 150 L53 150 L50 170 L30 170 Z"
+        fill="#333"/>
+
+      <path
+        d="M59 150 L78 150 L85 170 L64 170 Z"
+        fill="#333"/>
+
+      <!-- Sword -->
+      <g class="sword1">
+
+        <rect
+          x="78"
+          y="70"
+          width="7"
+          height="65"
+          rx="2"
+          fill="#ddd"/>
+
+        <rect
+          x="73"
+          y="65"
+          width="18"
+          height="6"
+          rx="3"
+          fill="#8b5a2b"/>
+
+      </g>
+
+    </svg>
+
+  </div>
+
+
+  <!-- ORIGINAL DEMON FIGHTER -->
+
+  <div class="fighter fighter2">
+
+    <svg viewBox="0 0 110 180">
+
+      <!-- Head -->
+      <circle cx="55" cy="25" r="16" fill="#d99b78"/>
+
+      <!-- Hair -->
+      <path
+        d="M38 27 Q40 3 56 5 Q74 5 73 27
+        L67 17 L61 25 L55 15 L48 25 L43 17 Z"
+        fill="#8b1111"/>
+
+      <!-- Body -->
+      <path
+        d="M38 45 L72 45 L82 105
+        L63 110 L55 75 L47 110 L28 105 Z"
+        fill="#661111"/>
+
+      <!-- Chest -->
+      <path
+        d="M48 45 L62 45 L65 78
+        L55 90 L45 78 Z"
+        fill="#171717"/>
+
+      <!-- Left arm -->
+      <path
+        d="M38 50 L23 76 L31 82 L48 62 Z"
+        fill="#d99b78"/>
+
+      <!-- Right arm -->
+      <path
+        d="M72 50 L87 82 L79 87 L63 62 Z"
+        fill="#d99b78"/>
+
+      <!-- Pants -->
+      <path
+        d="M40 103 L55 103 L53 155 L35 155 Z"
+        fill="#171717"/>
+
+      <path
+        d="M55 103 L70 103 L78 155 L59 155 Z"
+        fill="#171717"/>
+
+      <!-- Boots -->
+      <path
+        d="M35 150 L53 150 L50 170 L30 170 Z"
+        fill="#222"/>
+
+      <path
+        d="M59 150 L78 150 L85 170 L64 170 Z"
+        fill="#222"/>
+
+      <!-- Sword -->
+      <g class="sword2">
+
+        <rect
+          x="25"
+          y="70"
+          width="7"
+          height="65"
+          rx="2"
+          fill="#ddd"/>
+
+        <rect
+          x="19"
+          y="65"
+          width="18"
+          height="6"
+          rx="3"
+          fill="#8b5a2b"/>
+
+      </g>
+
+    </svg>
+
+  </div>
+
 </div>
 
-<div class="anime-character commando">
-  <span>🪖🕶️</span>
-</div>
 
-<!-- Top Button -->
+<!-- ================= TOP BUTTON ================= -->
 
-<button id="topBtn"
-onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
-🔝 Top
+<button
+  id="topBtn"
+  onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+  🔝 Top
 </button>
 
-<!-- HOME -->
+
+<!-- ================= HOME ================= -->
 
 <section class="hero">
 
@@ -296,7 +522,9 @@ onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
       📸 Instagram
     </a>
 
-    <a href="https://www.facebook.com/profile.php?id=100077267425201" target="_blank">
+    <a
+      href="https://www.facebook.com/profile.php?id=100077267425201"
+      target="_blank">
       👍 Facebook
     </a>
 
@@ -304,7 +532,8 @@ onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
 
 </section>
 
-<!-- ABOUT -->
+
+<!-- ================= ABOUT ================= -->
 
 <section class="section" id="about">
 
@@ -328,7 +557,8 @@ onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
 
 </section>
 
-<!-- GALLERY -->
+
+<!-- ================= GALLERY ================= -->
 
 <section class="section" id="gallery">
 
@@ -350,7 +580,8 @@ onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
 
 </section>
 
-<!-- VIDEOS -->
+
+<!-- ================= VIDEOS ================= -->
 
 <section class="section" id="videos">
 
@@ -404,7 +635,8 @@ onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
 
 </section>
 
-<!-- FOLLOW ME -->
+
+<!-- ================= FOLLOW ME ================= -->
 
 <section class="section" id="social">
 
@@ -420,11 +652,15 @@ onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
         ▶️ YouTube
       </a>
 
-      <a href="https://www.instagram.com/barhaman_fouji_10k/" target="_blank">
+      <a
+        href="https://www.instagram.com/barhaman_fouji_10k/"
+        target="_blank">
         📸 Instagram
       </a>
 
-      <a href="https://www.facebook.com/profile.php?id=100077267425201" target="_blank">
+      <a
+        href="https://www.facebook.com/profile.php?id=100077267425201"
+        target="_blank">
         👍 Facebook
       </a>
 
@@ -438,7 +674,8 @@ onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
 
 </section>
 
-<!-- CONTACT -->
+
+<!-- ================= CONTACT ================= -->
 
 <section class="section" id="contact">
 
@@ -466,7 +703,8 @@ onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
 
 </section>
 
-<!-- FOOTER -->
+
+<!-- ================= FOOTER ================= -->
 
 <footer>
 
