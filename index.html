@@ -8,10 +8,10 @@
 <title>🔱 Barhaman Fouji 🇮🇳 | Rakesh Mishra</title>
 
 <meta name="description"
-content="Barhaman Fouji - Rakesh Mishra की personal website. Photos, videos, useful tools और Education.">
+content="Barhaman Fouji - Rakesh Mishra की personal website. Photos, videos, useful tools और Quiz.">
 
 <meta name="keywords"
-content="Barhaman Fouji, Brahman Fouji, Rakesh Mishra, Notes, Image Resizer, Quiz, Education, Indian History">
+content="Barhaman Fouji, Brahman Fouji, Rakesh Mishra, Notes, Image Resizer, Quiz">
 
 <meta name="author" content="Rakesh Mishra">
 
@@ -69,7 +69,7 @@ opacity:1;
 filter:none;
 }
 
-/* PROGRESS */
+/* ================= PROGRESS ================= */
 
 #progress{
 position:fixed;
@@ -82,7 +82,7 @@ background:linear-gradient(90deg,#ff0099,#633cff,#00c8ff);
 box-shadow:0 0 12px #ff00cc;
 }
 
-/* NAVBAR */
+/* ================= NAVBAR ================= */
 
 .navbar{
 position:sticky;
@@ -100,8 +100,7 @@ backdrop-filter:blur(12px);
 }
 
 .navbar a,
-.tool-menu-btn,
-.file-menu-btn{
+.menu-btn{
 display:inline-block;
 color:#fff;
 text-decoration:none;
@@ -111,156 +110,171 @@ padding:7px;
 transition:.3s;
 }
 
-.navbar a:hover{
+.navbar a:hover,
+.menu-btn:hover{
 color:#ff35dc;
 text-shadow:0 0 12px #ff00cc;
 }
 
-/* TOOLS MENU */
-
-.tool-menu{
-display:inline-block;
-position:relative;
-}
-
-.tool-menu-btn{
-border:1px solid #333;
-border-radius:18px;
-background:#050505;
-cursor:pointer;
-font-size:13px;
-}
-
-.tool-dropdown{
-display:none;
-position:absolute;
-top:42px;
-left:50%;
-transform:translateX(-50%);
-width:245px;
-max-height:430px;
-overflow-y:auto;
-padding:8px;
-background:#050505;
-border:1px solid #292929;
-border-radius:15px;
-box-shadow:0 15px 40px #000;
-text-align:left;
-z-index:3000;
-}
-
-.tool-dropdown.show{
-display:block;
-}
-
-.file-title{
-text-align:center;
-padding:9px;
-color:#ddd;
-font-weight:bold;
-border-bottom:1px solid #222;
-}
-
-.file-item{
-display:block;
-width:100%;
-padding:10px;
-margin:4px 0;
-color:#fff;
-background:#0b0b0b;
-border:1px solid #1c1c1c;
-border-radius:10px;
-text-decoration:none;
-font-size:14px;
-}
-
-.file-item:hover{
-background:#211027;
-}
-
-/* FILE MENU */
+/* ================= FILE MENU ================= */
 
 .file-menu{
 display:inline-block;
 position:relative;
 }
 
-.file-menu-btn{
+.menu-btn{
 border:1px solid #333;
 border-radius:18px;
-background:#000;
+background:#050505;
 cursor:pointer;
 font-size:13px;
-}
-
-.file-menu-btn:hover{
-color:#ff35dc;
-text-shadow:0 0 12px #ff00cc;
 }
 
 .file-dropdown{
 display:none;
 position:absolute;
-top:42px;
+top:43px;
 left:50%;
 transform:translateX(-50%);
-width:290px;
-max-height:500px;
+width:310px;
+max-height:75vh;
 overflow-y:auto;
 padding:8px;
 background:#000;
 border:1px solid #333;
-border-radius:15px;
-box-shadow:
-0 15px 40px #000,
-0 0 20px rgba(255,0,200,.25);
+border-radius:16px;
+box-shadow:0 15px 50px rgba(0,0,0,.95);
 text-align:left;
-z-index:4000;
+z-index:5000;
 }
 
 .file-dropdown.show{
 display:block;
 }
 
-.file-main-title{
+.file-title{
 text-align:center;
-padding:11px;
+padding:10px;
 color:#ffe500;
 font-weight:bold;
 font-size:16px;
-border-bottom:1px solid #333;
+border-bottom:1px solid #292929;
+margin-bottom:5px;
 }
 
-.history-title{
-display:block;
-padding:11px 10px;
-margin-top:7px;
-color:#ff35d4;
-font-weight:bold;
+/* MAIN FILE BRANCH */
+
+.file-branch{
+margin:5px 0;
+}
+
+.branch-btn{
+display:flex;
+align-items:center;
+justify-content:space-between;
+width:100%;
+padding:11px 12px;
+margin:3px 0;
+border:1px solid #292929;
+border-radius:11px;
 background:#080808;
-border:1px solid #222;
-border-radius:10px;
+color:#fff;
+font-weight:bold;
+cursor:pointer;
+font-size:14px;
+text-align:left;
 }
 
-.history-item{
+.branch-btn:hover{
+background:#180d1d;
+border-color:#ff20c8;
+}
+
+/* SUB BRANCH */
+
+.sub-branch{
+display:none;
+margin-left:10px;
+padding-left:8px;
+border-left:2px solid #633cff;
+}
+
+.sub-branch.show{
 display:block;
-padding:9px 12px;
+}
+
+.sub-item{
+display:block;
+width:100%;
+padding:9px 10px;
 margin:3px 0;
 color:#fff;
-background:#050505;
-border-radius:8px;
+background:#070707;
+border:1px solid #202020;
+border-radius:9px;
 text-decoration:none;
 font-size:13px;
-border-left:2px solid transparent;
 }
 
-.history-item:hover{
-background:#160b1a;
-border-left-color:#ff20c8;
-color:#ffe500;
+.sub-item:hover{
+background:#211027;
+border-color:#ff20c8;
 }
 
-/* HERO */
+/* EDUCATION LEVELS */
+
+.education-item{
+display:flex;
+align-items:center;
+justify-content:space-between;
+width:100%;
+padding:10px;
+margin:4px 0;
+background:#080808;
+border:1px solid #292929;
+border-radius:10px;
+color:#fff;
+cursor:pointer;
+font-size:14px;
+font-weight:bold;
+}
+
+.education-item:hover{
+background:#1b0c20;
+border-color:#633cff;
+}
+
+.education-topics{
+display:none;
+margin-left:8px;
+padding-left:8px;
+border-left:2px solid #ff20c8;
+}
+
+.education-topics.show{
+display:block;
+}
+
+.topic-item{
+display:block;
+padding:8px 9px;
+margin:3px 0;
+background:#050505;
+border:1px solid #222;
+border-radius:8px;
+color:#ddd;
+font-size:12px;
+text-decoration:none;
+}
+
+.topic-item:hover{
+color:#fff;
+background:#211027;
+border-color:#ff20c8;
+}
+
+/* ================= HERO ================= */
 
 .hero{
 min-height:88vh;
@@ -329,7 +343,7 @@ transform:translateY(-4px) scale(1.04);
 box-shadow:0 0 20px #ff00cc,0 0 35px #633cff;
 }
 
-/* SECTIONS */
+/* ================= SECTIONS ================= */
 
 .section{
 padding:55px 20px;
@@ -359,27 +373,7 @@ font-size:18px;
 line-height:1.7;
 }
 
-/* EDUCATION */
-
-.education-card{
-margin-top:20px;
-padding:20px;
-background:linear-gradient(145deg,#090909,#17091d);
-border:1px solid #633cff;
-border-radius:20px;
-box-shadow:0 0 20px rgba(99,60,255,.25);
-}
-
-.education-card h3{
-color:#ffe500;
-}
-
-.education-note{
-color:#aaa;
-font-size:14px!important;
-}
-
-/* PROFILE */
+/* ================= PROFILE ================= */
 
 .profile-card{
 max-width:600px;
@@ -417,7 +411,7 @@ background:linear-gradient(135deg,#ff0099,#633cff);
 font-weight:bold;
 }
 
-/* GALLERY */
+/* ================= GALLERY ================= */
 
 .gallery-img{
 width:100%;
@@ -464,7 +458,7 @@ font-size:28px;
 cursor:pointer;
 }
 
-/* TOOLS */
+/* ================= TOOLS ================= */
 
 .tools-grid{
 display:grid;
@@ -519,7 +513,7 @@ min-height:20px;
 word-break:break-word;
 }
 
-/* NOTES */
+/* ================= NOTES ================= */
 
 .notes-list{
 text-align:left;
@@ -558,7 +552,7 @@ padding:7px 10px;
 cursor:pointer;
 }
 
-/* IMAGE RESIZER */
+/* ================= IMAGE RESIZER ================= */
 
 .upload-box{
 display:block;
@@ -619,7 +613,7 @@ color:#7dffb2;
 line-height:1.6;
 }
 
-/* MUSIC */
+/* ================= MUSIC ================= */
 
 .music-box{
 margin-top:20px;
@@ -650,7 +644,7 @@ border:1px solid #444;
 cursor:pointer;
 }
 
-/* YOUTUBE */
+/* ================= YOUTUBE ================= */
 
 .youtube-grid{
 display:grid;
@@ -673,7 +667,7 @@ border:0;
 border-radius:12px;
 }
 
-/* FEEDBACK */
+/* ================= FEEDBACK ================= */
 
 .feedback-box,
 .chat-box,
@@ -711,7 +705,7 @@ margin-top:12px;
 color:#7dffb2;
 }
 
-/* CHAT */
+/* ================= CHAT ================= */
 
 .chat-box{
 padding:0;
@@ -765,7 +759,7 @@ background:#111;
 color:#fff;
 }
 
-/* DAILY */
+/* ================= DAILY ================= */
 
 .announcement{
 border:1px solid #ff20c8;
@@ -786,7 +780,7 @@ border-radius:15px;
 border:1px solid #333;
 }
 
-/* LUCKY SPIN */
+/* ================= LUCKY SPIN ================= */
 
 .spin-box{
 max-width:600px;
@@ -831,7 +825,7 @@ font-weight:bold;
 color:#ffe500;
 }
 
-/* QUIZ */
+/* ================= QUIZ ================= */
 
 .quiz-box{
 max-width:800px;
@@ -922,7 +916,7 @@ display:none;
 margin-top:10px;
 }
 
-/* FOOTER */
+/* ================= FOOTER ================= */
 
 footer{
 padding:35px 20px;
@@ -936,7 +930,7 @@ color:#df83ff;
 font-size:26px;
 }
 
-/* FLOAT */
+/* ================= FLOAT ================= */
 
 #lightBtn,
 #topBtn{
@@ -961,7 +955,7 @@ left:15px;
 right:15px;
 }
 
-/* TOAST */
+/* ================= TOAST ================= */
 
 .toast{
 position:fixed;
@@ -985,7 +979,7 @@ opacity:1;
 transform:translateX(-50%) translateY(0);
 }
 
-/* MOBILE */
+/* ================= MOBILE ================= */
 
 @media(max-width:600px){
 
@@ -994,18 +988,19 @@ width:96%;
 padding:6px;
 }
 
-.navbar a{
+.navbar a,
+.menu-btn{
 font-size:12px;
 margin:2px;
 padding:6px;
 }
 
-.tool-dropdown,
 .file-dropdown{
 position:fixed;
 top:100px;
-width:90%;
-max-width:300px;
+left:50%;
+width:92%;
+max-height:75vh;
 }
 
 .hero{
@@ -1068,6 +1063,22 @@ font-size:21px!important;
 
 }
 
+/* ================= EDUCATION EMPTY SECTION ================= */
+
+.education-empty{
+max-width:1000px;
+margin:auto;
+padding:25px;
+background:#050505;
+border:1px solid #292929;
+border-radius:20px;
+text-align:center;
+}
+
+.education-empty p{
+color:#aaa;
+}
+
 </style>
 </head>
 
@@ -1076,7 +1087,7 @@ font-size:21px!important;
 <div id="progress"></div>
 <div id="toast" class="toast"></div>
 
-<!-- NAVBAR -->
+<!-- ================= NAVBAR ================= -->
 
 <nav class="navbar">
 
@@ -1084,287 +1095,253 @@ font-size:21px!important;
 
 <a href="#about">👤 About</a>
 
+<a href="#gallery">🖼️ Gallery</a>
 
 <!-- FILE MENU -->
 
 <div class="file-menu">
 
-<button class="file-menu-btn" onclick="toggleFileMenu()">
-📁 Files
+<button class="menu-btn" onclick="toggleFileMenu()">
+📁 File Menu
 </button>
 
 <div id="fileDropdown" class="file-dropdown">
 
-<div class="file-main-title">
-📚 Education File Menu
+<div class="file-title">
+📁 File Menu
 </div>
 
+<!-- TOOLS -->
 
-<!-- भारतीय इतिहास -->
+<div class="file-branch">
 
-<div class="history-title">
-🇮🇳 भारतीय इतिहास
-</div>
-
-
-<!-- प्राचीन भारत -->
-
-<div class="history-title">
-🏛️ प्राचीन भारत
-</div>
-
-<a class="history-item" href="#ancient-intro" onclick="closeFileMenu()">
-📖 सामान्य परिचय
-</a>
-
-<a class="history-item" href="#historical-sources" onclick="closeFileMenu()">
-📜 ऐतिहासिक स्रोत
-</a>
-
-<a class="history-item" href="#prehistoric" onclick="closeFileMenu()">
-🪨 प्रागैतिहासिक काल
-</a>
-
-<a class="history-item" href="#harappan" onclick="closeFileMenu()">
-🏺 हड़प्पा / सिंधु सभ्यता
-</a>
-
-<a class="history-item" href="#vedic" onclick="closeFileMenu()">
-📜 वैदिक संस्कृति
-</a>
-
-<a class="history-item" href="#mahajanapada" onclick="closeFileMenu()">
-🏛️ महान जनपद काल
-</a>
-
-<a class="history-item" href="#religious-movements" onclick="closeFileMenu()">
-🕉️ धार्मिक आंदोलन
-</a>
-
-<a class="history-item" href="#maurya" onclick="closeFileMenu()">
-👑 मौर्य काल
-</a>
-
-<a class="history-item" href="#post-maurya" onclick="closeFileMenu()">
-📚 मौर्य उत्तर / गुप्त पूर्व काल
-</a>
-
-<a class="history-item" href="#sangam" onclick="closeFileMenu()">
-📖 संगम काल
-</a>
-
-<a class="history-item" href="#gupta" onclick="closeFileMenu()">
-👑 गुप्त काल
-</a>
-
-<a class="history-item" href="#post-gupta" onclick="closeFileMenu()">
-📜 उत्तर गुप्त / गुप्त उत्तर काल
-</a>
-
-<a class="history-item" href="#vardhana" onclick="closeFileMenu()">
-👑 वर्धन वंश
-</a>
-
-<a class="history-item" href="#ancient-misc" onclick="closeFileMenu()">
-📚 विविध — प्राचीन भारत
-</a>
-
-
-<!-- मध्यकालीन भारत -->
-
-<div class="history-title">
-⚔️ मध्यकालीन भारत
-</div>
-
-<a class="history-item" href="#early-medieval" onclick="closeFileMenu()">
-📜 पूर्व मध्यकाल
-</a>
-
-<a class="history-item" href="#north-india" onclick="closeFileMenu()">
-🏰 उत्तर भारत
-</a>
-
-<a class="history-item" href="#rajput" onclick="closeFileMenu()">
-⚔️ राजपूत काल
-</a>
-
-<a class="history-item" href="#south-india" onclick="closeFileMenu()">
-🏛️ दक्षिण भारत
-</a>
-
-<a class="history-item" href="#chola" onclick="closeFileMenu()">
-🚩 चोल व अन्य
-</a>
-
-<a class="history-item" href="#sultanate-period" onclick="closeFileMenu()">
-⚔️ सल्तनत काल
-</a>
-
-<a class="history-item" href="#delhi-sultanate" onclick="closeFileMenu()">
-🏰 दिल्ली सल्तनत
-</a>
-
-<a class="history-item" href="#vijayanagar" onclick="closeFileMenu()">
-🏛️ विजयनगर व अन्य प्रतीय राज्य
-</a>
-
-<a class="history-item" href="#religious-15-16" onclick="closeFileMenu()">
-🕉️ पंद्रहवीं–सोलहवीं शताब्दी के धार्मिक आंदोलन
-</a>
-
-<a class="history-item" href="#bhakti" onclick="closeFileMenu()">
-🙏 भक्ति आंदोलन
-</a>
-
-<a class="history-item" href="#sufi" onclick="closeFileMenu()">
-☪️ सूफी आंदोलन
-</a>
-
-<a class="history-item" href="#mughal" onclick="closeFileMenu()">
-👑 मुगल काल
-</a>
-
-<a class="history-item" href="#maratha" onclick="closeFileMenu()">
-🚩 मराठा राज व मराठा राज्य संघ
-</a>
-
-<a class="history-item" href="#europeans" onclick="closeFileMenu()">
-🚢 यूरोपियों का आगमन
-</a>
-
-<a class="history-item" href="#medieval-misc" onclick="closeFileMenu()">
-📚 विविध — मध्यकालीन भारत
-</a>
-
-
-<!-- आधुनिक भारत -->
-
-<div class="history-title">
-🇮🇳 आधुनिक भारत
-</div>
-
-<a class="history-item" href="#british-expansion" onclick="closeFileMenu()">
-🇬🇧 ब्रिटिश सत्ता का विस्तार
-</a>
-
-<a class="history-item" href="#bengal-mysore-punjab" onclick="closeFileMenu()">
-⚔️ बंगाल, मैसूर, पंजाब आदि
-</a>
-
-<a class="history-item" href="#british-economy" onclick="closeFileMenu()">
-💰 ब्रिटिश शासन का भारतीय अर्थव्यवस्था पर प्रभाव
-</a>
-
-<a class="history-item" href="#social-religious-19-20" onclick="closeFileMenu()">
-🕉️ उन्नीसवीं-बीसवीं सदी के सामाजिक-धार्मिक आंदोलन
-</a>
-
-<a class="history-item" href="#caste-tribal" onclick="closeFileMenu()">
-👥 जातिगत व जनजातीय आंदोलन
-</a>
-
-<a class="history-item" href="#farmer-labour" onclick="closeFileMenu()">
-🌾 किसान व मज़दूर आंदोलन
-</a>
-
-<a class="history-item" href="#freedom-movement" onclick="closeFileMenu()">
-🇮🇳 स्वतंत्रता आंदोलन
-</a>
-
-<a class="history-item" href="#1857" onclick="closeFileMenu()">
-⚔️ 1857 का विद्रोह
-</a>
-
-<a class="history-item" href="#moderate" onclick="closeFileMenu()">
-📜 नरमपंथी / उदारवादी चरण
-</a>
-
-<a class="history-item" href="#extremist" onclick="closeFileMenu()">
-🔥 गरमपंथी / उग्रवादी चरण
-</a>
-
-<a class="history-item" href="#gandhi-era" onclick="closeFileMenu()">
-🕊️ गांधी युग
-</a>
-
-<a class="history-item" href="#modern-misc" onclick="closeFileMenu()">
-📚 विविध — आधुनिक भारत
-</a>
-
-</div>
-</div>
-
-
-<!-- ALL USEFUL TOOLS -->
-
-<div class="tool-menu">
-
-<button class="tool-menu-btn" onclick="toggleTools()">
-🛠️ Tools
+<button class="branch-btn" onclick="toggleBranch('toolsBranch')">
+<span>🛠️ Tools</span>
+<span>›</span>
 </button>
 
-<div id="toolDropdown" class="tool-dropdown">
+<div id="toolsBranch" class="sub-branch">
 
-<div class="file-title">
-🛠️ All Useful Tools
-</div>
-
-<a class="file-item" href="#notesTool" onclick="closeTools()">
+<a class="sub-item"
+href="#notesTool"
+onclick="closeAllMenus()">
 📝 Notes / To-Do
 </a>
 
-<a class="file-item" href="#compressTool" onclick="closeTools()">
+<a class="sub-item"
+href="#compressTool"
+onclick="closeAllMenus()">
 🖼️ Image Resizer / Compressor
 </a>
 
-<a class="file-item" href="#randomTool" onclick="closeTools()">
+<a class="sub-item"
+href="#randomTool"
+onclick="closeAllMenus()">
 🎲 Random Fun
 </a>
 
-<a class="file-item" href="#luckySpin" onclick="closeTools()">
+<a class="sub-item"
+href="#luckySpin"
+onclick="closeAllMenus()">
 🎰 Lucky Spin
 </a>
 
-<a class="file-item" href="#music" onclick="closeTools()">
+<a class="sub-item"
+href="#music"
+onclick="closeAllMenus()">
 🎵 Free Music
 </a>
 
-<a class="file-item" href="#quiz" onclick="closeTools()">
+<a class="sub-item"
+href="#quiz"
+onclick="closeAllMenus()">
 🧠 Quiz
 </a>
 
-<a class="file-item" href="#chat" onclick="closeTools()">
+<a class="sub-item"
+href="#chat"
+onclick="closeAllMenus()">
 🤖 AI Support
 </a>
 
-<a class="file-item" href="#feedback" onclick="closeTools()">
+<a class="sub-item"
+href="#feedback"
+onclick="closeAllMenus()">
 💬 Feedback
 </a>
 
 </div>
 </div>
 
+<!-- EDUCATION -->
 
-<a href="#education">
-🎓 Education
+<div class="file-branch">
+
+<button class="branch-btn" onclick="toggleBranch('educationBranch')">
+<span>📚 Education</span>
+<span>›</span>
+</button>
+
+<div id="educationBranch" class="sub-branch">
+
+<!-- INDIAN HISTORY -->
+
+<div class="education-item"
+onclick="toggleBranch('historyBranch')">
+
+<span>🇮🇳 भारतीय इतिहास</span>
+<span>›</span>
+
+</div>
+
+<div id="historyBranch"
+class="education-topics">
+
+<!-- ANCIENT INDIA -->
+
+<div class="education-item"
+onclick="toggleBranch('ancientBranch')">
+
+<span>📜 प्राचीन भारत</span>
+<span>›</span>
+
+</div>
+
+<div id="ancientBranch"
+class="education-topics">
+
+<a class="topic-item" href="#">सामान्य परिचय</a>
+<a class="topic-item" href="#">ऐतिहासिक स्रोत</a>
+<a class="topic-item" href="#">प्रागैतिहासिक काल</a>
+<a class="topic-item" href="#">हड़प्पा / सिंधु सभ्यता</a>
+<a class="topic-item" href="#">वैदिक संस्कृति</a>
+<a class="topic-item" href="#">महान जनपद काल</a>
+<a class="topic-item" href="#">धार्मिक आंदोलन</a>
+<a class="topic-item" href="#">मौर्य काल</a>
+<a class="topic-item" href="#">मौर्योत्तर–गुप्त पूर्व काल</a>
+<a class="topic-item" href="#">संगम काल</a>
+<a class="topic-item" href="#">गुप्त काल</a>
+<a class="topic-item" href="#">उत्तर गुप्त काल</a>
+<a class="topic-item" href="#">वर्धन वंश</a>
+<a class="topic-item" href="#">विविध — प्राचीन भारत</a>
+
+</div>
+
+<!-- MEDIEVAL INDIA -->
+
+<div class="education-item"
+onclick="toggleBranch('medievalBranch')">
+
+<span>🏰 मध्यकालीन भारत</span>
+<span>›</span>
+
+</div>
+
+<div id="medievalBranch"
+class="education-topics">
+
+<a class="topic-item" href="#">पूर्व मध्यकाल</a>
+<a class="topic-item" href="#">उत्तर भारत — राजपूत काल</a>
+<a class="topic-item" href="#">दक्षिण भारत — चोल व अन्य</a>
+<a class="topic-item" href="#">सल्तनत काल</a>
+<a class="topic-item" href="#">दिल्ली सल्तनत</a>
+<a class="topic-item" href="#">विजयनगर व अन्य प्रांतीय राज्य</a>
+<a class="topic-item" href="#">पंद्रहवीं–सोलहवीं शताब्दी के धार्मिक आंदोलन</a>
+<a class="topic-item" href="#">भक्ति आंदोलन</a>
+<a class="topic-item" href="#">सूफी आंदोलन</a>
+<a class="topic-item" href="#">मुगल काल</a>
+<a class="topic-item" href="#">मराठा राज व मराठा राज्य संघ</a>
+<a class="topic-item" href="#">यूरोपियों का आगमन</a>
+<a class="topic-item" href="#">विविध — मध्यकालीन भारत</a>
+
+</div>
+
+<!-- MODERN INDIA -->
+
+<div class="education-item"
+onclick="toggleBranch('modernBranch')">
+
+<span>🇮🇳 आधुनिक भारत</span>
+<span>›</span>
+
+</div>
+
+<div id="modernBranch"
+class="education-topics">
+
+<a class="topic-item" href="#">
+ब्रिटिश सत्ता का विस्तार — बंगाल, मैसूर, पंजाब आदि
 </a>
 
-<a href="#daily">
-💡 Daily
+<a class="topic-item" href="#">
+ब्रिटिश शासन का भारतीय अर्थव्यवस्था पर प्रभाव
 </a>
 
-<a href="#youtube">
-▶️ YouTube
+<a class="topic-item" href="#">
+उन्नीसवीं–बीसवीं सदी के सामाजिक-धार्मिक आंदोलन
 </a>
 
-<a href="#contact">
-📞 Contact
+<a class="topic-item" href="#">
+जातिगत आंदोलन
 </a>
+
+<a class="topic-item" href="#">
+जनजातीय आंदोलन
+</a>
+
+<a class="topic-item" href="#">
+किसान आंदोलन
+</a>
+
+<a class="topic-item" href="#">
+मज़दूर आंदोलन
+</a>
+
+<a class="topic-item" href="#">
+स्वतंत्रता आंदोलन
+</a>
+
+<a class="topic-item" href="#">
+1857 का विद्रोह
+</a>
+
+<a class="topic-item" href="#">
+नरमपंथी चरण
+</a>
+
+<a class="topic-item" href="#">
+गरमपंथी / उग्रवादी चरण
+</a>
+
+<a class="topic-item" href="#">
+गांधी युग
+</a>
+
+<a class="topic-item" href="#">
+विविध — आधुनिक भारत
+</a>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<a href="#daily">💡 Daily</a>
+
+<a href="#youtube">▶️ YouTube</a>
+
+<a href="#contact">📞 Contact</a>
 
 </nav>
 
 
-<!-- HERO -->
+<!-- ================= HERO ================= -->
 
 <section class="hero" id="home">
 
@@ -1384,13 +1361,12 @@ font-size:21px!important;
 
 <a href="#tools">🛠️ Tools</a>
 
-<a href="#education">🎓 Education</a>
-
 <a href="#youtube">▶️ YouTube</a>
 
 <a href="#contact">📞 Contact</a>
 
-<a href="#" onclick="shareSite();return false">
+<a href="#"
+onclick="shareSite();return false">
 📤 Share Website
 </a>
 
@@ -1399,7 +1375,7 @@ font-size:21px!important;
 </section>
 
 
-<!-- ANNOUNCEMENT -->
+<!-- ================= ANNOUNCEMENT ================= -->
 
 <section class="section">
 
@@ -1422,7 +1398,7 @@ font-size:21px!important;
 </section>
 
 
-<!-- ABOUT -->
+<!-- ================= ABOUT ================= -->
 
 <section class="section" id="about">
 
@@ -1464,7 +1440,7 @@ videos और अपने बारे में कुछ खास बात�
 </section>
 
 
-<!-- GALLERY -->
+<!-- ================= GALLERY ================= -->
 
 <section class="section" id="gallery">
 
@@ -1487,900 +1463,7 @@ alt="Rakesh Mishra">
 </section>
 
 
-<!-- EDUCATION -->
-
-<section class="section" id="education">
-
-<div class="card">
-
-<h2>🎓 Education</h2>
-
-<div class="education-card">
-
-<h3>📚 Study & Learning</h3>
-
-<p>
-यहाँ आगे पढ़ाई से संबंधित सभी विषय, Notes,
-Books, Chapters, Question Bank और अन्य अध्ययन सामग्री
-जोड़ी जाएगी।
-</p>
-
-<p class="education-note">
-📁 ऊपर दिए गए Files Menu से विषय और अध्याय चुने जा सकते हैं।
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- ANCIENT INDIA -->
-
-<section class="section" id="ancient-intro">
-
-<div class="card">
-
-<h2>🏛️ प्राचीन भारत</h2>
-
-<div class="education-card">
-
-<h3>📖 सामान्य परिचय</h3>
-
-<p>
-प्राचीन भारत के इतिहास का अध्ययन विभिन्न ऐतिहासिक स्रोतों,
-पुरातात्विक प्रमाणों, साहित्यिक स्रोतों और अभिलेखों के आधार पर किया जाता है।
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-
-<section class="section" id="historical-sources">
-
-<div class="card">
-
-<h2>📜 ऐतिहासिक स्रोत</h2>
-
-<div class="education-card">
-
-<h3>📚 ऐतिहासिक स्रोत</h3>
-
-<p>
-प्राचीन भारत के इतिहास के प्रमुख स्रोतों में पुरातात्विक,
-साहित्यिक, अभिलेखीय, सिक्के तथा विदेशी यात्रियों के विवरण शामिल हैं।
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-
-<section class="section" id="prehistoric">
-
-<div class="card">
-
-<h2>🪨 प्रागैतिहासिक काल</h2>
-
-<div class="education-card">
-
-<h3>📖 पढ़ने के लिए अध्याय</h3>
-
-<p>
-🪨 पाषाण काल
-</p>
-
-<p>
-🔨 पुरापाषाण काल
-</p>
-
-<p>
-🪓 मध्यपाषाण काल
-</p>
-
-<p>
-🌾 नवपाषाण काल
-</p>
-
-<p>
-🔔 ताम्रपाषाण काल
-</p>
-
-<p class="education-note">
-📁 इन अध्यायों की विस्तृत Study Material आगे जोड़ी जाएगी।
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-
-<section class="section" id="harappan">
-
-<div class="card">
-
-<h2>🏺 हड़प्पा / सिंधु सभ्यता</h2>
-
-<div class="education-card">
-
-<h3>📚 हड़प्पा सभ्यता</h3>
-
-<p>
-हड़प्पा सभ्यता, नगर योजना, प्रमुख स्थल,
-आर्थिक जीवन, सामाजिक जीवन, धर्म, कला और पतन।
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-
-<section class="section" id="vedic">
-
-<div class="card">
-
-<h2>📜 वैदिक संस्कृति</h2>
-
-<div class="education-card">
-
-<h3>📚 वैदिक संस्कृति</h3>
-
-<p>
-ऋग्वैदिक काल, उत्तर वैदिक काल, राजनीतिक,
-सामाजिक, आर्थिक और धार्मिक जीवन।
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-
-<section class="section" id="mahajanapada">
-
-<div class="card">
-
-<h2>🏛️ महान जनपद काल</h2>
-
-<div class="education-card">
-
-<h3>📚 महाजनपद</h3>
-
-<p>
-सोलह महाजनपद, मगध का उदय तथा प्रमुख राजनीतिक घटनाएँ।
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-
-<section class="section" id="religious-movements">
-
-<div class="card">
-
-<h2>🕉️ धार्मिक आंदोलन</h2>
-
-<div class="education-card">
-
-<h3>📚 धार्मिक आंदोलन</h3>
-
-<p>
-छठी शताब्दी ईसा पूर्व के प्रमुख धार्मिक एवं दार्शनिक आंदोलन।
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-
-<section class="section" id="maurya">
-
-<div class="card">
-
-<h2>👑 मौर्य काल</h2>
-
-<div class="education-card">
-
-<h3>📚 मौर्य साम्राज्य</h3>
-
-<p>
-चंद्रगुप्त मौर्य, बिंदुसार, अशोक,
-मौर्य प्रशासन, अर्थव्यवस्था और संस्कृति।
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-
-<section class="section" id="post-maurya">
-
-<div class="card">
-
-<h2>📚 मौर्य उत्तर / गुप्त पूर्व काल</h2>
-
-<div class="education-card">
-
-<h3>📖 अध्ययन सामग्री</h3>
-
-<p>
-मौर्योत्तर काल के प्रमुख राजवंश एवं राजनीतिक घटनाएँ।
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-
-<section class="section" id="sangam">
-
-<div class="card">
-
-<h2>📖 संगम काल</h2>
-
-<div class="education-card">
-
-<h3>📚 संगम साहित्य एवं दक्षिण भारत</h3>
-
-<p>
-संगम साहित्य, समाज, अर्थव्यवस्था और दक्षिण भारत की राजनीतिक व्यवस्था।
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-
-<section class="section" id="gupta">
-
-<div class="card">
-
-<h2>👑 गुप्त काल</h2>
-
-<div class="education-card">
-
-<h3>📚 गुप्त साम्राज्य</h3>
-
-<p>
-गुप्त शासक, प्रशासन, कला, विज्ञान, साहित्य और संस्कृति।
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-
-<section class="section" id="post-gupta">
-
-<div class="card">
-
-<h2>📜 उत्तर गुप्त / गुप्त उत्तर काल</h2>
-
-<div class="education-card">
-
-<h3>📚 अध्ययन सामग्री</h3>
-
-<p>
-गुप्तोत्तर भारत के प्रमुख राजवंश और राजनीतिक परिस्थितियाँ।
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-
-<section class="section" id="vardhana">
-
-<div class="card">
-
-<h2>👑 वर्धन वंश</h2>
-
-<div class="education-card">
-
-<h3>📚 हर्षवर्धन</h3>
-
-<p>
-वर्धन वंश, हर्षवर्धन का शासन,
-प्रशासन, धर्म, साहित्य और विदेशी यात्रियों के विवरण।
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-
-<section class="section" id="ancient-misc">
-
-<div class="card">
-
-<h2>📚 विविध — प्राचीन भारत</h2>
-
-<div class="education-card">
-
-<p>
-प्राचीन भारत से संबंधित अन्य महत्वपूर्ण टॉपिक यहाँ जोड़े जाएंगे।
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- MEDIEVAL INDIA -->
-
-<section class="section" id="early-medieval">
-
-<div class="card">
-
-<h2>⚔️ मध्यकालीन भारत</h2>
-
-<div class="education-card">
-
-<h3>📜 पूर्व मध्यकाल</h3>
-
-<p>
-पूर्व मध्यकालीन भारत की राजनीतिक, सामाजिक और सांस्कृतिक परिस्थितियाँ।
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-
-<section class="section" id="north-india">
-
-<div class="card">
-
-<h2>🏰 उत्तर भारत</h2>
-
-<div class="education-card">
-
-<p>
-मध्यकालीन उत्तर भारत के प्रमुख राजवंश एवं घटनाएँ।
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-
-<section class="section" id="rajput">
-
-<div class="card">
-
-<h2>⚔️ राजपूत काल</h2>
-
-<div class="education-card">
-
-<p>
-प्रमुख राजपूत वंश, राज्य, युद्ध और प्रशासन।
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-
-<section class="section" id="south-india">
-
-<div class="card">
-
-<h2>🏛️ दक्षिण भारत</h2>
-
-<div class="education-card">
-
-<p>
-दक्षिण भारत के प्रमुख राजवंश और उनकी राजनीतिक एवं सांस्कृतिक उपलब्धियाँ।
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-
-<section class="section" id="chola">
-
-<div class="card">
-
-<h2>🚩 चोल व अन्य</h2>
-
-<div class="education-card">
-
-<p>
-चोल तथा दक्षिण भारत के अन्य प्रमुख राजवंश।
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-
-<section class="section" id="sultanate-period">
-
-<div class="card">
-
-<h2>⚔️ सल्तनत काल</h2>
-
-<div class="education-card">
-
-<p>
-भारत में सल्तनत काल की प्रमुख राजनीतिक घटनाएँ एवं प्रशासन।
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-
-<section class="section" id="delhi-sultanate">
-
-<div class="card">
-
-<h2>🏰 दिल्ली सल्तनत</h2>
-
-<div class="education-card">
-
-<p>
-गुलाम, खिलजी, तुगलक, सैयद और लोदी वंश।
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-
-<section class="section" id="vijayanagar">
-
-<div class="card">
-
-<h2>🏛️ विजयनगर व अन्य प्रतीय राज्य</h2>
-
-<div class="education-card">
-
-<p>
-विजयनगर साम्राज्य तथा मध्यकालीन भारत के अन्य प्रमुख क्षेत्रीय राज्य।
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-
-<section class="section" id="religious-15-16">
-
-<div class="card">
-
-<h2>🕉️ पंद्रहवीं–सोलहवीं शताब्दी के धार्मिक आंदोलन</h2>
-
-<div class="education-card">
-
-<p>
-पंद्रहवीं और सोलहवीं शताब्दी के प्रमुख धार्मिक एवं सामाजिक आंदोलन।
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- BHAKTI -->
-
-<section class="section" id="bhakti">
-
-<div class="card">
-
-<h2>🙏 भक्ति आंदोलन</h2>
-
-<div class="education-card">
-
-<h3>📚 भक्ति आंदोलन</h3>
-
-<p>
-भक्ति आंदोलन के प्रमुख संत, विचारधाराएँ,
-निर्गुण एवं सगुण भक्ति परंपरा और सामाजिक प्रभाव।
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- SUFI -->
-
-<section class="section" id="sufi">
-
-<div class="card">
-
-<h2>☪️ सूफी आंदोलन</h2>
-
-<div class="education-card">
-
-<h3>📚 सूफी आंदोलन</h3>
-
-<p>
-सूफी परंपरा, प्रमुख सिलसिले, संत तथा भारतीय समाज और संस्कृति पर प्रभाव।
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-
-<section class="section" id="mughal">
-
-<div class="card">
-
-<h2>👑 मुगल काल</h2>
-
-<div class="education-card">
-
-<p>
-बाबर, हुमायूँ, अकबर, जहाँगीर, शाहजहाँ,
-औरंगजेब तथा मुगल प्रशासन और संस्कृति।
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- MARATHA -->
-
-<section class="section" id="maratha">
-
-<div class="card">
-
-<h2>🚩 मराठा राज व मराठा राज्य संघ</h2>
-
-<div class="education-card">
-
-<p>
-मराठा शक्ति का उदय, शिवाजी,
-मराठा प्रशासन तथा मराठा राज्य संघ का विकास।
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-
-<section class="section" id="europeans">
-
-<div class="card">
-
-<h2>🚢 यूरोपियों का आगमन</h2>
-
-<div class="education-card">
-
-<p>
-पुर्तगाली, डच, अंग्रेज, फ्रांसीसी और यूरोपीय व्यापारिक शक्तियों का भारत आगमन।
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-
-<section class="section" id="medieval-misc">
-
-<div class="card">
-
-<h2>📚 विविध — मध्यकालीन भारत</h2>
-
-<div class="education-card">
-
-<p>
-मध्यकालीन भारत से संबंधित अन्य महत्वपूर्ण विषय यहाँ जोड़े जाएंगे।
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- MODERN INDIA -->
-
-<section class="section" id="british-expansion">
-
-<div class="card">
-
-<h2>🇬🇧 आधुनिक भारत</h2>
-
-<div class="education-card">
-
-<h3>🇬🇧 ब्रिटिश सत्ता का विस्तार</h3>
-
-<p>
-भारत में ब्रिटिश सत्ता के विस्तार की प्रमुख घटनाएँ और नीतियाँ।
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-
-<section class="section" id="bengal-mysore-punjab">
-
-<div class="card">
-
-<h2>⚔️ बंगाल, मैसूर, पंजाब आदि</h2>
-
-<div class="education-card">
-
-<p>
-बंगाल, मैसूर, पंजाब तथा अन्य क्षेत्रों में ब्रिटिश विस्तार।
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-
-<section class="section" id="british-economy">
-
-<div class="card">
-
-<h2>💰 ब्रिटिश शासन का भारतीय अर्थव्यवस्था पर प्रभाव</h2>
-
-<div class="education-card">
-
-<p>
-भूमि व्यवस्था, कृषि, उद्योग, व्यापार तथा भारतीय अर्थव्यवस्था पर औपनिवेशिक शासन का प्रभाव।
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- SOCIAL RELIGIOUS -->
-
-<section class="section" id="social-religious-19-20">
-
-<div class="card">
-
-<h2>🕉️ उन्नीसवीं-बीसवीं सदी के सामाजिक-धार्मिक आंदोलन</h2>
-
-<div class="education-card">
-
-<h3>📚 सामाजिक-धार्मिक आंदोलन</h3>
-
-<p>
-उन्नीसवीं और बीसवीं सदी में हुए प्रमुख सामाजिक एवं धार्मिक सुधार आंदोलनों,
-उनके प्रमुख नेताओं और भारतीय समाज पर उनके प्रभाव का अध्ययन।
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-
-<section class="section" id="caste-tribal">
-
-<div class="card">
-
-<h2>👥 जातिगत व जनजातीय आंदोलन</h2>
-
-<div class="education-card">
-
-<p>
-जातिगत सुधार आंदोलनों तथा प्रमुख जनजातीय आंदोलनों का अध्ययन।
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-
-<section class="section" id="farmer-labour">
-
-<div class="card">
-
-<h2>🌾 किसान व मज़दूर आंदोलन</h2>
-
-<div class="education-card">
-
-<p>
-प्रमुख किसान आंदोलनों, मजदूर आंदोलनों और उनके कारणों एवं प्रभावों का अध्ययन।
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-
-<section class="section" id="freedom-movement">
-
-<div class="card">
-
-<h2>🇮🇳 स्वतंत्रता आंदोलन</h2>
-
-<div class="education-card">
-
-<p>
-भारतीय स्वतंत्रता आंदोलन की प्रमुख घटनाएँ,
-संगठन, नेता और महत्वपूर्ण चरण।
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-
-<section class="section" id="1857">
-
-<div class="card">
-
-<h2>⚔️ 1857 का विद्रोह</h2>
-
-<div class="education-card">
-
-<p>
-1857 के विद्रोह के कारण, प्रमुख केंद्र,
-प्रमुख नेता, घटनाएँ और परिणाम।
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-
-<section class="section" id="moderate">
-
-<div class="card">
-
-<h2>📜 नरमपंथी / उदारवादी चरण</h2>
-
-<div class="education-card">
-
-<p>
-भारतीय राष्ट्रीय आंदोलन के नरमपंथी एवं उदारवादी चरण,
-प्रमुख नेता और उनकी राजनीतिक गतिविधियाँ।
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-
-<section class="section" id="extremist">
-
-<div class="card">
-
-<h2>🔥 गरमपंथी / उग्रवादी चरण</h2>
-
-<div class="education-card">
-
-<p>
-गरमपंथी राष्ट्रवाद, प्रमुख नेता,
-स्वदेशी आंदोलन और राष्ट्रीय आंदोलन का उग्रवादी चरण।
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-
-<section class="section" id="gandhi-era">
-
-<div class="card">
-
-<h2>🕊️ गांधी युग</h2>
-
-<div class="education-card">
-
-<p>
-महात्मा गांधी के नेतृत्व में असहयोग आंदोलन,
-सविनय अवज्ञा आंदोलन, भारत छोड़ो आंदोलन तथा अन्य प्रमुख घटनाएँ।
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-
-<section class="section" id="modern-misc">
-
-<div class="card">
-
-<h2>📚 विविध — आधुनिक भारत</h2>
-
-<div class="education-card">
-
-<p>
-आधुनिक भारत से संबंधित अन्य महत्वपूर्ण विषय यहाँ जोड़े जाएंगे।
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- TOOLS -->
+<!-- ================= TOOLS ================= -->
 
 <section class="section" id="tools">
 
@@ -2534,7 +1617,7 @@ class="fun-result">
 </section>
 
 
-<!-- LUCKY SPIN -->
+<!-- ================= LUCKY SPIN ================= -->
 
 <section
 class="section"
@@ -2587,7 +1670,7 @@ Spin करने के लिए बटन दबाएँ 😄
 </section>
 
 
-<!-- DAILY -->
+<!-- ================= DAILY ================= -->
 
 <section
 class="section"
@@ -2624,7 +1707,7 @@ onclick="completeChallenge()">
 </section>
 
 
-<!-- QUIZ -->
+<!-- ================= QUIZ ================= -->
 
 <section
 class="section"
@@ -2674,7 +1757,7 @@ onclick="nextQuiz()">
 </section>
 
 
-<!-- MUSIC -->
+<!-- ================= MUSIC ================= -->
 
 <section
 class="section"
@@ -2715,7 +1798,7 @@ type="audio/mpeg">
 </section>
 
 
-<!-- CHAT -->
+<!-- ================= CHAT ================= -->
 
 <section
 class="section"
@@ -2763,7 +1846,7 @@ onclick="sendChat()">
 </section>
 
 
-<!-- FEEDBACK -->
+<!-- ================= FEEDBACK ================= -->
 
 <section
 class="section"
@@ -2814,7 +1897,7 @@ class="feedback-message">
 </section>
 
 
-<!-- YOUTUBE -->
+<!-- ================= YOUTUBE ================= -->
 
 <section
 class="section"
@@ -2837,7 +1920,6 @@ allowfullscreen>
 
 </div>
 
-
 <div class="youtube-card">
 
 <iframe
@@ -2848,7 +1930,6 @@ allowfullscreen>
 <p>▶️ Short 2</p>
 
 </div>
-
 
 <div class="youtube-card">
 
@@ -2861,7 +1942,6 @@ allowfullscreen>
 
 </div>
 
-
 <div class="youtube-card">
 
 <iframe
@@ -2873,7 +1953,6 @@ allowfullscreen>
 
 </div>
 
-
 <div class="youtube-card">
 
 <iframe
@@ -2884,7 +1963,6 @@ allowfullscreen>
 <p>▶️ Short 5</p>
 
 </div>
-
 
 <div class="youtube-card">
 
@@ -2904,7 +1982,9 @@ allowfullscreen>
 <a
 href="https://youtube.com/@handstand_boy"
 target="_blank">
+
 ▶️ पूरा YouTube Channel
+
 </a>
 
 </div>
@@ -2914,7 +1994,7 @@ target="_blank">
 </section>
 
 
-<!-- CONTACT -->
+<!-- ================= CONTACT ================= -->
 
 <section
 class="section"
@@ -2967,13 +2047,11 @@ onclick="shareSite();return false">
 </section>
 
 
-<!-- FOOTER -->
+<!-- ================= FOOTER ================= -->
 
 <footer>
 
-<h3>
-🔱 Barhaman Fouji 🇮🇳
-</h3>
+<h3>🔱 Barhaman Fouji 🇮🇳</h3>
 
 <p>Rakesh Mishra</p>
 
@@ -2986,7 +2064,7 @@ onclick="shareSite();return false">
 </footer>
 
 
-<!-- PHOTO MODAL -->
+<!-- ================= PHOTO MODAL ================= -->
 
 <div
 id="photoModal"
@@ -3021,7 +2099,7 @@ onclick="window.scrollTo({top:0,behavior:'smooth'})">
 
 <script>
 
-/* TOAST */
+/* ================= TOAST ================= */
 
 function toast(message){
 
@@ -3041,7 +2119,7 @@ window.toastTimer=setTimeout(
 }
 
 
-/* PROGRESS */
+/* ================= PROGRESS ================= */
 
 window.addEventListener("scroll",()=>{
 
@@ -3059,26 +2137,7 @@ document.getElementById("progress")
 });
 
 
-/* TOOLS MENU */
-
-function toggleTools(){
-
-document
-.getElementById("toolDropdown")
-.classList.toggle("show");
-
-}
-
-function closeTools(){
-
-document
-.getElementById("toolDropdown")
-.classList.remove("show");
-
-}
-
-
-/* FILE MENU */
+/* ================= FILE MENU ================= */
 
 function toggleFileMenu(){
 
@@ -3088,7 +2147,18 @@ document
 
 }
 
-function closeFileMenu(){
+function toggleBranch(id){
+
+const branch=document.getElementById(id);
+
+if(!branch)
+return;
+
+branch.classList.toggle("show");
+
+}
+
+function closeAllMenus(){
 
 document
 .getElementById("fileDropdown")
@@ -3096,33 +2166,31 @@ document
 
 }
 
-
-/* CLOSE MENUS */
-
 document.addEventListener("click",e=>{
 
-const toolMenu=document.querySelector(".tool-menu");
-const fileMenu=document.querySelector(".file-menu");
+const menu=document.querySelector(".file-menu");
 
-if(!toolMenu.contains(e.target)){
-closeTools();
-}
+if(!menu.contains(e.target)){
 
-if(!fileMenu.contains(e.target)){
-closeFileMenu();
+closeAllMenus();
+
 }
 
 });
 
 
-/* SHARE */
+/* ================= SHARE ================= */
 
 async function shareSite(){
 
 const data={
+
 title:"🔱 Barhaman Fouji 🇮🇳",
+
 text:"Rakesh Mishra की website देखें ❤️",
+
 url:location.href
+
 };
 
 try{
@@ -3144,7 +2212,7 @@ toast("📋 Website link copied!");
 }
 
 
-/* VISITOR */
+/* ================= VISITOR ================= */
 
 let visitors=parseInt(
 localStorage.getItem("barhamanVisitors")||"0"
@@ -3170,11 +2238,12 @@ document.getElementById("visitorCount")
 .textContent="👥 Visitors: "+visitors;
 
 
-/* PHOTO */
+/* ================= PHOTO ================= */
 
 function openPhoto(){
 
-document.getElementById("photoModal")
+document
+.getElementById("photoModal")
 .classList.add("show");
 
 document.body.style.overflow="hidden";
@@ -3186,7 +2255,8 @@ function closePhoto(e){
 if(e && e.target.tagName==="IMG")
 return;
 
-document.getElementById("photoModal")
+document
+.getElementById("photoModal")
 .classList.remove("show");
 
 document.body.style.overflow="";
@@ -3194,7 +2264,7 @@ document.body.style.overflow="";
 }
 
 
-/* NOTES */
+/* ================= NOTES ================= */
 
 let notes=JSON.parse(
 localStorage.getItem("barhamanNotes")||"[]"
@@ -3298,7 +2368,8 @@ toast("✅ Task saved");
 
 }
 
-document.getElementById("noteInput")
+document
+.getElementById("noteInput")
 .addEventListener("keydown",e=>{
 
 if(e.key==="Enter")
@@ -3309,7 +2380,7 @@ addNote();
 showNotes();
 
 
-/* IMAGE RESIZER */
+/* ================= IMAGE RESIZER ================= */
 
 let currentImage=null;
 let currentImageFile=null;
@@ -3355,7 +2426,6 @@ reader.readAsDataURL(file);
 
 }
 
-
 function resizeCurrentImage(){
 
 if(!currentImage)
@@ -3376,6 +2446,7 @@ let targetBytes=
 targetMB*1024*1024;
 
 let w=currentImage.width;
+
 let h=currentImage.height;
 
 if(w>maxWidth){
@@ -3410,7 +2481,6 @@ targetBytes
 
 }
 
-
 function findBestJPEG(canvas,targetBytes){
 
 let low=0.05;
@@ -3439,11 +2509,13 @@ if(high-low<0.01){
 
 if(!bestBlob){
 
-canvas.toBlob(finalBlob=>{
-
+canvas.toBlob(
+finalBlob=>{
 finishResize(finalBlob);
-
-},"image/jpeg",0.05);
+},
+"image/jpeg",
+0.05
+);
 
 }else{
 
@@ -3466,7 +2538,6 @@ testQuality(
 testQuality(0.8);
 
 }
-
 
 function finishResize(blob){
 
@@ -3512,7 +2583,6 @@ formatBytes(blob.size)
 
 }
 
-
 function formatBytes(bytes){
 
 if(!bytes)
@@ -3536,7 +2606,7 @@ return parseFloat(
 }
 
 
-/* TOOL SEARCH */
+/* ================= TOOL SEARCH ================= */
 
 function filterTools(){
 
@@ -3561,7 +2631,7 @@ card.textContent
 }
 
 
-/* RANDOM FUN */
+/* ================= RANDOM FUN ================= */
 
 const funItems=[
 
@@ -3601,7 +2671,7 @@ Math.random()*funItems.length
 }
 
 
-/* LUCKY SPIN */
+/* ================= LUCKY SPIN ================= */
 
 const wheelItems=[
 
@@ -3626,6 +2696,7 @@ const canvas=document.getElementById("wheel");
 const ctx=canvas.getContext("2d");
 
 const cx=canvas.width/2;
+
 const cy=canvas.height/2;
 
 const radius=canvas.width/2-8;
@@ -3643,6 +2714,7 @@ canvas.height
 wheelItems.forEach((item,i)=>{
 
 const start=i*slice;
+
 const end=start+slice;
 
 ctx.beginPath();
@@ -3743,7 +2815,7 @@ spinning=false;
 drawWheel();
 
 
-/* DAILY */
+/* ================= DAILY ================= */
 
 const tips=[
 
@@ -3770,7 +2842,6 @@ const tips=[
 
 ];
 
-
 const challenges=[
 
 "आज 20 मिनट पढ़ाई करो।",
@@ -3796,7 +2867,6 @@ const challenges=[
 
 ];
 
-
 const dayIndex=
 Math.floor(
 new Date().getTime()/86400000
@@ -3809,7 +2879,6 @@ tips[dayIndex%tips.length];
 document.getElementById("dailyChallenge")
 .textContent=
 challenges[dayIndex%challenges.length];
-
 
 function completeChallenge(){
 
@@ -3825,7 +2894,7 @@ toast(
 }
 
 
-/* QUIZ */
+/* ================= QUIZ ================= */
 
 const quizData=[
 
@@ -4021,12 +3090,13 @@ a:1
 
 ];
 
-
 let currentQuiz=0;
-let score=0;
-let answered=false;
-let questionNumber=0;
 
+let score=0;
+
+let answered=false;
+
+let questionNumber=0;
 
 function newQuiz(){
 
@@ -4081,7 +3151,6 @@ document.getElementById("quizScore")
 "🏆 Score: "+score;
 
 }
-
 
 function answerQuiz(selected){
 
@@ -4148,7 +3217,6 @@ newQuiz();
 
 }
 
-
 function nextQuiz(){
 
 newQuiz();
@@ -4158,7 +3226,7 @@ newQuiz();
 newQuiz();
 
 
-/* MUSIC */
+/* ================= MUSIC ================= */
 
 const music=[
 
@@ -4170,7 +3238,6 @@ src:
 }
 
 ];
-
 
 function playMusic(i){
 
@@ -4194,10 +3261,9 @@ toast("🎵 Music playing");
 }
 
 
-/* FEEDBACK */
+/* ================= FEEDBACK ================= */
 
 let selectedRating=0;
-
 
 function setRating(n){
 
@@ -4215,7 +3281,6 @@ i<n
 });
 
 }
-
 
 function submitFeedback(){
 
@@ -4262,8 +3327,11 @@ localStorage.getItem(
 data.push({
 
 name:name,
+
 message:message,
+
 rating:selectedRating,
+
 date:new Date().toLocaleString()
 
 });
@@ -4296,7 +3364,7 @@ b.classList.remove("active")
 }
 
 
-/* CHAT */
+/* ================= CHAT ================= */
 
 function addChatMessage(text,type){
 
@@ -4320,7 +3388,6 @@ box.scrollHeight;
 
 }
 
-
 function getBotReply(text){
 
 const q=text.toLowerCase();
@@ -4330,25 +3397,14 @@ q.includes("hello")||
 q.includes("hi")||
 q.includes("नमस्ते")
 )
+
 return "नमस्ते 🙏 Barhaman Fouji website पर आपका स्वागत है!";
-
-if(
-q.includes("history")||
-q.includes("इतिहास")
-)
-return "📚 Files Menu में भारतीय इतिहास के प्राचीन, मध्यकालीन और आधुनिक भारत के topics उपलब्ध हैं।";
-
-if(
-q.includes("education")||
-q.includes("पढ़ाई")||
-q.includes("शिक्षा")
-)
-return "🎓 Education section में पढ़ाई से संबंधित सामग्री और आगे जोड़े जाने वाले Notes उपलब्ध हैं।";
 
 if(
 q.includes("tool")||
 q.includes("टूल")
 )
+
 return "🛠️ Tools में Notes, Image Resizer, Random Fun और Lucky Spin हैं।";
 
 if(
@@ -4356,6 +3412,7 @@ q.includes("spin")||
 q.includes("लकी")||
 q.includes("स्पिन")
 )
+
 return "🎰 Lucky Spin section में wheel घुमाकर fun result पा सकते हैं।";
 
 if(
@@ -4363,6 +3420,7 @@ q.includes("music")||
 q.includes("म्यूजिक")||
 q.includes("गाना")
 )
+
 return "🎵 Free Music section में उपलब्ध audio playlist चला सकते हैं।";
 
 if(
@@ -4370,36 +3428,41 @@ q.includes("photo")||
 q.includes("फोटो")||
 q.includes("gallery")
 )
+
 return "🖼️ Gallery में photo उपलब्ध है। Photo पर क्लिक करके Full Screen में देखें।";
 
 if(
 q.includes("quiz")||
 q.includes("क्विज")
 )
+
 return "🧠 Quiz में गलत answer देने के बाद दोबारा मौका नहीं मिलेगा और सही answer Green दिखाई देगा।";
 
 if(
 q.includes("youtube")||
 q.includes("वीडियो")
 )
+
 return "▶️ YouTube section में मेरे Shorts देख सकते हैं।";
 
 if(q.includes("feedback"))
+
 return "💬 Feedback section में rating और message भेज सकते हैं।";
 
 if(
 q.includes("contact")||
 q.includes("संपर्क")
 )
+
 return "📞 Contact section में WhatsApp, Instagram, Facebook और YouTube links हैं।";
 
 if(q.includes("rakesh"))
+
 return "🔱 Rakesh Mishra इस website के owner हैं। जय श्री राम 🙏";
 
-return "🤖 मैं Files, Education, Tools, Gallery, Lucky Spin, Free Music, Quiz, YouTube, Feedback और Contact के बारे में मदद कर सकता हूँ।";
+return "🤖 मैं website के Tools, Gallery, Lucky Spin, Free Music, Quiz, YouTube, Feedback और Contact के बारे में मदद कर सकता हूँ।";
 
 }
-
 
 function sendChat(){
 
@@ -4432,7 +3495,6 @@ getBotReply(text),
 
 }
 
-
 document.getElementById(
 "chatInput"
 )
@@ -4447,7 +3509,7 @@ sendChat();
 );
 
 
-/* LIGHT / DARK */
+/* ================= LIGHT / DARK ================= */
 
 function toggleLight(){
 
