@@ -194,6 +194,32 @@ border-left:2px solid #633cff;
 display:block;
 }
 
+/* ================= TOOLS MENU ITEMS ================= */
+
+.sub-item{
+display:block;
+width:100%;
+padding:11px 12px;
+margin:4px 0;
+border:1px solid #292929;
+border-radius:10px;
+background:#080808;
+color:#fff;
+text-decoration:none;
+font-size:13px;
+font-weight:bold;
+text-align:left;
+transition:.25s;
+}
+
+.sub-item:hover{
+background:#1b0c20;
+border-color:#ff20c8;
+color:#fff;
+transform:translateX(2px);
+box-shadow:0 0 10px rgba(255,0,200,.2);
+}
+
 /* ================= EDUCATION ================= */
 
 .education-item{
@@ -1122,6 +1148,16 @@ height:26px;
 margin-left:28px;
 }
 
+/* ===== MOBILE TOOLS MENU ===== */
+
+.sub-item{
+display:block;
+width:100%;
+margin:5px 0;
+padding:11px 12px;
+font-size:13px;
+}
+
 }
 
 /* ================= EMPTY EDUCATION ================= */
@@ -1228,8 +1264,6 @@ color:#aaa;
 </button>
 
 <div id="educationBranch" class="sub-branch">
-
-<!-- EDUCATION WILL BE CREATED HERE -->
 
 <div id="historyEducation"></div>
 
@@ -1901,13 +1935,6 @@ onclick="window.scrollTo({top:0,behavior:'smooth'})">
    EDUCATION DATA
    ========================================================= */
 
-/*
-   IMPORTANT:
-   बाद में जब आप MCQ questions देंगे,
-   इसी educationData के हर topic में
-   mcq:[...] डालकर questions जोड़े जाएंगे।
-*/
-
 const educationData = [
 
 {
@@ -2036,22 +2063,6 @@ topics:[
 /* =========================================================
    MCQ BANK
    ========================================================= */
-
-/*
-   अभी सभी topics खाली हैं।
-
-   बाद में उदाहरण:
-
-   "प्रागैतिहासिक काल":[
-      {
-        q:"प्रश्न यहाँ",
-        o:["A","B","C","D"],
-        a:1
-      }
-   ]
-
-   a में 0=A, 1=B, 2=C, 3=D होगा।
-*/
 
 const mcqBank = {};
 
