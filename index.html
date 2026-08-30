@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GK Quiz Engine - 15 Modules</title>
+  <title>GK Quiz System - 15 Modules</title>
   <style>
     * {
       box-sizing: border-box;
@@ -13,8 +13,8 @@
     }
 
     body {
-      background-color: #f0f2f5;
-      color: #333;
+      background-color: #0f172a;
+      color: #f8fafc;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -26,13 +26,14 @@
     header {
       width: 100%;
       max-width: 800px;
-      background: #4a90e2;
-      color: white;
-      padding: 15px 20px;
-      border-radius: 10px;
+      background: #1e293b;
+      color: #38bdf8;
+      padding: 20px;
+      border-radius: 12px;
       text-align: center;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
       margin-bottom: 25px;
+      border: 1px solid #334155;
     }
 
     header h1 {
@@ -49,51 +50,52 @@
     }
 
     .subject-btn {
-      background: #ffffff;
-      border: 2px solid #e0e0e0;
-      border-radius: 8px;
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 10px;
       padding: 18px 15px;
       font-size: 1.05rem;
       font-weight: 600;
-      color: #2c3e50;
+      color: #f8fafc;
       cursor: pointer;
       transition: all 0.2s ease;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
       text-align: left;
     }
 
     .subject-btn:hover {
-      background: #4a90e2;
-      color: white;
-      border-color: #4a90e2;
+      background: #38bdf8;
+      color: #0f172a;
+      border-color: #38bdf8;
       transform: translateY(-2px);
     }
 
     /* Quiz Area */
     .quiz-card {
-      background: white;
+      background: #1e293b;
       width: 100%;
       max-width: 800px;
       border-radius: 12px;
       padding: 25px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
       display: none;
+      border: 1px solid #334155;
     }
 
     .quiz-header {
-      border-bottom: 2px solid #f0f2f5;
+      border-bottom: 1px solid #334155;
       padding-bottom: 12px;
       margin-bottom: 20px;
     }
 
     .subject-title {
       font-size: 1.4rem;
-      color: #4a90e2;
+      color: #38bdf8;
     }
 
     .question-number {
       font-size: 0.95rem;
-      color: #777;
+      color: #94a3b8;
       margin-top: 4px;
     }
 
@@ -104,99 +106,112 @@
       line-height: 1.5;
     }
 
-    .options-container {
+    #optionsContainer {
       display: flex;
       flex-direction: column;
       gap: 12px;
       margin-bottom: 20px;
     }
 
-    .option {
-      background: #f8f9fa;
-      border: 2px solid #e9ecef;
-      border-radius: 6px;
+    #optionsContainer button {
+      background: #0f172a;
+      border: 1px solid #334155;
+      border-radius: 8px;
       padding: 14px 18px;
       font-size: 1rem;
+      color: #f8fafc;
       text-align: left;
       cursor: pointer;
       transition: all 0.2s;
     }
 
-    .option:hover:not(:disabled) {
-      background: #e9ecef;
-      border-color: #ced4da;
+    #optionsContainer button:hover:not(:disabled) {
+      background: #334155;
+      border-color: #475569;
     }
 
-    .option.correct {
-      background-color: #d4edda !important;
-      border-color: #c3e6cb !important;
-      color: #155724 !important;
+    #optionsContainer button.correct {
+      background-color: #065f46 !important;
+      border-color: #10b981 !important;
+      color: #ffffff !important;
       font-weight: bold;
     }
 
-    .option.wrong {
-      background-color: #f8d7da !important;
-      border-color: #f5c6cb !important;
-      color: #721c24 !important;
+    #optionsContainer button.wrong {
+      background-color: #881337 !important;
+      border-color: #f43f5e !important;
+      color: #ffffff !important;
+    }
+
+    #answerInfo {
+      font-size: 1.05rem;
+      margin-bottom: 15px;
+      font-weight: 600;
     }
 
     .explanation-box {
-      background: #e7f3fe;
-      border-left: 4px solid #2196F3;
-      padding: 12px 15px;
-      border-radius: 4px;
+      background: #0f172a;
+      border-left: 4px solid #38bdf8;
+      padding: 14px 16px;
+      border-radius: 6px;
       font-size: 0.95rem;
       margin-bottom: 20px;
+      line-height: 1.5;
+      color: #cbd5e1;
       display: none;
     }
 
     .controls {
       display: flex;
       justify-content: space-between;
+      gap: 10px;
     }
 
     .btn {
-      padding: 10px 22px;
+      padding: 12px 24px;
       border: none;
-      border-radius: 6px;
+      border-radius: 8px;
       font-size: 1rem;
       cursor: pointer;
       font-weight: 600;
+      transition: background 0.2s;
     }
 
     .btn-next {
-      background: #27ae60;
+      background: #10b981;
       color: white;
+      display: none;
     }
 
     .btn-next:hover {
-      background: #219150;
+      background: #059669;
     }
 
     .btn-back {
-      background: #7f8c8d;
+      background: #64748b;
       color: white;
     }
 
     .btn-back:hover {
-      background: #6c757d;
+      background: #475569;
     }
 
     /* Result Area */
     .result-card {
-      background: white;
+      background: #1e293b;
       width: 100%;
       max-width: 500px;
       border-radius: 12px;
       padding: 30px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
       text-align: center;
       display: none;
+      border: 1px solid #334155;
     }
 
     .result-card h2 {
       margin-bottom: 15px;
-      color: #2c3e50;
+      color: #38bdf8;
     }
 
     .result-details {
@@ -204,18 +219,39 @@
       line-height: 1.8;
       margin-bottom: 25px;
     }
+
+    /* Toast Notification Container */
+    #toastContainer {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1000;
+    }
+
+    .toast {
+      background: #334155;
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 8px;
+      margin-top: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      animation: fadeIn 0.3s, fadeOut 0.3s 2.7s;
+    }
+
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeOut { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(20px); } }
   </style>
 </head>
 <body>
 
   <header>
-    <h1>📚 GK & GS सामान्य ज्ञान क्विज़</h1>
+    <h1>📚 GK & GS Master Quiz System</h1>
   </header>
 
-  <!-- Subject List View -->
+  <!-- Subject Selection -->
   <div id="subjectContainer" class="subject-container"></div>
 
-  <!-- Quiz Play View -->
+  <!-- Quiz Screen -->
   <div id="quizArea" class="quiz-card">
     <div class="quiz-header">
       <div id="subjectTitle" class="subject-title"></div>
@@ -223,149 +259,163 @@
     </div>
     
     <div id="questionText" class="question-text"></div>
-    <div id="optionsContainer" class="options-container"></div>
+    <div id="optionsContainer"></div>
     
-    <div id="explanationArea" class="explanation-box"></div>
+    <div id="answerInfo"></div>
+    <div id="explanation" class="explanation-box"></div>
 
     <div class="controls">
       <button class="btn btn-back" onclick="backToSubjects()">मुख्य पृष्ठ</button>
-      <button class="btn btn-next" onclick="nextQuestion()">अगला प्रश्न</button>
+      <button id="nextQuestionBtn" class="btn btn-next" onclick="nextQuestion()">अगला प्रश्न</button>
     </div>
   </div>
 
-  <!-- Result Dashboard View -->
+  <!-- Result Screen -->
   <div id="resultArea" class="result-card">
     <h2>परिणाम (Quiz Result)</h2>
     <div id="resultText" class="result-details"></div>
-    <button class="btn btn-next" onclick="backToSubjects()">पुनः विषय चुनें</button>
+    <button class="btn btn-back" onclick="backToSubjects()">पुनः विषय चुनें</button>
   </div>
+
+  <!-- Toast Container -->
+  <div id="toastContainer"></div>
 
 <script>
 /* =====================================================    
-   MODULE 1–15 COMPLETE MERGED SUBJECT SYSTEM    
+   MODULE 1–15 COMPLETE MERGED SUBJECT QUIZ SYSTEM    
    ===================================================== */
 
 const indianHistoryQuestions = [
-  { question: "सिंधु घाटी सभ्यता का प्रमुख नगर कौन-सा था?", options: ["हड़प्पा", "पाटलिपुत्र", "कन्नौज", "उज्जैन"], answer: 0, explanation: "हड़प्पा सिंधु घाटी सभ्यता के प्रमुख नगरों में से एक था।" },
-  { question: "मौर्य साम्राज्य की स्थापना किसने की?", options: ["अशोक", "चंद्रगुप्त मौर्य", "बिंदुसार", "समुद्रगुप्त"], answer: 1, explanation: "चंद्रगुप्त मौर्य ने मौर्य साम्राज्य की स्थापना की।" },
-  { question: "कलिंग युद्ध किस शासक से संबंधित है?", options: ["अशोक", "अकबर", "हर्षवर्धन", "कनिष्क"], answer: 0, explanation: "कलिंग युद्ध के बाद अशोक के जीवन में बड़ा परिवर्तन आया।" },
-  { question: "भारत में मुगल साम्राज्य की स्थापना किसने की?", options: ["अकबर", "बाबर", "हुमायूँ", "औरंगजेब"], answer: 1, explanation: "बाबर ने 1526 में प्रथम पानीपत के युद्ध के बाद भारत में मुगल सत्ता स्थापित की।" }
+ { question:"सिंधु घाटी सभ्यता का प्रमुख नगर कौन-सा था?", options:["हड़प्पा","पाटलिपुत्र","कन्नौज","उज्जैन"], answer:0, explanation:"हड़प्पा सिंधु घाटी सभ्यता के प्रमुख नगरों में से एक था।" },
+ { question:"मौर्य साम्राज्य की स्थापना किसने की?", options:["अशोक","चंद्रगुप्त मौर्य","बिंदुसार","समुद्रगुप्त"], answer:1, explanation:"चंद्रगुप्त मौर्य ने मौर्य साम्राज्य की स्थापना की।" },
+ { question:"कलिंग युद्ध किस शासक से संबंधित है?", options:["अशोक","अकबर","हर्षवर्धन","कनिष्क"], answer:0, explanation:"कलिंग युद्ध के बाद अशोक के जीवन में बड़ा परिवर्तन आया।" },
+ { question:"भारत में मुगल साम्राज्य की स्थापना किसने की?", options:["अकबर","बाबर","हुमायूँ","औरंगजेब"], answer:1, explanation:"बाबर ने 1526 में प्रथम पानीपत के युद्ध के बाद भारत में मुगल सत्ता स्थापित की।" }
 ];
 
 const indianPolityQuestions = [
-  { question: "भारत का संविधान कब लागू हुआ?", options: ["15 अगस्त 1947", "26 नवंबर 1949", "26 जनवरी 1950", "2 अक्टूबर 1950"], answer: 2, explanation: "भारत का संविधान 26 जनवरी 1950 को लागू हुआ।" },
-  { question: "भारतीय संविधान का संरक्षक किसे माना जाता है?", options: ["संसद", "राष्ट्रपति", "सर्वोच्च न्यायालय", "प्रधानमंत्री"], answer: 2, explanation: "सर्वोच्च न्यायालय संविधान की व्याख्या और संरक्षण में महत्वपूर्ण भूमिका निभाता है।" },
-  { question: "भारत में मौलिक अधिकार किस भाग में हैं?", options: ["भाग I", "भाग II", "भाग III", "भाग IV"], answer: 2, explanation: "मौलिक अधिकार संविधान के भाग III में दिए गए हैं।" },
-  { question: "भारत का संवैधानिक प्रमुख कौन है?", options: ["प्रधानमंत्री", "राष्ट्रपति", "मुख्यमंत्री", "मुख्य न्यायाधीश"], answer: 1, explanation: "राष्ट्रपति भारत के संवैधानिक प्रमुख हैं।" }
+ { question:"भारत का संविधान कब लागू हुआ?", options:["15 अगस्त 1947","26 नवंबर 1949","26 जनवरी 1950","2 अक्टूबर 1950"], answer:2, explanation:"भारत का संविधान 26 जनवरी 1950 को लागू हुआ।" },
+ { question:"भारतीय संविधान का संरक्षक किसे माना जाता है?", options:["संसद","राष्ट्रपति","सर्वोच्च न्यायालय","प्रधानमंत्री"], answer:2, explanation:"सर्वोच्च न्यायालय संविधान की व्याख्या और संरक्षण में महत्वपूर्ण भूमिका निभाता है।" },
+ { question:"भारत में मौलिक अधिकार किस भाग में हैं?", options:["भाग I","भाग II","भाग III","भाग IV"], answer:2, explanation:"मौलिक अधिकार संविधान के भाग III में दिए गए हैं।" },
+ { question:"भारत का संवैधानिक प्रमुख कौन है?", options:["प्रधानमंत्री","राष्ट्रपति","मुख्यमंत्री","मुख्य न्यायाधीश"], answer:1, explanation:"राष्ट्रपति भारत के संवैधानिक प्रमुख हैं।" }
 ];
 
 const indianEconomyQuestions = [
-  { question: "भारत की मुद्रा क्या है?", options: ["डॉलर", "रुपया", "पाउंड", "येन"], answer: 1, explanation: "भारत की आधिकारिक मुद्रा भारतीय रुपया है।" },
-  { question: "भारत का केंद्रीय बैंक कौन-सा है?", options: ["SBI", "PNB", "RBI", "NABARD"], answer: 2, explanation: "भारतीय रिज़र्व बैंक भारत का केंद्रीय बैंक है।" },
-  { question: "GDP का पूरा नाम क्या है?", options: ["Gross Domestic Product", "General Domestic Price", "Gross Development Plan", "Government Domestic Product"], answer: 0, explanation: "GDP का अर्थ Gross Domestic Product यानी सकल घरेलू उत्पाद है।" },
-  { question: "भारत में GST कब लागू हुआ?", options: ["2015", "2016", "2017", "2018"], answer: 2, explanation: "भारत में GST 1 जुलाई 2017 को लागू हुआ।" }
+ { question:"भारत की मुद्रा क्या है?", options:["डॉलर","रुपया","पाउंड","येन"], answer:1, explanation:"भारत की आधिकारिक मुद्रा भारतीय रुपया है।" },
+ { question:"भारत का केंद्रीय बैंक कौन-सा है?", options:["SBI","PNB","RBI","NABARD"], answer:2, explanation:"भारतीय रिज़र्व बैंक भारत का केंद्रीय बैंक है।" },
+ { question:"GDP का पूरा नाम क्या है?", options:["Gross Domestic Product","General Domestic Price","Gross Development Plan","Government Domestic Product"], answer:0, explanation:"GDP का अर्थ Gross Domestic Product यानी सकल घरेलू उत्पाद है।" },
+ { question:"भारत में GST कब लागू हुआ?", options:["2015","2016","2017","2018"], answer:2, explanation:"भारत में GST 1 जुलाई 2017 को लागू हुआ।" }
 ];
 
 const geographyQuestions = [
-  { question: "भारत की सबसे लंबी नदी कौन-सी है?", options: ["यमुना", "गंगा", "गोदावरी", "नर्मदा"], answer: 1, explanation: "गंगा भारत की प्रमुख और सबसे लंबी नदियों में से एक है।" },
-  { question: "भारत का सबसे बड़ा राज्य क्षेत्रफल की दृष्टि से कौन-सा है?", options: ["मध्य प्रदेश", "उत्तर प्रदेश", "राजस्थान", "महाराष्ट्र"], answer: 2, explanation: "राजस्थान क्षेत्रफल की दृष्टि से भारत का सबसे बड़ा राज्य है।" },
-  { question: "भारत में मानसून मुख्यतः किस दिशा से आता है?", options: ["उत्तर-पूर्व", "दक्षिण-पश्चिम", "उत्तर-पश्चिम", "दक्षिण-पूर्व"], answer: 1, explanation: "भारत में मुख्य दक्षिण-पश्चिम मानसून आता है।" },
-  { question: "भारत की सबसे ऊँची चोटी कौन-सी है?", options: ["नंदा देवी", "कंचनजंगा", "अनामुडी", "धौलागिरी"], answer: 1, explanation: "कंचनजंगा भारत की सबसे ऊँची चोटी है।" }
+ { question:"भारत की सबसे लंबी नदी कौन-सी है?", options:["यमुना","गंगा","गोदावरी","नर्मदा"], answer:1, explanation:"गंगा भारत की प्रमुख और सबसे लंबी नदियों में से एक है।" },
+ { question:"भारत का सबसे बड़ा राज्य क्षेत्रफल की दृष्टि से कौन-सा है?", options:["मध्य प्रदेश","उत्तर प्रदेश","राजस्थान","महाराष्ट्र"], answer:2, explanation:"राजस्थान क्षेत्रफल की दृष्टि से भारत का सबसे बड़ा राज्य है।" },
+ { question:"भारत में मानसून मुख्यतः किस दिशा से आता है?", options:["उत्तर-पूर्व","दक्षिण-पश्चिम","उत्तर-पश्चिम","दक्षिण-पूर्व"], answer:1, explanation:"भारत में मुख्य दक्षिण-पश्चिम मानसून आता है।" },
+ { question:"भारत की सबसे ऊँची चोटी कौन-सी है?", options:["नंदा देवी","कंचनजंगा","अनामुडी","धौलागिरी"], answer:1, explanation:"कंचनजंगा भारत की सबसे ऊँची चोटी है।" }
 ];
 
 const environmentQuestions = [
-  { question: "पर्यावरण का प्रमुख घटक कौन-सा है?", options: ["जल", "वायु", "मिट्टी", "उपरोक्त सभी"], answer: 3, explanation: "जल, वायु और मिट्टी पर्यावरण के महत्वपूर्ण घटक हैं।" },
-  { question: "ओजोन परत मुख्यतः किस मंडल में पाई जाती है?", options: ["क्षोभमंडल", "समतापमंडल", "मध्यमंडल", "आयनमंडल"], answer: 1, explanation: "ओजोन परत मुख्य रूप से समतापमंडल में पाई जाती है।" },
-  { question: "ग्रीनहाउस प्रभाव के लिए प्रमुख गैसों में कौन-सी शामिल है?", options: ["कार्बन डाइऑक्साइड", "ऑक्सीजन", "हीलियम", "नियॉन"], answer: 0, explanation: "कार्बन डाइऑक्साइड प्रमुख ग्रीनहाउस गैसों में से एक है।" },
-  { question: "वनों की कटाई को क्या कहा जाता है?", options: ["वनीकरण", "वनोन्मूलन", "सिंचाई", "संरक्षण"], answer: 1, explanation: "वनों की कटाई को वनोन्मूलन कहा जाता है।" }
+ { question:"पर्यावरण का प्रमुख घटक कौन-सा है?", options:["जल","वायु","मिट्टी","उपरोक्त सभी"], answer:3, explanation:"जल, वायु और मिट्टी पर्यावरण के महत्वपूर्ण घटक हैं।" },
+ { question:"ओजोन परत मुख्यतः किस मंडल में पाई जाती है?", options:["क्षोभमंडल","समतापमंडल","मध्यमंडल","आयनमंडल"], answer:1, explanation:"ओजोन परत मुख्य रूप से समतापमंडल में पाई जाती है।" },
+ { question:"ग्रीनहाउस प्रभाव के लिए प्रमुख गैसों में कौन-सी शामिल है?", options:["कार्बन डाइऑक्साइड","ऑक्सीजन","हीलियम","नियॉन"], answer:0, explanation:"कार्बन डाइऑक्साइड प्रमुख ग्रीनहाउस गैसों में से एक है।" },
+ { question:"वनों की कटाई को क्या कहा जाता है?", options:["वनीकरण","वनोन्मूलन","सिंचाई","संरक्षण"], answer:1, explanation:"वनों की कटाई को वनोन्मूलन कहा जाता है।" }
 ];
 
 const artCultureQuestions = [
-  { question: "भरतनाट्यम किस राज्य से संबंधित है?", options: ["केरल", "तमिलनाडु", "असम", "पंजाब"], answer: 1, explanation: "भरतनाट्यम तमिलनाडु का प्रसिद्ध शास्त्रीय नृत्य है।" },
-  { question: "कथक मुख्यतः किस क्षेत्र से संबंधित शास्त्रीय नृत्य है?", options: ["उत्तर भारत", "दक्षिण भारत", "पूर्वोत्तर भारत", "पश्चिमी भारत"], answer: 0, explanation: "कथक का विकास मुख्यतः उत्तर भारत में हुआ।" },
-  { question: "सांची स्तूप किस राज्य में स्थित है?", options: ["मध्य प्रदेश", "बिहार", "उत्तर प्रदेश", "राजस्थान"], answer: 0, explanation: "सांची स्तूप मध्य प्रदेश में स्थित प्रसिद्ध बौद्ध स्मारक है।" },
-  { question: "अजंता की गुफाएँ किस राज्य में हैं?", options: ["महाराष्ट्र", "गुजरात", "ओडिशा", "कर्नाटक"], answer: 0, explanation: "अजंता की प्रसिद्ध गुफाएँ महाराष्ट्र में स्थित हैं।" }
+ { question:"भरतनाट्यम किस राज्य से संबंधित है?", options:["केरल","तमिलनाडु","असम","पंजाब"], answer:1, explanation:"भरतनाट्यम तमिलनाडु का प्रसिद्ध शास्त्रीय नृत्य है।" },
+ { question:"कथक मुख्यतः किस क्षेत्र से संबंधित शास्त्रीय नृत्य है?", options:["उत्तर भारत","दक्षिण भारत","पूर्वोत्तर भारत","पश्चिमी भारत"], answer:0, explanation:"कथक का विकास मुख्यतः उत्तर भारत में हुआ।" },
+ { question:"सांची स्तूप किस राज्य में स्थित है?", options:["मध्य प्रदेश","बिहार","उत्तर प्रदेश","राजस्थान"], answer:0, explanation:"सांची स्तूप मध्य प्रदेश में स्थित प्रसिद्ध बौद्ध स्मारक है।" },
+ { question:"अजंता की गुफाएँ किस राज्य में हैं?", options:["महाराष्ट्र","गुजरात","ओडिशा","कर्नाटक"], answer:0, explanation:"अजंता की प्रसिद्ध गुफाएँ महाराष्ट्र में स्थित हैं।" }
 ];
 
 const generalScienceQuestions = [
-  { question: "बल की SI इकाई क्या है?", options: ["जूल", "न्यूटन", "वाट", "पास्कल"], answer: 1, explanation: "बल की SI इकाई न्यूटन है।" },
-  { question: "प्रकाश की गति निर्वात में लगभग कितनी होती है?", options: ["3 × 10⁶ m/s", "3 × 10⁸ m/s", "3 × 10¹⁰ m/s", "3 × 10⁴ m/s"], answer: 1, explanation: "निर्वात में प्रकाश की गति लगभग 3 × 10⁸ मीटर प्रति सेकंड होती है।" },
-  { question: "जल का रासायनिक सूत्र क्या है?", options: ["CO₂", "O₂", "H₂O", "H₂"], answer: 2, explanation: "जल का रासायनिक सूत्र H₂O है।" },
-  { question: "विद्युत धारा की SI इकाई क्या है?", options: ["वोल्ट", "ओम", "एम्पियर", "वाट"], answer: 2, explanation: "विद्युत धारा की SI इकाई एम्पियर है।" }
+ { question:"बल की SI इकाई क्या है?", options:["जूल","न्यूटन","वाट","पास्कल"], answer:1, explanation:"बल की SI इकाई न्यूटन है।" },
+ { question:"प्रकाश की गति निर्वात में लगभग कितनी होती है?", options:["3 × 10⁶ m/s","3 × 10⁸ m/s","3 × 10¹⁰ m/s","3 × 10⁴ m/s"], answer:1, explanation:"निर्वात में प्रकाश की गति लगभग 3 × 10⁸ मीटर प्रति सेकंड होती है।" },
+ { question:"जल का रासायनिक सूत्र क्या है?", options:["CO₂","O₂","H₂O","H₂"], answer:2, explanation:"जल का रासायनिक सूत्र H₂O है।" },
+ { question:"विद्युत धारा की SI इकाई क्या है?", options:["वोल्ट","ओम","एम्पियर","वाट"], answer:2, explanation:"विद्युत धारा की SI इकाई एम्पियर है।" }
 ];
 
 const chemistryQuestions = [
-  { question: "ऑक्सीजन का रासायनिक प्रतीक क्या है?", options: ["Ox", "O", "O₂", "Og"], answer: 1, explanation: "ऑक्सीजन तत्व का रासायनिक प्रतीक O है।" },
-  { question: "सोने का रासायनिक प्रतीक क्या है?", options: ["Ag", "Au", "Fe", "Cu"], answer: 1, explanation: "सोने का रासायनिक प्रतीक Au है।" },
-  { question: "साधारण नमक का रासायनिक सूत्र क्या है?", options: ["NaCl", "KCl", "CaCO₃", "NaOH"], answer: 0, explanation: "साधारण खाने के नमक का रासायनिक सूत्र NaCl है।" },
-  { question: "pH मान 7 किस प्रकार के विलयन को दर्शाता है?", options: ["अम्लीय", "क्षारीय", "उदासीन", "अत्यधिक अम्लीय"], answer: 2, explanation: "सामान्य pH पैमाने पर 7 उदासीन विलयन को दर्शाता है।" }
+ { question:"ऑक्सीजन का रासायनिक प्रतीक क्या है?", options:["Ox","O","O₂","Og"], answer:1, explanation:"ऑक्सीजन तत्व का रासायनिक प्रतीक O है।" },
+ { question:"सोने का रासायनिक प्रतीक क्या है?", options:["Ag","Au","Fe","Cu"], answer:1, explanation:"सोने का रासायनिक प्रतीक Au है।" },
+ { question:"साधारण नमक का रासायनिक सूत्र क्या है?", options:["NaCl","KCl","CaCO₃","NaOH"], answer:0, explanation:"साधारण खाने के नमक का रासायनिक सूत्र NaCl है।" },
+ { question:"pH मान 7 किस प्रकार के विलयन को दर्शाता है?", options:["अम्लीय","क्षारीय","उदासीन","अत्यधिक अम्लीय"], answer:2, explanation:"सामान्य pH पैमाने पर 7 उदासीन विलयन को दर्शाता है।" }
 ];
 
 const biologyQuestions = [
-  { question: "मानव शरीर की सबसे बड़ी ग्रंथि कौन-सी है?", options: ["अग्न्याशय", "यकृत", "थायरॉयड", "पिट्यूटरी"], answer: 1, explanation: "यकृत मानव शरीर की सबसे बड़ी ग्रंथि है।" },
-  { question: "मानव शरीर में रक्त का शुद्धीकरण मुख्यतः किस अंग द्वारा होता है?", options: ["हृदय", "फेफड़े", "वृक्क", "मस्तिष्क"], answer: 2, explanation: "वृक्क रक्त से अपशिष्ट पदार्थों को छानने में महत्वपूर्ण भूमिका निभाते हैं।" },
-  { question: "पौधों में प्रकाश संश्लेषण मुख्यतः कहाँ होता है?", options: ["जड़ में", "तने में", "पत्तियों में", "फूल में"], answer: 2, explanation: "पत्तियों में प्रकाश संश्लेषण मुख्य रूप से होता है।" },
-  { question: "मानव शरीर में सामान्यतः कितने जोड़े गुणसूत्र होते हैं?", options: ["21", "22", "23", "24"], answer: 2, explanation: "मानव कोशिकाओं में सामान्यतः 23 जोड़े गुणसूत्र होते हैं।" }
+ { question:"मानव शरीर की सबसे बड़ी ग्रंथि कौन-सी है?", options:["अग्न्याशय","यकृत","थायरॉयड","पिट्यूटरी"], answer:1, explanation:"यकृत मानव शरीर की सबसे बड़ी ग्रंथि है।" },
+ { question:"मानव शरीर में रक्त का शुद्धीकरण मुख्यतः किस अंग द्वारा होता है?", options:["हृदय","फेफड़े","वृक्क","मस्तिष्क"], answer:2, explanation:"वृक्क रक्त से अपशिष्ट पदार्थों को छानने में महत्वपूर्ण भूमिका निभाते हैं।" },
+ { question:"पौधों में प्रकाश संश्लेषण मुख्यतः कहाँ होता है?", options:["जड़ में","तने में","पत्तियों में","फूल में"], answer:2, explanation:"पत्तियों में प्रकाश संश्लेषण मुख्य रूप से होता है।" },
+ { question:"मानव शरीर में सामान्यतः कितने जोड़े गुणसूत्र होते हैं?", options:["21","22","23","24"], answer:2, explanation:"मानव कोशिकाओं में सामान्यतः 23 जोड़े गुणसूत्र होते हैं।" }
 ];
 
 const sportsQuestions = [
-  { question: "क्रिकेट में एक ओवर में कितनी वैध गेंदें होती हैं?", options: ["4", "5", "6", "8"], answer: 2, explanation: "सामान्य क्रिकेट में एक ओवर में 6 वैध गेंदें होती हैं।" },
-  { question: "ओलंपिक खेल कितने वर्ष के अंतराल पर आयोजित होते हैं?", options: ["2 वर्ष", "3 वर्ष", "4 वर्ष", "5 वर्ष"], answer: 2, explanation: "ओलंपिक खेलों का आयोजन सामान्यतः चार वर्ष के अंतराल पर होता है।" },
-  { question: "हॉकी में एक टीम के मैदान पर कितने खिलाड़ी होते हैं?", options: ["9", "10", "11", "12"], answer: 2, explanation: "फील्ड हॉकी में एक टीम के 11 खिलाड़ी मैदान पर होते हैं।" },
-  { question: "फुटबॉल में सामान्य मैच की अवधि कितनी होती है?", options: ["60 मिनट", "75 मिनट", "90 मिनट", "120 मिनट"], answer: 2, explanation: "सामान्य फुटबॉल मैच में 45-45 मिनट के दो हाफ होते हैं।" }
+ { question:"क्रिकेट में एक ओवर में कितनी वैध गेंदें होती हैं?", options:["4","5","6","8"], answer:2, explanation:"सामान्य क्रिकेट में एक ओवर में 6 वैध गेंदें होती हैं।" },
+ { question:"ओलंपिक खेल कितने वर्ष के अंतराल पर आयोजित होते हैं?", options:["2 वर्ष","3 वर्ष","4 वर्ष","5 वर्ष"], answer:2, explanation:"ओलंपिक खेलों का आयोजन सामान्यतः चार वर्ष के अंतराल पर होता है।" },
+ { question:"हॉकी में एक टीम के मैदान पर कितने खिलाड़ी होते हैं?", options:["9","10","11","12"], answer:2, explanation:"फील्ड हॉकी में एक टीम के 11 खिलाड़ी मैदान पर होते हैं।" },
+ { question:"फुटबॉल में सामान्य मैच की अवधि कितनी होती है?", options:["60 मिनट","75 मिनट","90 मिनट","120 मिनट"], answer:2, explanation:"सामान्य फुटबॉल मैच में 45-45 मिनट के दो हाफ होते हैं।" }
 ];
 
 const miscellaneousQuestions = [
-  { question: "भारत का राष्ट्रीय पशु कौन-सा है?", options: ["शेर", "बाघ", "हाथी", "मोर"], answer: 1, explanation: "बाघ भारत का राष्ट्रीय पशु है।" },
-  { question: "भारत का राष्ट्रीय पक्षी कौन-सा है?", options: ["तोता", "मोर", "हंस", "गरुड़"], answer: 1, explanation: "मोर भारत का राष्ट्रीय पक्षी है।" },
-  { question: "भारत का राष्ट्रीय फूल कौन-सा है?", options: ["गुलाब", "कमल", "चमेली", "गेंदा"], answer: 1, explanation: "कमल भारत का राष्ट्रीय फूल है।" },
-  { question: "भारत का राष्ट्रीय वृक्ष कौन-सा है?", options: ["नीम", "पीपल", "बरगद", "आम"], answer: 2, explanation: "बरगद भारत का राष्ट्रीय वृक्ष है।" }
+ { question:"भारत का राष्ट्रीय पशु कौन-सा है?", options:["शेर","बाघ","हाथी","मोर"], answer:1, explanation:"बाघ भारत का राष्ट्रीय पशु है।" },
+ { question:"भारत का राष्ट्रीय पक्षी कौन-सा है?", options:["तोता","मोर","हंस","गरुड़"], answer:1, explanation:"मोर भारत का राष्ट्रीय पक्षी है।" },
+ { question:"भारत का राष्ट्रीय फूल कौन-सा है?", options:["गुलाब","कमल","चमेली","गेंदा"], answer:1, explanation:"कमल भारत का राष्ट्रीय फूल है।" },
+ { question:"भारत का राष्ट्रीय वृक्ष कौन-सा है?", options:["नीम","पीपल","बरगद","आम"], answer:2, explanation:"बरगद भारत का राष्ट्रीय वृक्ष है।" }
 ];
 
 const modernIndiaQuestions = [
-  { question: "भारत का प्रथम स्वतंत्रता संग्राम किस वर्ष हुआ?", options: ["1757", "1857", "1885", "1942"], answer: 1, explanation: "1857 का विद्रोह भारत के प्रथम स्वतंत्रता संग्राम के रूप में जाना जाता है।" },
-  { question: "भारतीय राष्ट्रीय कांग्रेस की स्थापना किस वर्ष हुई?", options: ["1857", "1885", "1905", "1919"], answer: 1, explanation: "भारतीय राष्ट्रीय कांग्रेस की स्थापना 1885 में हुई थी।" },
-  { question: "भारत छोड़ो आंदोलन किस वर्ष शुरू हुआ?", options: ["1930", "1935", "1942", "1947"], answer: 2, explanation: "भारत छोड़ो आंदोलन 1942 में शुरू हुआ था।" },
-  { question: "दांडी मार्च किस आंदोलन से संबंधित था?", options: ["असहयोग आंदोलन", "सविनय अवज्ञा आंदोलन", "भारत छोड़ो आंदोलन", "स्वदेशी आंदोलन"], answer: 1, explanation: "दांडी मार्च 1930 के सविनय अवज्ञा आंदोलन से संबंधित था।" }
+ { question:"भारत का प्रथम स्वतंत्रता संग्राम किस वर्ष हुआ?", options:["1757","1857","1885","1942"], answer:1, explanation:"1857 का विद्रोह भारत के प्रथम स्वतंत्रता संग्राम के रूप में जाना जाता है।" },
+ { question:"भारतीय राष्ट्रीय कांग्रेस की स्थापना किस वर्ष हुई?", options:["1857","1885","1905","1919"], answer:1, explanation:"भारतीय राष्ट्रीय कांग्रेस की स्थापना 1885 में हुई थी।" },
+ { question:"भारत छोड़ो आंदोलन किस वर्ष शुरू हुआ?", options:["1930","1935","1942","1947"], answer:2, explanation:"भारत छोड़ो आंदोलन 1942 में शुरू हुआ था।" },
+ { question:"दांडी मार्च किस आंदोलन से संबंधित था?", options:["असहयोग आंदोलन","सविनय अवज्ञा आंदोलन","भारत छोड़ो आंदोलन","स्वदेशी आंदोलन"], answer:1, explanation:"दांडी मार्च 1930 के सविनय अवज्ञा आंदोलन से संबंधित था।" }
 ];
 
 const medievalIndiaQuestions = [
-  { question: "दिल्ली सल्तनत के प्रारंभिक शासन की नींव किसने रखी?", options: ["कुतुबुद्दीन ऐबक", "अलाउद्दीन खिलजी", "इल्तुतमिश", "बलबन"], answer: 0, explanation: "कुतुबुद्दीन ऐबक ने दिल्ली सल्तनत के प्रारंभिक शासन की नींव रखी।" },
-  { question: "कुतुब मीनार का निर्माण किसने शुरू कराया?", options: ["अकबर", "कुतुबुद्दीन ऐबक", "शाहजहाँ", "औरंगजेब"], answer: 1, explanation: "कुतुब मीनार का निर्माण कुतुबुद्दीन ऐबक ने शुरू कराया था।" },
-  { question: "अकबर का शासनकाल किस अवधि में था?", options: ["1526–1530", "1556–1605", "1605–1627", "1658–1707"], answer: 1, explanation: "अकबर ने 1556 से 1605 तक शासन किया।" },
-  { question: "ताजमहल का निर्माण किस मुगल शासक ने करवाया?", options: ["बाबर", "अकबर", "शाहजहाँ", "औरंगजेब"], answer: 2, explanation: "शाहजहाँ ने अपनी पत्नी मुमताज महल की स्मृति में ताजमहल बनवाया।" }
+ { question:"दिल्ली सल्तनत के प्रारंभिक शासन की नींव किसने रखी?", options:["कुतुबुद्दीन ऐबक","अलाउद्दीन खिलजी","इल्तुतमिश","बलबन"], answer:0, explanation:"कुतुबुद्दीन ऐबक ने दिल्ली सल्तनत के प्रारंभिक शासन की नींव रखी।" },
+ { question:"कुतुब मीनार का निर्माण किसने शुरू कराया?", options:["अकबर","कुतुबुद्दीन ऐबक","शाहजहाँ","औरंगजेब"], answer:1, explanation:"कुतुब मीनार का निर्माण कुतुबुद्दीन ऐबक ने शुरू कराया था।" },
+ { question:"अकबर का शासनकाल किस अवधि में था?", options:["1526–1530","1556–1605","1605–1627","1658–1707"], answer:1, explanation:"अकबर ने 1556 से 1605 तक शासन किया।" },
+ { question:"ताजमहल का निर्माण किस मुगल शासक ने करवाया?", options:["बाबर","अकबर","शाहजहाँ","औरंगजेब"], answer:2, explanation:"शाहजहाँ ने अपनी पत्नी मुमताज महल की स्मृति में ताजमहल बनवाया।" }
 ];
 
 const ancientIndiaQuestions = [
-  { question: "वैदिक सभ्यता का प्रमुख साहित्य कौन-सा है?", options: ["वेद", "रामचरितमानस", "अर्थशास्त्र", "राजतरंगिणी"], answer: 0, explanation: "वैदिक सभ्यता का प्रमुख धार्मिक और साहित्यिक आधार वेद हैं।" },
-  { question: "गौतम बुद्ध का जन्म कहाँ हुआ था?", options: ["सारनाथ", "लुंबिनी", "कुशीनगर", "बोधगया"], answer: 1, explanation: "गौतम बुद्ध का जन्म लुंबिनी में हुआ था।" },
-  { question: "महावीर जैन धर्म के कौन-से तीर्थंकर थे?", options: ["21वें", "22वें", "23वें", "24वें"], answer: 3, explanation: "महावीर जैन धर्म के 24वें तीर्थंकर थे।" },
-  { question: "नालंदा विश्वविद्यालय प्राचीन भारत में किस राज्य में स्थित था?", options: ["बिहार", "उत्तर प्रदेश", "मध्य प्रदेश", "राजस्थान"], answer: 0, explanation: "प्राचीन नालंदा विश्वविद्यालय वर्तमान बिहार में स्थित था।" }
+ { question:"वैदिक सभ्यता का प्रमुख साहित्य कौन-सा है?", options:["वेद","रामचरितमानस","अर्थशास्त्र","राजतरंगिणी"], answer:0, explanation:"वैदिक सभ्यता का प्रमुख धार्मिक और साहित्यिक आधार वेद हैं।" },
+ { question:"गौतम बुद्ध का जन्म कहाँ हुआ था?", options:["सारनाथ","लुंबिनी","कुशीनगर","बोधगया"], answer:1, explanation:"गौतम बुद्ध का जन्म लुंबिनी में हुआ था।" },
+ { question:"महावीर जैन धर्म के कौन-से तीर्थंकर थे?", options:["21वें","22वें","23वें","24वें"], answer:3, explanation:"महावीर जैन धर्म के 24वें तीर्थंकर थे।" },
+ { question:"नालंदा विश्वविद्यालय प्राचीन भारत में किस राज्य में स्थित था?", options:["बिहार","उत्तर प्रदेश","मध्य प्रदेश","राजस्थान"], answer:0, explanation:"प्राचीन नालंदा विश्वविद्यालय वर्तमान बिहार में स्थित था।" }
 ];
 
 const subjects = [
-  { name: "🇮🇳 भारतीय इतिहास", questions: indianHistoryQuestions },
-  { name: "🏛️ भारतीय राजव्यवस्था", questions: indianPolityQuestions },
-  { name: "💰 भारतीय अर्थव्यवस्था", questions: indianEconomyQuestions },
-  { name: "🌍 भूगोल", questions: geographyQuestions },
-  { name: "🌱 पर्यावरण", questions: environmentQuestions },
-  { name: "🏺 कला एवं संस्कृति", questions: artCultureQuestions },
-  { name: "🔬 सामान्य विज्ञान", questions: generalScienceQuestions },
-  { name: "⚗️ रसायन विज्ञान", questions: chemistryQuestions },
-  { name: "🧬 जीव विज्ञान", questions: biologyQuestions },
-  { name: "🏏 खेलकूद", questions: sportsQuestions },
-  { name: "📚 विविध", questions: miscellaneousQuestions },
-  { name: "🇮🇳 आधुनिक भारत", questions: modernIndiaQuestions },
-  { name: "🏰 मध्यकालीन भारत", questions: medievalIndiaQuestions },
-  { name: "🕉️ प्राचीन भारत", questions: ancientIndiaQuestions }
+ { name:"🇮🇳 भारतीय इतिहास", questions:indianHistoryQuestions },
+ { name:"🏛️ भारतीय राजव्यवस्था", questions:indianPolityQuestions },
+ { name:"💰 भारतीय अर्थव्यवस्था", questions:indianEconomyQuestions },
+ { name:"🌍 भूगोल", questions:geographyQuestions },
+ { name:"🌱 पर्यावरण", questions:environmentQuestions },
+ { name:"🏺 कला एवं संस्कृति", questions:artCultureQuestions },
+ { name:"🔬 सामान्य विज्ञान", questions:generalScienceQuestions },
+ { name:"⚗️ रसायन विज्ञान", questions:chemistryQuestions },
+ { name:"🧬 जीव विज्ञान", questions:biologyQuestions },
+ { name:"🏏 खेलकूद", questions:sportsQuestions },
+ { name:"📚 विविध", questions:miscellaneousQuestions },
+ { name:"🇮🇳 आधुनिक भारत", questions:modernIndiaQuestions },
+ { name:"🏰 मध्यकालीन भारत", questions:medievalIndiaQuestions },
+ { name:"🕉️ प्राचीन भारत", questions:ancientIndiaQuestions }
 ];
 
-/* QUIZ ENGINE STATE */
+/* QUIZ ENGINE */
 let currentQuestions = [];
 let currentQuestionIndex = 0;
 let score = 0;
 let selectedSubject = "";
 let answered = false;
+
+/* TOAST HELPER */
+function toast(message) {
+  const container = document.getElementById("toastContainer");
+  const el = document.createElement("div");
+  el.className = "toast";
+  el.textContent = message;
+  container.appendChild(el);
+  setTimeout(() => { el.remove(); }, 3000);
+}
 
 function loadSubjects() {
   const container = document.getElementById("subjectContainer");
@@ -386,6 +436,7 @@ function openSubject(index) {
   document.getElementById("subjectContainer").style.display = "none";
   document.getElementById("resultArea").style.display = "none";
   document.getElementById("quizArea").style.display = "block";
+
   showQuestion();
 }
 
@@ -396,17 +447,20 @@ function showQuestion() {
   document.getElementById("subjectTitle").textContent = selectedSubject;
   document.getElementById("questionNumber").textContent = `प्रश्न ${currentQuestionIndex + 1} / ${currentQuestions.length}`;
   document.getElementById("questionText").textContent = question.question;
-  
-  const expBox = document.getElementById("explanationArea");
-  expBox.style.display = "none";
-  expBox.textContent = "";
 
   const options = document.getElementById("optionsContainer");
-  options.innerHTML = question.options.map((option, index) => `
-    <button class="option" onclick="selectAnswer(${index})">
-      ${String.fromCharCode(65 + index)}. ${option}
-    </button>
-  `).join("");
+  options.innerHTML = "";
+
+  question.options.forEach((option, index) => {
+    const button = document.createElement("button");
+    button.textContent = `${String.fromCharCode(65 + index)}. ${option}`;
+    button.onclick = () => { selectAnswer(index); };
+    options.appendChild(button);
+  });
+
+  document.getElementById("answerInfo").textContent = "";
+  document.getElementById("explanation").style.display = "none";
+  document.getElementById("nextQuestionBtn").style.display = "none";
 }
 
 function selectAnswer(index) {
@@ -414,28 +468,35 @@ function selectAnswer(index) {
   answered = true;
 
   const question = currentQuestions[currentQuestionIndex];
-  const buttons = document.querySelectorAll(".option");
-
-  if (index === question.answer) {
-    score++;
-    buttons[index].classList.add("correct");
-  } else {
-    buttons[index].classList.add("wrong");
-    buttons[question.answer].classList.add("correct");
-  }
+  const buttons = document.querySelectorAll("#optionsContainer button");
 
   buttons.forEach(button => { button.disabled = true; });
 
-  if (question.explanation) {
-    const expBox = document.getElementById("explanationArea");
-    expBox.innerHTML = `<strong>व्याख्या:</strong> ${question.explanation}`;
-    expBox.style.display = "block";
+  /* सही उत्तर GREEN */
+  buttons[question.answer].classList.add("correct");
+
+  if (index === question.answer) {
+    score++;
+    document.getElementById("answerInfo").innerHTML = "🎉 <span style='color:#00ff88'>सही जवाब!</span>";
+    toast("✅ सही जवाब!");
+  } else {
+    buttons[index].classList.add("wrong");
+    document.getElementById("answerInfo").innerHTML = "❌ गलत जवाब! सही उत्तर: <span style='color:#00ff88'>" + question.options[question.answer] + "</span>";
+    toast("❌ गलत जवाब!");
   }
+
+  /* EXPLANATION */
+  const explanation = document.getElementById("explanation");
+  explanation.textContent = "📖 Explanation: " + question.explanation;
+  explanation.style.display = "block";
+
+  /* NEXT BUTTON */
+  document.getElementById("nextQuestionBtn").style.display = "inline-block";
 }
 
 function nextQuestion() {
   if (!answered) {
-    alert("पहले किसी एक उत्तर का चयन करें।");
+    toast("⚠️ पहले किसी एक उत्तर का चयन करें।");
     return;
   }
 
@@ -455,12 +516,24 @@ function showResult() {
   const wrong = total - score;
   const percentage = Math.round((score / total) * 100);
 
+  let message = "";
+  if (percentage >= 90) {
+    message = "🏆 शानदार! बहुत बढ़िया प्रदर्शन!";
+  } else if (percentage >= 70) {
+    message = "🔥 बहुत अच्छा! ऐसे ही आगे बढ़ते रहें!";
+  } else if (percentage >= 50) {
+    message = "👍 अच्छा प्रयास! थोड़ी और practice करें।";
+  } else {
+    message = "💪 अभ्यास करते रहें, अगली बार बेहतर होगा!";
+  }
+
   document.getElementById("resultText").innerHTML = `
     <strong>${selectedSubject}</strong><br><br>
-    कुल Questions: <strong>${total}</strong><br>
-    सही Answers: <strong style="color: green;">${score}</strong><br>
-    गलत Answers: <strong style="color: red;">${wrong}</strong><br>
-    Accuracy: <strong>${percentage}%</strong>
+    ${message}<br><br>
+    📚 कुल Questions: ${total}<br>
+    ✅ सही Answers: <span style="color:#10b981; font-weight:bold;">${score}</span><br>
+    ❌ गलत Answers: <span style="color:#f43f5e; font-weight:bold;">${wrong}</span><br>
+    🎯 Accuracy: <strong>${percentage}%</strong>
   `;
 }
 
