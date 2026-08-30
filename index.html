@@ -17,13 +17,9 @@ content="Barhaman Fouji, Brahman Fouji, Rakesh Mishra, Notes, Image Resizer, Qui
 
 <style>
 
-*{
-box-sizing:border-box;
-}
+*{box-sizing:border-box;}
 
-html{
-scroll-behavior:smooth;
-}
+html{scroll-behavior:smooth;}
 
 body{
 margin:0;
@@ -56,13 +52,9 @@ background:radial-gradient(circle,
 rgba(100,40,255,.12),transparent 55%);
 }
 
-body.dark-mode::before{
-opacity:0;
-}
+body.dark-mode::before{opacity:0;}
 
-body.dark-mode .section{
-background:#000;
-}
+body.dark-mode .section{background:#000;}
 
 body.bright-mode::before{
 opacity:1;
@@ -299,9 +291,7 @@ animation:float 3s ease-in-out infinite;
 }
 
 @keyframes float{
-50%{
-transform:translateY(-7px);
-}
+50%{transform:translateY(-7px);}
 }
 
 .hero h2{
@@ -947,13 +937,9 @@ cursor:pointer;
 z-index:2000;
 }
 
-#lightBtn{
-left:15px;
-}
+#lightBtn{left:15px;}
 
-#topBtn{
-right:15px;
-}
+#topBtn{right:15px;}
 
 /* ================= TOAST ================= */
 
@@ -1092,12 +1078,8 @@ color:#aaa;
 <nav class="navbar">
 
 <a href="#home">🏠 Home</a>
-
 <a href="#about">👤 About</a>
-
 <a href="#gallery">🖼️ Gallery</a>
-
-<!-- FILE MENU -->
 
 <div class="file-menu">
 
@@ -1111,7 +1093,7 @@ color:#aaa;
 📁 File Menu
 </div>
 
-<!-- TOOLS -->
+<!-- ================= TOOLS ================= -->
 
 <div class="file-branch">
 
@@ -1122,58 +1104,42 @@ color:#aaa;
 
 <div id="toolsBranch" class="sub-branch">
 
-<a class="sub-item"
-href="#notesTool"
-onclick="closeAllMenus()">
+<a class="sub-item" href="#notesTool" onclick="closeAllMenus()">
 📝 Notes / To-Do
 </a>
 
-<a class="sub-item"
-href="#compressTool"
-onclick="closeAllMenus()">
+<a class="sub-item" href="#compressTool" onclick="closeAllMenus()">
 🖼️ Image Resizer / Compressor
 </a>
 
-<a class="sub-item"
-href="#randomTool"
-onclick="closeAllMenus()">
+<a class="sub-item" href="#randomTool" onclick="closeAllMenus()">
 🎲 Random Fun
 </a>
 
-<a class="sub-item"
-href="#luckySpin"
-onclick="closeAllMenus()">
+<a class="sub-item" href="#luckySpin" onclick="closeAllMenus()">
 🎰 Lucky Spin
 </a>
 
-<a class="sub-item"
-href="#music"
-onclick="closeAllMenus()">
+<a class="sub-item" href="#music" onclick="closeAllMenus()">
 🎵 Free Music
 </a>
 
-<a class="sub-item"
-href="#quiz"
-onclick="closeAllMenus()">
+<a class="sub-item" href="#quiz" onclick="closeAllMenus()">
 🧠 Quiz
 </a>
 
-<a class="sub-item"
-href="#chat"
-onclick="closeAllMenus()">
+<a class="sub-item" href="#chat" onclick="closeAllMenus()">
 🤖 AI Support
 </a>
 
-<a class="sub-item"
-href="#feedback"
-onclick="closeAllMenus()">
+<a class="sub-item" href="#feedback" onclick="closeAllMenus()">
 💬 Feedback
 </a>
 
 </div>
 </div>
 
-<!-- EDUCATION -->
+<!-- ================= EDUCATION ================= -->
 
 <div class="file-branch">
 
@@ -1184,7 +1150,7 @@ onclick="closeAllMenus()">
 
 <div id="educationBranch" class="sub-branch">
 
-<!-- INDIAN HISTORY -->
+<!-- ================= INDIAN HISTORY ================= -->
 
 <div class="education-item"
 onclick="toggleBranch('historyBranch')">
@@ -1194,8 +1160,7 @@ onclick="toggleBranch('historyBranch')">
 
 </div>
 
-<div id="historyBranch"
-class="education-topics">
+<div id="historyBranch" class="education-topics">
 
 <!-- ANCIENT INDIA -->
 
@@ -1207,8 +1172,7 @@ onclick="toggleBranch('ancientBranch')">
 
 </div>
 
-<div id="ancientBranch"
-class="education-topics">
+<div id="ancientBranch" class="education-topics">
 
 <a class="topic-item" href="#">सामान्य परिचय</a>
 <a class="topic-item" href="#">ऐतिहासिक स्रोत</a>
@@ -1237,8 +1201,7 @@ onclick="toggleBranch('medievalBranch')">
 
 </div>
 
-<div id="medievalBranch"
-class="education-topics">
+<div id="medievalBranch" class="education-topics">
 
 <a class="topic-item" href="#">पूर्व मध्यकाल</a>
 <a class="topic-item" href="#">उत्तर भारत — राजपूत काल</a>
@@ -1266,8 +1229,7 @@ onclick="toggleBranch('modernBranch')">
 
 </div>
 
-<div id="modernBranch"
-class="education-topics">
+<div id="modernBranch" class="education-topics">
 
 <a class="topic-item" href="#">
 ब्रिटिश सत्ता का विस्तार — बंगाल, मैसूर, पंजाब आदि
@@ -1281,50 +1243,516 @@ class="education-topics">
 उन्नीसवीं–बीसवीं सदी के सामाजिक-धार्मिक आंदोलन
 </a>
 
-<a class="topic-item" href="#">
-जातिगत आंदोलन
-</a>
-
-<a class="topic-item" href="#">
-जनजातीय आंदोलन
-</a>
-
-<a class="topic-item" href="#">
-किसान आंदोलन
-</a>
-
-<a class="topic-item" href="#">
-मज़दूर आंदोलन
-</a>
-
-<a class="topic-item" href="#">
-स्वतंत्रता आंदोलन
-</a>
-
-<a class="topic-item" href="#">
-1857 का विद्रोह
-</a>
-
-<a class="topic-item" href="#">
-नरमपंथी चरण
-</a>
-
-<a class="topic-item" href="#">
-गरमपंथी / उग्रवादी चरण
-</a>
-
-<a class="topic-item" href="#">
-गांधी युग
-</a>
-
-<a class="topic-item" href="#">
-विविध — आधुनिक भारत
-</a>
+<a class="topic-item" href="#">जातिगत आंदोलन</a>
+<a class="topic-item" href="#">जनजातीय आंदोलन</a>
+<a class="topic-item" href="#">किसान आंदोलन</a>
+<a class="topic-item" href="#">मज़दूर आंदोलन</a>
+<a class="topic-item" href="#">स्वतंत्रता आंदोलन</a>
+<a class="topic-item" href="#">1857 का विद्रोह</a>
+<a class="topic-item" href="#">नरमपंथी चरण</a>
+<a class="topic-item" href="#">गरमपंथी / उग्रवादी चरण</a>
+<a class="topic-item" href="#">गांधी युग</a>
+<a class="topic-item" href="#">विविध — आधुनिक भारत</a>
 
 </div>
 
 </div>
+
+<!-- ================================================= -->
+<!-- NEW: INDIAN POLITY -->
+<!-- ================================================= -->
+
+<div class="education-item"
+onclick="toggleBranch('polityBranch')">
+
+<span>⚖️ भारतीय राजव्यवस्था</span>
+<span>›</span>
+
 </div>
+
+<div id="polityBranch" class="education-topics">
+
+<!-- CONSTITUTION -->
+
+<div class="education-item"
+onclick="toggleBranch('constitutionBranch')">
+
+<span>📜 भारतीय संविधान</span>
+<span>›</span>
+
+</div>
+
+<div id="constitutionBranch" class="education-topics">
+
+<a class="topic-item" href="#">संविधान का परिचय</a>
+<a class="topic-item" href="#">संविधान की ऐतिहासिक पृष्ठभूमि</a>
+<a class="topic-item" href="#">संविधान सभा</a>
+<a class="topic-item" href="#">संविधान सभा की प्रमुख समितियाँ</a>
+<a class="topic-item" href="#">संविधान निर्माण की प्रक्रिया</a>
+<a class="topic-item" href="#">भारतीय संविधान की प्रमुख विशेषताएँ</a>
+<a class="topic-item" href="#">संविधान की प्रस्तावना</a>
+<a class="topic-item" href="#">संविधान के भाग और अनुसूचियाँ</a>
+<a class="topic-item" href="#">संविधान संशोधन</a>
+<a class="topic-item" href="#">मूल संरचना सिद्धांत</a>
+<a class="topic-item" href="#">संविधान की सर्वोच्चता</a>
+<a class="topic-item" href="#">संघीय एवं एकात्मक विशेषताएँ</a>
+
+</div>
+
+<!-- PREAMBLE -->
+
+<div class="education-item"
+onclick="toggleBranch('preambleBranch')">
+
+<span>🇮🇳 प्रस्तावना</span>
+<span>›</span>
+
+</div>
+
+<div id="preambleBranch" class="education-topics">
+
+<a class="topic-item" href="#">प्रस्तावना का अर्थ</a>
+<a class="topic-item" href="#">प्रस्तावना के प्रमुख शब्द</a>
+<a class="topic-item" href="#">सम्प्रभु</a>
+<a class="topic-item" href="#">समाजवादी</a>
+<a class="topic-item" href="#">पंथनिरपेक्ष</a>
+<a class="topic-item" href="#">लोकतांत्रिक</a>
+<a class="topic-item" href="#">गणराज्य</a>
+<a class="topic-item" href="#">न्याय</a>
+<a class="topic-item" href="#">स्वतंत्रता</a>
+<a class="topic-item" href="#">समता</a>
+<a class="topic-item" href="#">बंधुता</a>
+<a class="topic-item" href="#">प्रस्तावना में संशोधन</a>
+
+</div>
+
+<!-- FUNDAMENTAL RIGHTS -->
+
+<div class="education-item"
+onclick="toggleBranch('rightsBranch')">
+
+<span>🛡️ मौलिक अधिकार</span>
+<span>›</span>
+
+</div>
+
+<div id="rightsBranch" class="education-topics">
+
+<a class="topic-item" href="#">मौलिक अधिकारों का परिचय</a>
+<a class="topic-item" href="#">समानता का अधिकार</a>
+<a class="topic-item" href="#">स्वतंत्रता का अधिकार</a>
+<a class="topic-item" href="#">शोषण के विरुद्ध अधिकार</a>
+<a class="topic-item" href="#">धार्मिक स्वतंत्रता का अधिकार</a>
+<a class="topic-item" href="#">सांस्कृतिक एवं शैक्षिक अधिकार</a>
+<a class="topic-item" href="#">संवैधानिक उपचार का अधिकार</a>
+<a class="topic-item" href="#">अनुच्छेद 12 से 35</a>
+<a class="topic-item" href="#">रिट — Habeas Corpus</a>
+<a class="topic-item" href="#">रिट — Mandamus</a>
+<a class="topic-item" href="#">रिट — Prohibition</a>
+<a class="topic-item" href="#">रिट — Certiorari</a>
+<a class="topic-item" href="#">रिट — Quo Warranto</a>
+
+</div>
+
+<!-- DPSP -->
+
+<div class="education-item"
+onclick="toggleBranch('dpspBranch')">
+
+<span>📘 राज्य के नीति-निर्देशक तत्व</span>
+<span>›</span>
+
+</div>
+
+<div id="dpspBranch" class="education-topics">
+
+<a class="topic-item" href="#">नीति-निर्देशक तत्व का परिचय</a>
+<a class="topic-item" href="#">सामाजिक एवं आर्थिक न्याय</a>
+<a class="topic-item" href="#">समान नागरिक संहिता</a>
+<a class="topic-item" href="#">ग्राम पंचायतों का संगठन</a>
+<a class="topic-item" href="#">पर्यावरण संरक्षण</a>
+<a class="topic-item" href="#">अंतरराष्ट्रीय शांति</a>
+<a class="topic-item" href="#">मौलिक अधिकार और नीति-निर्देशक तत्व</a>
+
+</div>
+
+<!-- FUNDAMENTAL DUTIES -->
+
+<div class="education-item"
+onclick="toggleBranch('dutiesBranch')">
+
+<span>🫡 मौलिक कर्तव्य</span>
+<span>›</span>
+
+</div>
+
+<div id="dutiesBranch" class="education-topics">
+
+<a class="topic-item" href="#">मौलिक कर्तव्यों का परिचय</a>
+<a class="topic-item" href="#">मौलिक कर्तव्यों की संख्या</a>
+<a class="topic-item" href="#">42वाँ संविधान संशोधन</a>
+<a class="topic-item" href="#">86वाँ संविधान संशोधन</a>
+<a class="topic-item" href="#">नागरिकों के प्रमुख कर्तव्य</a>
+
+</div>
+
+<!-- PRESIDENT -->
+
+<div class="education-item"
+onclick="toggleBranch('presidentBranch')">
+
+<span>🇮🇳 राष्ट्रपति</span>
+<span>›</span>
+
+</div>
+
+<div id="presidentBranch" class="education-topics">
+
+<a class="topic-item" href="#">राष्ट्रपति का पद</a>
+<a class="topic-item" href="#">राष्ट्रपति का निर्वाचन</a>
+<a class="topic-item" href="#">राष्ट्रपति की योग्यताएँ</a>
+<a class="topic-item" href="#">राष्ट्रपति का कार्यकाल</a>
+<a class="topic-item" href="#">राष्ट्रपति की शक्तियाँ</a>
+<a class="topic-item" href="#">राष्ट्रपति की वीटो शक्ति</a>
+<a class="topic-item" href="#">राष्ट्रपति की क्षमादान शक्ति</a>
+<a class="topic-item" href="#">महाभियोग</a>
+<a class="topic-item" href="#">उपराष्ट्रपति</a>
+
+</div>
+
+<!-- PRIME MINISTER -->
+
+<div class="education-item"
+onclick="toggleBranch('pmBranch')">
+
+<span>👔 प्रधानमंत्री एवं मंत्रिपरिषद</span>
+<span>›</span>
+
+</div>
+
+<div id="pmBranch" class="education-topics">
+
+<a class="topic-item" href="#">प्रधानमंत्री का पद</a>
+<a class="topic-item" href="#">प्रधानमंत्री की नियुक्ति</a>
+<a class="topic-item" href="#">प्रधानमंत्री की शक्तियाँ</a>
+<a class="topic-item" href="#">मंत्रिपरिषद</a>
+<a class="topic-item" href="#">कैबिनेट</a>
+<a class="topic-item" href="#">सामूहिक उत्तरदायित्व</a>
+<a class="topic-item" href="#">मंत्रियों की श्रेणियाँ</a>
+<a class="topic-item" href="#">कैबिनेट समितियाँ</a>
+
+</div>
+
+<!-- PARLIAMENT -->
+
+<div class="education-item"
+onclick="toggleBranch('parliamentBranch')">
+
+<span>🏛️ संसद</span>
+<span>›</span>
+
+</div>
+
+<div id="parliamentBranch" class="education-topics">
+
+<a class="topic-item" href="#">संसद का परिचय</a>
+<a class="topic-item" href="#">लोकसभा</a>
+<a class="topic-item" href="#">राज्यसभा</a>
+<a class="topic-item" href="#">लोकसभा की संरचना</a>
+<a class="topic-item" href="#">राज्यसभा की संरचना</a>
+<a class="topic-item" href="#">संसद सदस्यों की योग्यताएँ</a>
+<a class="topic-item" href="#">संसद का कार्यकाल</a>
+<a class="topic-item" href="#">संसद के सत्र</a>
+<a class="topic-item" href="#">संसद की शक्तियाँ</a>
+<a class="topic-item" href="#">विधेयक</a>
+<a class="topic-item" href="#">साधारण विधेयक</a>
+<a class="topic-item" href="#">धन विधेयक</a>
+<a class="topic-item" href="#">वित्त विधेयक</a>
+<a class="topic-item" href="#">संविधान संशोधन विधेयक</a>
+<a class="topic-item" href="#">बजट</a>
+<a class="topic-item" href="#">संसदीय समितियाँ</a>
+<a class="topic-item" href="#">प्रश्नकाल</a>
+<a class="topic-item" href="#">शून्यकाल</a>
+<a class="topic-item" href="#">अविश्वास प्रस्ताव</a>
+<a class="topic-item" href="#">दल-बदल कानून</a>
+
+</div>
+
+<!-- SUPREME COURT -->
+
+<div class="education-item"
+onclick="toggleBranch('courtBranch')">
+
+<span>⚖️ न्यायपालिका</span>
+<span>›</span>
+
+</div>
+
+<div id="courtBranch" class="education-topics">
+
+<a class="topic-item" href="#">भारतीय न्यायपालिका का परिचय</a>
+<a class="topic-item" href="#">सर्वोच्च न्यायालय</a>
+<a class="topic-item" href="#">सर्वोच्च न्यायालय की संरचना</a>
+<a class="topic-item" href="#">मुख्य न्यायाधीश</a>
+<a class="topic-item" href="#">न्यायाधीशों की नियुक्ति</a>
+<a class="topic-item" href="#">न्यायाधीशों की योग्यताएँ</a>
+<a class="topic-item" href="#">न्यायाधीशों का कार्यकाल</a>
+<a class="topic-item" href="#">सर्वोच्च न्यायालय की शक्तियाँ</a>
+<a class="topic-item" href="#">न्यायिक पुनरावलोकन</a>
+<a class="topic-item" href="#">न्यायिक सक्रियता</a>
+<a class="topic-item" href="#">जनहित याचिका</a>
+<a class="topic-item" href="#">उच्च न्यायालय</a>
+<a class="topic-item" href="#">अधीनस्थ न्यायालय</a>
+
+</div>
+
+<!-- GOVERNOR -->
+
+<div class="education-item"
+onclick="toggleBranch('governorBranch')">
+
+<span>🏛️ राज्य शासन</span>
+<span>›</span>
+
+</div>
+
+<div id="governorBranch" class="education-topics">
+
+<a class="topic-item" href="#">राज्यपाल</a>
+<a class="topic-item" href="#">राज्यपाल की नियुक्ति</a>
+<a class="topic-item" href="#">राज्यपाल की शक्तियाँ</a>
+<a class="topic-item" href="#">मुख्यमंत्री</a>
+<a class="topic-item" href="#">राज्य मंत्रिपरिषद</a>
+<a class="topic-item" href="#">राज्य विधानसभा</a>
+<a class="topic-item" href="#">विधान परिषद</a>
+<a class="topic-item" href="#">राज्य विधेयक</a>
+<a class="topic-item" href="#">राज्य बजट</a>
+
+</div>
+
+<!-- FEDERALISM -->
+
+<div class="education-item"
+onclick="toggleBranch('federalBranch')">
+
+<span>🇮🇳 केंद्र-राज्य संबंध</span>
+<span>›</span>
+
+</div>
+
+<div id="federalBranch" class="education-topics">
+
+<a class="topic-item" href="#">केंद्र और राज्यों के संबंध</a>
+<a class="topic-item" href="#">विधायी संबंध</a>
+<a class="topic-item" href="#">प्रशासनिक संबंध</a>
+<a class="topic-item" href="#">वित्तीय संबंध</a>
+<a class="topic-item" href="#">अंतर्राज्यीय परिषद</a>
+<a class="topic-item" href="#">अंतर्राज्यीय जल विवाद</a>
+<a class="topic-item" href="#">सहकारी संघवाद</a>
+<a class="topic-item" href="#">प्रतिस्पर्धी संघवाद</a>
+
+</div>
+
+<!-- LOCAL GOVERNMENT -->
+
+<div class="education-item"
+onclick="toggleBranch('localBranch')">
+
+<span>🏘️ पंचायती राज एवं स्थानीय शासन</span>
+<span>›</span>
+
+</div>
+
+<div id="localBranch" class="education-topics">
+
+<a class="topic-item" href="#">स्थानीय स्वशासन</a>
+<a class="topic-item" href="#">73वाँ संविधान संशोधन</a>
+<a class="topic-item" href="#">ग्राम सभा</a>
+<a class="topic-item" href="#">ग्राम पंचायत</a>
+<a class="topic-item" href="#">पंचायत समिति</a>
+<a class="topic-item" href="#">जिला परिषद</a>
+<a class="topic-item" href="#">पंचायतों में आरक्षण</a>
+<a class="topic-item" href="#">74वाँ संविधान संशोधन</a>
+<a class="topic-item" href="#">नगरपालिका</a>
+<a class="topic-item" href="#">नगर निगम</a>
+<a class="topic-item" href="#">नगर परिषद</a>
+
+</div>
+
+<!-- ELECTION -->
+
+<div class="education-item"
+onclick="toggleBranch('electionBranch')">
+
+<span>🗳️ निर्वाचन व्यवस्था</span>
+<span>›</span>
+
+</div>
+
+<div id="electionBranch" class="education-topics">
+
+<a class="topic-item" href="#">भारत में निर्वाचन व्यवस्था</a>
+<a class="topic-item" href="#">निर्वाचन आयोग</a>
+<a class="topic-item" href="#">मुख्य निर्वाचन आयुक्त</a>
+<a class="topic-item" href="#">निर्वाचन आयुक्त</a>
+<a class="topic-item" href="#">मतदाता सूची</a>
+<a class="topic-item" href="#">लोकसभा चुनाव</a>
+<a class="topic-item" href="#">विधानसभा चुनाव</a>
+<a class="topic-item" href="#">राष्ट्रपति चुनाव</a>
+<a class="topic-item" href="#">उपराष्ट्रपति चुनाव</a>
+<a class="topic-item" href="#">निर्वाचन सुधार</a>
+<a class="topic-item" href="#">NOTA</a>
+<a class="topic-item" href="#">दल-बदल कानून</a>
+
+</div>
+
+<!-- CONSTITUTIONAL BODIES -->
+
+<div class="education-item"
+onclick="toggleBranch('bodiesBranch')">
+
+<span>🏢 संवैधानिक संस्थाएँ</span>
+<span>›</span>
+
+</div>
+
+<div id="bodiesBranch" class="education-topics">
+
+<a class="topic-item" href="#">निर्वाचन आयोग</a>
+<a class="topic-item" href="#">संघ लोक सेवा आयोग</a>
+<a class="topic-item" href="#">वित्त आयोग</a>
+<a class="topic-item" href="#">भारत के नियंत्रक एवं महालेखा परीक्षक</a>
+<a class="topic-item" href="#">अटॉर्नी जनरल</a>
+<a class="topic-item" href="#">एडवोकेट जनरल</a>
+<a class="topic-item" href="#">राष्ट्रीय अनुसूचित जाति आयोग</a>
+<a class="topic-item" href="#">राष्ट्रीय अनुसूचित जनजाति आयोग</a>
+<a class="topic-item" href="#">राष्ट्रीय पिछड़ा वर्ग आयोग</a>
+
+</div>
+
+<!-- EMERGENCY -->
+
+<div class="education-item"
+onclick="toggleBranch('emergencyBranch')">
+
+<span>🚨 आपातकालीन प्रावधान</span>
+<span>›</span>
+
+</div>
+
+<div id="emergencyBranch" class="education-topics">
+
+<a class="topic-item" href="#">आपातकाल का परिचय</a>
+<a class="topic-item" href="#">राष्ट्रीय आपातकाल</a>
+<a class="topic-item" href="#">राष्ट्रपति शासन</a>
+<a class="topic-item" href="#">वित्तीय आपातकाल</a>
+<a class="topic-item" href="#">आपातकाल के प्रभाव</a>
+<a class="topic-item" href="#">आपातकाल और मौलिक अधिकार</a>
+
+</div>
+
+<!-- IMPORTANT ARTICLES -->
+
+<div class="education-item"
+onclick="toggleBranch('articlesBranch')">
+
+<span>📚 महत्वपूर्ण अनुच्छेद</span>
+<span>›</span>
+
+</div>
+
+<div id="articlesBranch" class="education-topics">
+
+<a class="topic-item" href="#">अनुच्छेद 1 — संघ का नाम और राज्य क्षेत्र</a>
+<a class="topic-item" href="#">अनुच्छेद 14 — समानता</a>
+<a class="topic-item" href="#">अनुच्छेद 19 — स्वतंत्रता</a>
+<a class="topic-item" href="#">अनुच्छेद 21 — जीवन एवं व्यक्तिगत स्वतंत्रता</a>
+<a class="topic-item" href="#">अनुच्छेद 21A — शिक्षा का अधिकार</a>
+<a class="topic-item" href="#">अनुच्छेद 32 — संवैधानिक उपचार</a>
+<a class="topic-item" href="#">अनुच्छेद 44 — समान नागरिक संहिता</a>
+<a class="topic-item" href="#">अनुच्छेद 51A — मौलिक कर्तव्य</a>
+<a class="topic-item" href="#">अनुच्छेद 52 — राष्ट्रपति</a>
+<a class="topic-item" href="#">अनुच्छेद 63 — उपराष्ट्रपति</a>
+<a class="topic-item" href="#">अनुच्छेद 74 — मंत्रिपरिषद</a>
+<a class="topic-item" href="#">अनुच्छेद 76 — अटॉर्नी जनरल</a>
+<a class="topic-item" href="#">अनुच्छेद 79 — संसद</a>
+<a class="topic-item" href="#">अनुच्छेद 110 — धन विधेयक</a>
+<a class="topic-item" href="#">अनुच्छेद 112 — बजट</a>
+<a class="topic-item" href="#">अनुच्छेद 123 — अध्यादेश</a>
+<a class="topic-item" href="#">अनुच्छेद 124 — सर्वोच्च न्यायालय</a>
+<a class="topic-item" href="#">अनुच्छेद 148 — CAG</a>
+<a class="topic-item" href="#">अनुच्छेद 153 — राज्यपाल</a>
+<a class="topic-item" href="#">अनुच्छेद 168 — राज्य विधानमंडल</a>
+<a class="topic-item" href="#">अनुच्छेद 214 — उच्च न्यायालय</a>
+<a class="topic-item" href="#">अनुच्छेद 243 — पंचायती राज</a>
+<a class="topic-item" href="#">अनुच्छेद 280 — वित्त आयोग</a>
+<a class="topic-item" href="#">अनुच्छेद 324 — निर्वाचन आयोग</a>
+<a class="topic-item" href="#">अनुच्छेद 352 — राष्ट्रीय आपातकाल</a>
+<a class="topic-item" href="#">अनुच्छेद 356 — राष्ट्रपति शासन</a>
+<a class="topic-item" href="#">अनुच्छेद 360 — वित्तीय आपातकाल</a>
+<a class="topic-item" href="#">अनुच्छेद 368 — संविधान संशोधन</a>
+
+</div>
+
+<!-- SCHEDULES -->
+
+<div class="education-item"
+onclick="toggleBranch('scheduleBranch')">
+
+<span>📑 संविधान की अनुसूचियाँ</span>
+<span>›</span>
+
+</div>
+
+<div id="scheduleBranch" class="education-topics">
+
+<a class="topic-item" href="#">पहली अनुसूची</a>
+<a class="topic-item" href="#">दूसरी अनुसूची</a>
+<a class="topic-item" href="#">तीसरी अनुसूची</a>
+<a class="topic-item" href="#">चौथी अनुसूची</a>
+<a class="topic-item" href="#">पाँचवीं अनुसूची</a>
+<a class="topic-item" href="#">छठी अनुसूची</a>
+<a class="topic-item" href="#">सातवीं अनुसूची</a>
+<a class="topic-item" href="#">आठवीं अनुसूची</a>
+<a class="topic-item" href="#">नौवीं अनुसूची</a>
+<a class="topic-item" href="#">दसवीं अनुसूची</a>
+<a class="topic-item" href="#">ग्यारहवीं अनुसूची</a>
+<a class="topic-item" href="#">बारहवीं अनुसूची</a>
+
+</div>
+
+<!-- AMENDMENTS -->
+
+<div class="education-item"
+onclick="toggleBranch('amendmentBranch')">
+
+<span>🔢 महत्वपूर्ण संविधान संशोधन</span>
+<span>›</span>
+
+</div>
+
+<div id="amendmentBranch" class="education-topics">
+
+<a class="topic-item" href="#">पहला संविधान संशोधन</a>
+<a class="topic-item" href="#">7वाँ संविधान संशोधन</a>
+<a class="topic-item" href="#">42वाँ संविधान संशोधन</a>
+<a class="topic-item" href="#">44वाँ संविधान संशोधन</a>
+<a class="topic-item" href="#">52वाँ संविधान संशोधन</a>
+<a class="topic-item" href="#">61वाँ संविधान संशोधन</a>
+<a class="topic-item" href="#">73वाँ संविधान संशोधन</a>
+<a class="topic-item" href="#">74वाँ संविधान संशोधन</a>
+<a class="topic-item" href="#">86वाँ संविधान संशोधन</a>
+<a class="topic-item" href="#">91वाँ संविधान संशोधन</a>
+<a class="topic-item" href="#">101वाँ संविधान संशोधन</a>
+<a class="topic-item" href="#">102वाँ संविधान संशोधन</a>
+<a class="topic-item" href="#">103वाँ संविधान संशोधन</a>
+<a class="topic-item" href="#">104वाँ संविधान संशोधन</a>
+<a class="topic-item" href="#">105वाँ संविधान संशोधन</a>
+<a class="topic-item" href="#">106वाँ संविधान संशोधन</a>
+
+</div>
+
+<a class="topic-item" href="#">📖 विविध — भारतीय राजव्यवस्था</a>
 
 </div>
 
@@ -1333,9 +1761,7 @@ class="education-topics">
 </div>
 
 <a href="#daily">💡 Daily</a>
-
 <a href="#youtube">▶️ YouTube</a>
-
 <a href="#contact">📞 Contact</a>
 
 </nav>
@@ -1356,13 +1782,9 @@ class="education-topics">
 <div class="buttons">
 
 <a href="#about">👤 About Me</a>
-
 <a href="#gallery">🖼️ Gallery</a>
-
 <a href="#tools">🛠️ Tools</a>
-
 <a href="#youtube">▶️ YouTube</a>
-
 <a href="#contact">📞 Contact</a>
 
 <a href="#"
@@ -1475,12 +1897,9 @@ alt="Rakesh Mishra">
 id="toolSearch"
 class="tool-input"
 placeholder="🔍 Tool search करें..."
-oninput="filterTools()">
+oninput="filterTools">
 
 <div class="tools-grid" id="toolsGrid">
-
-
-<!-- NOTES -->
 
 <div class="tool-card searchable" id="notesTool">
 
@@ -1497,19 +1916,12 @@ onclick="addNote()">
 ➕ Add Task
 </button>
 
-<div
-id="notesList"
-class="notes-list">
-</div>
+<div id="notesList" class="notes-list"></div>
 
 </div>
 
 
-<!-- IMAGE RESIZER -->
-
-<div
-class="tool-card searchable"
-id="compressTool">
+<div class="tool-card searchable" id="compressTool">
 
 <h3>🖼️ Image Resizer / Compressor</h3>
 
@@ -1531,9 +1943,7 @@ onchange="compressImage()">
 
 <div class="resize-controls">
 
-<label>
-🎯 Maximum Output Size
-</label>
+<label>🎯 Maximum Output Size</label>
 
 <select id="targetSize">
 
@@ -1551,9 +1961,7 @@ onchange="compressImage()">
 
 </select>
 
-<label>
-📐 Maximum Width
-</label>
+<label>📐 Maximum Width</label>
 
 <input
 id="maxWidth"
@@ -1573,10 +1981,7 @@ onclick="resizeCurrentImage()">
 
 <canvas id="compressCanvas"></canvas>
 
-<p
-id="compressInfo"
-class="resize-info">
-</p>
+<p id="compressInfo" class="resize-info"></p>
 
 <a
 id="downloadCompressed"
@@ -1587,8 +1992,6 @@ download="Barhaman-Fouji-Resized.jpg">
 
 </div>
 
-
-<!-- RANDOM -->
 
 <div
 class="tool-card searchable"
@@ -1619,9 +2022,7 @@ class="fun-result">
 
 <!-- ================= LUCKY SPIN ================= -->
 
-<section
-class="section"
-id="luckySpin">
+<section class="section" id="luckySpin">
 
 <div class="card">
 
@@ -1635,15 +2036,9 @@ id="luckySpin">
 
 <div class="wheel-wrap">
 
-<div class="wheel-pointer">
-🔻
-</div>
+<div class="wheel-pointer">🔻</div>
 
-<canvas
-id="wheel"
-width="280"
-height="280">
-</canvas>
+<canvas id="wheel" width="280" height="280"></canvas>
 
 </div>
 
@@ -1653,9 +2048,7 @@ onclick="spinWheel()">
 🎰 SPIN NOW
 </button>
 
-<div
-id="spinResult"
-class="spin-result">
+<div id="spinResult" class="spin-result">
 Spin करने के लिए बटन दबाएँ 😄
 </div>
 
@@ -1672,9 +2065,7 @@ Spin करने के लिए बटन दबाएँ 😄
 
 <!-- ================= DAILY ================= -->
 
-<section
-class="section"
-id="daily">
+<section class="section" id="daily">
 
 <div class="card">
 
@@ -1709,9 +2100,7 @@ onclick="completeChallenge()">
 
 <!-- ================= QUIZ ================= -->
 
-<section
-class="section"
-id="quiz">
+<section class="section" id="quiz">
 
 <div class="card">
 
@@ -1719,29 +2108,15 @@ id="quiz">
 
 <div class="quiz-box">
 
-<div
-id="quizProgress"
-class="quiz-progress">
-</div>
+<div id="quizProgress" class="quiz-progress"></div>
 
-<p
-id="quizQuestion"
-class="quiz-question">
-</p>
+<p id="quizQuestion" class="quiz-question"></p>
 
-<div
-id="quizOptions"
-class="quiz-options">
-</div>
+<div id="quizOptions" class="quiz-options"></div>
 
-<div
-id="quizAnswerInfo"
-class="quiz-answer-info">
-</div>
+<div id="quizAnswerInfo" class="quiz-answer-info"></div>
 
-<p id="quizScore">
-🏆 Score: 0
-</p>
+<p id="quizScore">🏆 Score: 0</p>
 
 <button
 id="quizNext"
@@ -1759,9 +2134,7 @@ onclick="nextQuiz()">
 
 <!-- ================= MUSIC ================= -->
 
-<section
-class="section"
-id="music">
+<section class="section" id="music">
 
 <div class="card">
 
@@ -1773,9 +2146,7 @@ id="music">
 🔱 Shri Bhairav Tandav
 </h3>
 
-<audio
-id="audioPlayer"
-controls>
+<audio id="audioPlayer" controls>
 
 <source
 src="Shri Bhairav Tandav _ Shri Dhananjay Tiwari _ Vidhan Gangwal _ Sadashiv _kaalbhairavashtami2024(MP3_160K).mp3"
@@ -1800,9 +2171,7 @@ type="audio/mpeg">
 
 <!-- ================= CHAT ================= -->
 
-<section
-class="section"
-id="chat">
+<section class="section" id="chat">
 
 <div class="card">
 
@@ -1814,9 +2183,7 @@ id="chat">
 🤖 Barhaman Fouji Assistant
 </div>
 
-<div
-id="chatMessages"
-class="chat-messages">
+<div id="chatMessages" class="chat-messages">
 
 <div class="chat-msg bot-msg">
 नमस्ते! 🙏 मैं Barhaman Fouji Assistant हूँ।
@@ -1848,9 +2215,7 @@ onclick="sendChat()">
 
 <!-- ================= FEEDBACK ================= -->
 
-<section
-class="section"
-id="feedback">
+<section class="section" id="feedback">
 
 <div class="card">
 
@@ -1885,10 +2250,7 @@ onclick="submitFeedback()">
 📨 Feedback भेजें
 </button>
 
-<div
-id="feedbackMessage"
-class="feedback-message">
-</div>
+<div id="feedbackMessage" class="feedback-message"></div>
 
 </div>
 
@@ -1899,9 +2261,7 @@ class="feedback-message">
 
 <!-- ================= YOUTUBE ================= -->
 
-<section
-class="section"
-id="youtube">
+<section class="section" id="youtube">
 
 <div class="card">
 
@@ -1910,69 +2270,51 @@ id="youtube">
 <div class="youtube-grid">
 
 <div class="youtube-card">
-
 <iframe
 src="https://www.youtube.com/embed/JPReWkMD-5s"
 allowfullscreen>
 </iframe>
-
 <p>▶️ Short 1</p>
-
 </div>
 
 <div class="youtube-card">
-
 <iframe
 src="https://www.youtube.com/embed/UMP-rLHMBLU"
 allowfullscreen>
 </iframe>
-
 <p>▶️ Short 2</p>
-
 </div>
 
 <div class="youtube-card">
-
 <iframe
 src="https://www.youtube.com/embed/Crflxy4mULE"
 allowfullscreen>
 </iframe>
-
 <p>▶️ Short 3</p>
-
 </div>
 
 <div class="youtube-card">
-
 <iframe
 src="https://www.youtube.com/embed/zjmyvB1EoTE"
 allowfullscreen>
 </iframe>
-
 <p>▶️ Short 4</p>
-
 </div>
 
 <div class="youtube-card">
-
 <iframe
 src="https://www.youtube.com/embed/BCFl8sBXoTs"
 allowfullscreen>
 </iframe>
-
 <p>▶️ Short 5</p>
-
 </div>
 
 <div class="youtube-card">
-
 <iframe
 src="https://www.youtube.com/embed/R7p-6laN60Y"
 allowfullscreen>
 </iframe>
-
 <p>▶️ Short 6</p>
-
 </div>
 
 </div>
@@ -1996,9 +2338,7 @@ target="_blank">
 
 <!-- ================= CONTACT ================= -->
 
-<section
-class="section"
-id="contact">
+<section class="section" id="contact">
 
 <div class="card">
 
@@ -2054,7 +2394,6 @@ onclick="shareSite();return false">
 <h3>🔱 Barhaman Fouji 🇮🇳</h3>
 
 <p>Rakesh Mishra</p>
-
 <p>जय श्री राम 🙏</p>
 
 <p>
@@ -2086,7 +2425,7 @@ alt="Rakesh Mishra">
 
 <button
 id="lightBtn"
-onclick="toggleLight()">
+onclick="toggleLight">
 💡
 </button>
 
@@ -2151,8 +2490,7 @@ function toggleBranch(id){
 
 const branch=document.getElementById(id);
 
-if(!branch)
-return;
+if(!branch)return;
 
 branch.classList.toggle("show");
 
@@ -2171,9 +2509,7 @@ document.addEventListener("click",e=>{
 const menu=document.querySelector(".file-menu");
 
 if(!menu.contains(e.target)){
-
 closeAllMenus();
-
 }
 
 });
@@ -2446,13 +2782,11 @@ let targetBytes=
 targetMB*1024*1024;
 
 let w=currentImage.width;
-
 let h=currentImage.height;
 
 if(w>maxWidth){
 
 h=Math.round(h*maxWidth/w);
-
 w=maxWidth;
 
 }
@@ -2474,10 +2808,7 @@ h
 
 canvas.style.display="block";
 
-findBestJPEG(
-canvas,
-targetBytes
-);
+findBestJPEG(canvas,targetBytes);
 
 }
 
@@ -2491,8 +2822,7 @@ function testQuality(q){
 
 canvas.toBlob(blob=>{
 
-if(!blob)
-return;
+if(!blob)return;
 
 if(blob.size<=targetBytes){
 
@@ -2527,9 +2857,7 @@ return;
 
 }
 
-testQuality(
-(low+high)/2
-);
+testQuality((low+high)/2);
 
 },"image/jpeg",q);
 
@@ -2692,21 +3020,17 @@ let wheelRotation=0;
 function drawWheel(){
 
 const canvas=document.getElementById("wheel");
-
 const ctx=canvas.getContext("2d");
 
 const cx=canvas.width/2;
-
 const cy=canvas.height/2;
-
 const radius=canvas.width/2-8;
 
 const slice=
 (Math.PI*2)/wheelItems.length;
 
 ctx.clearRect(
-0,
-0,
+0,0,
 canvas.width,
 canvas.height
 );
@@ -2714,7 +3038,6 @@ canvas.height
 wheelItems.forEach((item,i)=>{
 
 const start=i*slice;
-
 const end=start+slice;
 
 ctx.beginPath();
@@ -2739,23 +3062,17 @@ i%2===0
 ctx.fill();
 
 ctx.strokeStyle="#fff";
-
 ctx.lineWidth=2;
-
 ctx.stroke();
 
 ctx.save();
 
 ctx.translate(cx,cy);
 
-ctx.rotate(
-start+slice/2
-);
+ctx.rotate(start+slice/2);
 
 ctx.textAlign="right";
-
 ctx.fillStyle="#fff";
-
 ctx.font="bold 14px Arial";
 
 ctx.fillText(
@@ -2772,8 +3089,7 @@ ctx.restore();
 
 function spinWheel(){
 
-if(spinning)
-return;
+if(spinning)return;
 
 spinning=true;
 
@@ -2781,12 +3097,9 @@ const wheel=
 document.getElementById("wheel");
 
 const extra=
-Math.floor(
-Math.random()*360
-);
+Math.floor(Math.random()*360);
 
-wheelRotation+=
-1440+extra;
+wheelRotation+=1440+extra;
 
 wheel.style.transform=
 "rotate("+wheelRotation+"deg)";
@@ -3091,11 +3404,8 @@ a:1
 ];
 
 let currentQuiz=0;
-
 let score=0;
-
 let answered=false;
-
 let questionNumber=0;
 
 function newQuiz(){
@@ -3109,8 +3419,7 @@ Math.random()*quizData.length
 
 questionNumber++;
 
-const q=
-quizData[currentQuiz];
+const q=quizData[currentQuiz];
 
 document.getElementById("quizProgress")
 .textContent=
@@ -3133,8 +3442,7 @@ document.getElementById("quizNext")
 
 q.o.forEach((option,i)=>{
 
-const b=
-document.createElement("button");
+const b=document.createElement("button");
 
 b.textContent=option;
 
@@ -3154,13 +3462,11 @@ document.getElementById("quizScore")
 
 function answerQuiz(selected){
 
-if(answered)
-return;
+if(answered)return;
 
 answered=true;
 
-const q=
-quizData[currentQuiz];
+const q=quizData[currentQuiz];
 
 const buttons=
 document.querySelectorAll(
@@ -3171,8 +3477,7 @@ buttons.forEach(button=>{
 button.disabled=true;
 });
 
-buttons[q.a]
-.classList.add("correct");
+buttons[q.a].classList.add("correct");
 
 if(selected===q.a){
 
@@ -3187,8 +3492,7 @@ toast("✅ सही जवाब!");
 
 }else{
 
-buttons[selected]
-.classList.add("wrong");
+buttons[selected].classList.add("wrong");
 
 document.getElementById(
 "quizAnswerInfo"
@@ -3210,17 +3514,13 @@ document.getElementById(
 "🏆 Score: "+score;
 
 setTimeout(()=>{
-
 newQuiz();
-
 },1800);
 
 }
 
 function nextQuiz(){
-
 newQuiz();
-
 }
 
 newQuiz();
@@ -3242,17 +3542,12 @@ src:
 function playMusic(i){
 
 const audio=
-document.getElementById(
-"audioPlayer"
-);
+document.getElementById("audioPlayer");
 
-document.getElementById(
-"musicTitle"
-).textContent=
-music[i].title;
+document.getElementById("musicTitle")
+.textContent=music[i].title;
 
-audio.src=
-music[i].src;
+audio.src=music[i].src;
 
 audio.play().catch(()=>{});
 
@@ -3327,11 +3622,8 @@ localStorage.getItem(
 data.push({
 
 name:name,
-
 message:message,
-
 rating:selectedRating,
-
 date:new Date().toLocaleString()
 
 });
@@ -3401,6 +3693,30 @@ q.includes("नमस्ते")
 return "नमस्ते 🙏 Barhaman Fouji website पर आपका स्वागत है!";
 
 if(
+q.includes("education")||
+q.includes("एजुकेशन")||
+q.includes("पढ़ाई")||
+q.includes("राजव्यवस्था")
+)
+
+return "📚 Education में भारतीय इतिहास और भारतीय राजव्यवस्था के topics उपलब्ध हैं।";
+
+if(
+q.includes("history")||
+q.includes("इतिहास")
+)
+
+return "🇮🇳 भारतीय इतिहास में प्राचीन, मध्यकालीन और आधुनिक भारत के topics हैं।";
+
+if(
+q.includes("polity")||
+q.includes("राजव्यवस्था")||
+q.includes("संविधान")
+)
+
+return "⚖️ भारतीय राजव्यवस्था में संविधान, मौलिक अधिकार, संसद, राष्ट्रपति, प्रधानमंत्री, न्यायपालिका, चुनाव और अन्य topics हैं।";
+
+if(
 q.includes("tool")||
 q.includes("टूल")
 )
@@ -3460,27 +3776,20 @@ if(q.includes("rakesh"))
 
 return "🔱 Rakesh Mishra इस website के owner हैं। जय श्री राम 🙏";
 
-return "🤖 मैं website के Tools, Gallery, Lucky Spin, Free Music, Quiz, YouTube, Feedback और Contact के बारे में मदद कर सकता हूँ।";
+return "🤖 मैं website के Education, Tools, Gallery, Lucky Spin, Free Music, Quiz, YouTube, Feedback और Contact के बारे में मदद कर सकता हूँ।";
 
 }
 
 function sendChat(){
 
 const input=
-document.getElementById(
-"chatInput"
-);
+document.getElementById("chatInput");
 
-const text=
-input.value.trim();
+const text=input.value.trim();
 
-if(!text)
-return;
+if(!text)return;
 
-addChatMessage(
-text,
-"user-msg"
-);
+addChatMessage(text,"user-msg");
 
 input.value="";
 
@@ -3495,9 +3804,7 @@ getBotReply(text),
 
 }
 
-document.getElementById(
-"chatInput"
-)
+document.getElementById("chatInput")
 .addEventListener(
 "keydown",
 e=>{
@@ -3513,27 +3820,17 @@ sendChat();
 
 function toggleLight(){
 
-const body=
-document.body;
+const body=document.body;
 
-const btn=
-document.getElementById(
-"lightBtn"
-);
+const btn=document.getElementById("lightBtn");
 
 if(
-body.classList.contains(
-"dark-mode"
-)
+body.classList.contains("dark-mode")
 ){
 
-body.classList.remove(
-"dark-mode"
-);
+body.classList.remove("dark-mode");
 
-body.classList.add(
-"bright-mode"
-);
+body.classList.add("bright-mode");
 
 btn.textContent="💡";
 
@@ -3541,13 +3838,9 @@ toast("☀️ Light mode");
 
 }else{
 
-body.classList.remove(
-"bright-mode"
-);
+body.classList.remove("bright-mode");
 
-body.classList.add(
-"dark-mode"
-);
+body.classList.add("dark-mode");
 
 btn.textContent="🌑";
 
