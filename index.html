@@ -1,24 +1,31 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
 <title>🔱 Barhaman Fouji 🇮🇳 | Rakesh Mishra</title>
 
 <meta name="description"
-content="Barhaman Fouji - Rakesh Mishra की personal website. Photos, videos, music, useful tools और Premium Zone.">
+content="Barhaman Fouji - Rakesh Mishra की personal website. Photos, videos, useful tools और Quiz.">
 
 <meta name="keywords"
-content="Barhaman Fouji, Brahman Fouji, Rakesh Mishra, QR Generator, Notes, Image Compressor, Translator, Lucky Spin">
+content="Barhaman Fouji, Brahman Fouji, Rakesh Mishra, QR Generator, Notes, Image Resizer, Quiz">
 
 <meta name="author" content="Rakesh Mishra">
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 <style>
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
+
+*{
+ box-sizing:border-box;
+}
+
+html{
+ scroll-behavior:smooth;
+}
 
 body{
  margin:0;
@@ -51,9 +58,20 @@ body::after{
  rgba(100,40,255,.12),transparent 55%);
 }
 
-body.dark-mode::before{opacity:0}
-body.dark-mode .section{background:#000}
-body.bright-mode::before{opacity:1;filter:none}
+body.dark-mode::before{
+ opacity:0;
+}
+
+body.dark-mode .section{
+ background:#000;
+}
+
+body.bright-mode::before{
+ opacity:1;
+ filter:none;
+}
+
+/* PROGRESS */
 
 #progress{
  position:fixed;
@@ -130,7 +148,9 @@ body.bright-mode::before{opacity:1;filter:none}
  z-index:3000;
 }
 
-.tool-dropdown.show{display:block}
+.tool-dropdown.show{
+ display:block;
+}
 
 .file-title{
  text-align:center;
@@ -153,7 +173,9 @@ body.bright-mode::before{opacity:1;filter:none}
  font-size:14px;
 }
 
-.file-item:hover{background:#211027}
+.file-item:hover{
+ background:#211027;
+}
 
 /* HERO */
 
@@ -180,7 +202,9 @@ body.bright-mode::before{opacity:1;filter:none}
 }
 
 @keyframes float{
- 50%{transform:translateY(-7px)}
+ 50%{
+  transform:translateY(-7px);
+ }
 }
 
 .hero h2{
@@ -188,7 +212,9 @@ body.bright-mode::before{opacity:1;filter:none}
  font-size:25px;
 }
 
-.hero p{font-size:18px}
+.hero p{
+ font-size:18px;
+}
 
 .buttons{
  display:flex;
@@ -276,7 +302,9 @@ body.bright-mode::before{opacity:1;filter:none}
  color:#ffe500;
 }
 
-.profile-name{color:#e9a5ff!important}
+.profile-name{
+ color:#e9a5ff!important;
+}
 
 .profile-badge{
  display:inline-block;
@@ -308,7 +336,9 @@ body.bright-mode::before{opacity:1;filter:none}
  padding:20px;
 }
 
-.photo-modal.show{display:flex}
+.photo-modal.show{
+ display:flex;
+}
 
 .photo-modal img{
  max-width:95%;
@@ -386,10 +416,14 @@ textarea.tool-input{
  word-break:break-word;
 }
 
+/* QR */
+
 #qrcode{
  display:flex;
  justify-content:center;
+ align-items:center;
  margin:15px auto;
+ min-height:10px;
 }
 
 #qrcode img,
@@ -397,6 +431,19 @@ textarea.tool-input{
  padding:8px;
  background:#fff;
  border-radius:10px;
+}
+
+.qr-download{
+ display:none;
+ margin:10px auto;
+ padding:10px 18px;
+ border-radius:22px;
+ color:#fff;
+ text-decoration:none;
+ font-weight:bold;
+ background:linear-gradient(135deg,#00c853,#00a86b);
+ border:1px solid #00ff88;
+ box-shadow:0 0 15px rgba(0,255,120,.4);
 }
 
 /* NOTES */
@@ -435,9 +482,10 @@ textarea.tool-input{
  color:#fff;
  border-radius:8px;
  padding:7px 10px;
+ cursor:pointer;
 }
 
-/* COMPRESSOR */
+/* IMAGE RESIZER */
 
 .upload-box{
  display:block;
@@ -456,6 +504,32 @@ textarea.tool-input{
  display:none;
 }
 
+.resize-controls{
+ margin-top:15px;
+ padding:15px;
+ background:#080808;
+ border:1px solid #292929;
+ border-radius:15px;
+}
+
+.resize-controls label{
+ display:block;
+ margin:8px 0;
+ color:#ddd;
+ font-weight:bold;
+}
+
+.resize-controls select,
+.resize-controls input[type="number"]{
+ width:100%;
+ padding:11px;
+ border-radius:10px;
+ background:#111;
+ color:#fff;
+ border:1px solid #444;
+ margin-bottom:8px;
+}
+
 .download-link{
  display:none;
  margin-top:12px;
@@ -467,120 +541,9 @@ textarea.tool-input{
  font-weight:bold;
 }
 
-/* TRANSLATOR */
-
-.translator{
- background:#090909;
- border:1px solid #333;
- border-radius:20px;
- padding:18px;
- margin-top:10px;
-}
-
-.language-row{
- display:flex;
- justify-content:center;
- align-items:center;
- gap:8px;
- margin-bottom:12px;
- flex-wrap:wrap;
-}
-
-.language-select{
- padding:10px 14px;
- border-radius:12px;
- background:#111;
- color:#fff;
- border:1px solid #555;
- font-weight:bold;
-}
-
-.swap-btn{
- width:45px;
- height:45px;
- border-radius:50%;
- background:#181018;
- color:#fff;
- border:1px solid #555;
- cursor:pointer;
- font-size:20px;
-}
-
-.translate-grid{
- display:grid;
- grid-template-columns:1fr 1fr;
- gap:12px;
-}
-
-.translate-panel{
- background:#050505;
- border:1px solid #292929;
- border-radius:15px;
- padding:12px;
-}
-
-.translate-panel textarea{
- width:100%;
- min-height:180px;
- resize:vertical;
- background:transparent;
- color:#fff;
- border:0;
- outline:none;
- font-size:17px;
+.resize-info{
+ color:#7dffb2;
  line-height:1.6;
-}
-
-.translate-label{
- display:flex;
- justify-content:space-between;
- color:#bbb;
- font-size:13px;
- margin-bottom:5px;
-}
-
-.translate-actions{
- display:flex;
- gap:7px;
- flex-wrap:wrap;
- margin-top:10px;
-}
-
-.small-btn{
- padding:9px 13px;
- border-radius:18px;
- background:#151515;
- color:#fff;
- border:1px solid #444;
- cursor:pointer;
-}
-
-.small-btn:hover{
- background:#28122d;
-}
-
-.history-box{
- margin-top:15px;
- text-align:left;
-}
-
-.history-item{
- background:#080808;
- border:1px solid #292929;
- border-radius:12px;
- padding:10px;
- margin:7px 0;
- cursor:pointer;
-}
-
-.history-item:hover{
- background:#171017;
-}
-
-.translate-note{
- font-size:12px!important;
- color:#999;
- margin-top:10px;
 }
 
 /* MUSIC */
@@ -593,7 +556,9 @@ textarea.tool-input{
  border-radius:18px;
 }
 
-.music-box h3{color:#ffe500}
+.music-box h3{
+ color:#ffe500;
+}
 
 audio{
  width:100%;
@@ -734,7 +699,9 @@ audio{
  box-shadow:0 0 18px rgba(255,0,200,.2);
 }
 
-.announcement h3{color:#ffe500}
+.announcement h3{
+ color:#ffe500;
+}
 
 .challenge,
 .daily-tip,
@@ -845,32 +812,96 @@ audio{
 
 /* QUIZ */
 
+.quiz-box{
+ max-width:800px;
+ margin:20px auto;
+ padding:25px;
+ background:linear-gradient(145deg,#090909,#16051e);
+ border:2px solid #633cff;
+ border-radius:25px;
+ box-shadow:0 0 25px rgba(99,60,255,.25);
+}
+
 .quiz-question{
- font-size:21px!important;
+ font-size:24px!important;
  font-weight:bold;
+ line-height:1.5;
+ margin:20px 0;
+
+ background:linear-gradient(
+   90deg,
+   #ff2b2b,
+   #ffcc00,
+   #00ff88,
+   #00c8ff,
+   #9b59ff,
+   #ff20c8
+ );
+
+ -webkit-background-clip:text;
+ background-clip:text;
+ color:transparent;
+
+ text-shadow:0 0 15px rgba(255,0,200,.25);
+}
+
+.quiz-progress{
+ color:#aaa;
+ margin-bottom:10px;
 }
 
 .quiz-options{
  display:grid;
  grid-template-columns:repeat(2,1fr);
- gap:10px;
+ gap:12px;
  max-width:700px;
  margin:20px auto;
 }
 
 .quiz-options button{
- padding:13px;
+ padding:14px;
  border-radius:15px;
  background:#111;
  color:#fff;
- border:1px solid #444;
+ border:2px solid #444;
  cursor:pointer;
  font-size:16px;
+ transition:.25s;
 }
 
-.quiz-options button:hover{
+.quiz-options button:hover:not(:disabled){
  background:#25102b;
  border-color:#ff20c8;
+ transform:translateY(-2px);
+}
+
+.quiz-options button:disabled{
+ cursor:not-allowed;
+}
+
+.quiz-options button.correct{
+ background:#087f3f!important;
+ border-color:#00ff88!important;
+ color:#fff!important;
+ box-shadow:0 0 18px rgba(0,255,120,.45);
+}
+
+.quiz-options button.wrong{
+ background:#8b1010!important;
+ border-color:#ff3333!important;
+ color:#fff!important;
+}
+
+.quiz-answer-info{
+ min-height:30px;
+ margin:15px auto;
+ font-size:17px;
+ font-weight:bold;
+}
+
+.quiz-next{
+ display:none;
+ margin-top:10px;
 }
 
 /* FOOTER */
@@ -904,8 +935,13 @@ footer h3{
  z-index:2000;
 }
 
-#lightBtn{left:15px}
-#topBtn{right:15px}
+#lightBtn{
+ left:15px;
+}
+
+#topBtn{
+ right:15px;
+}
 
 /* TOAST */
 
@@ -957,13 +993,25 @@ footer h3{
   padding:30px 10px 50px;
  }
 
- .hero h1{font-size:31px}
- .hero h2{font-size:22px}
- .hero p{font-size:16px}
+ .hero h1{
+  font-size:31px;
+ }
 
- .card{padding:20px 14px}
+ .hero h2{
+  font-size:22px;
+ }
 
- .buttons{gap:7px}
+ .hero p{
+  font-size:16px;
+ }
+
+ .card{
+  padding:20px 14px;
+ }
+
+ .buttons{
+  gap:7px;
+ }
 
  .buttons a,
  .tool-btn{
@@ -971,9 +1019,13 @@ footer h3{
   font-size:12px;
  }
 
- .tools-grid{grid-template-columns:1fr}
+ .tools-grid{
+  grid-template-columns:1fr;
+ }
 
- .youtube-grid{grid-template-columns:1fr 1fr}
+ .youtube-grid{
+  grid-template-columns:1fr 1fr;
+ }
 
  .profile-photo{
   width:150px;
@@ -986,19 +1038,16 @@ footer h3{
   height:240px;
  }
 
- .translate-grid{
-  grid-template-columns:1fr;
- }
-
- .translate-panel textarea{
-  min-height:150px;
- }
-
  .quiz-options{
   grid-template-columns:1fr;
  }
 
+ .quiz-question{
+  font-size:21px!important;
+ }
+
 }
+
 </style>
 </head>
 
@@ -1006,6 +1055,8 @@ footer h3{
 
 <div id="progress"></div>
 <div id="toast" class="toast"></div>
+
+<!-- NAVBAR -->
 
 <nav class="navbar">
 
@@ -1021,7 +1072,9 @@ footer h3{
 
 <div id="toolDropdown" class="tool-dropdown">
 
-<div class="file-title">🛠️ All Useful Tools</div>
+<div class="file-title">
+🛠️ All Useful Tools
+</div>
 
 <a class="file-item" href="#qrTool" onclick="closeTools()">
 📱 QR Code Generator
@@ -1036,11 +1089,7 @@ footer h3{
 </a>
 
 <a class="file-item" href="#compressTool" onclick="closeTools()">
-🖼️ Image Compressor
-</a>
-
-<a class="file-item" href="#translateTool" onclick="closeTools()">
-🌐 Hindi ↔ English Translator
+🖼️ Image Resizer / Compressor
 </a>
 
 <a class="file-item" href="#randomTool" onclick="closeTools()">
@@ -1072,6 +1121,7 @@ footer h3{
 </a>
 
 </div>
+
 </div>
 
 <a href="#daily">💡 Daily</a>
@@ -1080,10 +1130,14 @@ footer h3{
 
 </nav>
 
+<!-- HERO -->
+
 <section class="hero" id="home">
 
 <h1>🔱 Barhaman Fouji 🇮🇳</h1>
+
 <h2>Rakesh Mishra</h2>
+
 <p>जय श्री राम 🙏</p>
 
 <div id="visitorCount"></div>
@@ -1103,6 +1157,8 @@ footer h3{
 </div>
 
 </section>
+
+<!-- ANNOUNCEMENT -->
 
 <section class="section">
 
@@ -1124,6 +1180,8 @@ footer h3{
 
 </section>
 
+<!-- ABOUT -->
+
 <section class="section" id="about">
 
 <div class="card">
@@ -1139,7 +1197,9 @@ alt="Rakesh Mishra">
 
 <h3>Rakesh Mishra</h3>
 
-<p class="profile-name">🔱 Barhaman Fouji 🇮🇳</p>
+<p class="profile-name">
+🔱 Barhaman Fouji 🇮🇳
+</p>
 
 <p>
 नमस्ते 🙏 मेरा नाम Rakesh Mishra है।
@@ -1161,6 +1221,8 @@ videos और अपने बारे में कुछ खास बात�
 
 </section>
 
+<!-- GALLERY -->
+
 <section class="section" id="gallery">
 
 <div class="card">
@@ -1173,11 +1235,15 @@ src="IMG_20260614_152003_968.webp"
 onclick="openPhoto()"
 alt="Rakesh Mishra">
 
-<p>📌 Photo पर क्लिक करके Full Screen में देखें।</p>
+<p>
+📌 Photo पर क्लिक करके Full Screen में देखें।
+</p>
 
 </div>
 
 </section>
+
+<!-- TOOLS -->
 
 <section class="section" id="tools">
 
@@ -1193,24 +1259,43 @@ oninput="filterTools()">
 
 <div class="tools-grid" id="toolsGrid">
 
+<!-- QR -->
+
 <div class="tool-card searchable" id="qrTool">
 
 <h3>📱 QR Code Generator</h3>
 
-<p>Text या Website Link का QR बनाएं।</p>
+<p>
+Text या Website Link का QR बनाएं और Download करें।
+</p>
 
 <input
 id="qrText"
 class="tool-input"
 placeholder="Text या Link">
 
-<button class="tool-btn" onclick="generateQR()">
+<button
+class="tool-btn"
+onclick="generateQR()">
+
 🔲 QR बनाएं
+
 </button>
 
 <div id="qrcode"></div>
 
+<a
+id="qrDownload"
+class="qr-download"
+download="Barhaman-Fouji-QR.png">
+
+⬇️ Download QR PNG
+
+</a>
+
 </div>
+
+<!-- COPY -->
 
 <div class="tool-card searchable" id="copyTool">
 
@@ -1221,11 +1306,17 @@ id="copyText"
 class="tool-input"
 placeholder="यहाँ text लिखें..."></textarea>
 
-<button class="tool-btn" onclick="copyText()">
+<button
+class="tool-btn"
+onclick="copyText()">
+
 📋 Copy
+
 </button>
 
 </div>
+
+<!-- NOTES -->
 
 <div class="tool-card searchable" id="notesTool">
 
@@ -1236,17 +1327,32 @@ id="noteInput"
 class="tool-input"
 placeholder="जैसे: पढ़ाई करनी है">
 
-<button class="tool-btn" onclick="addNote()">
+<button
+class="tool-btn"
+onclick="addNote()">
+
 ➕ Add Task
+
 </button>
 
-<div id="notesList" class="notes-list"></div>
+<div
+id="notesList"
+class="notes-list">
+</div>
 
 </div>
 
-<div class="tool-card searchable" id="compressTool">
+<!-- IMAGE RESIZER -->
 
-<h3>🖼️ Image Compressor</h3>
+<div
+class="tool-card searchable"
+id="compressTool">
+
+<h3>🖼️ Image Resizer / Compressor</h3>
+
+<p>
+फोटो चुनें और maximum <b>10 MB</b> तक output size सेट करें।
+</p>
 
 <label class="upload-box">
 
@@ -1261,149 +1367,90 @@ onchange="compressImage()">
 
 </label>
 
-<label>Quality:</label>
+<div class="resize-controls">
+
+<label>
+🎯 Maximum Output Size
+</label>
+
+<select id="targetSize">
+
+<option value="0.5">500 KB</option>
+<option value="1">1 MB</option>
+<option value="2">2 MB</option>
+<option value="3">3 MB</option>
+<option value="4">4 MB</option>
+<option value="5">5 MB</option>
+<option value="6">6 MB</option>
+<option value="7">7 MB</option>
+<option value="8">8 MB</option>
+<option value="9">9 MB</option>
+<option value="10" selected>10 MB</option>
+
+</select>
+
+<label>
+📐 Maximum Width
+</label>
 
 <input
-id="qualityRange"
-type="range"
-min=".1"
-max="1"
-step=".1"
-value=".7"
-style="width:100%">
+id="maxWidth"
+type="number"
+value="4000"
+min="500"
+max="8000"
+step="100">
+
+<button
+class="tool-btn"
+onclick="resizeCurrentImage()">
+
+🔄 Resize / Create
+
+</button>
+
+</div>
 
 <canvas id="compressCanvas"></canvas>
 
-<p id="compressInfo"></p>
+<p
+id="compressInfo"
+class="resize-info">
+</p>
 
 <a
 id="downloadCompressed"
 class="download-link"
-download="compressed-image.jpg">
-⬇️ Download
+download="Barhaman-Fouji-Resized.jpg">
+
+⬇️ Download Resized Photo
+
 </a>
 
 </div>
 
-<div class="tool-card searchable" id="translateTool">
+<!-- RANDOM -->
 
-<h3>🌐 Hindi ↔ English Translator</h3>
-
-<div class="translator">
-
-<div class="language-row">
-
-<select id="sourceLang" class="language-select">
-<option value="hi">🇮🇳 Hindi</option>
-<option value="en">🇺🇸 English</option>
-</select>
-
-<button class="swap-btn" onclick="swapLanguages()">
-⇄
-</button>
-
-<select id="targetLang" class="language-select">
-<option value="en">🇺🇸 English</option>
-<option value="hi">🇮🇳 Hindi</option>
-</select>
-
-</div>
-
-<div class="translate-grid">
-
-<div class="translate-panel">
-
-<div class="translate-label">
-<span>Input</span>
-<span id="inputCount">0 characters</span>
-</div>
-
-<textarea
-id="translateInput"
-placeholder="Hindi या English text यहाँ लिखें..."></textarea>
-
-<div class="translate-actions">
-
-<button class="small-btn" onclick="startVoice()">
-🎤 Voice
-</button>
-
-<button class="small-btn" onclick="clearTranslation()">
-🗑️ Clear
-</button>
-
-</div>
-
-</div>
-
-<div class="translate-panel">
-
-<div class="translate-label">
-<span>Translation</span>
-<span id="outputCount">0 characters</span>
-</div>
-
-<textarea
-id="translateResult"
-readonly
-placeholder="Translation यहाँ दिखाई देगा..."></textarea>
-
-<div class="translate-actions">
-
-<button class="small-btn" onclick="copyTranslation()">
-📋 Copy
-</button>
-
-<button class="small-btn" onclick="speakTranslation()">
-🔊 Listen
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="buttons">
-
-<button class="tool-btn" onclick="translateText()">
-🔄 Translate
-</button>
-
-</div>
-
-<p class="translate-note">
-ℹ️ यह built-in browser translator है।
-</p>
-
-<div class="history-box">
-
-<h4>🕘 Translation History</h4>
-
-<div id="translationHistory"></div>
-
-<button
-class="small-btn"
-onclick="clearHistory()">
-🗑️ Clear History
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="tool-card searchable" id="randomTool">
+<div
+class="tool-card searchable"
+id="randomTool">
 
 <h3>🎲 Random Fun Generator</h3>
 
-<button class="tool-btn" onclick="randomFun()">
+<button
+class="tool-btn"
+onclick="randomFun()">
+
 🎲 Generate
+
 </button>
 
-<div id="funResult" class="fun-result">
+<div
+id="funResult"
+class="fun-result">
+
 कुछ मजेदार पाने के लिए दबाएं 😄
+
 </div>
 
 </div>
@@ -1414,7 +1461,11 @@ onclick="clearHistory()">
 
 </section>
 
-<section class="section" id="luckySpin">
+<!-- LUCKY SPIN -->
+
+<section
+class="section"
+id="luckySpin">
 
 <div class="card">
 
@@ -1428,20 +1479,32 @@ onclick="clearHistory()">
 
 <div class="wheel-wrap">
 
-<div class="wheel-pointer">🔻</div>
+<div class="wheel-pointer">
+🔻
+</div>
 
-<canvas id="wheel" width="280" height="280"></canvas>
+<canvas
+id="wheel"
+width="280"
+height="280">
+</canvas>
 
 </div>
 
 <button
 class="tool-btn"
 onclick="spinWheel()">
+
 🎰 SPIN NOW
+
 </button>
 
-<div id="spinResult" class="spin-result">
+<div
+id="spinResult"
+class="spin-result">
+
 Spin करने के लिए बटन दबाएँ 😄
+
 </div>
 
 <p style="font-size:13px;color:#999">
@@ -1454,7 +1517,11 @@ Spin करने के लिए बटन दबाएँ 😄
 
 </section>
 
-<section class="section" id="premium">
+<!-- PREMIUM -->
+
+<section
+class="section"
+id="premium">
 
 <div class="card">
 
@@ -1473,7 +1540,7 @@ Premium Zone में future में advanced features और exclusive tools
 <div class="premium-card">
 <div class="lock">🔒</div>
 <h3>🎨 Premium QR</h3>
-<p>Custom design, colors और advanced QR features.</p>
+<p>Custom design और advanced QR features.</p>
 <span class="premium-price">Coming Soon</span>
 </div>
 
@@ -1481,13 +1548,6 @@ Premium Zone में future में advanced features और exclusive tools
 <div class="lock">🔒</div>
 <h3>🖼️ Pro Image Tools</h3>
 <p>Advanced image processing और extra options.</p>
-<span class="premium-price">Coming Soon</span>
-</div>
-
-<div class="premium-card">
-<div class="lock">🔒</div>
-<h3>🌐 Pro Translator</h3>
-<p>Future में advanced translation features.</p>
 <span class="premium-price">Coming Soon</span>
 </div>
 
@@ -1512,7 +1572,9 @@ Premium Zone में future में advanced features और exclusive tools
 <button
 class="tool-btn premium-btn"
 onclick="premiumComingSoon()">
+
 💎 Get Premium
+
 </button>
 
 </div>
@@ -1523,7 +1585,11 @@ onclick="premiumComingSoon()">
 
 </section>
 
-<section class="section" id="daily">
+<!-- DAILY -->
+
+<section
+class="section"
+id="daily">
 
 <div class="card">
 
@@ -1546,7 +1612,9 @@ onclick="premiumComingSoon()">
 <button
 class="tool-btn"
 onclick="completeChallenge()">
+
 ✅ Complete
+
 </button>
 
 </div>
@@ -1555,29 +1623,62 @@ onclick="completeChallenge()">
 
 </section>
 
-<section class="section" id="quiz">
+<!-- QUIZ -->
+
+<section
+class="section"
+id="quiz">
 
 <div class="card">
 
 <h2>🧠 Quiz Challenge</h2>
 
-<p id="quizQuestion" class="quiz-question"></p>
+<div class="quiz-box">
 
-<div id="quizOptions" class="quiz-options"></div>
+<div
+id="quizProgress"
+class="quiz-progress">
+</div>
 
-<p id="quizScore"></p>
+<p
+id="quizQuestion"
+class="quiz-question">
+</p>
+
+<div
+id="quizOptions"
+class="quiz-options">
+</div>
+
+<div
+id="quizAnswerInfo"
+class="quiz-answer-info">
+</div>
+
+<p id="quizScore">
+🏆 Score: 0
+</p>
 
 <button
-class="tool-btn"
-onclick="newQuiz()">
-🔄 New Quiz
+id="quizNext"
+class="tool-btn quiz-next"
+onclick="nextQuiz()">
+
+➡️ Next Question
+
 </button>
+
+</div>
 
 </div>
 
 </section>
 
-<section class="section" id="music">
+<!-- MUSIC -->
+
+<section
+class="section"
+id="music">
 
 <div class="card">
 
@@ -1589,7 +1690,9 @@ onclick="newQuiz()">
 🔱 Shri Bhairav Tandav
 </h3>
 
-<audio id="audioPlayer" controls>
+<audio
+id="audioPlayer"
+controls>
 
 <source
 src="Shri Bhairav Tandav _ Shri Dhananjay Tiwari _ Vidhan Gangwal _ Sadashiv _kaalbhairavashtami2024(MP3_160K).mp3"
@@ -1611,7 +1714,11 @@ type="audio/mpeg">
 
 </section>
 
-<section class="section" id="chat">
+<!-- CHAT -->
+
+<section
+class="section"
+id="chat">
 
 <div class="card">
 
@@ -1623,7 +1730,9 @@ type="audio/mpeg">
 🤖 Barhaman Fouji Assistant
 </div>
 
-<div id="chatMessages" class="chat-messages">
+<div
+id="chatMessages"
+class="chat-messages">
 
 <div class="chat-msg bot-msg">
 नमस्ते! 🙏 मैं Barhaman Fouji Assistant हूँ।
@@ -1641,7 +1750,9 @@ placeholder="अपना सवाल लिखें...">
 <button
 class="tool-btn"
 onclick="sendChat()">
+
 ➤
+
 </button>
 
 </div>
@@ -1652,7 +1763,11 @@ onclick="sendChat()">
 
 </section>
 
-<section class="section" id="feedback">
+<!-- FEEDBACK -->
+
+<section
+class="section"
+id="feedback">
 
 <div class="card">
 
@@ -1683,10 +1798,15 @@ placeholder="अपना feedback लिखें"></textarea>
 <button
 class="tool-btn"
 onclick="submitFeedback()">
+
 📨 Feedback भेजें
+
 </button>
 
-<div id="feedbackMessage" class="feedback-message"></div>
+<div
+id="feedbackMessage"
+class="feedback-message">
+</div>
 
 </div>
 
@@ -1694,7 +1814,11 @@ onclick="submitFeedback()">
 
 </section>
 
-<section class="section" id="youtube">
+<!-- YOUTUBE -->
+
+<section
+class="section"
+id="youtube">
 
 <div class="card">
 
@@ -1703,32 +1827,50 @@ onclick="submitFeedback()">
 <div class="youtube-grid">
 
 <div class="youtube-card">
-<iframe src="https://www.youtube.com/embed/JPReWkMD-5s" allowfullscreen></iframe>
+<iframe
+src="https://www.youtube.com/embed/JPReWkMD-5s"
+allowfullscreen>
+</iframe>
 <p>▶️ Short 1</p>
 </div>
 
 <div class="youtube-card">
-<iframe src="https://www.youtube.com/embed/UMP-rLHMBLU" allowfullscreen></iframe>
+<iframe
+src="https://www.youtube.com/embed/UMP-rLHMBLU"
+allowfullscreen>
+</iframe>
 <p>▶️ Short 2</p>
 </div>
 
 <div class="youtube-card">
-<iframe src="https://www.youtube.com/embed/Crflxy4mULE" allowfullscreen></iframe>
+<iframe
+src="https://www.youtube.com/embed/Crflxy4mULE"
+allowfullscreen>
+</iframe>
 <p>▶️ Short 3</p>
 </div>
 
 <div class="youtube-card">
-<iframe src="https://www.youtube.com/embed/zjmyvB1EoTE" allowfullscreen></iframe>
+<iframe
+src="https://www.youtube.com/embed/zjmyvB1EoTE"
+allowfullscreen>
+</iframe>
 <p>▶️ Short 4</p>
 </div>
 
 <div class="youtube-card">
-<iframe src="https://www.youtube.com/embed/BCFl8sBXoTs" allowfullscreen></iframe>
+<iframe
+src="https://www.youtube.com/embed/BCFl8sBXoTs"
+allowfullscreen>
+</iframe>
 <p>▶️ Short 5</p>
 </div>
 
 <div class="youtube-card">
-<iframe src="https://www.youtube.com/embed/R7p-6laN60Y" allowfullscreen></iframe>
+<iframe
+src="https://www.youtube.com/embed/R7p-6laN60Y"
+allowfullscreen>
+</iframe>
 <p>▶️ Short 6</p>
 </div>
 
@@ -1739,7 +1881,9 @@ onclick="submitFeedback()">
 <a
 href="https://youtube.com/@handstand_boy"
 target="_blank">
+
 ▶️ पूरा YouTube Channel
+
 </a>
 
 </div>
@@ -1748,7 +1892,11 @@ target="_blank">
 
 </section>
 
-<section class="section" id="contact">
+<!-- CONTACT -->
+
+<section
+class="section"
+id="contact">
 
 <div class="card">
 
@@ -1763,29 +1911,41 @@ target="_blank">
 <a
 href="https://wa.me/917050042886"
 target="_blank">
+
 💬 WhatsApp
+
 </a>
 
 <a
 href="https://youtube.com/@handstand_boy"
 target="_blank">
+
 ▶️ YouTube
+
 </a>
 
 <a
 href="https://www.instagram.com/barhaman_fouji_10k/"
 target="_blank">
+
 📸 Instagram
+
 </a>
 
 <a
 href="https://www.facebook.com/profile.php?id=100077267425201"
 target="_blank">
+
 👍 Facebook
+
 </a>
 
-<a href="#" onclick="shareSite();return false">
+<a
+href="#"
+onclick="shareSite();return false">
+
 📤 Share Website
+
 </a>
 
 </div>
@@ -1794,15 +1954,23 @@ target="_blank">
 
 </section>
 
+<!-- FOOTER -->
+
 <footer>
 
 <h3>🔱 Barhaman Fouji 🇮🇳</h3>
 
 <p>Rakesh Mishra</p>
+
 <p>जय श्री राम 🙏</p>
-<p>© 2026 Barhaman Fouji. All Rights Reserved.</p>
+
+<p>
+© 2026 Barhaman Fouji. All Rights Reserved.
+</p>
 
 </footer>
+
+<!-- PHOTO MODAL -->
 
 <div
 id="photoModal"
@@ -1812,7 +1980,9 @@ onclick="closePhoto(event)">
 <button
 class="close-photo"
 onclick="closePhoto()">
+
 ×
+
 </button>
 
 <img
@@ -1821,20 +1991,21 @@ alt="Rakesh Mishra">
 
 </div>
 
-<!-- FIXED LIGHT BUTTON -->
 <button
 id="lightBtn"
 onclick="toggleLight()">
+
 💡
+
 </button>
 
 <button
 id="topBtn"
 onclick="window.scrollTo({top:0,behavior:'smooth'})">
-↑
-</button>
 
-<div id="toast" class="toast"></div>
+↑
+
+</button>
 
 <script>
 
@@ -1845,6 +2016,7 @@ function toast(message){
  const t=document.getElementById("toast");
 
  t.textContent=message;
+
  t.classList.add("show");
 
  clearTimeout(window.toastTimer);
@@ -1861,6 +2033,7 @@ function toast(message){
 window.addEventListener("scroll",()=>{
 
  const h=document.documentElement;
+
  const max=h.scrollHeight-h.clientHeight;
 
  const progress=max>0
@@ -1943,7 +2116,7 @@ async function shareSite(){
 
 }
 
-/* VISITOR COUNTER */
+/* VISITOR */
 
 let visitors=parseInt(
  localStorage.getItem("barhamanVisitors")||"0"
@@ -1953,8 +2126,15 @@ if(!sessionStorage.getItem("barhamanVisit")){
 
  visitors++;
 
- localStorage.setItem("barhamanVisitors",visitors);
- sessionStorage.setItem("barhamanVisit","1");
+ localStorage.setItem(
+   "barhamanVisitors",
+   visitors
+ );
+
+ sessionStorage.setItem(
+   "barhamanVisit",
+   "1"
+ );
 
 }
 
@@ -1984,14 +2164,23 @@ function closePhoto(e){
 
 }
 
-/* QR */
+/* QR GENERATOR + DOWNLOAD */
 
 function generateQR(){
 
- const text=document.getElementById("qrText").value.trim();
+ const text=document
+ .getElementById("qrText")
+ .value
+ .trim();
+
  const qr=document.getElementById("qrcode");
 
+ const download=document
+ .getElementById("qrDownload");
+
  qr.innerHTML="";
+
+ download.style.display="none";
 
  if(!text)
    return toast("⚠️ पहले Text या Link लिखें");
@@ -2000,13 +2189,46 @@ function generateQR(){
    return toast("⚠️ QR library load नहीं हुई");
 
  new QRCode(qr,{
+
    text:text,
-   width:180,
-   height:180,
-   colorDark:"#000",
-   colorLight:"#fff",
+
+   width:220,
+
+   height:220,
+
+   colorDark:"#000000",
+
+   colorLight:"#ffffff",
+
    correctLevel:QRCode.CorrectLevel.H
+
  });
+
+ setTimeout(()=>{
+
+   const canvas=qr.querySelector("canvas");
+   const img=qr.querySelector("img");
+
+   let dataURL="";
+
+   if(canvas){
+
+     dataURL=canvas.toDataURL("image/png");
+
+   }else if(img){
+
+     dataURL=img.src;
+
+   }
+
+   if(dataURL){
+
+     download.href=dataURL;
+     download.style.display="inline-block";
+
+   }
+
+ },300);
 
  toast("✅ QR Code बन गया!");
 
@@ -2036,6 +2258,7 @@ function showNotes(){
  if(!notes.length){
 
    list.innerHTML="<p>📝 अभी कोई task नहीं है।</p>";
+
    return;
 
  }
@@ -2043,10 +2266,13 @@ function showNotes(){
  notes.forEach((note,index)=>{
 
    const item=document.createElement("div");
+
    item.className="note-item";
 
    const text=document.createElement("span");
+
    text.className="note-text";
+
    text.textContent=note.text;
 
    if(note.done)
@@ -2055,19 +2281,25 @@ function showNotes(){
    text.onclick=()=>{
 
      notes[index].done=!notes[index].done;
+
      saveNotes();
+
      showNotes();
 
    };
 
    const del=document.createElement("button");
+
    del.className="note-delete";
+
    del.textContent="🗑️";
 
    del.onclick=()=>{
 
      notes.splice(index,1);
+
      saveNotes();
+
      showNotes();
 
      toast("🗑️ Task deleted");
@@ -2075,6 +2307,7 @@ function showNotes(){
    };
 
    item.append(text,del);
+
    list.appendChild(item);
 
  });
@@ -2084,6 +2317,7 @@ function showNotes(){
 function addNote(){
 
  const input=document.getElementById("noteInput");
+
  const text=input.value.trim();
 
  if(!text)
@@ -2097,6 +2331,7 @@ function addNote(){
  saveNotes();
 
  input.value="";
+
  showNotes();
 
  toast("✅ Task saved");
@@ -2113,7 +2348,10 @@ document.getElementById("noteInput")
 
 showNotes();
 
-/* IMAGE COMPRESSOR */
+/* IMAGE RESIZER / COMPRESSOR */
+
+let currentImage=null;
+let currentImageFile=null;
 
 function compressImage(){
 
@@ -2123,6 +2361,9 @@ function compressImage(){
    return;
 
  const file=input.files[0];
+
+ currentImageFile=file;
+
  const reader=new FileReader();
 
  reader.onload=e=>{
@@ -2131,32 +2372,17 @@ function compressImage(){
 
    img.onload=()=>{
 
-     let w=img.width;
-     let h=img.height;
-
-     const max=1600;
-
-     if(w>max){
-
-       h=h*max/w;
-       w=max;
-
-     }
-
-     const canvas=document.getElementById("compressCanvas");
-
-     canvas.width=w;
-     canvas.height=h;
-
-     canvas.getContext("2d")
-     .drawImage(img,0,0,w,h);
-
-     canvas.style.display="block";
+     currentImage=img;
 
      document.getElementById("compressInfo")
-     .textContent="Original: "+formatBytes(file.size);
+     .innerHTML=
+     "📁 Original: "+
+     formatBytes(file.size)+
+     "<br>📐 Original dimensions: "+
+     img.width+" × "+img.height+
+     "<br>🎯 Maximum output: 10 MB";
 
-     updateCompressedImage();
+     resizeCurrentImage();
 
    };
 
@@ -2168,44 +2394,176 @@ function compressImage(){
 
 }
 
-function updateCompressedImage(){
+function resizeCurrentImage(){
 
- const canvas=document.getElementById("compressCanvas");
+ if(!currentImage)
+   return toast("⚠️ पहले फोटो चुनें");
 
- if(!canvas.width)
-   return;
+ const canvas=
+ document.getElementById("compressCanvas");
 
- const quality=parseFloat(
-   document.getElementById("qualityRange").value
+ let maxWidth=parseInt(
+   document.getElementById("maxWidth").value
+ )||4000;
+
+ let targetMB=parseFloat(
+   document.getElementById("targetSize").value
+ )||10;
+
+ let targetBytes=
+   targetMB*1024*1024;
+
+ let w=currentImage.width;
+ let h=currentImage.height;
+
+ if(w>maxWidth){
+
+   h=Math.round(h*maxWidth/w);
+   w=maxWidth;
+
+ }
+
+ canvas.width=w;
+ canvas.height=h;
+
+ const ctx=canvas.getContext("2d");
+
+ ctx.clearRect(0,0,w,h);
+
+ ctx.drawImage(
+   currentImage,
+   0,
+   0,
+   w,
+   h
  );
 
- canvas.toBlob(blob=>{
+ canvas.style.display="block";
 
-   if(!blob)return;
-
-   const url=URL.createObjectURL(blob);
-
-   const link=document.getElementById("downloadCompressed");
-
-   link.href=url;
-   link.style.display="inline-block";
-
-   link.textContent=
-   "⬇️ Download ("+formatBytes(blob.size)+")";
-
- },"image/jpeg",quality);
+ findBestJPEG(
+   canvas,
+   targetBytes
+ );
 
 }
 
-document.getElementById("qualityRange")
-.addEventListener("input",updateCompressedImage);
+function findBestJPEG(canvas,targetBytes){
+
+ /*
+   Maximum target size है।
+   Browser JPEG को naturally जितना छोटा
+   बनाता है उतना ही रखा जाएगा।
+   Output 10 MB से ऊपर नहीं जाने दिया जाएगा।
+ */
+
+ let low=0.05;
+ let high=1;
+ let bestBlob=null;
+
+ function testQuality(q){
+
+   canvas.toBlob(blob=>{
+
+     if(!blob)
+       return;
+
+     if(blob.size<=targetBytes){
+
+       bestBlob=blob;
+
+       low=q;
+
+     }else{
+
+       high=q;
+
+     }
+
+     if(high-low<0.01){
+
+       if(!bestBlob){
+
+         canvas.toBlob(finalBlob=>{
+           finishResize(finalBlob);
+         },"image/jpeg",0.05);
+
+       }else{
+
+         finishResize(bestBlob);
+
+       }
+
+       return;
+
+     }
+
+     testQuality(
+       (low+high)/2
+     );
+
+   },"image/jpeg",q);
+
+ }
+
+ testQuality(0.8);
+
+}
+
+function finishResize(blob){
+
+ if(!blob)
+   return toast("⚠️ Photo resize नहीं हो पाया");
+
+ const url=URL.createObjectURL(blob);
+
+ const link=
+ document.getElementById("downloadCompressed");
+
+ link.href=url;
+
+ link.style.display="inline-block";
+
+ link.textContent=
+ "⬇️ Download Photo ("+
+ formatBytes(blob.size)+
+ ")";
+
+ const targetMB=parseFloat(
+   document.getElementById("targetSize").value
+ );
+
+ document.getElementById("compressInfo")
+ .innerHTML=
+ "📁 Original: "+
+ formatBytes(currentImageFile.size)+
+ "<br>📦 Output: "+
+ formatBytes(blob.size)+
+ "<br>📐 Size: "+
+ document.getElementById("compressCanvas").width+
+ " × "+
+ document.getElementById("compressCanvas").height+
+ "<br>🎯 Maximum allowed: "+
+ targetMB+
+ " MB";
+
+ toast(
+   "✅ Photo तैयार है: "+
+   formatBytes(blob.size)
+ );
+
+}
 
 function formatBytes(bytes){
 
  if(!bytes)
    return "0 Bytes";
 
- const sizes=["Bytes","KB","MB","GB"];
+ const sizes=[
+   "Bytes",
+   "KB",
+   "MB",
+   "GB"
+ ];
 
  const i=Math.floor(
    Math.log(bytes)/Math.log(1024)
@@ -2221,421 +2579,25 @@ function formatBytes(bytes){
 
 function filterTools(){
 
- const q=document.getElementById("toolSearch")
- .value.toLowerCase();
+ const q=document
+ .getElementById("toolSearch")
+ .value
+ .toLowerCase();
 
- document.querySelectorAll(".searchable")
+ document
+ .querySelectorAll(".searchable")
  .forEach(card=>{
 
    card.style.display=
-   card.textContent.toLowerCase().includes(q)
+   card.textContent
+   .toLowerCase()
+   .includes(q)
    ?"block"
    :"none";
 
  });
 
 }
-
-/* TRANSLATOR */
-
-const dictionaryHI_EN={
-
- "नमस्ते":"Hello",
- "धन्यवाद":"Thank you",
- "शुक्रिया":"Thank you",
- "सुप्रभात":"Good morning",
- "शुभ रात्रि":"Good night",
- "आप कैसे हैं":"How are you",
- "मैं ठीक हूँ":"I am fine",
- "मेरा नाम राकेश है":"My name is Rakesh",
- "मेरा नाम राकेश मिश्रा है":"My name is Rakesh Mishra",
- "आपका नाम क्या है":"What is your name",
- "तुम कहाँ रहते हो":"Where do you live",
- "मैं भारत में रहता हूँ":"I live in India",
- "मुझे मदद चाहिए":"I need help",
- "मुझे समझ नहीं आया":"I did not understand",
- "कृपया मेरी मदद करें":"Please help me",
- "बहुत अच्छा":"Very good",
- "अच्छा":"Good",
- "बुरा":"Bad",
- "हाँ":"Yes",
- "नहीं":"No",
- "क्यों":"Why",
- "क्या":"What",
- "कहाँ":"Where",
- "कब":"When",
- "कैसे":"How",
- "आज":"Today",
- "कल":"Tomorrow",
- "जय श्री राम":"Jai Shri Ram",
- "मुझे यह पसंद है":"I like this",
- "मुझे यह पसंद नहीं है":"I do not like this",
- "मैं वेबसाइट बना रहा हूँ":"I am making a website",
- "मुझे वेबसाइट पसंद है":"I like the website",
- "यह बहुत अच्छा है":"This is very good",
- "आपका स्वागत है":"You are welcome",
- "फिर मिलेंगे":"See you again",
- "शुभकामनाएँ":"Best wishes"
-
-};
-
-const dictionaryEN_HI={
-
- "hello":"नमस्ते",
- "hi":"नमस्ते",
- "thank you":"धन्यवाद",
- "thanks":"धन्यवाद",
- "good morning":"सुप्रभात",
- "good night":"शुभ रात्रि",
- "how are you":"आप कैसे हैं",
- "i am fine":"मैं ठीक हूँ",
- "my name is rakesh":"मेरा नाम राकेश है",
- "my name is rakesh mishra":"मेरा नाम राकेश मिश्रा है",
- "what is your name":"आपका नाम क्या है",
- "where do you live":"तुम कहाँ रहते हो",
- "i live in india":"मैं भारत में रहता हूँ",
- "i need help":"मुझे मदद चाहिए",
- "please help me":"कृपया मेरी मदद करें",
- "very good":"बहुत अच्छा",
- "good":"अच्छा",
- "bad":"बुरा",
- "yes":"हाँ",
- "no":"नहीं",
- "why":"क्यों",
- "what":"क्या",
- "where":"कहाँ",
- "when":"कब",
- "how":"कैसे",
- "today":"आज",
- "tomorrow":"कल",
- "jai shri ram":"जय श्री राम",
- "i like this":"मुझे यह पसंद है",
- "i do not like this":"मुझे यह पसंद नहीं है",
- "this is very good":"यह बहुत अच्छा है",
- "you are welcome":"आपका स्वागत है",
- "see you again":"फिर मिलेंगे",
- "best wishes":"शुभकामनाएँ"
-
-};
-
-function translateText(){
-
- const input=document.getElementById("translateInput").value.trim();
- const source=document.getElementById("sourceLang").value;
- const target=document.getElementById("targetLang").value;
- const output=document.getElementById("translateResult");
-
- if(!input){
-
-   output.value="";
-   updateTranslateCount();
-
-   return toast("⚠️ पहले text लिखें");
-
- }
-
- if(source===target){
-
-   output.value=input;
-   updateTranslateCount();
-
-   return;
-
- }
-
- let result="";
-
- if(source==="hi" && target==="en"){
-
-   result=translateWithDictionary(
-     input,
-     dictionaryHI_EN
-   );
-
- }else{
-
-   result=translateWithDictionary(
-     input,
-     dictionaryEN_HI
-   );
-
- }
-
- output.value=result;
-
- updateTranslateCount();
-
- saveTranslationHistory(
-   input,
-   result,
-   source,
-   target
- );
-
- toast("✅ Translation तैयार है!");
-
-}
-
-function translateWithDictionary(text,dict){
-
- const exact=dict[text.toLowerCase()];
-
- if(exact)
-   return exact;
-
- let result=text;
-
- const keys=Object.keys(dict)
- .sort((a,b)=>b.length-a.length);
-
- keys.forEach(key=>{
-
-   const escaped=
-   key.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
-
-   const regex=new RegExp(escaped,"gi");
-
-   result=result.replace(regex,dict[key]);
-
- });
-
- if(result===text){
-
-   return "🔄 Built-in translation को इस sentence का exact result नहीं मिला।";
-
- }
-
- return result;
-
-}
-
-function swapLanguages(){
-
- const source=document.getElementById("sourceLang");
- const target=document.getElementById("targetLang");
-
- const oldSource=source.value;
-
- source.value=target.value;
- target.value=oldSource;
-
- const input=document.getElementById("translateInput");
- const output=document.getElementById("translateResult");
-
- const oldInput=input.value;
-
- input.value=output.value;
- output.value=oldInput;
-
- updateTranslateCount();
-
-}
-
-function clearTranslation(){
-
- document.getElementById("translateInput").value="";
- document.getElementById("translateResult").value="";
-
- updateTranslateCount();
-
- toast("🗑️ Translation cleared");
-
-}
-
-async function copyTranslation(){
-
- const text=document.getElementById("translateResult").value;
-
- if(!text)
-   return toast("⚠️ पहले translation करें");
-
- try{
-
-   await navigator.clipboard.writeText(text);
-   toast("📋 Translation copied!");
-
- }catch(e){
-
-   toast("⚠️ Copy नहीं हो पाया");
-
- }
-
-}
-
-function speakTranslation(){
-
- const text=document.getElementById("translateResult").value;
-
- if(!text)
-   return toast("⚠️ पहले translation करें");
-
- if(!("speechSynthesis" in window))
-   return toast("⚠️ Speech support नहीं है");
-
- const target=document.getElementById("targetLang").value;
-
- const utterance=new SpeechSynthesisUtterance(text);
-
- utterance.lang=target==="hi"?"hi-IN":"en-US";
-
- speechSynthesis.cancel();
- speechSynthesis.speak(utterance);
-
-}
-
-function startVoice(){
-
- const SpeechRecognition=
- window.SpeechRecognition||
- window.webkitSpeechRecognition;
-
- if(!SpeechRecognition)
-   return toast("⚠️ Voice input supported नहीं है");
-
- const recognition=new SpeechRecognition();
-
- const source=document.getElementById("sourceLang").value;
-
- recognition.lang=source==="hi"?"hi-IN":"en-US";
- recognition.interimResults=false;
- recognition.maxAlternatives=1;
-
- recognition.start();
-
- toast("🎤 बोलना शुरू करें...");
-
- recognition.onresult=e=>{
-
-   document.getElementById("translateInput").value=
-   e.results[0][0].transcript;
-
-   updateTranslateCount();
-
- };
-
- recognition.onerror=()=>{
-   toast("⚠️ Voice input में समस्या हुई");
- };
-
-}
-
-function updateTranslateCount(){
-
- const input=document.getElementById("translateInput").value;
- const output=document.getElementById("translateResult").value;
-
- document.getElementById("inputCount")
- .textContent=input.length+" characters";
-
- document.getElementById("outputCount")
- .textContent=output.length+" characters";
-
-}
-
-document.getElementById("translateInput")
-.addEventListener("input",updateTranslateCount);
-
-function saveTranslationHistory(input,output,source,target){
-
- if(!output || output.startsWith("🔄"))
-   return;
-
- let history=JSON.parse(
-   localStorage.getItem("barhamanTranslationHistory")||"[]"
- );
-
- history.unshift({
-   input:input,
-   output:output,
-   source:source,
-   target:target,
-   date:new Date().toLocaleString()
- });
-
- history=history.slice(0,10);
-
- localStorage.setItem(
-   "barhamanTranslationHistory",
-   JSON.stringify(history)
- );
-
- showTranslationHistory();
-
-}
-
-function showTranslationHistory(){
-
- const box=document.getElementById("translationHistory");
-
- let history=JSON.parse(
-   localStorage.getItem("barhamanTranslationHistory")||"[]"
- );
-
- box.innerHTML="";
-
- if(!history.length){
-
-   box.innerHTML=
-   "<p style='color:#777'>अभी कोई history नहीं है।</p>";
-
-   return;
-
- }
-
- history.forEach(item=>{
-
-   const div=document.createElement("div");
-
-   div.className="history-item";
-
-   div.innerHTML=
-   "<strong>"+escapeHTML(item.input)+
-   "</strong><br>➡️ "+
-   escapeHTML(item.output)+
-   "<br><small style='color:#777'>"+
-   escapeHTML(item.date)+
-   "</small>";
-
-   div.onclick=()=>{
-
-     document.getElementById("translateInput").value=item.input;
-     document.getElementById("translateResult").value=item.output;
-     document.getElementById("sourceLang").value=item.source;
-     document.getElementById("targetLang").value=item.target;
-
-     updateTranslateCount();
-
-   };
-
-   box.appendChild(div);
-
- });
-
-}
-
-function clearHistory(){
-
- localStorage.removeItem("barhamanTranslationHistory");
-
- showTranslationHistory();
-
- toast("🗑️ Translation history cleared");
-
-}
-
-function escapeHTML(str){
-
- return String(str)
- .replace(/&/g,"&amp;")
- .replace(/</g,"&lt;")
- .replace(/>/g,"&gt;")
- .replace(/"/g,"&quot;")
- .replace(/'/g,"&#039;");
-
-}
-
-showTranslationHistory();
-updateTranslateCount();
 
 /* RANDOM FUN */
 
@@ -2668,7 +2630,11 @@ function randomFun(){
 
  document.getElementById("funResult")
  .textContent=
- funItems[Math.floor(Math.random()*funItems.length)];
+ funItems[
+   Math.floor(
+     Math.random()*funItems.length
+   )
+ ];
 
 }
 
@@ -2693,15 +2659,23 @@ let wheelRotation=0;
 function drawWheel(){
 
  const canvas=document.getElementById("wheel");
+
  const ctx=canvas.getContext("2d");
 
  const cx=canvas.width/2;
  const cy=canvas.height/2;
+
  const radius=canvas.width/2-8;
 
- const slice=(Math.PI*2)/wheelItems.length;
+ const slice=
+   (Math.PI*2)/wheelItems.length;
 
- ctx.clearRect(0,0,canvas.width,canvas.height);
+ ctx.clearRect(
+   0,
+   0,
+   canvas.width,
+   canvas.height
+ );
 
  wheelItems.forEach((item,i)=>{
 
@@ -2709,6 +2683,7 @@ function drawWheel(){
    const end=start+slice;
 
    ctx.beginPath();
+
    ctx.moveTo(cx,cy);
 
    ctx.arc(
@@ -2721,23 +2696,31 @@ function drawWheel(){
 
    ctx.closePath();
 
-   ctx.fillStyle=i%2===0
+   ctx.fillStyle=
+   i%2===0
    ?"rgba(255,0,153,.8)"
    :"rgba(99,60,255,.8)";
 
    ctx.fill();
 
    ctx.strokeStyle="#fff";
+
    ctx.lineWidth=2;
+
    ctx.stroke();
 
    ctx.save();
 
    ctx.translate(cx,cy);
-   ctx.rotate(start+slice/2);
+
+   ctx.rotate(
+     start+slice/2
+   );
 
    ctx.textAlign="right";
+
    ctx.fillStyle="#fff";
+
    ctx.font="bold 14px Arial";
 
    ctx.fillText(
@@ -2759,23 +2742,32 @@ function spinWheel(){
 
  spinning=true;
 
- const wheel=document.getElementById("wheel");
+ const wheel=
+ document.getElementById("wheel");
 
- const extra=Math.floor(Math.random()*360);
+ const extra=
+ Math.floor(
+   Math.random()*360
+ );
 
- wheelRotation+=1440+extra;
+ wheelRotation+=
+   1440+extra;
 
  wheel.style.transform=
- "rotate("+wheelRotation+"deg)";
+   "rotate("+wheelRotation+"deg)";
 
  setTimeout(()=>{
 
    const index=
-   Math.floor(Math.random()*wheelItems.length);
+   Math.floor(
+     Math.random()*wheelItems.length
+   );
 
-   document.getElementById("spinResult")
+   document
+   .getElementById("spinResult")
    .textContent=
-   "🎉 Result: "+wheelItems[index];
+   "🎉 Result: "+
+   wheelItems[index];
 
    toast("🎉 Lucky Spin complete!");
 
@@ -2791,7 +2783,9 @@ drawWheel();
 
 function premiumComingSoon(){
 
- toast("💎 Premium अभी Coming Soon है!");
+ toast(
+   "💎 Premium अभी Coming Soon है!"
+ );
 
  alert(
    "💎 Premium Zone\n\n"+
@@ -2854,13 +2848,17 @@ const challenges=[
 ];
 
 const dayIndex=
-Math.floor(new Date().getTime()/86400000);
+Math.floor(
+ new Date().getTime()/86400000
+);
 
 document.getElementById("dailyTip")
-.textContent=tips[dayIndex%tips.length];
+.textContent=
+tips[dayIndex%tips.length];
 
 document.getElementById("dailyChallenge")
-.textContent=challenges[dayIndex%challenges.length];
+.textContent=
+challenges[dayIndex%challenges.length];
 
 function completeChallenge(){
 
@@ -2869,7 +2867,9 @@ function completeChallenge(){
    new Date().toDateString()
  );
 
- toast("🏆 Daily Challenge Complete!");
+ toast(
+   "🏆 Daily Challenge Complete!"
+ );
 
 }
 
@@ -2951,25 +2951,45 @@ const quizData=[
 
  {
   q:"CPU का पूरा नाम क्या है?",
-  o:["Central Processing Unit","Computer Power Unit","Central Program Utility","Control Processing User"],
+  o:[
+   "Central Processing Unit",
+   "Computer Power Unit",
+   "Central Program Utility",
+   "Control Processing User"
+  ],
   a:0
  },
 
  {
   q:"HTML का उपयोग मुख्य रूप से किसके लिए होता है?",
-  o:["Website structure","Photo editing","Gaming only","Antivirus"],
+  o:[
+   "Website structure",
+   "Photo editing",
+   "Gaming only",
+   "Antivirus"
+  ],
   a:0
  },
 
  {
   q:"CSS का उपयोग किसके लिए किया जाता है?",
-  o:["Database","Website styling","Calling","File storage"],
+  o:[
+   "Database",
+   "Website styling",
+   "Calling",
+   "File storage"
+  ],
   a:1
  },
 
  {
   q:"JavaScript क्या कर सकता है?",
-  o:["Website interactive बनाना","केवल photo print","केवल music","कुछ नहीं"],
+  o:[
+   "Website interactive बनाना",
+   "केवल photo print",
+   "केवल music",
+   "कुछ नहीं"
+  ],
   a:0
  },
 
@@ -2999,25 +3019,45 @@ const quizData=[
 
  {
   q:"भारत का राष्ट्रीय खेल आधिकारिक रूप से क्या है?",
-  o:["हॉकी","क्रिकेट","कोई आधिकारिक राष्ट्रीय खेल नहीं","फुटबॉल"],
+  o:[
+   "हॉकी",
+   "क्रिकेट",
+   "कोई आधिकारिक राष्ट्रीय खेल नहीं",
+   "फुटबॉल"
+  ],
   a:2
  },
 
  {
   q:"Google Chrome क्या है?",
-  o:["Web browser","Operating system","Game","Camera"],
+  o:[
+   "Web browser",
+   "Operating system",
+   "Game",
+   "Camera"
+  ],
   a:0
  },
 
  {
   q:"URL का उपयोग किससे संबंधित है?",
-  o:["Web address","Battery","Speaker","Camera"],
+  o:[
+   "Web address",
+   "Battery",
+   "Speaker",
+   "Camera"
+  ],
   a:0
  },
 
  {
   q:"Email का उपयोग किसलिए होता है?",
-  o:["Electronic messages","Cooking","Exercise","Driving"],
+  o:[
+   "Electronic messages",
+   "Cooking",
+   "Exercise",
+   "Driving"
+  ],
   a:0
  },
 
@@ -3029,26 +3069,55 @@ const quizData=[
 
 ];
 
+/*
+  IMPORTANT:
+  हर question को केवल एक बार answer किया जाएगा।
+  Wrong answer के बाद buttons disable होंगे।
+  सही answer GREEN होगा।
+*/
+
 let currentQuiz=0;
 let score=0;
+let answered=false;
+let questionNumber=0;
 
 function newQuiz(){
 
- currentQuiz=
- Math.floor(Math.random()*quizData.length);
+ answered=false;
 
- const q=quizData[currentQuiz];
+ currentQuiz=
+ Math.floor(
+   Math.random()*quizData.length
+ );
+
+ questionNumber++;
+
+ const q=
+ quizData[currentQuiz];
+
+ document.getElementById("quizProgress")
+ .textContent=
+ "❓ Question "+questionNumber+
+ " / "+quizData.length;
 
  document.getElementById("quizQuestion")
  .textContent=q.q;
 
- const box=document.getElementById("quizOptions");
+ const box=
+ document.getElementById("quizOptions");
 
  box.innerHTML="";
 
+ document.getElementById("quizAnswerInfo")
+ .textContent="";
+
+ document.getElementById("quizNext")
+ .style.display="none";
+
  q.o.forEach((option,i)=>{
 
-   const b=document.createElement("button");
+   const b=
+   document.createElement("button");
 
    b.textContent=option;
 
@@ -3061,29 +3130,90 @@ function newQuiz(){
  });
 
  document.getElementById("quizScore")
- .textContent="🏆 Score: "+score;
+ .textContent=
+ "🏆 Score: "+score;
 
 }
 
-function answerQuiz(i){
+function answerQuiz(selected){
 
- const q=quizData[currentQuiz];
+ if(answered)
+   return;
 
- if(i===q.a){
+ answered=true;
+
+ const q=
+ quizData[currentQuiz];
+
+ const buttons=
+ document.querySelectorAll(
+   "#quizOptions button"
+ );
+
+ /* सभी options को disable */
+
+ buttons.forEach(button=>{
+   button.disabled=true;
+ });
+
+ /* सही option हमेशा GREEN */
+
+ buttons[q.a]
+ .classList.add("correct");
+
+ if(selected===q.a){
 
    score++;
+
+   document.getElementById(
+     "quizAnswerInfo"
+   ).innerHTML=
+   "🎉 <span style='color:#00ff88'>सही जवाब!</span>";
+
    toast("✅ सही जवाब!");
 
  }else{
 
-   toast("❌ गलत जवाब!");
+   /* चुना हुआ गलत option RED */
+
+   buttons[selected]
+   .classList.add("wrong");
+
+   document.getElementById(
+     "quizAnswerInfo"
+   ).innerHTML=
+   "❌ गलत जवाब! सही उत्तर: "+
+   "<span style='color:#00ff88'>"+
+   q.o[q.a]+
+   "</span>";
+
+   toast(
+     "❌ गलत जवाब! सही उत्तर Green है।"
+   );
 
  }
 
- document.getElementById("quizScore")
- .textContent="🏆 Score: "+score;
+ document.getElementById(
+   "quizScore"
+ ).textContent=
+ "🏆 Score: "+score;
 
- setTimeout(newQuiz,700);
+ /*
+   1.8 सेकंड बाद अगला सवाल।
+   Wrong answer देने पर दोबारा chance नहीं मिलेगा।
+ */
+
+ setTimeout(()=>{
+
+   newQuiz();
+
+ },1800);
+
+}
+
+function nextQuiz(){
+
+ newQuiz();
 
 }
 
@@ -3104,12 +3234,18 @@ const music=[
 
 function playMusic(i){
 
- const audio=document.getElementById("audioPlayer");
+ const audio=
+ document.getElementById(
+   "audioPlayer"
+ );
 
- document.getElementById("musicTitle")
- .textContent=music[i].title;
+ document.getElementById(
+   "musicTitle"
+ ).textContent=
+ music[i].title;
 
- audio.src=music[i].src;
+ audio.src=
+ music[i].src;
 
  audio.play().catch(()=>{});
 
@@ -3125,10 +3261,14 @@ function setRating(n){
 
  selectedRating=n;
 
- document.querySelectorAll(".rating button")
+ document
+ .querySelectorAll(".rating button")
  .forEach((b,i)=>{
 
-   b.classList.toggle("active",i<n);
+   b.classList.toggle(
+     "active",
+     i<n
+   );
 
  });
 
@@ -3136,37 +3276,53 @@ function setRating(n){
 
 function submitFeedback(){
 
- const name=document.getElementById("visitorName")
- .value.trim();
+ const name=
+ document.getElementById(
+   "visitorName"
+ ).value.trim();
 
- const message=document.getElementById("visitorMessage")
- .value.trim();
+ const message=
+ document.getElementById(
+   "visitorMessage"
+ ).value.trim();
 
- const result=document.getElementById("feedbackMessage");
+ const result=
+ document.getElementById(
+   "feedbackMessage"
+ );
 
  if(!name||!message){
 
-   result.textContent="⚠️ नाम और feedback दोनों लिखें।";
+   result.textContent=
+   "⚠️ नाम और feedback दोनों लिखें।";
+
    return;
 
  }
 
  if(!selectedRating){
 
-   result.textContent="⭐ Rating चुनें।";
+   result.textContent=
+   "⭐ Rating चुनें।";
+
    return;
 
  }
 
- let data=JSON.parse(
-   localStorage.getItem("barhamanFeedback")||"[]"
+ let data=
+ JSON.parse(
+   localStorage.getItem(
+     "barhamanFeedback"
+   )||"[]"
  );
 
  data.push({
+
    name:name,
    message:message,
    rating:selectedRating,
    date:new Date().toLocaleString()
+
  });
 
  localStorage.setItem(
@@ -3178,13 +3334,21 @@ function submitFeedback(){
  "✅ धन्यवाद "+name+
  "! आपका feedback save हो गया। ❤️";
 
- document.getElementById("visitorName").value="";
- document.getElementById("visitorMessage").value="";
+ document.getElementById(
+   "visitorName"
+ ).value="";
+
+ document.getElementById(
+   "visitorMessage"
+ ).value="";
 
  selectedRating=0;
 
- document.querySelectorAll(".rating button")
- .forEach(b=>b.classList.remove("active"));
+ document
+ .querySelectorAll(".rating button")
+ .forEach(b=>
+   b.classList.remove("active")
+ );
 
 }
 
@@ -3192,16 +3356,23 @@ function submitFeedback(){
 
 function addChatMessage(text,type){
 
- const box=document.getElementById("chatMessages");
+ const box=
+ document.getElementById(
+   "chatMessages"
+ );
 
- const msg=document.createElement("div");
+ const msg=
+ document.createElement("div");
 
- msg.className="chat-msg "+type;
+ msg.className=
+ "chat-msg "+type;
+
  msg.textContent=text;
 
  box.appendChild(msg);
 
- box.scrollTop=box.scrollHeight;
+ box.scrollTop=
+ box.scrollHeight;
 
 }
 
@@ -3220,14 +3391,7 @@ function getBotReply(text){
    q.includes("tool")||
    q.includes("टूल")
  )
- return "🛠️ Tools में QR Generator, Notes, Image Compressor, Translator, Copy, Random Fun, Lucky Spin और Free Music हैं।";
-
- if(
-   q.includes("translate")||
-   q.includes("translator")||
-   q.includes("अनुवाद")
- )
- return "🌐 Translator में Hindi ↔ English, Voice Input, Copy, Listen, Swap और History options हैं।";
+ return "🛠️ Tools में QR Generator, Notes, Image Resizer, Copy, Random Fun, Lucky Spin और Free Music हैं।";
 
  if(
    q.includes("premium")||
@@ -3260,7 +3424,7 @@ function getBotReply(text){
    q.includes("quiz")||
    q.includes("क्विज")
  )
- return "🧠 Quiz section में सवालों के जवाब देकर score बढ़ाइए!";
+ return "🧠 Quiz में गलत answer देने के बाद दोबारा मौका नहीं मिलेगा और सही answer Green दिखाई देगा।";
 
  if(
    q.includes("youtube")||
@@ -3280,19 +3444,27 @@ function getBotReply(text){
  if(q.includes("rakesh"))
  return "🔱 Rakesh Mishra इस website के owner हैं। जय श्री राम 🙏";
 
- return "🤖 मैं website के Tools, Translator, Gallery, Lucky Spin, Free Music, Premium, Quiz, YouTube, Feedback और Contact के बारे में मदद कर सकता हूँ।";
+ return "🤖 मैं website के Tools, Gallery, Lucky Spin, Free Music, Premium, Quiz, YouTube, Feedback और Contact के बारे में मदद कर सकता हूँ।";
 
 }
 
 function sendChat(){
 
- const input=document.getElementById("chatInput");
- const text=input.value.trim();
+ const input=
+ document.getElementById(
+   "chatInput"
+ );
+
+ const text=
+ input.value.trim();
 
  if(!text)
    return;
 
- addChatMessage(text,"user-msg");
+ addChatMessage(
+   text,
+   "user-msg"
+ );
 
  input.value="";
 
@@ -3307,25 +3479,44 @@ function sendChat(){
 
 }
 
-document.getElementById("chatInput")
-.addEventListener("keydown",e=>{
+document.getElementById(
+ "chatInput"
+)
+.addEventListener(
+ "keydown",
+ e=>{
 
- if(e.key==="Enter")
-   sendChat();
+   if(e.key==="Enter")
+     sendChat();
 
-});
+ }
+);
 
-/* LIGHT / DARK - FIXED */
+/* LIGHT / DARK */
 
 function toggleLight(){
 
- const body=document.body;
- const btn=document.getElementById("lightBtn");
+ const body=
+ document.body;
 
- if(body.classList.contains("dark-mode")){
+ const btn=
+ document.getElementById(
+   "lightBtn"
+ );
 
-   body.classList.remove("dark-mode");
-   body.classList.add("bright-mode");
+ if(
+   body.classList.contains(
+     "dark-mode"
+   )
+ ){
+
+   body.classList.remove(
+     "dark-mode"
+   );
+
+   body.classList.add(
+     "bright-mode"
+   );
 
    btn.textContent="💡";
 
@@ -3333,8 +3524,13 @@ function toggleLight(){
 
  }else{
 
-   body.classList.remove("bright-mode");
-   body.classList.add("dark-mode");
+   body.classList.remove(
+     "bright-mode"
+   );
+
+   body.classList.add(
+     "dark-mode"
+   );
 
    btn.textContent="🌑";
 
