@@ -1,10 +1,12 @@
+<!DOCTYPE html><html lang="hi"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0"><title>🔱 Barhaman Fouji 🇮🇳 | Rakesh Mishra</title><meta name="description"
+content="Barhaman Fouji - Rakesh Mishra की personal website. Photos, videos, useful tools और Quiz.">
 
-<!DOCTYPE html>  <html lang="hi">    <head>  <meta charset="UTF-8">    
-<meta name="viewport" content="width=device-width,initial-scale=1.0">  <title>🔱 Barhaman Fouji 🇮🇳 | Rakesh Mishra</title>  <meta name="description"    
-content="Barhaman Fouji - Rakesh Mishra की personal website. Photos, videos, useful tools और Quiz.">  <meta name="keywords"    
-content="Barhaman Fouji, Brahman Fouji, Rakesh Mishra, QR Generator, Notes, Image Resizer, Quiz">
+<meta name="keywords"
+content="Barhaman Fouji, Brahman Fouji, Rakesh Mishra, Notes, Image Resizer, Quiz">
 
-<meta name="author" content="Rakesh Mishra">  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>  <style>
+<meta name="author" content="Rakesh Mishra"><style>
 
 *{
 box-sizing:border-box;
@@ -403,36 +405,6 @@ min-height:20px;
 word-break:break-word;
 }
 
-/* QR */
-
-#qrcode{
-display:flex;
-justify-content:center;
-align-items:center;
-margin:15px auto;
-min-height:10px;
-}
-
-#qrcode img,
-#qrcode canvas{
-padding:8px;
-background:#fff;
-border-radius:10px;
-}
-
-.qr-download{
-display:none;
-margin:10px auto;
-padding:10px 18px;
-border-radius:22px;
-color:#fff;
-text-decoration:none;
-font-weight:bold;
-background:linear-gradient(135deg,#00c853,#00a86b);
-border:1px solid #00ff88;
-box-shadow:0 0 15px rgba(0,255,120,.4);
-}
-
 /* NOTES */
 
 .notes-list{
@@ -745,58 +717,6 @@ font-weight:bold;
 color:#ffe500;
 }
 
-/* PREMIUM */
-
-.premium-box{
-max-width:850px;
-margin:20px auto;
-padding:30px 20px;
-border-radius:25px;
-border:2px solid #ffe500;
-background:linear-gradient(145deg,#0b0b0b,#261900);
-box-shadow:0 0 25px rgba(255,220,0,.2);
-}
-
-.premium-title{
-font-size:30px;
-color:#ffe500;
-text-shadow:0 0 15px #ff9900;
-}
-
-.premium-grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:15px;
-margin-top:25px;
-}
-
-.premium-card{
-padding:20px;
-border-radius:18px;
-background:#090909;
-border:1px solid #6d5a00;
-}
-
-.premium-card h3{
-color:#ffe500;
-}
-
-.lock{
-font-size:30px;
-}
-
-.premium-price{
-font-size:25px;
-color:#7dffb2;
-font-weight:bold;
-}
-
-.premium-btn{
-background:linear-gradient(135deg,#ffcc00,#ff7b00)!important;
-color:#000!important;
-border-color:#ffe500!important;
-}
-
 /* QUIZ */
 
 .quiz-box{
@@ -1035,405 +955,355 @@ font-size:21px!important;
 
 }
 
-</style>  </head>  <body>  <div id="progress"></div>
+</style></head><body><div id="progress"></div>
+<div id="toast" class="toast"></div><!-- NAVBAR --><nav class="navbar"><a href="#home">🏠 Home</a>
+<a href="#about">👤 About</a>
+<a href="#gallery">🖼️ Gallery</a>
 
-<div id="toast" class="toast"></div>  <!-- NAVBAR -->  <nav class="navbar">  <a href="#home">🏠 Home</a>  
-<a href="#about">👤 About</a>  
-<a href="#gallery">🖼️ Gallery</a>  <div class="tool-menu">  <button class="tool-menu-btn" onclick="toggleTools()">    
-🛠️ Tools    
-</button>  <div id="toolDropdown" class="tool-dropdown">  <div class="file-title">    
-🛠️ All Useful Tools    
-</div>  <a class="file-item" href="#qrTool" onclick="closeTools()">    
-📱 QR Code Generator    
-</a>  <a class="file-item" href="#copyTool" onclick="closeTools()">    
-📋 Copy Text    
-</a>  <a class="file-item" href="#notesTool" onclick="closeTools()">    
-📝 Notes / To-Do    
-</a>  <a class="file-item" href="#compressTool" onclick="closeTools()">    
-🖼️ Image Resizer / Compressor    
-</a>  <a class="file-item" href="#randomTool" onclick="closeTools()">    
-🎲 Random Fun    
-</a>  <a class="file-item" href="#luckySpin" onclick="closeTools()">    
-🎰 Lucky Spin    
-</a>  <a class="file-item" href="#music" onclick="closeTools()">    
-🎵 Free Music    
-</a>  <a class="file-item" href="#premium" onclick="closeTools()">    
-💎 Premium Zone    
-</a>  <a class="file-item" href="#quiz" onclick="closeTools()">    
-🧠 Quiz    
-</a>  <a class="file-item" href="#chat" onclick="closeTools()">    
-🤖 AI Support    
-</a>  <a class="file-item" href="#feedback" onclick="closeTools()">    
-💬 Feedback    
-</a>  </div>  </div>  <a href="#daily">💡 Daily</a>  
-<a href="#youtube">▶️ YouTube</a>  
-<a href="#contact">📞 Contact</a>  </nav>  <!-- HERO -->  <section class="hero" id="home">  <h1>🔱 Barhaman Fouji 🇮🇳</h1>  <h2>Rakesh Mishra</h2>  <p>जय श्री राम 🙏</p>  <div id="visitorCount"></div>  <div class="buttons">  <a href="#about">👤 About Me</a>  
-<a href="#gallery">🖼️ Gallery</a>  
-<a href="#tools">🛠️ Tools</a>  
-<a href="#youtube">▶️ YouTube</a>  
-<a href="#contact">📞 Contact</a>  <a href="#" onclick="shareSite();return false">    
-📤 Share Website    
-</a>  </div>  </section>  <!-- ANNOUNCEMENT -->  <section class="section">  <div class="card">  <h2>📰 Announcement Board</h2>  <div class="announcement">  <h3>🔔 Latest Announcement</h3>  <p id="announcementText">    
-स्वागत है! Barhaman Fouji website पर नए features जोड़ दिए गए हैं। ❤️    
-</p>  </div>  </div>  </section>  <!-- ABOUT -->  <section class="section" id="about">  <div class="card">  <h2>👤 About Me</h2>  <div class="profile-card">  <img    
-class="profile-photo"    
-src="IMG_20260614_152003_968.webp"    
-alt="Rakesh Mishra">  <h3>Rakesh Mishra</h3>  <p class="profile-name">    
-🔱 Barhaman Fouji 🇮🇳    
-</p>  <p>    
-नमस्ते 🙏 मेरा नाम Rakesh Mishra है।    
-यह मेरी personal website है, जहाँ मैं अपनी photos,    
-videos और अपने बारे में कुछ खास बातें share करता हूँ।    
-</p>  <span class="profile-badge">    
-🇮🇳 जय श्री राम 🙏    
-</span>  </div>  <p>    
-🇮🇳 हमेशा आगे बढ़ते रहो और अपने सपनों को पूरा करो। ❤️    
-</p>  </div>  </section>  <!-- GALLERY -->  <section class="section" id="gallery">  <div class="card">  <h2>🖼️ My Photo</h2>  <img    
-class="gallery-img"    
-src="IMG_20260614_152003_968.webp"    
-onclick="openPhoto()"    
-alt="Rakesh Mishra">  <p>    
-📌 Photo पर क्लिक करके Full Screen में देखें।    
-</p>  </div>  </section>  <!-- TOOLS -->  <section class="section" id="tools">  <div class="card">  <h2>🛠️ Useful Online Tools</h2>  <input    
-id="toolSearch"    
-class="tool-input"    
-placeholder="🔍 Tool search करें..."    
-oninput="filterTools()">  <div class="tools-grid" id="toolsGrid">  <!-- QR -->  <div class="tool-card searchable" id="qrTool">  <h3>📱 QR Code Generator</h3>  <p>    
-Text या Website Link का QR बनाएं और Download करें।    
-</p>  <input    
-id="qrText"    
-class="tool-input"    
-placeholder="Text या Link">  <button    
-class="tool-btn"    
-onclick="generateQR()">
+<div class="tool-menu"><button class="tool-menu-btn" onclick="toggleTools()">
+🛠️ Tools
+</button><div id="toolDropdown" class="tool-dropdown"><div class="file-title">
+🛠️ All Useful Tools
+</div><a class="file-item" href="#notesTool" onclick="closeTools()">
+📝 Notes / To-Do
+</a><a class="file-item" href="#compressTool" onclick="closeTools()">
+🖼️ Image Resizer / Compressor
+</a><a class="file-item" href="#randomTool" onclick="closeTools()">
+🎲 Random Fun
+</a><a class="file-item" href="#luckySpin" onclick="closeTools()">
+🎰 Lucky Spin
+</a><a class="file-item" href="#music" onclick="closeTools()">
+🎵 Free Music
+</a><a class="file-item" href="#quiz" onclick="closeTools()">
+🧠 Quiz
+</a><a class="file-item" href="#chat" onclick="closeTools()">
+🤖 AI Support
+</a><a class="file-item" href="#feedback" onclick="closeTools()">
+💬 Feedback
+</a></div>
+</div><a href="#daily">💡 Daily</a>
+<a href="#youtube">▶️ YouTube</a>
+<a href="#contact">📞 Contact</a>
 
-🔲 QR बनाएं
+</nav><!-- HERO --><section class="hero" id="home"><h1>🔱 Barhaman Fouji 🇮🇳</h1><h2>Rakesh Mishra</h2><p>जय श्री राम 🙏</p><div id="visitorCount"></div><div class="buttons"><a href="#about">👤 About Me</a>
+<a href="#gallery">🖼️ Gallery</a>
+<a href="#tools">🛠️ Tools</a>
+<a href="#youtube">▶️ YouTube</a>
+<a href="#contact">📞 Contact</a>
 
-</button>  <div id="qrcode"></div>  <a    
-id="qrDownload"    
-class="qr-download"    
-download="Barhaman-Fouji-QR.png">
+<a href="#" onclick="shareSite();return false">
+📤 Share Website
+</a></div></section><!-- ANNOUNCEMENT --><section class="section"><div class="card"><h2>📰 Announcement Board</h2><div class="announcement"><h3>🔔 Latest Announcement</h3><p id="announcementText">
+स्वागत है! Barhaman Fouji website पर नए features जोड़ दिए गए हैं। ❤️
+</p></div></div></section><!-- ABOUT --><section class="section" id="about"><div class="card"><h2>👤 About Me</h2><div class="profile-card"><img
+class="profile-photo"
+src="IMG_20260614_152003_968.webp"
+alt="Rakesh Mishra">
 
-⬇️ Download QR PNG
+<h3>Rakesh Mishra</h3><p class="profile-name">
+🔱 Barhaman Fouji 🇮🇳
+</p><p>
+नमस्ते 🙏 मेरा नाम Rakesh Mishra है।
+यह मेरी personal website है, जहाँ मैं अपनी photos,
+videos और अपने बारे में कुछ खास बातें share करता हूँ।
+</p><span class="profile-badge">
+🇮🇳 जय श्री राम 🙏
+</span></div><p>
+🇮🇳 हमेशा आगे बढ़ते रहो और अपने सपनों को पूरा करो। ❤️
+</p></div></section><!-- GALLERY --><section class="section" id="gallery"><div class="card"><h2>🖼️ My Photo</h2><img
+class="gallery-img"
+src="IMG_20260614_152003_968.webp"
+onclick="openPhoto()"
+alt="Rakesh Mishra">
 
-</a>  </div>  <!-- COPY -->  <div class="tool-card searchable" id="copyTool">  <h3>📋 Copy Text</h3>  <textarea    
-id="copyText"    
-class="tool-input"    
-placeholder="यहाँ text लिखें..."></textarea>  <button    
-class="tool-btn"    
-onclick="copyText()">
+<p>
+📌 Photo पर क्लिक करके Full Screen में देखें।
+</p></div></section><!-- TOOLS --><section class="section" id="tools"><div class="card"><h2>🛠️ Useful Online Tools</h2><input
+id="toolSearch"
+class="tool-input"
+placeholder="🔍 Tool search करें..."
+oninput="filterTools()">
 
-📋 Copy
-
-</button>  </div>  <!-- NOTES -->  <div class="tool-card searchable" id="notesTool">  <h3>📝 Notes / To-Do</h3>  <input    
-id="noteInput"    
-class="tool-input"    
+<div class="tools-grid" id="toolsGrid"><!-- NOTES --><div class="tool-card searchable" id="notesTool"><h3>📝 Notes / To-Do</h3><input
+id="noteInput"
+class="tool-input"
 placeholder="जैसे: पढ़ाई करनी है">
 
-<button    
-class="tool-btn"    
+<button
+class="tool-btn"
 onclick="addNote()">
 
 ➕ Add Task
 
-</button>  <div    
-id="notesList"    
+</button><div
+id="notesList"
 class="notes-list">
+</div></div><!-- IMAGE RESIZER --><div
+class="tool-card searchable"
+id="compressTool"><h3>🖼️ Image Resizer / Compressor</h3><p>
+फोटो चुनें और maximum <b>10 MB</b> तक output size सेट करें।
+</p><label class="upload-box">📤 फोटो चुनें
 
-</div>  </div>  <!-- IMAGE RESIZER -->  <div    
-class="tool-card searchable"    
-id="compressTool">  <h3>🖼️ Image Resizer / Compressor</h3>  <p>    
-फोटो चुनें और maximum <b>10 MB</b> तक output size सेट करें।    
-</p>  <label class="upload-box">  📤 फोटो चुनें  <input    
-id="imageInput"    
-type="file"    
-accept="image/*"    
-hidden    
+<input
+id="imageInput"
+type="file"
+accept="image/*"
+hidden
 onchange="compressImage()">
 
-</label>  <div class="resize-controls">  <label>
+</label><div class="resize-controls"><label>
 🎯 Maximum Output Size
-</label>  <select id="targetSize">  <option value="0.5">500 KB</option>
+</label><select id="targetSize"><option value="0.5">500 KB</option>
+<option value="1">1 MB</option>
+<option value="2">2 MB</option>
+<option value="3">3 MB</option>
+<option value="4">4 MB</option>
+<option value="5">5 MB</option>
+<option value="6">6 MB</option>
+<option value="7">7 MB</option>
+<option value="8">8 MB</option>
+<option value="9">9 MB</option>
+<option value="10" selected>10 MB</option></select><label>
+📐 Maximum Width
+</label><input
+id="maxWidth"
+type="number"
+value="4000"
+min="500"
+max="8000"
+step="100">
 
-<option value="1">1 MB</option>    
-<option value="2">2 MB</option>    
-<option value="3">3 MB</option>    
-<option value="4">4 MB</option>    
-<option value="5">5 MB</option>    
-<option value="6">6 MB</option>    
-<option value="7">7 MB</option>    
-<option value="8">8 MB</option>    
-<option value="9">9 MB</option>    
-<option value="10" selected>10 MB</option>  </select>  <label>    
-📐 Maximum Width    
-</label>  <input    
-id="maxWidth"    
-type="number"    
-value="4000"    
-min="500"    
-max="8000"    
-step="100">  <button    
-class="tool-btn"    
+<button
+class="tool-btn"
 onclick="resizeCurrentImage()">
 
 🔄 Resize / Create
 
-</button>  </div>  <canvas id="compressCanvas"></canvas>
+</button></div><canvas id="compressCanvas"></canvas>
 
-<p    
-id="compressInfo"    
-class="resize-info">    
-</p>  <a    
-id="downloadCompressed"    
-class="download-link"    
-download="Barhaman-Fouji-Resized.jpg">  ⬇️ Download Resized Photo
+<p
+id="compressInfo"
+class="resize-info">
+</p><a
+id="downloadCompressed"
+class="download-link"
+download="Barhaman-Fouji-Resized.jpg">
 
-</a>  </div>  <!-- RANDOM -->  <div    
-class="tool-card searchable"    
-id="randomTool">  <h3>🎲 Random Fun Generator</h3>  <button    
-class="tool-btn"    
+⬇️ Download Resized Photo
+
+</a></div><!-- RANDOM --><div
+class="tool-card searchable"
+id="randomTool"><h3>🎲 Random Fun Generator</h3><button
+class="tool-btn"
 onclick="randomFun()">
 
 🎲 Generate
 
-</button>  <div    
-id="funResult"    
-class="fun-result">  कुछ मजेदार पाने के लिए दबाएं 😄
+</button><div
+id="funResult"
+class="fun-result">कुछ मजेदार पाने के लिए दबाएं 😄
 
-</div>  </div>  </div>  </div>  </section>  <!-- LUCKY SPIN -->  <section    
-class="section"    
-id="luckySpin">  <div class="card">  <h2>🎰 Lucky Spin</h2>  <div class="spin-box">  <p>    
-🎯 Wheel घुमाइए और देखें आज आपको क्या मिलता है!    
-</p>  <div class="wheel-wrap">  <div class="wheel-pointer">    
-🔻    
-</div>  <canvas    
-id="wheel"    
-width="280"    
-height="280">  
-</canvas>  </div>  <button    
-class="tool-btn"    
-onclick="spinWheel()">  🎰 SPIN NOW
+</div></div></div></div></section><!-- LUCKY SPIN --><section
+class="section"
+id="luckySpin"><div class="card"><h2>🎰 Lucky Spin</h2><div class="spin-box"><p>
+🎯 Wheel घुमाइए और देखें आज आपको क्या मिलता है!
+</p><div class="wheel-wrap"><div class="wheel-pointer">
+🔻
+</div><canvas
+id="wheel"
+width="280"
+height="280">
+</canvas>
 
-</button>  <div    
-id="spinResult"    
-class="spin-result">  Spin करने के लिए बटन दबाएँ 😄
+</div><button
+class="tool-btn"
+onclick="spinWheel()">
 
-</div>  <p style="font-size:13px;color:#999">    
-ℹ️ यह केवल मनोरंजन के लिए है। इसमें कोई वास्तविक cash prize नहीं है।    
-</p>  </div>  </div>  </section>  <!-- PREMIUM -->  <section    
-class="section"    
-id="premium">  <div class="card">  <div class="premium-box">  <div class="premium-title">    
-💎 Premium Zone 👑    
-</div>  <p>    
-Premium Zone में future में advanced features और exclusive tools दिए जाएंगे।    
-</p>  <div class="premium-grid">  <div class="premium-card">    
-<div class="lock">🔒</div>    
-<h3>🎨 Premium QR</h3>    
-<p>Custom design और advanced QR features.</p>    
-<span class="premium-price">Coming Soon</span>    
-</div>  <div class="premium-card">    
-<div class="lock">🔒</div>    
-<h3>🖼️ Pro Image Tools</h3>    
-<p>Advanced image processing और extra options.</p>    
-<span class="premium-price">Coming Soon</span>    
-</div>  <div class="premium-card">    
-<div class="lock">🔒</div>    
-<h3>👑 Premium Badge</h3>    
-<p>Premium members के लिए special profile badge.</p>    
-<span class="premium-price">Coming Soon</span>    
-</div>  <div class="premium-card">    
-<div class="lock">🔒</div>    
-<h3>🚀 Pro Tools</h3>    
-<p>Future में नए advanced tools यहाँ मिलेंगे।</p>    
-<span class="premium-price">Coming Soon</span>    
-</div>  </div>  <div class="buttons">  <button    
-class="tool-btn premium-btn"    
-onclick="premiumComingSoon()">  💎 Get Premium
+🎰 SPIN NOW
 
-</button>  </div>  </div>  </div>  </section>  <!-- DAILY -->  <section    
-class="section"    
-id="daily">  <div class="card">  <h2>💡 Daily Zone</h2>  <div class="daily-tip">  <h3>💡 Daily Tip</h3>  <p id="dailyTip"></p>  </div>  <div class="challenge">  <h3>🎯 Daily Challenge</h3>  <p id="dailyChallenge"></p>  <button    
-class="tool-btn"    
+</button><div
+id="spinResult"
+class="spin-result">Spin करने के लिए बटन दबाएँ 😄
+
+</div><p style="font-size:13px;color:#999">ℹ️ यह केवल मनोरंजन के लिए है। इसमें कोई वास्तविक cash prize नहीं है।
+
+</p></div></div></section><!-- DAILY --><section
+class="section"
+id="daily"><div class="card"><h2>💡 Daily Zone</h2><div class="daily-tip"><h3>💡 Daily Tip</h3><p id="dailyTip"></p></div><div class="challenge"><h3>🎯 Daily Challenge</h3><p id="dailyChallenge"></p><button
+class="tool-btn"
 onclick="completeChallenge()">
 
 ✅ Complete
 
-</button>  </div>  </div>  </section>  <!-- QUIZ -->  <section    
-class="section"    
-id="quiz">  <div class="card">  <h2>🧠 Quiz Challenge</h2>  <div class="quiz-box">  <div    
-id="quizProgress"    
+</button></div></div></section><!-- QUIZ --><section
+class="section"
+id="quiz"><div class="card"><h2>🧠 Quiz Challenge</h2><div class="quiz-box"><div
+id="quizProgress"
 class="quiz-progress">
+</div><p
+id="quizQuestion"
+class="quiz-question">
+</p><div
+id="quizOptions"
+class="quiz-options">
+</div><div
+id="quizAnswerInfo"
+class="quiz-answer-info">
+</div><p id="quizScore">
+🏆 Score: 0
+</p><button
+id="quizNext"
+class="tool-btn quiz-next"
+onclick="nextQuiz()">
 
-</div>  <p    
-id="quizQuestion"    
-class="quiz-question">    
-</p>  <div    
-id="quizOptions"    
-class="quiz-options">    
-</div>  <div    
-id="quizAnswerInfo"    
-class="quiz-answer-info">    
-</div>  <p id="quizScore">    
-🏆 Score: 0    
-</p>  <button    
-id="quizNext"    
-class="tool-btn quiz-next"    
-onclick="nextQuiz()">  ➡️ Next Question
+➡️ Next Question
 
-</button>  </div>  </div>  </section>  <!-- MUSIC -->  <section    
-class="section"    
-id="music">  <div class="card">  <h2>🎵 Free Music Playlist</h2>  <div class="music-box">  <h3 id="musicTitle">
+</button></div></div></section><!-- MUSIC --><section
+class="section"
+id="music"><div class="card"><h2>🎵 Free Music Playlist</h2><div class="music-box"><h3 id="musicTitle">
 🔱 Shri Bhairav Tandav
+</h3><audio
+id="audioPlayer"
+controls>
 
-</h3>  <audio    
-id="audioPlayer"    
-controls>  <source    
-src="Shri Bhairav Tandav _ Shri Dhananjay Tiwari _ Vidhan Gangwal _ Sadashiv _kaalbhairavashtami2024(MP3_160K).mp3"    
+<source
+src="Shri Bhairav Tandav _ Shri Dhananjay Tiwari _ Vidhan Gangwal _ Sadashiv _kaalbhairavashtami2024(MP3_160K).mp3"
 type="audio/mpeg">
 
-</audio>  <div class="playlist">  <button onclick="playMusic(0)">
+</audio><div class="playlist"><button onclick="playMusic(0)">
 🎵 Shri Bhairav Tandav
-</button>  </div>  </div>  </div>  </section>  <!-- CHAT -->  <section    
-class="section"    
-id="chat">  <div class="card">  <h2>🤖 AI-style Chat Assistant</h2>  <div class="chat-box">  <div class="chat-header">
+</button></div></div></div></section><!-- CHAT --><section
+class="section"
+id="chat"><div class="card"><h2>🤖 AI-style Chat Assistant</h2><div class="chat-box"><div class="chat-header">
 🤖 Barhaman Fouji Assistant
+</div><div
+id="chatMessages"
+class="chat-messages"><div class="chat-msg bot-msg">नमस्ते! 🙏 मैं Barhaman Fouji Assistant हूँ।
 
-</div>  <div    
-id="chatMessages"    
-class="chat-messages">  <div class="chat-msg bot-msg">    
-नमस्ते! 🙏 मैं Barhaman Fouji Assistant हूँ।    
-</div>  </div>  <div class="chat-input-area">  <input    
-id="chatInput"    
-class="chat-input"    
-placeholder="अपना सवाल लिखें...">  <button    
-class="tool-btn"    
+</div></div><div class="chat-input-area"><input
+id="chatInput"
+class="chat-input"
+placeholder="अपना सवाल लिखें...">
+
+<button
+class="tool-btn"
 onclick="sendChat()">
 
 ➤
 
-</button>  </div>  </div>  </div>  </section>  <!-- FEEDBACK -->  <section    
-class="section"    
-id="feedback">  <div class="card">  <h2>💬 Visitor Feedback</h2>  <div class="feedback-box">  <div class="rating">  <button onclick="setRating(1)">⭐</button>
+</button></div></div></div></section><!-- FEEDBACK --><section
+class="section"
+id="feedback"><div class="card"><h2>💬 Visitor Feedback</h2><div class="feedback-box"><div class="rating"><button onclick="setRating(1)">⭐</button>
 <button onclick="setRating(2)">⭐</button>
 <button onclick="setRating(3)">⭐</button>
 <button onclick="setRating(4)">⭐</button>
 <button onclick="setRating(5)">⭐</button>
 
-</div>  <input    
-id="visitorName"    
-class="tool-input"    
-placeholder="आपका नाम">  <textarea    
-id="visitorMessage"    
-class="tool-input"    
-placeholder="अपना feedback लिखें"></textarea>  <button    class="tool-btn"
+</div><input
+id="visitorName"
+class="tool-input"
+placeholder="आपका नाम">
+
+<textarea
+id="visitorMessage"
+class="tool-input"
+placeholder="अपना feedback लिखें"></textarea><button
+class="tool-btn"
 onclick="submitFeedback()">
 
 📨 Feedback भेजें
 
-</button>  <div    
-id="feedbackMessage"    
+</button><div
+id="feedbackMessage"
 class="feedback-message">
+</div></div></div></section><!-- YOUTUBE --><section
+class="section"
+id="youtube"><div class="card"><h2>▶️ My YouTube Videos</h2><div class="youtube-grid"><div class="youtube-card"><iframe
+src="https://www.youtube.com/embed/JPReWkMD-5s"
+allowfullscreen>
+</iframe><p>▶️ Short 1</p></div><div class="youtube-card"><iframe
+src="https://www.youtube.com/embed/UMP-rLHMBLU"
+allowfullscreen>
+</iframe><p>▶️ Short 2</p></div><div class="youtube-card"><iframe
+src="https://www.youtube.com/embed/Crflxy4mULE"
+allowfullscreen>
+</iframe><p>▶️ Short 3</p></div><div class="youtube-card"><iframe
+src="https://www.youtube.com/embed/zjmyvB1EoTE"
+allowfullscreen>
+</iframe><p>▶️ Short 4</p></div><div class="youtube-card"><iframe
+src="https://www.youtube.com/embed/BCFl8sBXoTs"
+allowfullscreen>
+</iframe><p>▶️ Short 5</p></div><div class="youtube-card"><iframe
+src="https://www.youtube.com/embed/R7p-6laN60Y"
+allowfullscreen>
+</iframe><p>▶️ Short 6</p></div></div><div class="buttons"><a
+href="https://youtube.com/@handstand_boy"
+target="_blank">
 
-</div>  </div>  </div>  </section>  <!-- YOUTUBE -->  <section    
-class="section"    
-id="youtube">  <div class="card">  <h2>▶️ My YouTube Videos</h2>  <div class="youtube-grid">  <div class="youtube-card">    
-<iframe    
-src="https://www.youtube.com/embed/JPReWkMD-5s"    
-allowfullscreen>    
-</iframe>    
-<p>▶️ Short 1</p>    
-</div>  <div class="youtube-card">    
-<iframe    
-src="https://www.youtube.com/embed/UMP-rLHMBLU"    
-allowfullscreen>    
-</iframe>    
-<p>▶️ Short 2</p>    
-</div>  <div class="youtube-card">    
-<iframe    
-src="https://www.youtube.com/embed/Crflxy4mULE"    
-allowfullscreen>    
-</iframe>    
-<p>▶️ Short 3</p>    
-</div>  <div class="youtube-card">    
-<iframe    
-src="https://www.youtube.com/embed/zjmyvB1EoTE"    
-allowfullscreen>    
-</iframe>    
-<p>▶️ Short 4</p>    
-</div>  <div class="youtube-card">    
-<iframe    
-src="https://www.youtube.com/embed/BCFl8sBXoTs"    
-allowfullscreen>    
-</iframe>    
-<p>▶️ Short 5</p>    
-</div>  <div class="youtube-card">    
-<iframe    
-src="https://www.youtube.com/embed/R7p-6laN60Y"    
-allowfullscreen>    
-</iframe>    
-<p>▶️ Short 6</p>    
-</div>  </div>  <div class="buttons">  <a    
-href="https://youtube.com/@handstand_boy"    
-target="_blank">  ▶️ पूरा YouTube Channel
+▶️ पूरा YouTube Channel
 
-</a>  </div>  </div>  </section>  <!-- CONTACT -->  <section    
-class="section"    
-id="contact">  <div class="card">  <h2>📞 Contact Me</h2>  <p>
+</a></div></div></section><!-- CONTACT --><section
+class="section"
+id="contact"><div class="card"><h2>📞 Contact Me</h2><p>
 मुझसे जुड़ने के लिए नीचे दिए गए platform पर संपर्क करें। 🙏
+</p><div class="buttons"><a
+href="https://wa.me/917050042886"
+target="_blank">
 
-</p>  <div class="buttons">  <a    
-href="https://wa.me/917050042886"    
-target="_blank">  💬 WhatsApp
+💬 WhatsApp
 
-</a>  <a    
-href="https://youtube.com/@handstand_boy"    
+</a><a
+href="https://youtube.com/@handstand_boy"
 target="_blank">
 
 ▶️ YouTube
 
-</a>  <a    
-href="https://www.instagram.com/barhaman_fouji_10k/"    
+</a><a
+href="https://www.instagram.com/barhaman_fouji_10k/"
 target="_blank">
 
 📸 Instagram
 
-</a>  <a    
-href="https://www.facebook.com/profile.php?id=100077267425201"    
+</a><a
+href="https://www.facebook.com/profile.php?id=100077267425201"
 target="_blank">
 
 👍 Facebook
 
-</a>  <a    
-href="#"    
+</a><a
+href="#"
 onclick="shareSite();return false">
 
 📤 Share Website
 
-</a>  </div>  </div>  </section>  <!-- FOOTER -->  <footer>  <h3>🔱 Barhaman Fouji 🇮🇳</h3>  <p>Rakesh Mishra</p>  <p>जय श्री राम 🙏</p>  <p>
+</a></div></div></section><!-- FOOTER --><footer><h3>🔱 Barhaman Fouji 🇮🇳</h3><p>Rakesh Mishra</p><p>जय श्री राम 🙏</p><p>
 © 2026 Barhaman Fouji. All Rights Reserved.
+</p></footer><!-- PHOTO MODAL --><div
+id="photoModal"
+class="photo-modal"
+onclick="closePhoto(event)"><button
+class="close-photo"
+onclick="closePhoto()">
 
-</p>  </footer>  <!-- PHOTO MODAL -->  <div    
-id="photoModal"    
-class="photo-modal"    
-onclick="closePhoto(event)">  <button    
-class="close-photo"    
-onclick="closePhoto()">  ×
+×
 
-</button>  <img    
-src="IMG_20260614_152003_968.webp"    
+</button><img
+src="IMG_20260614_152003_968.webp"
 alt="Rakesh Mishra">
 
-</div>  <button    
-id="lightBtn"    
-onclick="toggleLight()">  💡
+</div><button
+id="lightBtn"
+onclick="toggleLight()">
 
-</button>  <button    
-id="topBtn"    
+💡
+
+</button><button
+id="topBtn"
 onclick="window.scrollTo({top:0,behavior:'smooth'})">
 
 ↑
 
-</button>  <script>
+</button><script>
 
 /* TOAST */
 
@@ -1499,21 +1369,6 @@ closeTools();
 
 });
 
-/* COPY */
-
-function copyText(){
-
-const text=document.getElementById("copyText").value;
-
-if(!text)
-return toast("⚠️ पहले text लिखें");
-
-navigator.clipboard.writeText(text)
-.then(()=>toast("📋 Text copied!"))
-.catch(()=>toast("⚠️ Copy नहीं हो पाया"));
-
-}
-
 /* SHARE */
 
 async function shareSite(){
@@ -1532,9 +1387,9 @@ await navigator.share(data);
 
 }else{
 
-await navigator.clipboard.writeText(location.href);    
+await navigator.clipboard.writeText(location.href);
 
- toast("📋 Website link copied!");
+toast("📋 Website link copied!");
 
 }
 
@@ -1590,76 +1445,6 @@ document.body.style.overflow="";
 
 }
 
-/* QR GENERATOR + DOWNLOAD */
-
-function generateQR(){
-
-const text=document
-.getElementById("qrText")
-.value
-.trim();
-
-const qr=document.getElementById("qrcode");
-
-const download=document
-.getElementById("qrDownload");
-
-qr.innerHTML="";
-
-download.style.display="none";
-
-if(!text)
-return toast("⚠️ पहले Text या Link लिखें");
-
-if(typeof QRCode==="undefined")
-return toast("⚠️ QR library load नहीं हुई");
-
-new QRCode(qr,{
-
-text:text,
-
-width:220,
-
-height:220,
-
-colorDark:"#000000",
-
-colorLight:"#ffffff",
-
-correctLevel:QRCode.CorrectLevel.H
-
-});
-
-setTimeout(()=>{
-
-const canvas=qr.querySelector("canvas");
-const img=qr.querySelector("img");
-
-let dataURL="";
-
-if(canvas){
-
-dataURL=canvas.toDataURL("image/png");
-
-}else if(img){
-
-dataURL=img.src;
-
-}
-
-if(dataURL){
-
-download.href=dataURL;    
- download.style.display="inline-block";
-
-}
-
-},300);
-
-toast("✅ QR Code बन गया!");
-
-}
-
 /* NOTES */
 
 let notes=JSON.parse(
@@ -1706,11 +1491,11 @@ text.classList.add("note-done");
 
 text.onclick=()=>{
 
-notes[index].done=!notes[index].done;    
+notes[index].done=!notes[index].done;
 
- saveNotes();    
+saveNotes();
 
- showNotes();
+showNotes();
 
 };
 
@@ -1722,13 +1507,13 @@ del.textContent="🗑️";
 
 del.onclick=()=>{
 
-notes.splice(index,1);    
+notes.splice(index,1);
 
- saveNotes();    
+saveNotes();
 
- showNotes();    
+showNotes();
 
- toast("🗑️ Task deleted");
+toast("🗑️ Task deleted");
 
 };
 
@@ -1798,17 +1583,17 @@ const img=new Image();
 
 img.onload=()=>{
 
-currentImage=img;    
+currentImage=img;
 
- document.getElementById("compressInfo")    
- .innerHTML=    
- "📁 Original: "+    
- formatBytes(file.size)+    
- "<br>📐 Original dimensions: "+    
- img.width+" × "+img.height+    
- "<br>🎯 Maximum output: 10 MB";    
+document.getElementById("compressInfo")
+.innerHTML=
+"📁 Original: "+
+formatBytes(file.size)+
+"<br>📐 Original dimensions: "+
+img.width+" × "+img.height+
+"<br>🎯 Maximum output: 10 MB";
 
- resizeCurrentImage();
+resizeCurrentImage();
 
 };
 
@@ -1837,7 +1622,7 @@ document.getElementById("targetSize").value
 )||10;
 
 let targetBytes=
-targetMB10241024;
+targetMB*1024*1024;
 
 let w=currentImage.width;
 let h=currentImage.height;
@@ -1845,6 +1630,7 @@ let h=currentImage.height;
 if(w>maxWidth){
 
 h=Math.round(h*maxWidth/w);
+
 w=maxWidth;
 
 }
@@ -1875,13 +1661,6 @@ targetBytes
 
 function findBestJPEG(canvas,targetBytes){
 
-/*
-Maximum target size है।
-Browser JPEG को naturally जितना छोटा
-बनाता है उतना ही रखा जाएगा।
-Output 10 MB से ऊपर नहीं जाने दिया जाएगा।
-*/
-
 let low=0.05;
 let high=1;
 let bestBlob=null;
@@ -1890,42 +1669,43 @@ function testQuality(q){
 
 canvas.toBlob(blob=>{
 
-if(!blob)    
-   return;    
+if(!blob)
+return;
 
- if(blob.size<=targetBytes){    
+if(blob.size<=targetBytes){
 
-   bestBlob=blob;    
+bestBlob=blob;
+low=q;
 
-   low=q;    
+}else{
 
- }else{    
+high=q;
 
-   high=q;    
+}
 
- }    
+if(high-low<0.01){
 
- if(high-low<0.01){    
+if(!bestBlob){
 
-   if(!bestBlob){    
+canvas.toBlob(finalBlob=>{
 
-     canvas.toBlob(finalBlob=>{    
-       finishResize(finalBlob);    
-     },"image/jpeg",0.05);    
+finishResize(finalBlob);
 
-   }else{    
+},"image/jpeg",0.05);
 
-     finishResize(bestBlob);    
+}else{
 
-   }    
+finishResize(bestBlob);
 
-   return;    
+}
 
- }    
+return;
 
- testQuality(    
-   (low+high)/2    
- );
+}
+
+testQuality(
+(low+high)/2
+);
 
 },"image/jpeg",q);
 
@@ -2205,22 +1985,6 @@ spinning=false;
 
 drawWheel();
 
-/* PREMIUM */
-
-function premiumComingSoon(){
-
-toast(
-"💎 Premium अभी Coming Soon है!"
-);
-
-alert(
-"💎 Premium Zone\n\n"+
-"Premium Membership अभी तैयार हो रही है।\n\n"+
-"जल्द ही यहाँ advanced tools और features जोड़े जाएंगे।"
-);
-
-}
-
 /* DAILY */
 
 const tips=[
@@ -2495,13 +2259,6 @@ a:1
 
 ];
 
-/*
-IMPORTANT:
-हर question को केवल एक बार answer किया जाएगा।
-Wrong answer के बाद buttons disable होंगे।
-सही answer GREEN होगा।
-*/
-
 let currentQuiz=0;
 let score=0;
 let answered=false;
@@ -2576,13 +2333,9 @@ document.querySelectorAll(
 "#quizOptions button"
 );
 
-/* सभी options को disable */
-
 buttons.forEach(button=>{
 button.disabled=true;
 });
-
-/* सही option हमेशा GREEN */
 
 buttons[q.a]
 .classList.add("correct");
@@ -2599,8 +2352,6 @@ document.getElementById(
 toast("✅ सही जवाब!");
 
 }else{
-
-/* चुना हुआ गलत option RED */
 
 buttons[selected]
 .classList.add("wrong");
@@ -2623,11 +2374,6 @@ document.getElementById(
 "quizScore"
 ).textContent=
 "🏆 Score: "+score;
-
-/*
-1.8 सेकंड बाद अगला सवाल।
-Wrong answer देने पर दोबारा chance नहीं मिलेगा।
-*/
 
 setTimeout(()=>{
 
@@ -2817,13 +2563,7 @@ if(
 q.includes("tool")||
 q.includes("टूल")
 )
-return "🛠️ Tools में QR Generator, Notes, Image Resizer, Copy, Random Fun, Lucky Spin और Free Music हैं।";
-
-if(
-q.includes("premium")||
-q.includes("प्रीमियम")
-)
-return "💎 Premium Zone में future में advanced tools और exclusive features जोड़े जाएंगे।";
+return "🛠️ Tools में Notes, Image Resizer, Random Fun और Lucky Spin हैं।";
 
 if(
 q.includes("spin")||
@@ -2870,7 +2610,7 @@ return "📞 Contact section में WhatsApp, Instagram, Facebook और YouT
 if(q.includes("rakesh"))
 return "🔱 Rakesh Mishra इस website के owner हैं। जय श्री राम 🙏";
 
-return "🤖 मैं website के Tools, Gallery, Lucky Spin, Free Music, Premium, Quiz, YouTube, Feedback और Contact के बारे में मदद कर सकता हूँ।";
+return "🤖 मैं website के Tools, Gallery, Lucky Spin, Free Music, Quiz, YouTube, Feedback और Contact के बारे में मदद कर सकता हूँ।";
 
 }
 
@@ -2966,6 +2706,5 @@ toast("🌑 Dark mode");
 
 }
 
-</script>  </body>
-
+</script></body>
 </html>
