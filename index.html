@@ -1164,6 +1164,29 @@ text-align:center;
 color:#aaa;
 }
 
+
+/* ================= TOPIC MCQ PRACTICE V2 ================= */
+.mcq-practice{display:none;margin:5px 0 10px 34px;padding:14px;background:linear-gradient(145deg,#050505,#12091a);border:1px solid #633cff;border-left:3px solid #ff20c8;border-radius:14px;box-shadow:0 0 18px rgba(255,0,200,.16)}
+.mcq-practice.show{display:block}
+.mcq-title{color:#ffe500;font-weight:bold;margin-bottom:8px;font-size:15px}
+.practice-feature-line{color:#aaa;font-size:11px;line-height:1.6;margin:5px 0 10px}
+.mcq-sets{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:10px}
+.mcq-set-btn{padding:10px;border-radius:11px;border:1px solid #633cff;background:#0b0710;color:#fff;cursor:pointer;font-weight:bold}
+.mcq-set-btn:hover{border-color:#ff20c8;box-shadow:0 0 12px rgba(255,0,200,.35)}
+.mcq-set-btn.disabled{opacity:.45;cursor:not-allowed}
+.topic-practice-modal{position:fixed;inset:0;z-index:100000;background:rgba(0,0,0,.97);display:flex;align-items:center;justify-content:center;padding:12px;animation:mcqFade .2s ease}
+@keyframes mcqFade{from{opacity:0}to{opacity:1}}
+.topic-practice-card{width:100%;max-width:760px;max-height:94vh;overflow:auto;background:linear-gradient(145deg,#050505,#12051a);border:2px solid #633cff;border-radius:22px;padding:18px;box-shadow:0 0 40px rgba(255,0,200,.35)}
+.practice-head{display:flex;justify-content:space-between;align-items:center;gap:8px}.practice-head h2{margin:0;color:#ff35d4;font-size:20px}.practice-close{width:38px;height:38px;border-radius:50%;background:#111;color:#fff;border:1px solid #555;font-size:22px;cursor:pointer}
+.practice-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin:12px 0}.practice-stat{padding:8px;border:1px solid #292929;border-radius:10px;background:#080808;text-align:center;font-size:12px}.practice-stat b{display:block;color:#ffe500;font-size:15px;margin-top:2px}
+.practice-timer{height:9px;background:#222;border-radius:10px;overflow:hidden;margin:8px 0}.practice-timer-bar{height:100%;width:100%;background:linear-gradient(90deg,#00ff88,#ffe500,#ff3333);transition:width 1s linear}
+.practice-question{font-size:20px;font-weight:bold;line-height:1.6;margin:18px 0;color:#fff;text-shadow:0 0 10px rgba(255,0,200,.2)}
+.practice-options{display:grid;grid-template-columns:1fr 1fr;gap:10px}.practice-option{padding:13px;border:2px solid #444;border-radius:13px;background:#111;color:#fff;text-align:left;cursor:pointer;font-size:15px;transition:.2s}.practice-option:hover:not(:disabled){border-color:#ff20c8;transform:translateY(-2px)}.practice-option:disabled{cursor:not-allowed}.practice-option.correct{background:#087f3f!important;border-color:#00ff88!important;box-shadow:0 0 20px rgba(0,255,136,.45)}.practice-option.wrong{background:#8b1010!important;border-color:#ff3333!important;box-shadow:0 0 20px rgba(255,51,51,.35)}
+.practice-feedback{min-height:34px;margin:13px 0;font-weight:bold;text-align:center}.feedback-pop{animation:feedbackPop .35s ease}@keyframes feedbackPop{50%{transform:scale(1.08)}}
+.practice-bottom{display:flex;justify-content:center;gap:8px;flex-wrap:wrap}.practice-btn{padding:10px 15px;border-radius:20px;border:1px solid #633cff;background:linear-gradient(135deg,#ff0099,#633cff);color:#fff;font-weight:bold;cursor:pointer}.practice-btn.secondary{background:#111}.practice-btn:disabled{opacity:.4;cursor:not-allowed}
+.result-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:15px 0}.result-box{padding:11px;border:1px solid #333;border-radius:12px;background:#090909;text-align:center}.result-box b{display:block;font-size:19px;color:#ffe500}.review-list{margin-top:10px;text-align:left}.review-item{padding:11px;margin:8px 0;background:#090909;border:1px solid #292929;border-radius:12px}.review-item.correct-review{border-color:#00ff88}.review-item.wrong-review{border-color:#ff3333}.review-q{font-weight:bold;line-height:1.5}.review-small{font-size:12px;color:#bbb;margin-top:5px;line-height:1.5}.practice-select{width:100%;padding:10px;border-radius:10px;background:#111;color:#fff;border:1px solid #444;margin:8px 0}
+@media(max-width:600px){.mcq-sets{grid-template-columns:1fr}.practice-options{grid-template-columns:1fr}.practice-stats{grid-template-columns:repeat(2,1fr)}.practice-question{font-size:18px}.topic-practice-card{padding:14px}.result-grid{grid-template-columns:1fr 1fr}}
+
 </style>  </head>  <body>  <div id="progress"></div>
 
 <div id="toast" class="toast"></div>  <!-- ================= NAVBAR ================= -->  <nav class="navbar">  <a href="#home">🏠 Home</a>  
@@ -1983,485 +2006,219 @@ return "topic_"+text
 +"_"+Math.random().toString(36).slice(2,7);    
 }    
     
-function renderTopic(topic){    
-    
-let icon="";    
-let name="";    
-let nested=false;    
-    
-if(Array.isArray(topic)){    
-icon=topic[0];    
-name=topic[1];    
-}else{    
-nested=true;    
-}    
-    
-if(nested){    
-    
-const wrapper=document.createElement("div");    
-    
-const title=document.createElement("div");    
-title.className="education-item";    
-    
-const titleText=document.createElement("span");    
-titleText.textContent=topic.title;    
-    
-const arrow=document.createElement("span");    
-arrow.textContent="›";    
-    
-title.append(titleText,arrow);    
-    
-const child=document.createElement("div");    
-child.className="education-topics";    
-    
-title.onclick=()=>{    
-child.classList.toggle("show");    
-arrow.textContent=    
-child.classList.contains("show")?"⌄":"›";    
-};    
-    
-wrapper.append(title,child);    
-    
-topic.topics.forEach(item=>{    
-child.appendChild(renderTopic(item));    
-});    
-    
-return wrapper;    
-}    
-    
-educationTopicCounter++;    
-    
-const wrapper=document.createElement("div");    
-    
-const button=document.createElement("button");    
-button.className="history-topic";    
-    
-const number=document.createElement("span");    
-number.className="topic-number";    
-number.textContent=educationTopicCounter;    
-    
-const topicName=document.createElement("span");    
-topicName.className="topic-name";    
-topicName.textContent=icon+" "+name;    
-    
-const arrow=document.createElement("span");    
-arrow.className="topic-arrow";    
-arrow.textContent="›";    
-    
-button.append(number,topicName,arrow);    
-    
-const mcq=document.createElement("div");    
-mcq.className="mcq-practice";    
-    
-const title=document.createElement("div");    
-title.className="mcq-title";    
-title.textContent="📝 MCQ Practice";    
-    
-const content=document.createElement("div");    
-content.className="mcq-placeholder";    
-    
-const questions=mcqBank[name]||[];    
-    
-if(questions.length){    
-    
-content.textContent=    
-"इस topic में "+questions.length+    
-" MCQ उपलब्ध हैं।";    
-    
-const start=document.createElement("button");    
-start.className="mcq-start";    
-start.textContent="▶️ MCQ शुरू करें";    
-    
-start.onclick=()=>{    
-startTopicMCQ(name,questions);    
-};    
-    
-mcq.append(title,content,start);    
-    
-}else{    
-    
-content.innerHTML=    
-"📚 इस topic के MCQ अभी नहीं जोड़े गए हैं।<br>"+    
-"बाद में यहाँ प्रश्न, 4 options और सही answer जोड़ा जाएगा।";    
-    
-mcq.append(title,content);    
-    
-}    
-    
-button.onclick=()=>{    
-    
-mcq.classList.toggle("show");    
-    
-arrow.textContent=    
-mcq.classList.contains("show")?"⌄":"›";    
-    
-};    
-    
-wrapper.append(button,mcq);    
-    
-return wrapper;    
-}    
-    
-    
-function renderEducation(){    
-    
-const container=    
-document.getElementById("historyEducation");    
-    
-container.innerHTML="";    
-    
-educationTopicCounter=0;    
-    
-educationData.forEach(main=>{    
-    
-const mainBox=document.createElement("div");    
-    
-const mainBtn=document.createElement("div");    
-mainBtn.className="education-item";    
-    
-const mainTitle=document.createElement("span");    
-mainTitle.textContent=main.title;    
-    
-const mainArrow=document.createElement("span");    
-mainArrow.textContent="›";    
-    
-mainBtn.append(mainTitle,mainArrow);    
-    
-const mainContent=document.createElement("div");    
-mainContent.className="education-topics";    
-    
-mainBtn.onclick=()=>{    
-    
-mainContent.classList.toggle("show");    
-    
-mainArrow.textContent=    
-mainContent.classList.contains("show")    
-?"⌄":"›";    
-    
-};    
-    
-main.children.forEach(section=>{    
-    
-const sectionBox=document.createElement("div");    
-    
-const sectionBtn=document.createElement("div");    
-sectionBtn.className="education-item";    
-    
-const sectionTitle=document.createElement("span");    
-sectionTitle.textContent=section.title;    
-    
-const sectionArrow=document.createElement("span");    
-sectionArrow.textContent="›";    
-    
-sectionBtn.append(sectionTitle,sectionArrow);    
-    
-const sectionContent=document.createElement("div");    
-sectionContent.className="education-topics";    
-    
-sectionBtn.onclick=()=>{    
-    
-sectionContent.classList.toggle("show");    
-    
-sectionArrow.textContent=    
-sectionContent.classList.contains("show")    
-?"⌄":"›";    
-    
-};    
-    
-section.topics.forEach(topic=>{    
-sectionContent.appendChild(renderTopic(topic));    
-});    
-    
-sectionBox.append(sectionBtn,sectionContent);    
-    
-mainContent.appendChild(sectionBox);    
-    
-});    
-    
-mainBox.append(mainBtn,mainContent);    
-    
-container.appendChild(mainBox);    
-    
-});    
-    
-}    
-    
-renderEducation();    
-    
-    
-/* =========================================================    
-   MCQ PRACTICE SYSTEM    
-   ========================================================= */    
-    
-let activeMCQTopic="";    
-let activeMCQQuestions=[];    
-let activeMCQIndex=0;    
-let activeMCQScore=0;    
-    
-function startTopicMCQ(topic,questions){    
-    
-activeMCQTopic=topic;    
-activeMCQQuestions=questions;    
-activeMCQIndex=0;    
-activeMCQScore=0;    
-    
-showTopicMCQ();    
-    
-}    
-    
-function showTopicMCQ(){    
-    
-if(!activeMCQQuestions.length)return;    
-    
-const q=activeMCQQuestions[activeMCQIndex];    
-    
-const modal=document.createElement("div");    
-    
-modal.id="topicMcqModal";    
-    
-modal.style.cssText=`    
-position:fixed;    
-inset:0;    
-z-index:99999;    
-background:rgba(0,0,0,.96);    
-display:flex;    
-align-items:center;    
-justify-content:center;    
-padding:15px;    
-`;    
-    
-modal.innerHTML=`    
-    
-<div style="    
-width:100%;    
-max-width:700px;    
-max-height:90vh;    
-overflow:auto;    
-background:#080808;    
-border:2px solid #633cff;    
-border-radius:22px;    
-padding:22px;    
-box-shadow:0 0 35px rgba(255,0,200,.45);    
-">    
-    
-<div style="    
-display:flex;    
-justify-content:space-between;    
-align-items:center;    
-gap:10px;    
-">    
-    
-<h2 style="    
-color:#ff35d4;    
-margin:0;    
-font-size:21px;    
-">    
-📝 ${activeMCQTopic}    
-</h2>    
-    
-<button    
-onclick="closeTopicMCQ()"    
-style="    
-width:40px;    
-height:40px;    
-border-radius:50%;    
-border:1px solid #555;    
-background:#111;    
-color:#fff;    
-font-size:22px;    
-cursor:pointer;    
-">    
-×    
-</button>    
-    
-</div>    
-    
-<p style="color:#aaa;">    
-Question ${activeMCQIndex+1} / ${activeMCQQuestions.length}    
-</p>    
-    
-<div style="    
-font-size:20px;    
-font-weight:bold;    
-line-height:1.6;    
-color:#fff;    
-margin:20px 0;    
-">    
-${q.q}    
-</div>    
-    
-<div id="topicMcqOptions"></div>    
-    
-<div id="topicMcqAnswer"    
-style="    
-margin-top:15px;    
-min-height:25px;    
-font-weight:bold;    
-">    
-</div>    
-    
-<div style="    
-margin-top:20px;    
-text-align:center;    
-">    
-    
-<button    
-id="topicMcqNext"    
-onclick="nextTopicMCQ()"    
-style="    
-display:none;    
-padding:11px 20px;    
-border-radius:22px;    
-border:1px solid #633cff;    
-background:linear-gradient(135deg,#ff0099,#633cff);    
-color:#fff;    
-font-weight:bold;    
-cursor:pointer;    
-">    
-➡️ Next Question    
-</button>    
-    
-</div>    
-    
-<p style="    
-color:#ffe500;    
-text-align:center;    
-margin-top:18px;    
-">    
-🏆 Score: ${activeMCQScore}    
-</p>    
-    
-</div>    
-`;    
-    
-document.body.appendChild(modal);    
-    
-const options=    
-document.getElementById("topicMcqOptions");    
-    
-q.o.forEach((option,index)=>{    
-    
-const btn=document.createElement("button");    
-    
-btn.textContent=option;    
-    
-btn.style.cssText=`    
-display:block;    
-width:100%;    
-padding:13px;    
-margin:9px 0;    
-border-radius:13px;    
-background:#111;    
-color:#fff;    
-border:2px solid #444;    
-cursor:pointer;    
-font-size:15px;    
-text-align:left;    
-`;    
-    
-btn.onclick=()=>{    
-answerTopicMCQ(index);    
-};    
-    
-options.appendChild(btn);    
-    
-});    
-    
-}    
-    
-function answerTopicMCQ(selected){    
-    
-const q=activeMCQQuestions[activeMCQIndex];    
-    
-const buttons=    
-document.querySelectorAll(    
-"#topicMcqOptions button"    
-);    
-    
-buttons.forEach(b=>{    
-b.disabled=true;    
-b.style.cursor="not-allowed";    
-});    
-    
-if(selected===q.a){    
-    
-activeMCQScore++;    
-    
-buttons[selected].style.background="#087f3f";    
-buttons[selected].style.borderColor="#00ff88";    
-    
-document.getElementById("topicMcqAnswer").innerHTML=    
-"🎉 <span style='color:#00ff88'>सही जवाब!</span>";    
-    
-}else{    
-    
-buttons[selected].style.background="#8b1010";    
-buttons[selected].style.borderColor="#ff3333";    
-    
-buttons[q.a].style.background="#087f3f";    
-buttons[q.a].style.borderColor="#00ff88";    
-    
-document.getElementById("topicMcqAnswer").innerHTML=    
-"❌ गलत जवाब! सही उत्तर: "+    
-"<span style='color:#00ff88'>"+    
-q.o[q.a]+    
-"</span>";    
-    
-}    
-    
-const next=    
-document.getElementById("topicMcqNext");    
-    
-if(activeMCQIndex<    
-activeMCQQuestions.length-1){    
-    
-next.style.display="inline-block";    
-    
-}else{    
-    
-next.style.display="inline-block";    
-next.textContent="🏁 Finish";    
-    
-}    
-    
-}    
-    
-function nextTopicMCQ(){    
-    
-if(activeMCQIndex<    
-activeMCQQuestions.length-1){    
-    
-activeMCQIndex++;    
-    
-closeTopicMCQ();    
-    
-showTopicMCQ();    
-    
-}else{    
-    
-toast(    
-"🏆 MCQ Complete! Score: "+    
-activeMCQScore+    
-"/"+    
-activeMCQQuestions.length    
-);    
-    
-closeTopicMCQ();    
-    
-}    
-    
-}    
-    
-function closeTopicMCQ(){    
-    
-const modal=    
-document.getElementById("topicMcqModal");    
-    
-if(modal)modal.remove();    
-    
-}    
-    
-    
+function getPracticeTopics(){
+  const out=[];
+  educationData.forEach(main=>{
+    (main.children||[]).forEach(section=>{
+      (section.topics||[]).forEach(t=>{
+        if(Array.isArray(t)) out.push(t[1]);
+      });
+    });
+  });
+  return out;
+}
+
+/* Separate Topic Practice bank.
+   Existing Quiz (quizData / Quiz Challenge) is intentionally untouched. */
+const mcqPracticeBank = {};
+
+function makeTopicId(text){
+  return "topic_"+text.replace(/[^\u0900-\u097Fa-zA-Z0-9]+/g,"_")+"_"+Math.random().toString(36).slice(2,7);
+}
+
+function renderTopic(topic){
+  let icon="", name="";
+  if(Array.isArray(topic)){ icon=topic[0]; name=topic[1]; }
+  else{
+    const wrapper=document.createElement("div");
+    const title=document.createElement("div");
+    title.className="education-item";
+    const titleText=document.createElement("span");
+    titleText.textContent=topic.title;
+    const arrow=document.createElement("span"); arrow.textContent="›";
+    title.append(titleText,arrow);
+    const child=document.createElement("div"); child.className="education-topics";
+    title.onclick=()=>{child.classList.toggle("show");arrow.textContent=child.classList.contains("show")?"⌄":"›"};
+    wrapper.append(title,child);
+    topic.topics.forEach(item=>child.appendChild(renderTopic(item)));
+    return wrapper;
+  }
+
+  educationTopicCounter++;
+  const wrapper=document.createElement("div");
+  const button=document.createElement("button"); button.className="history-topic";
+  const number=document.createElement("span"); number.className="topic-number"; number.textContent=educationTopicCounter;
+  const topicName=document.createElement("span"); topicName.className="topic-name"; topicName.textContent=icon+" "+name;
+  const arrow=document.createElement("span"); arrow.className="topic-arrow"; arrow.textContent="›";
+  button.append(number,topicName,arrow);
+
+  const mcq=document.createElement("div"); mcq.className="mcq-practice";
+  const title=document.createElement("div"); title.className="mcq-title"; title.textContent="📝 MCQ Topic Practice";
+  const info=document.createElement("div"); info.className="practice-feature-line";
+  info.textContent="1 Set • Live Timer • Progress • A/B/C/D • One Attempt • Answer Lock • No Skip • No Back • Streak • Score • Result • Detailed Review";
+  const sets=document.createElement("div"); sets.className="mcq-sets";
+
+  const topicSets=mcqPracticeBank[name]||{};
+  const btn=document.createElement("button"); btn.className="mcq-set-btn";
+  const questions=topicSets[1]||[];
+  btn.textContent="▶️ Set 1"+(questions.length?" • "+questions.length+" Q":"");
+  if(!questions.length){
+    btn.classList.add("disabled");
+    btn.title="इस Topic के Set 1 में अभी questions नहीं जोड़े गए हैं";
+  }else{
+    btn.onclick=()=>startTopicPractice(name,1,questions);
+  }
+  sets.appendChild(btn);
+  const note=document.createElement("div"); note.className="practice-feature-line";
+  note.innerHTML="💡 हर topic में केवल <b>Set 1</b> रहेगा। इसी Set में आप लगभग 200 questions जोड़ सकते हैं। पुराने Quiz MCQ पर इसका कोई असर नहीं होगा।";
+  mcq.append(title,info,sets,note);
+
+  button.onclick=()=>{mcq.classList.toggle("show");arrow.textContent=mcq.classList.contains("show")?"⌄":"›"};
+  wrapper.append(button,mcq);
+  return wrapper;
+}
+
+function renderEducation(){
+  const container=document.getElementById("historyEducation");
+  container.innerHTML=""; educationTopicCounter=0;
+  educationData.forEach(main=>{
+    const mainBox=document.createElement("div");
+    const mainBtn=document.createElement("div"); mainBtn.className="education-item";
+    const mainTitle=document.createElement("span"); mainTitle.textContent=main.title;
+    const mainArrow=document.createElement("span"); mainArrow.textContent="›";
+    mainBtn.append(mainTitle,mainArrow);
+    const mainContent=document.createElement("div"); mainContent.className="education-topics";
+    mainBtn.onclick=()=>{mainContent.classList.toggle("show");mainArrow.textContent=mainContent.classList.contains("show")?"⌄":"›"};
+    main.children.forEach(section=>{
+      const sectionBox=document.createElement("div");
+      const sectionBtn=document.createElement("div"); sectionBtn.className="education-item";
+      const sectionTitle=document.createElement("span"); sectionTitle.textContent=section.title;
+      const sectionArrow=document.createElement("span"); sectionArrow.textContent="›";
+      sectionBtn.append(sectionTitle,sectionArrow);
+      const sectionContent=document.createElement("div"); sectionContent.className="education-topics";
+      sectionBtn.onclick=()=>{sectionContent.classList.toggle("show");sectionArrow.textContent=sectionContent.classList.contains("show")?"⌄":"›"};
+      section.topics.forEach(topic=>sectionContent.appendChild(renderTopic(topic)));
+      sectionBox.append(sectionBtn,sectionContent); mainContent.appendChild(sectionBox);
+    });
+    mainBox.append(mainBtn,mainContent); container.appendChild(mainBox);
+  });
+}
+renderEducation();
+
+/* =========================================================
+   TOPIC MCQ PRACTICE — 48 FEATURE SYSTEM
+   This is separate from the existing Quiz Challenge system.
+   ========================================================= */
+let tp={topic:"",set:1,questions:[],index:0,score:0,correct:0,wrong:0,unanswered:0,streak:0,bestStreak:0,start:0,timeLeft:0,timer:null,answered:false,review:[]};
+const TOPIC_SET_TIME=600;
+
+function esc(v){return String(v??"").replace(/[&<>\"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[m]));}
+function startTopicPractice(topic,set,questions){
+  if(!questions||!questions.length)return toast("⚠️ इस Set में अभी MCQ नहीं हैं");
+  clearInterval(tp.timer);
+  tp={topic,set,questions:questions.map((q,i)=>({...q,_id:i})),index:0,score:0,correct:0,wrong:0,unanswered:0,streak:0,bestStreak:0,start:Date.now(),timeLeft:TOPIC_SET_TIME,timer:null,answered:false,review:[]};
+  showTopicPractice(); startPracticeTimer();
+}
+function showTopicPractice(){
+  closeTopicPractice(false);
+  const q=tp.questions[tp.index];
+  if(!q)return finishTopicPractice();
+  const modal=document.createElement("div"); modal.id="topicPracticeModal"; modal.className="topic-practice-modal";
+  const percent=(tp.index/tp.questions.length)*100;
+  modal.innerHTML=`<div class="topic-practice-card">
+    <div class="practice-head"><h2>📝 ${esc(tp.topic)} — Set ${tp.set}</h2><button class="practice-close" onclick="closeTopicPractice()">×</button></div>
+    <div class="practice-stats"><div class="practice-stat">Question<b>${tp.index+1}/${tp.questions.length}</b></div><div class="practice-stat">Score<b>${tp.score}</b></div><div class="practice-stat">🔥 Streak<b>${tp.streak}</b></div><div class="practice-stat">⏱️ Time<b id="tpTimerText">${formatTime(tp.timeLeft)}</b></div></div>
+    <div class="practice-timer"><div id="tpTimerBar" class="practice-timer-bar" style="width:${Math.max(0,Math.min(100,(tp.timeLeft/TOPIC_SET_TIME)*100))}%"></div></div>
+    <div style="height:6px;background:#222;border-radius:8px;overflow:hidden"><div style="height:100%;width:${percent}%;background:linear-gradient(90deg,#ff0099,#633cff,#00c8ff)"></div></div>
+    <div class="practice-question">${esc(q.q)}</div>
+    <div id="tpOptions" class="practice-options"></div>
+    <div id="tpFeedback" class="practice-feedback"></div>
+    <div class="practice-bottom"><button id="tpNext" class="practice-btn" style="display:none" onclick="nextTopicPractice()">➡️ Next</button></div>
+  </div>`;
+  document.body.appendChild(modal);
+  const opts=document.getElementById("tpOptions");
+  (q.o||[]).slice(0,4).forEach((text,i)=>{const b=document.createElement("button");b.className="practice-option";b.textContent=String.fromCharCode(65+i)+". "+text;b.onclick=()=>answerTopicPractice(i);opts.appendChild(b)});
+}
+function startPracticeTimer(){
+  clearInterval(tp.timer);
+  tp.timer=setInterval(()=>{
+    tp.timeLeft--; updatePracticeTimer();
+    if(tp.timeLeft<=30&&tp.timeLeft>0){const t=document.getElementById("tpTimerText");if(t)t.style.color="#ff3333";}
+    if(tp.timeLeft<=0){clearInterval(tp.timer); lockAndTimeout();}
+  },1000);
+}
+function updatePracticeTimer(){
+  const t=document.getElementById("tpTimerText"),b=document.getElementById("tpTimerBar");
+  if(t)t.textContent=formatTime(tp.timeLeft);
+  if(b)b.style.width=Math.max(0,(tp.timeLeft/TOPIC_SET_TIME)*100)+"%";
+}
+function formatTime(sec){sec=Math.max(0,sec);return String(Math.floor(sec/60)).padStart(2,"0")+":"+String(sec%60).padStart(2,"0")}
+function lockAndTimeout(){
+  if(tp.answered)return;
+  tp.answered=true; tp.unanswered++;
+  const q=tp.questions[tp.index]; tp.review.push({q:q.q,o:q.o,selected:null,answer:q.a,explanation:q.e||"",status:"unanswered"});
+  document.querySelectorAll("#tpOptions button").forEach(b=>b.disabled=true);
+  const f=document.getElementById("tpFeedback"); if(f){f.innerHTML="⏰ <span style='color:#ff3333'>Time Up! Unanswered</span>";f.classList.add("feedback-pop")}
+  document.getElementById("tpNext").style.display="inline-block";
+  document.getElementById("tpNext").textContent=tp.index<tp.questions.length-1?"➡️ Next":"🏁 Final Result";
+}
+function answerTopicPractice(selected){
+  if(tp.answered)return;
+  tp.answered=true;
+  const q=tp.questions[tp.index], buttons=[...document.querySelectorAll("#tpOptions button")];
+  buttons.forEach(b=>b.disabled=true);
+  const isCorrect=selected===q.a;
+  if(isCorrect){tp.correct++;tp.score++;tp.streak++;tp.bestStreak=Math.max(tp.bestStreak,tp.streak)}else{tp.wrong++;tp.streak=0}
+  buttons[selected]?.classList.add(isCorrect?"correct":"wrong");
+  if(!isCorrect)buttons[q.a]?.classList.add("correct");
+  tp.review.push({q:q.q,o:q.o,selected,answer:q.a,explanation:q.e||"",status:isCorrect?"correct":"wrong"});
+  const f=document.getElementById("tpFeedback");
+  if(f){f.className="practice-feedback feedback-pop";f.innerHTML=isCorrect?"🎉 <span style='color:#00ff88'>Correct!</span>":"❌ <span style='color:#ff3333'>Wrong!</span> <span style='color:#00ff88'>Correct: "+esc(q.o[q.a])+"</span>";}
+  const next=document.getElementById("tpNext"); next.style.display="inline-block";next.textContent=tp.index<tp.questions.length-1?"➡️ Next":"🏁 Final Result";
+  // Auto Next after feedback animation.
+  setTimeout(()=>{if(document.getElementById("topicPracticeModal"))nextTopicPractice()},900);
+}
+function nextTopicPractice(){
+  if(!tp.answered)return toast("⚠️ पहले answer दें");
+  tp.index++;
+  tp.answered=false;
+  if(tp.index>=tp.questions.length){finishTopicPractice();return}
+  showTopicPractice();
+}
+function saveTopicPracticeResult(){
+  const key="barhamanTopicPracticeHistory";
+  const all=JSON.parse(localStorage.getItem(key)||"[]");
+  const total=tp.questions.length, pct=total?Math.round(tp.correct/total*100):0;
+  const result={topic:tp.topic,set:tp.set,total,correct:tp.correct,wrong:tp.wrong,unanswered:tp.unanswered,score:tp.score,percentage:pct,timeTaken:Math.round((Date.now()-tp.start)/1000),bestStreak:tp.bestStreak,date:new Date().toLocaleString("hi-IN")};
+  all.push(result);localStorage.setItem(key,JSON.stringify(all));
+  const bestKey="barhamanTopicBest";const best=JSON.parse(localStorage.getItem(bestKey)||"{}");
+  if(!best[tp.topic]||result.score>best[tp.topic].score)best[tp.topic]=result;
+  localStorage.setItem(bestKey,JSON.stringify(best));
+  return result;
+}
+function finishTopicPractice(){
+  clearInterval(tp.timer);
+  if(!tp.start)return;
+  const result=saveTopicPracticeResult();
+  const modal=document.getElementById("topicPracticeModal");if(!modal)return;
+  const grade=result.percentage>=90?"A+":result.percentage>=80?"A":result.percentage>=70?"B":result.percentage>=60?"C":result.percentage>=50?"D":"F";
+  modal.innerHTML=`<div class="topic-practice-card"><div class="practice-head"><h2>🏁 Final Result</h2><button class="practice-close" onclick="closeTopicPractice()">×</button></div>
+  <h3 style="color:#ffe500">${esc(tp.topic)} — Set ${tp.set}</h3><div class="result-grid"><div class="result-box">Total Questions<b>${result.total}</b></div><div class="result-box">Correct<b>${result.correct}</b></div><div class="result-box">Wrong<b>${result.wrong}</b></div><div class="result-box">Unanswered<b>${result.unanswered}</b></div><div class="result-box">Score<b>${result.score}</b></div><div class="result-box">Percentage<b>${result.percentage}%</b></div><div class="result-box">Time Taken<b>${formatTime(result.timeTaken)}</b></div><div class="result-box">Best Streak<b>🔥 ${result.bestStreak}</b></div><div class="result-box">Grade<b>${grade}</b></div></div>
+  <div style="text-align:center;color:#00ff88;font-size:18px;font-weight:bold">Current Streak: ${tp.streak}</div>
+  <h3 style="color:#ff35d4">📖 Detailed Review</h3><div class="review-list">${tp.review.map((r,i)=>`<div class="review-item ${r.status==='correct'?'correct-review':r.status==='wrong'?'wrong-review':''}"><div class="review-q">${i+1}. ${esc(r.q)}</div><div class="review-small">Selected Answer: ${r.selected===null?'Unanswered':esc(r.o?.[r.selected])}<br>Correct Answer: <span style="color:#00ff88">${esc(r.o?.[r.answer])}</span>${r.explanation?`<br>Explanation: ${esc(r.explanation)}`:""}</div></div>`).join("")}</div>
+  <select id="tpTopicNav" class="practice-select"><option value="">🧭 Other Topic Navigation</option>${getPracticeTopics().map(x=>`<option>${esc(x)}</option>`).join("")}</select>
+  <div class="practice-bottom"><button class="practice-btn" onclick="practiceAgainTopic()">🔄 Practice Again</button><button class="practice-btn secondary" onclick="closeTopicPractice();toggleFileMenu()">📚 Topic Menu</button><button class="practice-btn secondary" onclick="nextPracticeSet()">⏭️ Next Set</button></div></div>`;
+  document.getElementById("tpTopicNav").onchange=e=>{if(e.target.value){closeTopicPractice();openTopicInMenu(e.target.value)}};
+}
+function practiceAgainTopic(){const qs=mcqPracticeBank[tp.topic]?.[tp.set]||[];startTopicPractice(tp.topic,tp.set,qs)}
+function nextPracticeSet(){const next=tp.set+1,qs=mcqPracticeBank[tp.topic]?.[next]||[];if(qs.length)startTopicPractice(tp.topic,next,qs);else toast("ℹ️ Next Set अभी उपलब्ध नहीं है")}
+function openTopicInMenu(topic){
+  const box=document.getElementById("fileDropdown");box.classList.add("show");
+  const nodes=[...box.querySelectorAll(".history-topic")];const node=nodes.find(n=>n.querySelector(".topic-name")?.textContent.includes(topic));
+  if(node){node.click();node.scrollIntoView({behavior:"smooth",block:"center"});}
+}
+function closeTopicPractice(remove=true){clearInterval(tp.timer);const m=document.getElementById("topicPracticeModal");if(remove&&m)m.remove();}
+
 /* ================= TOAST ================= */    
     
 function toast(message){    
