@@ -1212,6 +1212,7 @@ color:#aaa;
 .practice-feedback{min-height:34px;margin:13px 0;font-weight:bold;text-align:center}.feedback-pop{animation:feedbackPop .35s ease}@keyframes feedbackPop{50%{transform:scale(1.08)}}
 .practice-bottom{display:flex;justify-content:center;gap:8px;flex-wrap:wrap}.practice-btn{padding:10px 15px;border-radius:20px;border:1px solid #633cff;background:linear-gradient(135deg,#ff0099,#633cff);color:#fff;font-weight:bold;cursor:pointer}.practice-btn.secondary{background:#111}.practice-btn:disabled{opacity:.4;cursor:not-allowed}
 .result-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:15px 0}.result-box{padding:11px;border:1px solid #333;border-radius:12px;background:#090909;text-align:center}.result-box b{display:block;font-size:19px;color:#ffe500}.review-columns{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px;text-align:left}.review-column{min-width:0;background:#080808;border-radius:16px;padding:10px}.review-column.wrong-column{border:2px solid #ff3333;box-shadow:0 0 18px rgba(255,51,51,.12)}.review-column.correct-column{border:2px solid #00ff88;box-shadow:0 0 18px rgba(0,255,136,.12)}.review-column-title{font-size:17px;font-weight:800;text-align:center;padding:9px;border-radius:11px;margin-bottom:9px}.wrong-column .review-column-title{color:#ff5555;background:rgba(255,51,51,.10)}.correct-column .review-column-title{color:#00ff88;background:rgba(0,255,136,.10)}.review-list{margin-top:10px;text-align:left}.review-item{padding:11px;margin:8px 0;background:#090909;border:1px solid #292929;border-radius:12px}.review-item.correct-review{border-color:#00ff88}.review-item.wrong-review{border-color:#ff3333}.review-q{font-weight:bold;line-height:1.5}.review-small{font-size:12px;color:#bbb;margin-top:5px;line-height:1.5}.review-correct-answer{color:#00ff88;font-weight:800}.review-selected-wrong{color:#ff5555;font-weight:800}.review-empty{text-align:center;color:#888;padding:18px 8px}.practice-select{width:100%;padding:10px;border-radius:10px;background:#111;color:#fff;border:1px solid #444;margin:8px 0}@media(max-width:600px){.review-columns{grid-template-columns:1fr}.review-column-title{font-size:16px}}
+.time-choice-overlay{position:fixed;inset:0;z-index:100001;background:rgba(0,0,0,.97);display:flex;align-items:center;justify-content:center;padding:14px}.time-choice-card{width:100%;max-width:620px;background:linear-gradient(145deg,#050505,#18051f);border:2px solid #633cff;border-radius:24px;padding:22px;box-shadow:0 0 40px rgba(255,0,200,.35);text-align:center}.time-choice-title{color:#ff35d4;font-size:25px;font-weight:900;margin-bottom:8px}.time-choice-sub{color:#ddd;font-size:16px;margin-bottom:18px}.time-choice-sub b{color:#ffe500}.time-choice-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.time-choice-btn{padding:18px 10px;border-radius:16px;border:1px solid #633cff;background:#080808;color:#fff;font-size:18px;font-weight:800;cursor:pointer}.time-choice-btn:hover{border-color:#ff20c8;background:#12091a;transform:translateY(-1px)}.time-choice-cancel{margin-top:14px;padding:11px 24px;border-radius:22px;border:1px solid #633cff;background:#111;color:#fff;font-weight:bold;cursor:pointer}@media(max-width:600px){.time-choice-card{padding:18px}.time-choice-title{font-size:22px}.time-choice-btn{padding:16px 8px;font-size:16px}}
 @media(max-width:600px){.mcq-sets{grid-template-columns:1fr}.practice-options{grid-template-columns:1fr}.practice-stats{grid-template-columns:repeat(2,1fr)}.practice-question{font-size:18px}.topic-practice-card{padding:14px}.result-grid{grid-template-columns:1fr 1fr}}
 
 </style>  </head>  <body>  <div id="progress"></div>
@@ -2582,7 +2583,7 @@ function renderTopic(topic){
   const mcq=document.createElement("div"); mcq.className="mcq-practice";
   const title=document.createElement("div"); title.className="mcq-title"; title.textContent="📝 MCQ Topic Practice";
   const info=document.createElement("div"); info.className="practice-feature-line";
-  info.textContent="1 Set • Live Timer • Progress • A/B/C/D • One Attempt • Answer Lock • No Skip • No Back • Streak • Score • Result • Detailed Review";
+  info.textContent="1 Set • 10/20/30/40/50/60 मिनट Timer • Maximum 60 मिनट • Progress • A/B/C/D • One Attempt • Answer Lock • No Skip • No Back • Streak • Score • Result • Detailed Review";
   const sets=document.createElement("div"); sets.className="mcq-sets";
 
   const topicSets=mcqPracticeBank[name]||{};
@@ -2637,7 +2638,9 @@ renderEducation();
    This is separate from the existing Quiz Challenge system.
    ========================================================= */
 let tp={topic:"",set:1,questions:[],index:0,score:0,correct:0,wrong:0,unanswered:0,streak:0,bestStreak:0,start:0,timeLeft:0,timer:null,answered:false,review:[]};
-const TOPIC_SET_TIME=600;
+const TOPIC_TIME_OPTIONS=[10,20,30,40,50,60];
+let selectedTopicTime=60;
+let pendingTopicPractice=null;
 
 function esc(v){return String(v??"").replace(/[&<>\"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[m]));}
 function shuffleArray(arr){
@@ -2663,7 +2666,35 @@ function prepareFreshSession(questions){
 function startTopicPractice(topic,set,questions){
   if(!questions||!questions.length)return toast("⚠️ इस Set में अभी MCQ नहीं हैं");
   clearInterval(tp.timer);
-  tp={topic,set,questions:prepareFreshSession(questions),index:0,score:0,correct:0,wrong:0,unanswered:0,streak:0,bestStreak:0,start:Date.now(),timeLeft:TOPIC_SET_TIME,timer:null,answered:false,review:[]};
+  const old=document.getElementById("topicTimeChooser");
+  if(old)old.remove();
+  pendingTopicPractice={topic,set,questions};
+  const overlay=document.createElement("div");
+  overlay.id="topicTimeChooser";
+  overlay.className="time-choice-overlay";
+  overlay.innerHTML=`<div class="time-choice-card">
+    <div class="time-choice-title">⏱️ Set शुरू करने का समय चुनें</div>
+    <div class="time-choice-sub">अपना समय चुनें — <b>Maximum 60 मिनट</b></div>
+    <div class="time-choice-grid">
+      ${TOPIC_TIME_OPTIONS.map(m=>`<button class="time-choice-btn" data-minutes="${m}">⏱️ ${m} मिनट</button>`).join("")}
+    </div>
+    <button class="time-choice-cancel" id="timeChoiceCancel">✕ Cancel</button>
+  </div>`;
+  document.body.appendChild(overlay);
+  overlay.querySelectorAll(".time-choice-btn").forEach(btn=>{
+    btn.onclick=()=>beginTopicPractice(Number(btn.dataset.minutes));
+  });
+  overlay.querySelector("#timeChoiceCancel").onclick=()=>{pendingTopicPractice=null;overlay.remove()};
+}
+function beginTopicPractice(minutes){
+  if(!pendingTopicPractice)return;
+  const {topic,set,questions}=pendingTopicPractice;
+  pendingTopicPractice=null;
+  const overlay=document.getElementById("topicTimeChooser");
+  if(overlay)overlay.remove();
+  selectedTopicTime=Math.min(60,Math.max(10,Number(minutes)||60));
+  clearInterval(tp.timer);
+  tp={topic,set,questions:prepareFreshSession(questions||[]),index:0,score:0,correct:0,wrong:0,unanswered:0,streak:0,bestStreak:0,start:Date.now(),timeLeft:selectedTopicTime*60,timer:null,answered:false,review:[]};
   showTopicPractice(); startPracticeTimer();
 }
 function showTopicPractice(){
@@ -2680,7 +2711,7 @@ function showTopicPractice(){
     </div>
     <div class="practice-head"><h2>📝 ${esc(tp.topic)} — Set ${tp.set}</h2><button class="practice-close" onclick="closeTopicPractice()">×</button></div>
     <div class="practice-stats"><div class="practice-stat">Question<b>${tp.index+1}/${tp.questions.length}</b></div><div class="practice-stat">Score<b>${tp.score}</b></div><div class="practice-stat">🔥 Streak<b>${tp.streak}</b></div><div class="practice-stat">⏱️ Time<b id="tpTimerText">${formatTime(tp.timeLeft)}</b></div></div>
-    <div class="practice-timer"><div id="tpTimerBar" class="practice-timer-bar" style="width:${Math.max(0,Math.min(100,(tp.timeLeft/TOPIC_SET_TIME)*100))}%"></div></div>
+    <div class="practice-timer"><div id="tpTimerBar" class="practice-timer-bar" style="width:${Math.max(0,Math.min(100,(tp.timeLeft/(selectedTopicTime*60))*100))}%"></div></div>
     <div style="height:6px;background:#222;border-radius:8px;overflow:hidden"><div style="height:100%;width:${percent}%;background:linear-gradient(90deg,#ff0099,#633cff,#00c8ff)"></div></div>
     <div class="practice-question">${esc(q.q)}</div>
     <div id="tpOptions" class="practice-options"></div>
@@ -2702,7 +2733,7 @@ function startPracticeTimer(){
 function updatePracticeTimer(){
   const t=document.getElementById("tpTimerText"),b=document.getElementById("tpTimerBar");
   if(t)t.textContent=formatTime(tp.timeLeft);
-  if(b)b.style.width=Math.max(0,(tp.timeLeft/TOPIC_SET_TIME)*100)+"%";
+  if(b)b.style.width=Math.max(0,(tp.timeLeft/(selectedTopicTime*60))*100)+"%";
 }
 function formatTime(sec){sec=Math.max(0,sec);return String(Math.floor(sec/60)).padStart(2,"0")+":"+String(sec%60).padStart(2,"0")}
 function lockAndTimeout(){
