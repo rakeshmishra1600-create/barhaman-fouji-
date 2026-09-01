@@ -618,6 +618,66 @@ padding:7px 10px;
 cursor:pointer;
 }
 
+/* ================= IMAGE RESIZER ================= */
+
+.upload-box{
+display:block;
+border:2px dashed #633cff;
+border-radius:15px;
+padding:20px;
+margin:10px 0;
+cursor:pointer;
+background:#050505;
+}
+
+#compressCanvas{
+max-width:100%;
+border-radius:12px;
+margin-top:15px;
+display:none;
+}
+
+.resize-controls{
+margin-top:15px;
+padding:15px;
+background:#080808;
+border:1px solid #292929;
+border-radius:15px;
+}
+
+.resize-controls label{
+display:block;
+margin:8px 0;
+color:#ddd;
+font-weight:bold;
+}
+
+.resize-controls select,
+.resize-controls input[type="number"]{
+width:100%;
+padding:11px;
+border-radius:10px;
+background:#111;
+color:#fff;
+border:1px solid #444;
+margin-bottom:8px;
+}
+
+.download-link{
+display:none;
+margin-top:12px;
+color:#fff;
+text-decoration:none;
+background:linear-gradient(135deg,#ff0099,#633cff);
+padding:10px 15px;
+border-radius:20px;
+font-weight:bold;
+}
+
+.resize-info{
+color:#7dffb2;
+line-height:1.6;
+}
 
 /* ================= MUSIC ================= */
 
@@ -709,60 +769,6 @@ transform:scale(1.15);
 .feedback-message{
 margin-top:12px;
 color:#7dffb2;
-}
-
-/* ================= CHAT ================= */
-
-.chat-box{
-padding:0;
-overflow:hidden;
-}
-
-.chat-header{
-padding:15px;
-background:linear-gradient(135deg,#ff0099,#633cff);
-font-weight:bold;
-}
-
-.chat-messages{
-height:300px;
-overflow-y:auto;
-padding:15px;
-text-align:left;
-}
-
-.chat-msg{
-max-width:85%;
-padding:10px 13px;
-margin:8px 0;
-border-radius:15px;
-line-height:1.5;
-}
-
-.bot-msg{
-background:#171717;
-border:1px solid #333;
-}
-
-.user-msg{
-background:linear-gradient(135deg,#ff0099,#633cff);
-margin-left:auto;
-}
-
-.chat-input-area{
-display:flex;
-gap:7px;
-padding:10px;
-border-top:1px solid #333;
-}
-
-.chat-input{
-flex:1;
-padding:12px;
-border-radius:12px;
-border:1px solid #444;
-background:#111;
-color:#fff;
 }
 
 /* ================= DAILY ================= */
@@ -1210,8 +1216,6 @@ color:#aaa;
 🎵 Free Music    
 </a>  <a class="sub-item" href="#quiz" onclick="closeAllMenus()">    
 🧠 Quiz    
-</a>  <a class="sub-item" href="#chat" onclick="closeAllMenus()">    
-🤖 AI Support    
 </a>  <a class="sub-item" href="#feedback" onclick="closeAllMenus()">    
 💬 Feedback    
 </a>  </div>    
@@ -1356,22 +1360,6 @@ type="audio/mpeg">  </audio>  <div class="playlist">  <button onclick="playMusic
 🎵 Shri Bhairav Tandav
 </button>  </div>  </div>
 
-</div>    
-</section>  <!-- ================= CHAT ================= -->  <section class="section" id="chat">  <div class="card">  <h2>🤖 AI-style Chat Assistant</h2>  <div class="chat-box">  <div class="chat-header">    
-🤖 Barhaman Fouji Assistant    
-</div>  <div id="chatMessages" class="chat-messages">  <div class="chat-msg bot-msg">    
-नमस्ते! 🙏 मैं Barhaman Fouji Assistant हूँ।    
-</div>  </div>  <div class="chat-input-area">  <input    
-id="chatInput"    
-class="chat-input"    
-placeholder="अपना सवाल लिखें...">  <button    
-class="tool-btn"    
-onclick="sendChat()">
-➤
-</button>
-
-</div>    
-</div>    
 </div>    
 </section>  <!-- ================= FEEDBACK ================= -->  <section class="section" id="feedback">  <div class="card">  <h2>💬 Visitor Feedback</h2>  <div class="feedback-box">  <div class="rating">  <button onclick="setRating(1)">⭐</button>  
 <button onclick="setRating(2)">⭐</button>  
@@ -3997,158 +3985,6 @@ b.classList.remove("active")
 );    
     
 }    
-    
-    
-/* ================= CHAT ================= */    
-    
-function addChatMessage(text,type){    
-    
-const box=    
-document.getElementById(    
-"chatMessages"    
-);    
-    
-const msg=    
-document.createElement("div");    
-    
-msg.className=    
-"chat-msg "+type;    
-    
-msg.textContent=text;    
-    
-box.appendChild(msg);    
-    
-box.scrollTop=    
-box.scrollHeight;    
-    
-}    
-    
-function getBotReply(text){    
-    
-const q=text.toLowerCase();    
-    
-if(    
-q.includes("hello")||    
-q.includes("hi")||    
-q.includes("नमस्ते")    
-)    
-    
-return "नमस्ते 🙏 Barhaman Fouji website पर आपका स्वागत है!";    
-    
-if(    
-q.includes("education")||    
-q.includes("एजुकेशन")||    
-q.includes("पढ़ाई")||    
-q.includes("राजव्यवस्था")    
-)    
-    
-return "📚 Education में भारतीय इतिहास के numbered topics और उनके अंदर MCQ Practice उपलब्ध हैं।";    
-    
-if(    
-q.includes("history")||    
-q.includes("इतिहास")    
-)    
-    
-return "🇮🇳 भारतीय इतिहास में प्राचीन, मध्यकालीन और आधुनिक भारत के topics हैं। हर topic पर क्लिक करके MCQ Practice खोली जा सकती है।";    
-    
-if(    
-q.includes("tool")||    
-q.includes("टूल")    
-)    
-    
-return "🛠️ Tools में Notes, Image Resizer, Random Fun और Lucky Spin हैं।";    
-    
-if(    
-q.includes("spin")||    
-q.includes("लकी")||    
-q.includes("स्पिन")    
-)    
-    
-return "🎰 Lucky Spin section में wheel घुमाकर fun result पा सकते हैं।";    
-    
-if(    
-q.includes("music")||    
-q.includes("म्यूजिक")||    
-q.includes("गाना")    
-)    
-    
-return "🎵 Free Music section में उपलब्ध audio playlist चला सकते हैं।";    
-    
-if(    
-q.includes("photo")||    
-q.includes("फोटो")||    
-q.includes("gallery")    
-)    
-    
-return "🖼️ Gallery में photo उपलब्ध है। Photo पर क्लिक करके Full Screen में देखें।";    
-    
-if(    
-q.includes("quiz")||    
-q.includes("क्विज")    
-)    
-    
-return "🧠 Quiz में गलत answer देने के बाद दोबारा मौका नहीं मिलेगा और सही answer Green दिखाई देगा।";    
-    
-if(    
-q.includes("youtube")||    
-q.includes("वीडियो")    
-)    
-    
-return "▶️ YouTube section में मेरे Shorts देख सकते हैं।";    
-    
-if(q.includes("feedback"))    
-    
-return "💬 Feedback section में rating और message भेज सकते हैं।";    
-    
-if(    
-q.includes("contact")||    
-q.includes("संपर्क")    
-)    
-    
-return "📞 Contact section में WhatsApp, Instagram, Facebook और YouTube links हैं।";    
-    
-if(q.includes("rakesh"))    
-    
-return "🔱 Rakesh Mishra इस website के owner हैं। जय श्री राम 🙏";    
-    
-return "🤖 मैं website के Education, Tools, Gallery, Lucky Spin, Free Music, Quiz, YouTube, Feedback और Contact के बारे में मदद कर सकता हूँ।";    
-    
-}    
-    
-function sendChat(){    
-    
-const input=    
-document.getElementById("chatInput");    
-    
-const text=input.value.trim();    
-    
-if(!text)return;    
-    
-addChatMessage(text,"user-msg");    
-    
-input.value="";    
-    
-setTimeout(()=>{    
-    
-addChatMessage(    
-getBotReply(text),    
-"bot-msg"    
-);    
-    
-},250);    
-    
-}    
-    
-document.getElementById("chatInput")    
-.addEventListener(    
-"keydown",    
-e=>{    
-    
-if(e.key==="Enter")    
-sendChat();    
-    
-}    
-);    
     
     
 /* ================= LIGHT / DARK ================= */    
