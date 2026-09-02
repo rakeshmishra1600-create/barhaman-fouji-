@@ -1595,6 +1595,10 @@ body.dark-mode .home-devotional{
 }
 </script>
 
+<style id="feedback-star-fix">
+#bfRating button{background:none!important;border:0!important;filter:grayscale(1);opacity:.65;transition:transform .15s,filter .15s,opacity .15s;}
+#bfRating button.active{filter:none!important;opacity:1;transform:scale(1.15);}
+</style>
 </head>  <body>  <div id="progress"></div>
 
 <div id="toast" class="toast"></div>  <!-- ================= NAVBAR ================= -->  <nav class="navbar">
@@ -1648,23 +1652,22 @@ type="audio/mpeg">  </audio>  <div class="playlist">  <button onclick="playMusic
 </button>  </div>  </div>
 
 </div>    
-</section>    <!-- ================= FEEDBACK ================= -->  <section class="section" id="feedback">  <div class="card">  <h2>💬 Visitor Feedback</h2>  <div class="feedback-box">  <div class="rating">  <button type="button" onclick="setRating(1)" aria-label="1 स्टार">⭐</button>  
-<button type="button" onclick="setRating(2)" aria-label="2 स्टार">⭐</button>  
-<button type="button" onclick="setRating(3)" aria-label="3 स्टार">⭐</button>  
-<button type="button" onclick="setRating(4)" aria-label="4 स्टार">⭐</button>  
-<button type="button" onclick="setRating(5)" aria-label="5 स्टार">⭐</button>  </div>  <input    
-id="visitorName"    
+</section>    <!-- ================= FEEDBACK ================= -->  <section class="section" id="feedback">  <div class="card">  <h2>💬 Visitor Feedback</h2>  <div class="feedback-box">  <div class="rating" id="bfRating">  <button type="button" data-rating="1" onclick="setRating(1)" aria-label="1 स्टार" aria-pressed="false">⭐</button>  
+<button type="button" data-rating="2" onclick="setRating(2)" aria-label="2 स्टार" aria-pressed="false">⭐</button>  
+<button type="button" data-rating="3" onclick="setRating(3)" aria-label="3 स्टार" aria-pressed="false">⭐</button>  
+<button type="button" data-rating="4" onclick="setRating(4)" aria-label="4 स्टार" aria-pressed="false">⭐</button>  
+<button type="button" data-rating="5" onclick="setRating(5)" aria-label="5 स्टार" aria-pressed="false">⭐</button>  </div>  <input    
+id="bfVisitorName"    
 class="tool-input"    
 placeholder="आपका नाम">  <textarea    
-id="visitorMessage"    
+id="bfVisitorMessage"    
 class="tool-input"    
 placeholder="अपना feedback लिखें">    
-</textarea>  <button    class="tool-btn"
-onclick="submitFeedback()">
+</textarea>  <button id="bfSubmitFeedback" class="tool-btn">
 📨 Feedback भेजें
 </button>
 
-<div id="feedbackMessage" class="feedback-message"></div>
+<div id="bfFeedbackMessage" class="feedback-message"></div>
 <div id="publicFeedbackList" style="margin-top:18px;"></div>  </div>    
 </div>    
 </section>  <!-- ================= YOUTUBE ================= -->  <section class="section" id="youtube">  <div class="card">  <h2>▶️ My YouTube Videos</h2>  <div class="youtube-grid">  <div class="youtube-card">    
@@ -3979,11 +3982,14 @@ function supabaseHeaders(extra={}){
 }
 
 function setRating(n){
-  selectedRating=n;
-  document.querySelectorAll(".rating button").forEach((b,i)=>{
-    b.classList.toggle("active", i<n);
+  selectedRating=Math.max(1,Math.min(5,Number(n)||0));
+  document.querySelectorAll('#bfRating button').forEach((b,i)=>{
+    const active=i<selectedRating;
+    b.classList.toggle("active",active);
+    b.setAttribute("aria-pressed",active?"true":"false");
   });
 }
+window.setRating=setRating;
 
 function escapeFeedbackText(value){
   const div=document.createElement("div");
@@ -4027,12 +4033,12 @@ async function loadPublicFeedback(){
 }
 
 async function submitFeedback(){
-  const nameEl=document.getElementById("visitorName");
-  const messageEl=document.getElementById("visitorMessage");
-  const result=document.getElementById("feedbackMessage");
-  const button=document.querySelector('#feedback button[onclick="submitFeedback()"]');
-  const name=(nameEl?.value || "").trim();
-  const message=(messageEl?.value || "").trim();
+  const nameEl=document.getElementById("bfVisitorName");
+  const messageEl=document.getElementById("bfVisitorMessage");
+  const result=document.getElementById("bfFeedbackMessage");
+  const button=document.querySelector("#feedback .feedback-box #bfSubmitFeedback");
+  const name=String(nameEl?.value||"").trim();
+  const message=String(messageEl?.value||"").trim();
   if(!name){ result.textContent="⚠️ पहले अपना नाम लिखें।"; nameEl?.focus(); return; }
   if(!message){ result.textContent="⚠️ पहले अपना feedback लिखें।"; messageEl?.focus(); return; }
   if(!selectedRating){ result.textContent="⭐ पहले 1 से 5 स्टार में अपनी rating चुनें।"; return; }
@@ -4041,7 +4047,7 @@ async function submitFeedback(){
   try{
     const response=await fetch(SUPABASE_URL+"/rest/v1/"+FEEDBACK_TABLE,{
       method:"POST", mode:"cors",
-      headers:supabaseHeaders({"Prefer":"return=minimal","Content-Profile":"public","Accept-Profile":"public"}),
+      headers:supabaseHeaders({"Prefer":"return=minimal","Content-Profile":"public","Accept-Profile":"public","Accept":"application/json"}),
       body:JSON.stringify({name:name,message:message,rating:Number(selectedRating)})
     });
     const responseText=await response.text();
@@ -4051,24 +4057,27 @@ async function submitFeedback(){
       throw new Error(serverMessage||("HTTP "+response.status));
     }
     result.textContent="✅ धन्यवाद "+name+"! आपका feedback सफलतापूर्वक भेज दिया गया। ❤️";
-    if(nameEl) nameEl.value="";
-    if(messageEl) messageEl.value="";
-    selectedRating=0;
-    document.querySelectorAll(".rating button").forEach(b=>{ b.classList.remove("active"); b.setAttribute("aria-pressed","false"); });
+    nameEl.value=""; messageEl.value=""; selectedRating=0;
+    document.querySelectorAll("#bfRating button").forEach(b=>{ b.classList.remove("active"); b.setAttribute("aria-pressed","false"); });
     await loadPublicFeedback();
   }catch(error){
     console.error("Supabase feedback submit error:",error);
     const msg=String(error?.message||error||"");
     result.textContent=/failed to fetch|networkerror|load failed/i.test(msg)
-      ? "❌ Internet connection या Supabase connection में समस्या है। इंटरनेट चेक करके फिर भेजें।"
-      : "❌ Feedback नहीं भेजा गया। कृपया फिर कोशिश करें।";
+      ? "❌ Internet/Supabase connection में समस्या है। इंटरनेट चेक करके फिर भेजें।"
+      : "❌ Feedback नहीं भेजा गया: "+msg.slice(0,180);
   }finally{
     if(button){ button.disabled=false; button.textContent="📨 Feedback भेजें"; }
   }
 }
+window.submitFeedback=submitFeedback;
 
 // Load existing public feedback when the page is ready.
-document.addEventListener("DOMContentLoaded",loadPublicFeedback);
+document.addEventListener("DOMContentLoaded",()=>{
+  const submitButton=document.getElementById("bfSubmitFeedback");
+  if(submitButton) submitButton.addEventListener("click",submitFeedback);
+  loadPublicFeedback();
+});
 
 
 /* ================= LIGHT / DARK ================= */    
