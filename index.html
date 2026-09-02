@@ -1664,7 +1664,8 @@ onclick="submitFeedback()">
 📨 Feedback भेजें
 </button>
 
-<div id="feedbackMessage" class="feedback-message"></div>  </div>    
+<div id="feedbackMessage" class="feedback-message"></div>
+<div id="publicFeedbackList" style="margin-top:18px;"></div>  </div>    
 </div>    
 </section>  <!-- ================= YOUTUBE ================= -->  <section class="section" id="youtube">  <div class="card">  <h2>▶️ My YouTube Videos</h2>  <div class="youtube-grid">  <div class="youtube-card">    
 <iframe    
@@ -3959,106 +3960,115 @@ function toggleMusic(){
 }    
     
     
-/* ================= FEEDBACK ================= */    
-    
-let selectedRating=0;    
-    
-function setRating(n){    
-    
-selectedRating=n;    
-    
-document    
-.querySelectorAll(".rating button")    
-.forEach((b,i)=>{    
-    
-b.classList.toggle(    
-"active",    
-i<n    
-);    
-    
-});    
-    
-}    
-    
-function submitFeedback(){    
-    
-const name=    
-document.getElementById(    
-"visitorName"    
-).value.trim();    
-    
-const message=    
-document.getElementById(    
-"visitorMessage"    
-).value.trim();    
-    
-const result=    
-document.getElementById(    
-"feedbackMessage"    
-);    
-    
-if(!name||!message){    
-    
-result.textContent=    
-"⚠️ नाम और feedback दोनों लिखें।";    
-    
-return;    
-    
-}    
-    
-if(!selectedRating){    
-    
-result.textContent=    
-"⭐ Rating चुनें।";    
-    
-return;    
-    
-}    
-    
-let data=    
-JSON.parse(    
-localStorage.getItem(    
-"barhamanFeedback"    
-)||"[]"    
-);    
-    
-data.push({    
-    
-name:name,    
-message:message,    
-rating:selectedRating,    
-date:new Date().toLocaleString()    
-    
-});    
-    
-localStorage.setItem(    
-"barhamanFeedback",    
-JSON.stringify(data)    
-);    
-    
-result.textContent=    
-"✅ धन्यवाद "+name+    
-"! आपका feedback save हो गया। ❤️";    
-    
-document.getElementById(    
-"visitorName"    
-).value="";    
-    
-document.getElementById(    
-"visitorMessage"    
-).value="";    
-    
-selectedRating=0;    
-    
-document    
-.querySelectorAll(".rating button")    
-.forEach(b=>    
-b.classList.remove("active")    
-);    
-    
-}    
-    
-    
+/* ================= FEEDBACK ================= */
+
+let selectedRating=0;
+
+// ===== SUPABASE PUBLIC FEEDBACK =====
+const SUPABASE_URL = "https://psvszyroajzzqenafdxo.supabase.co";
+const SUPABASE_KEY = "sb_publishable_X1YkCP5gfkTe3sJAYAbruA_qCDXcozt";
+const FEEDBACK_TABLE = "visitor_feedback";
+
+function supabaseHeaders(extra={}){
+  return {
+    "apikey": SUPABASE_KEY,
+    "Authorization": "Bearer " + SUPABASE_KEY,
+    "Content-Type": "application/json",
+    ...extra
+  };
+}
+
+function setRating(n){
+  selectedRating=n;
+  document.querySelectorAll(".rating button").forEach((b,i)=>{
+    b.classList.toggle("active", i<n);
+  });
+}
+
+function escapeFeedbackText(value){
+  const div=document.createElement("div");
+  div.textContent=value ?? "";
+  return div.innerHTML;
+}
+
+function renderPublicFeedback(items){
+  const box=document.getElementById("publicFeedbackList");
+  if(!box) return;
+  if(!items.length){
+    box.innerHTML='<div style="opacity:.7;text-align:center;margin-top:12px;">अभी कोई feedback नहीं है। पहला feedback आपका हो सकता है ❤️</div>';
+    return;
+  }
+  box.innerHTML='<div style="font-weight:bold;margin-bottom:10px;">💬 लोगों के Feedback</div>'+items.map(item=>{
+    const stars="⭐".repeat(Math.max(1,Math.min(5,Number(item.rating)||0)));
+    const date=item.created_at ? new Date(item.created_at).toLocaleString("hi-IN") : "";
+    return `<div style="background:#101010;border:1px solid #3b2450;border-radius:14px;padding:12px;margin:9px 0;text-align:left;">`+
+      `<div style="font-weight:bold;">${escapeFeedbackText(item.name)} <span style="float:right;">${stars}</span></div>`+
+      `<div style="margin-top:7px;line-height:1.5;word-break:break-word;">${escapeFeedbackText(item.message)}</div>`+
+      `<div style="font-size:11px;opacity:.55;margin-top:7px;">${escapeFeedbackText(date)}</div>`+
+      `</div>`;
+  }).join("");
+}
+
+async function loadPublicFeedback(){
+  const box=document.getElementById("publicFeedbackList");
+  if(!box) return;
+  try{
+    const url=SUPABASE_URL+"/rest/v1/"+FEEDBACK_TABLE+"?select=id,name,message,rating,created_at&order=created_at.desc&limit=50";
+    const response=await fetch(url,{headers:supabaseHeaders({"Accept":"application/json"})});
+    if(!response.ok){
+      throw new Error(await response.text());
+    }
+    const items=await response.json();
+    renderPublicFeedback(items);
+  }catch(error){
+    console.error("Supabase feedback load error:",error);
+    box.innerHTML='<div style="color:#ff7777;text-align:center;margin-top:12px;">Feedback अभी load नहीं हो पाया।</div>';
+  }
+}
+
+async function submitFeedback(){
+  const name=document.getElementById("visitorName").value.trim();
+  const message=document.getElementById("visitorMessage").value.trim();
+  const result=document.getElementById("feedbackMessage");
+
+  if(!name||!message){
+    result.textContent="⚠️ नाम और feedback दोनों लिखें।";
+    return;
+  }
+  if(!selectedRating){
+    result.textContent="⭐ Rating चुनें।";
+    return;
+  }
+
+  result.textContent="⏳ Feedback भेजा जा रहा है...";
+
+  try{
+    const response=await fetch(SUPABASE_URL+"/rest/v1/"+FEEDBACK_TABLE,{
+      method:"POST",
+      headers:supabaseHeaders({"Prefer":"return=minimal"}),
+      body:JSON.stringify({name:name,message:message,rating:selectedRating})
+    });
+
+    if(!response.ok){
+      throw new Error(await response.text());
+    }
+
+    result.textContent="✅ धन्यवाद "+name+"! आपका feedback save हो गया। ❤️";
+    document.getElementById("visitorName").value="";
+    document.getElementById("visitorMessage").value="";
+    selectedRating=0;
+    document.querySelectorAll(".rating button").forEach(b=>b.classList.remove("active"));
+    await loadPublicFeedback();
+  }catch(error){
+    console.error("Supabase feedback submit error:",error);
+    result.textContent="❌ Feedback save नहीं हो पाया। कृपया फिर कोशिश करें।";
+  }
+}
+
+// Load existing public feedback when the page is ready.
+document.addEventListener("DOMContentLoaded",loadPublicFeedback);
+
+
 /* ================= LIGHT / DARK ================= */    
     
 function toggleLight(){    
