@@ -1665,9 +1665,9 @@ type="audio/mpeg">  </audio>  <div class="playlist">  <button onclick="playMusic
         <button type="button" onclick="window.setRating(4);return false;" data-rating="4" aria-label="4 स्टार" aria-pressed="false">⭐</button>
         <button type="button" onclick="window.setRating(5);return false;" data-rating="5" aria-label="5 स्टार" aria-pressed="false">⭐</button>
       </div>
-      <input id="bfVisitorName" class="tool-input" placeholder="आपका नाम">
-      <textarea id="bfVisitorMessage" class="tool-input" placeholder="अपना feedback लिखें"></textarea>
-      <button type="button" id="bfSubmitFeedback" onclick="window.submitFeedback();return false;" class="tool-btn">📨 Feedback भेजें</button>
+      <input id="bfPublicVisitorNameX9" class="tool-input" placeholder="आपका नाम">
+      <textarea id="bfPublicVisitorMessageX9" class="tool-input" placeholder="अपना feedback लिखें"></textarea>
+      <button type="button" id="bfSubmitFeedback" onclick="window.submitFeedback(this);return false;" class="tool-btn">📨 Feedback भेजें</button>
       <div id="bfFeedbackMessage" class="feedback-message"></div>
       <div id="publicFeedbackList" style="margin-top:18px;"></div>
     </div>
@@ -4166,13 +4166,14 @@ function openFileContent(id){
     }
   }
 
-  async function submitFeedback(){
-    const nameEl=document.getElementById("bfVisitorName");
-    const messageEl=document.getElementById("bfVisitorMessage");
-    const result=document.getElementById("bfFeedbackMessage");
-    const button=document.getElementById("bfSubmitFeedback");
-    const name=String(nameEl?.value||"").trim();
-    const message=String(messageEl?.value||"").trim();
+  async function submitFeedback(clickedButton){
+    const button=clickedButton || document.getElementById("bfSubmitFeedback");
+    const box=button ? button.closest(".feedback-box") : document.querySelector("#feedback .feedback-box");
+    const nameEl=(box && box.querySelector("#bfPublicVisitorNameX9")) || document.querySelector("#bfPublicVisitorNameX9");
+    const messageEl=(box && box.querySelector("#bfPublicVisitorMessageX9")) || document.querySelector("#bfPublicVisitorMessageX9");
+    const result=(box && box.querySelector("#bfFeedbackMessage")) || document.getElementById("bfFeedbackMessage");
+    const name=String(nameEl && nameEl.value || "").trim();
+    const message=String(messageEl && messageEl.value || "").trim();
     if(!name){result.textContent="⚠️ पहले अपना नाम लिखें।";nameEl?.focus();return;}
     if(!message){result.textContent="⚠️ पहले अपना feedback लिखें।";messageEl?.focus();return;}
     if(!selectedRating){result.textContent="⭐ पहले 1 से 5 स्टार में अपनी rating चुनें।";return;}
@@ -4209,7 +4210,7 @@ function openFileContent(id){
   function init(){
     document.querySelectorAll("#bfRating button").forEach((b,i)=>b.addEventListener("click",()=>setRating(i+1)));
     const btn=document.getElementById("bfSubmitFeedback");
-    if(btn)btn.addEventListener("click",submitFeedback);
+    if(btn)btn.addEventListener("click",function(e){ e.preventDefault(); submitFeedback(btn); });
     loadFeedback();
   }
   if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init);else init();
