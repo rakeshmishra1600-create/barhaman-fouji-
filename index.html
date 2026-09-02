@@ -1659,15 +1659,15 @@ type="audio/mpeg">  </audio>  <div class="playlist">  <button onclick="playMusic
     <h2>💬 Visitor Feedback</h2>
     <div class="feedback-box">
       <div class="rating" id="bfRating">
-        <button type="button" data-rating="1" aria-label="1 स्टार" aria-pressed="false">⭐</button>
-        <button type="button" data-rating="2" aria-label="2 स्टार" aria-pressed="false">⭐</button>
-        <button type="button" data-rating="3" aria-label="3 स्टार" aria-pressed="false">⭐</button>
-        <button type="button" data-rating="4" aria-label="4 स्टार" aria-pressed="false">⭐</button>
-        <button type="button" data-rating="5" aria-label="5 स्टार" aria-pressed="false">⭐</button>
+        <button type="button" onclick="window.setRating(1);return false;" data-rating="1" aria-label="1 स्टार" aria-pressed="false">⭐</button>
+        <button type="button" onclick="window.setRating(2);return false;" data-rating="2" aria-label="2 स्टार" aria-pressed="false">⭐</button>
+        <button type="button" onclick="window.setRating(3);return false;" data-rating="3" aria-label="3 स्टार" aria-pressed="false">⭐</button>
+        <button type="button" onclick="window.setRating(4);return false;" data-rating="4" aria-label="4 स्टार" aria-pressed="false">⭐</button>
+        <button type="button" onclick="window.setRating(5);return false;" data-rating="5" aria-label="5 स्टार" aria-pressed="false">⭐</button>
       </div>
       <input id="bfVisitorName" class="tool-input" placeholder="आपका नाम">
       <textarea id="bfVisitorMessage" class="tool-input" placeholder="अपना feedback लिखें"></textarea>
-      <button type="button" id="bfSubmitFeedback" class="tool-btn">📨 Feedback भेजें</button>
+      <button type="button" id="bfSubmitFeedback" onclick="window.submitFeedback();return false;" class="tool-btn">📨 Feedback भेजें</button>
       <div id="bfFeedbackMessage" class="feedback-message"></div>
       <div id="publicFeedbackList" style="margin-top:18px;"></div>
     </div>
@@ -4103,6 +4103,12 @@ function openFileContent(id){
 }
 </script>
 
+<style id="feedback-visual-hard-fix">
+#bfRating{display:flex!important;justify-content:center!important;gap:8px!important;position:relative!important;z-index:999999!important;}
+#bfRating button{display:inline-block!important;visibility:visible!important;pointer-events:auto!important;position:relative!important;z-index:1000000!important;background:transparent!important;border:0!important;font-size:30px!important;cursor:pointer!important;filter:grayscale(1)!important;opacity:.65!important;}
+#bfRating button.active,#bfRating button:focus{filter:none!important;opacity:1!important;transform:scale(1.15)!important;}
+#bfSubmitFeedback{position:relative!important;z-index:1000000!important;pointer-events:auto!important;cursor:pointer!important;}
+</style>
 <script id="feedback-supabase-standalone">
 /* ================= FEEDBACK — STANDALONE ================= */
 (function(){
