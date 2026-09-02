@@ -1648,11 +1648,11 @@ type="audio/mpeg">  </audio>  <div class="playlist">  <button onclick="playMusic
 </button>  </div>  </div>
 
 </div>    
-</section>    <!-- ================= FEEDBACK ================= -->  <section class="section" id="feedback">  <div class="card">  <h2>💬 Visitor Feedback</h2>  <div class="feedback-box">  <div class="rating">  <button onclick="setRating(1)">⭐</button>  
-<button onclick="setRating(2)">⭐</button>  
-<button onclick="setRating(3)">⭐</button>  
-<button onclick="setRating(4)">⭐</button>  
-<button onclick="setRating(5)">⭐</button>  </div>  <input    
+</section>    <!-- ================= FEEDBACK ================= -->  <section class="section" id="feedback">  <div class="card">  <h2>💬 Visitor Feedback</h2>  <div class="feedback-box">  <div class="rating">  <button type="button" onclick="setRating(1)" aria-label="1 स्टार">⭐</button>  
+<button type="button" onclick="setRating(2)" aria-label="2 स्टार">⭐</button>  
+<button type="button" onclick="setRating(3)" aria-label="3 स्टार">⭐</button>  
+<button type="button" onclick="setRating(4)" aria-label="4 स्टार">⭐</button>  
+<button type="button" onclick="setRating(5)" aria-label="5 स्टार">⭐</button>  </div>  <input    
 id="visitorName"    
 class="tool-input"    
 placeholder="आपका नाम">  <textarea    
@@ -4027,41 +4027,43 @@ async function loadPublicFeedback(){
 }
 
 async function submitFeedback(){
-  const name=document.getElementById("visitorName").value.trim();
-  const message=document.getElementById("visitorMessage").value.trim();
+  const nameEl=document.getElementById("visitorName");
+  const messageEl=document.getElementById("visitorMessage");
   const result=document.getElementById("feedbackMessage");
-
-  if(!name||!message){
-    result.textContent="⚠️ नाम और feedback दोनों लिखें।";
-    return;
-  }
-  if(!selectedRating){
-    result.textContent="⭐ Rating चुनें।";
-    return;
-  }
-
-  result.textContent="⏳ Feedback भेजा जा रहा है...";
-
+  const button=document.querySelector('#feedback button[onclick="submitFeedback()"]');
+  const name=(nameEl?.value || "").trim();
+  const message=(messageEl?.value || "").trim();
+  if(!name){ result.textContent="⚠️ पहले अपना नाम लिखें।"; nameEl?.focus(); return; }
+  if(!message){ result.textContent="⚠️ पहले अपना feedback लिखें।"; messageEl?.focus(); return; }
+  if(!selectedRating){ result.textContent="⭐ पहले 1 से 5 स्टार में अपनी rating चुनें।"; return; }
+  if(button){ button.disabled=true; button.textContent="⏳ Feedback भेजा जा रहा है..."; }
+  result.textContent="⏳ कृपया थोड़ा इंतज़ार करें...";
   try{
     const response=await fetch(SUPABASE_URL+"/rest/v1/"+FEEDBACK_TABLE,{
-      method:"POST",
-      headers:supabaseHeaders({"Prefer":"return=minimal"}),
-      body:JSON.stringify({name:name,message:message,rating:selectedRating})
+      method:"POST", mode:"cors",
+      headers:supabaseHeaders({"Prefer":"return=minimal","Content-Profile":"public","Accept-Profile":"public"}),
+      body:JSON.stringify({name:name,message:message,rating:Number(selectedRating)})
     });
-
+    const responseText=await response.text();
     if(!response.ok){
-      throw new Error(await response.text());
+      let serverMessage=responseText;
+      try{ const err=JSON.parse(responseText); serverMessage=err.message||err.hint||err.details||responseText; }catch(e){}
+      throw new Error(serverMessage||("HTTP "+response.status));
     }
-
-    result.textContent="✅ धन्यवाद "+name+"! आपका feedback save हो गया। ❤️";
-    document.getElementById("visitorName").value="";
-    document.getElementById("visitorMessage").value="";
+    result.textContent="✅ धन्यवाद "+name+"! आपका feedback सफलतापूर्वक भेज दिया गया। ❤️";
+    if(nameEl) nameEl.value="";
+    if(messageEl) messageEl.value="";
     selectedRating=0;
-    document.querySelectorAll(".rating button").forEach(b=>b.classList.remove("active"));
+    document.querySelectorAll(".rating button").forEach(b=>{ b.classList.remove("active"); b.setAttribute("aria-pressed","false"); });
     await loadPublicFeedback();
   }catch(error){
     console.error("Supabase feedback submit error:",error);
-    result.textContent="❌ Feedback save नहीं हो पाया। कृपया फिर कोशिश करें।";
+    const msg=String(error?.message||error||"");
+    result.textContent=/failed to fetch|networkerror|load failed/i.test(msg)
+      ? "❌ Internet connection या Supabase connection में समस्या है। इंटरनेट चेक करके फिर भेजें।"
+      : "❌ Feedback नहीं भेजा गया। कृपया फिर कोशिश करें।";
+  }finally{
+    if(button){ button.disabled=false; button.textContent="📨 Feedback भेजें"; }
   }
 }
 
