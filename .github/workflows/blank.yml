@@ -5,22 +5,100 @@ on:
     - cron: "0 0 * * *"
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
-  update:
+  update-current-affairs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Update timestamp
-        run: |
-          echo "Last automatic update: $(date -u)" > update-time.txt
+      - name: Install Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
 
-      - name: Save update
+      - name: Fetch Current Affairs
+        env:
+          NEWS_API_KEY: ${{ secrets.NEWS_API_KEY }}
+        run: |
+          python - <<'PY'
+          import json
+          import urllib.parse
+          import urllib.request
+          from datetime import datetime, timezone
+
+          API_KEY = __import__("os").environ["NEWS_API_KEY"]
+
+          categories = {
+              "Daily": "India latest news",
+              "National": "India national news",
+              "International": "world international news",
+              "Sports": "India sports",
+              "Awards": "India awards",
+              "Appointments": "India appointments",
+              "Economy": "India economy",
+              "Science & Technology": "India science technology",
+              "Government Schemes": "India government schemes",
+              "Current Affairs MCQ": "India current affairs"
+          }
+
+          def get_news(query):
+              params = urllib.parse.urlencode({
+                  "q": query,
+                  "language": "en",
+                  "sortBy": "publishedAt",
+                  "pageSize": 20,
+                  "apiKey": API_KEY
+              })
+              url = "https://newsapi.org/v2/everything?" + params
+
+              with urllib.request.urlopen(url, timeout=30) as r:
+                  data = json.loads(r.read().decode("utf-8"))
+
+              return [
+                  x for x in data.get("articles", [])
+                  if x.get("title") and x.get("title") != "[Removed]"
+              ]
+
+          result = {}
+
+          for category, query in categories.items():
+              articles = get_news(query)
+
+              # Take the latest 10 useful headlines
+              articles = articles[:10]
+
+              questions = []
+
+              for i, article in enumerate(articles):
+                  title = article["title"]
+
+                  questions.append({
+                      "q": f"निम्न में से कौन-सी खबर {category} Current Affairs से संबंधित है?",
+                      "o": [title],
+                      "a": 0,
+                      "source": article.get("url", ""),
+                      "publishedAt": article.get("publishedAt", "")
+                  })
+
+              result[category] = questions
+
+          result["_updatedAt"] = datetime.now(timezone.utc).isoformat()
+
+          with open("current-affairs.json", "w", encoding="utf-8") as f:
+              json.dump(result, f, ensure_ascii=False, indent=2)
+
+          print("Current Affairs updated successfully.")
+          PY
+
+      - name: Commit updated Current Affairs
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add update-time.txt
-          git diff --cached --quiet || git commit -m "Update current affairs"
+          git add current-affairs.json
+          git diff --cached --quiet || git commit -m "Auto update current affairs"
           git push
