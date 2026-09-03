@@ -8,15 +8,16 @@ on:
 jobs:
   update:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - name: Update date
+      - name: Update timestamp
         run: |
-          echo "Current Affairs update workflow is running"
-          date -u > update-time.txt
+          echo "Last automatic update: $(date -u)" > update-time.txt
 
-      - name: Commit update
+      - name: Save update
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
