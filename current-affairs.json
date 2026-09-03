@@ -1,16 +1,12 @@
 {
-  "version": 1,
-  "updated": "2026-09-03",
-  "categories": {
-    "daily": [],
-    "national": [],
-    "international": [],
-    "sports": [],
-    "awards": [],
-    "appointments": [],
-    "economy": [],
-    "science": [],
-    "schemes": [],
-    "mcq": []
-  }
+  "Daily": [],
+  "National": [],
+  "International": [],
+  "Sports": [],
+  "Awards": [],
+  "Appointments": [],
+  "Economy": [],
+  "Science & Technology": [],
+  "Government Schemes": [],
+  "Current Affairs MCQ": []
 }
