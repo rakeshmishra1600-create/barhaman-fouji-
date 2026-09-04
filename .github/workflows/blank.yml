@@ -16,22 +16,24 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install Python
+      - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.x"
 
-      - name: Fetch Current Affairs
+      - name: Generate Current Affairs
         env:
           NEWS_API_KEY: ${{ secrets.NEWS_API_KEY }}
         run: |
           python - <<'PY'
           import json
+          import os
+          import random
           import urllib.parse
           import urllib.request
           from datetime import datetime, timezone
 
-          API_KEY = __import__("os").environ["NEWS_API_KEY"]
+          API_KEY = os.environ["NEWS_API_KEY"]
 
           categories = {
               "Daily": "India latest news",
@@ -51,54 +53,99 @@ jobs:
                   "q": query,
                   "language": "en",
                   "sortBy": "publishedAt",
-                  "pageSize": 20,
+                  "pageSize": 50,
                   "apiKey": API_KEY
               })
+
               url = "https://newsapi.org/v2/everything?" + params
 
-              with urllib.request.urlopen(url, timeout=30) as r:
-                  data = json.loads(r.read().decode("utf-8"))
+              with urllib.request.urlopen(url, timeout=30) as response:
+                  data = json.loads(response.read().decode("utf-8"))
 
               return [
-                  x for x in data.get("articles", [])
-                  if x.get("title") and x.get("title") != "[Removed]"
+                  article for article in data.get("articles", [])
+                  if article.get("title")
+                  and article.get("title") != "[Removed]"
               ]
+
+          random.seed(datetime.now(timezone.utc).strftime("%Y-%m-%d"))
+
+          news = {}
+
+          for category, query in categories.items():
+              news[category] = get_news(query)
 
           result = {}
 
-          for category, query in categories.items():
-              articles = get_news(query)
-
-              # Take the latest 10 useful headlines
-              articles = articles[:10]
+          for category, articles in news.items():
 
               questions = []
 
-              for i, article in enumerate(articles):
-                  title = article["title"]
+              for target in articles[:10]:
+
+                  correct = target["title"]
+
+                  # दूसरी categories से 3 अलग headlines
+                  wrong = []
+
+                  for other_category, other_articles in news.items():
+
+                      if other_category == category:
+                          continue
+
+                      for article in other_articles:
+
+                          title = article.get("title")
+
+                          if title and title != correct:
+                              wrong.append(title)
+
+                          if len(wrong) >= 3:
+                              break
+
+                      if len(wrong) >= 3:
+                          break
+
+                  if len(wrong) < 3:
+                      continue
+
+                  options = [correct] + wrong[:3]
+
+                  random.shuffle(options)
 
                   questions.append({
-                      "q": f"निम्न में से कौन-सी खबर {category} Current Affairs से संबंधित है?",
-                      "o": [title],
-                      "a": 0,
-                      "source": article.get("url", ""),
-                      "publishedAt": article.get("publishedAt", "")
+                      "q": f"हाल की खबरों के अनुसार {category} से संबंधित खबर कौन-सी है?",
+                      "o": options,
+                      "a": options.index(correct),
+                      "source": target.get("url", ""),
+                      "publishedAt": target.get("publishedAt", "")
                   })
 
               result[category] = questions
 
           result["_updatedAt"] = datetime.now(timezone.utc).isoformat()
 
-          with open("current-affairs.json", "w", encoding="utf-8") as f:
-              json.dump(result, f, ensure_ascii=False, indent=2)
+          with open("current-affairs.json", "w", encoding="utf-8") as file:
+              json.dump(
+                  result,
+                  file,
+                  ensure_ascii=False,
+                  indent=2
+              )
 
-          print("Current Affairs updated successfully.")
+          print("4-option Current Affairs generated successfully.")
           PY
 
-      - name: Commit updated Current Affairs
+      - name: Save Updated Questions
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
           git add current-affairs.json
-          git diff --cached --quiet || git commit -m "Auto update current affairs"
-          git push
+
+          if git diff --cached --quiet; then
+            echo "No changes."
+          else
+            git commit -m "Auto update 4-option Current Affairs"
+            git push
+          fi
