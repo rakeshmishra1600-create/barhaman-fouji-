@@ -1,12 +1,923 @@
 {
-  "Daily": [],
-  "National": [],
-  "International": [],
-  "Sports": [],
-  "Awards": [],
-  "Appointments": [],
-  "Economy": [],
-  "Science & Technology": [],
-  "Government Schemes": [],
-  "Current Affairs MCQ": []
-} 
+  "Daily": [
+    {
+      "q": "निम्न में से कौन-सी खबर Daily Current Affairs से संबंधित है?",
+      "o": [
+        "Sydney gangland war's disturbing crossfire casualties trend continues"
+      ],
+      "a": 0,
+      "source": "https://www.abc.net.au/news/2026-09-03/rise-in-mistaken-identity-case-organised-crime-shootings-sydney/107109128",
+      "publishedAt": "2026-09-02T22:13:13Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर Daily Current Affairs से संबंधित है?",
+      "o": [
+        "China builds ‘soft power’ with Egypt as Jinping cultivates relationships with Middle East allies"
+      ],
+      "a": 0,
+      "source": "https://fortune.com/2026/09/02/china-soft-power-egypt-visit/",
+      "publishedAt": "2026-09-02T20:26:42Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर Daily Current Affairs से संबंधित है?",
+      "o": [
+        "Raincheck Earth Appoints Sanjit Phukan as Head of Marketing - www.lokmattimes.com"
+      ],
+      "a": 0,
+      "source": "https://www.lokmattimes.com/business/raincheck-earth-appoints-sanjit-phukan-as-head-of-marketing/",
+      "publishedAt": "2026-09-02T17:58:36Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर Daily Current Affairs से संबंधित है?",
+      "o": [
+        "Freshwater stingrays in South America: From Lake Maracaibo to the Arari, the surprising habitats of rare river rays"
+      ],
+      "a": 0,
+      "source": "https://timesofindia.indiatimes.com/world/us/freshwater-stingrays-in-south-america-from-lake-maracaibo-to-the-arari-the-surprising-habitats-of-rare-river-rays/articleshow/133715554.cms",
+      "publishedAt": "2026-09-02T16:42:52Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर Daily Current Affairs से संबंधित है?",
+      "o": [
+        "MoSPI defends GDP estimates, explains negative manufacturing deflator"
+      ],
+      "a": 0,
+      "source": "https://www.business-standard.com/economy/news/mospi-defends-gdp-estimates-explains-negative-manufacturing-deflator-126090201585_1.html",
+      "publishedAt": "2026-09-02T16:23:11Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर Daily Current Affairs से संबंधित है?",
+      "o": [
+        "Top Business & Market Headlines Today — BL Morning Report, September 03, 2026"
+      ],
+      "a": 0,
+      "source": "https://www.thehindubusinessline.com/multimedia/audio/top-business-market-headlines-today-bl-morning-report-september-3-2026/article71420428.ece",
+      "publishedAt": "2026-09-02T16:05:25Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर Daily Current Affairs से संबंधित है?",
+      "o": [
+        "Russia’s Trans-Arctic Corridor to Expand Access to Asian Markets, Including India"
+      ],
+      "a": 0,
+      "source": "https://sputnikglobe.com/20260902/russias-trans-arctic-corridor-to-expand-access-to-asian-markets-including-india-1124671595.html",
+      "publishedAt": "2026-09-02T15:27:00Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर Daily Current Affairs से संबंधित है?",
+      "o": [
+        "Gautam Gambhir, Aaqib Javed part of same management team: Iceland Cricket creates hilarious 'international management personnel of nightmares'"
+      ],
+      "a": 0,
+      "source": "https://www.cricketnews.com/en/cricket/news/gambhir-aaqib-javed-iceland-cricket-international-management-personnel/eff9d034bc5083620fad8fcd",
+      "publishedAt": "2026-09-02T15:18:06Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर Daily Current Affairs से संबंधित है?",
+      "o": [
+        "Nepal PM thanks India for flood rescue help after minister seeks compensation, as reconstruction estimates reach billions of dollar"
+      ],
+      "a": 0,
+      "source": "https://economictimes.indiatimes.com/news/india/nepal-pm-thanks-india-for-flood-rescue-help-after-minister-seeks-compensation-as-reconstruction-estimates-reach-billions-of-dollar/articleshow/133714056.cms",
+      "publishedAt": "2026-09-02T15:16:08Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर Daily Current Affairs से संबंधित है?",
+      "o": [
+        "StealthGas Q2 Earnings Call Highlights"
+      ],
+      "a": 0,
+      "source": "https://www.marketbeat.com/instant-alerts/transcript-stealthgas-q2-earnings-call-highlights-2026-09-02/?utm_source=yahoofinance&amp;utm_medium=yahoofinance",
+      "publishedAt": "2026-09-02T15:03:21Z"
+    }
+  ],
+  "National": [
+    {
+      "q": "निम्न में से कौन-सी खबर National Current Affairs से संबंधित है?",
+      "o": [
+        "China builds ‘soft power’ with Egypt as Jinping cultivates relationships with Middle East allies"
+      ],
+      "a": 0,
+      "source": "https://fortune.com/2026/09/02/china-soft-power-egypt-visit/",
+      "publishedAt": "2026-09-02T20:26:42Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर National Current Affairs से संबंधित है?",
+      "o": [
+        "Monkey-Man Mystery Explained"
+      ],
+      "a": 0,
+      "source": "https://www.skeptic.com/article/monkey-man-mystery-explained/",
+      "publishedAt": "2026-09-02T18:52:52Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर National Current Affairs से संबंधित है?",
+      "o": [
+        "Australians begin their own searches for relatives missing in Nepal"
+      ],
+      "a": 0,
+      "source": "https://www.abc.net.au/news/2026-09-03/australians-search-for-relatives-in-nepal/107109202",
+      "publishedAt": "2026-09-02T18:50:50Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर National Current Affairs से संबंधित है?",
+      "o": [
+        "BJP, NC march against each other in Srinagar; CM alleges police bias"
+      ],
+      "a": 0,
+      "source": "https://timesofindia.indiatimes.com/india/bjp-nc-march-against-each-other-in-srinagar-cm-alleges-police-bias/articleshow/133718625.cms",
+      "publishedAt": "2026-09-02T18:40:31Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर National Current Affairs से संबंधित है?",
+      "o": [
+        "How Trump Lost Asia"
+      ],
+      "a": 0,
+      "source": "https://www.theatlantic.com/podcasts/2026/09/david-frum-show-malcolm-turnbull-australia-pacific-china/688500/",
+      "publishedAt": "2026-09-02T17:00:00Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर National Current Affairs से संबंधित है?",
+      "o": [
+        "India for US push to tackle global imbalances as China blocks G20 consensus"
+      ],
+      "a": 0,
+      "source": "https://www.business-standard.com/india-news/india-for-us-push-to-tackle-global-imbalances-as-china-blocks-g20-consensus-126090201597_1.html",
+      "publishedAt": "2026-09-02T16:30:29Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर National Current Affairs से संबंधित है?",
+      "o": [
+        "MP highway crash: 5 killed, 20 hurt after bus collides with bulker; PM Modi mourns deaths"
+      ],
+      "a": 0,
+      "source": "https://timesofindia.indiatimes.com/india/mp-highway-crash-5-killed-20-hurt-after-bus-collides-with-bulker-pm-modi-mourns-deaths/articleshow/133715684.cms",
+      "publishedAt": "2026-09-02T16:30:23Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर National Current Affairs से संबंधित है?",
+      "o": [
+        "ED makes twin arrests in CGPSC, DMF probes; alleges Rs 3cr paper leak racket, Rs 31cr commission trail"
+      ],
+      "a": 0,
+      "source": "https://timesofindia.indiatimes.com/city/raipur/ed-makes-twin-arrests-in-cgpsc-dmf-probes-alleges-rs-3cr-paper-leak-racket-rs-31cr-commission-trail/articleshow/133715524.cms",
+      "publishedAt": "2026-09-02T16:24:30Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर National Current Affairs से संबंधित है?",
+      "o": [
+        "\"Layers of Life\", gown designed by Keesha Abdallah is inspired by 7 anatomical layers involved in a Caesarean section"
+      ],
+      "a": 0,
+      "source": "https://timesofindia.indiatimes.com/women/voices-of-power/layers-of-life-gown-designed-by-keesha-abdallah-is-inspired-by-7-anatomical-layers-involved-in-a-caesarean-section/articleshow/133715562.cms",
+      "publishedAt": "2026-09-02T16:24:09Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर National Current Affairs से संबंधित है?",
+      "o": [
+        "MoSPI defends GDP estimates, explains negative manufacturing deflator"
+      ],
+      "a": 0,
+      "source": "https://www.business-standard.com/economy/news/mospi-defends-gdp-estimates-explains-negative-manufacturing-deflator-126090201585_1.html",
+      "publishedAt": "2026-09-02T16:23:11Z"
+    }
+  ],
+  "International": [
+    {
+      "q": "निम्न में से कौन-सी खबर International Current Affairs से संबंधित है?",
+      "o": [
+        "Ontario threatened to cut off US critical minerals supply. Sudbury isn’t panicking"
+      ],
+      "a": 0,
+      "source": "https://www.nationalobserver.com/2026/09/02/news/ontario-threatened-cut-us-critical-minerals-supply-sudbury-isnt-panicking",
+      "publishedAt": "2026-09-02T23:44:30Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर International Current Affairs से संबंधित है?",
+      "o": [
+        "Miranda Otto To Star In Binge Family Comedy ‘Tough Love’"
+      ],
+      "a": 0,
+      "source": "http://deadline.com/2026/09/miranda-otto-casting-tough-love-binge-1237065276/",
+      "publishedAt": "2026-09-02T23:30:00Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर International Current Affairs से संबंधित है?",
+      "o": [
+        "Dragon Ball Super's Next Anime Lands Release Date, And It's Only 6 Weeks Away"
+      ],
+      "a": 0,
+      "source": "https://screenrant.com/dragon-ball-super-beerus-release-date-trailer-poster/",
+      "publishedAt": "2026-09-02T23:21:59Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर International Current Affairs से संबंधित है?",
+      "o": [
+        "[Catholic Caucus] Vatican claims Mass is ‘ecological school’ in ‘climate change’ document"
+      ],
+      "a": 0,
+      "source": "https://freerepublic.com/focus/f-religion/4394022/posts",
+      "publishedAt": "2026-09-02T23:20:49Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर International Current Affairs से संबंधित है?",
+      "o": [
+        "North American Team Announced for 2026 FIM Intercontinental Games"
+      ],
+      "a": 0,
+      "source": "https://www.motorcycle.com/bikes/news/north-american-team-announced-for-2026-fim-intercontinental-games-44670631?utm_medium=auto&amp;amp;utm_source=rss&amp;amp;utm_campaign=all_full",
+      "publishedAt": "2026-09-02T23:18:00Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर International Current Affairs से संबंधित है?",
+      "o": [
+        "An Inflection Point for Prediction Markets"
+      ],
+      "a": 0,
+      "source": "https://www.theatlantic.com/newsletters/2026/09/kalshi-polymarket-insider-trading-santos/688505/",
+      "publishedAt": "2026-09-02T22:59:00Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर International Current Affairs से संबंधित है?",
+      "o": [
+        "You Can Only Buy These Le Labo Fragrances in September"
+      ],
+      "a": 0,
+      "source": "http://www.thecut.com/article/le-labo-city-exclusive-collection-review.html",
+      "publishedAt": "2026-09-02T22:39:02Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर International Current Affairs से संबंधित है?",
+      "o": [
+        "A to Zealand: Golf, sheep, doomsday preppers, now a top hotel brand — Kiwi country has it all"
+      ],
+      "a": 0,
+      "source": "https://nypost.com/2026/09/02/lifestyle/rosewood-is-attracting-a-new-kind-of-guest-to-new-zealand/",
+      "publishedAt": "2026-09-02T22:33:31Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर International Current Affairs से संबंधित है?",
+      "o": [
+        "Louis Bielle-Biarrey Is No. 1: Inside His Historic Rise For France And Bordeaux"
+      ],
+      "a": 0,
+      "source": "https://www.florugby.com/articles/16152129-louis-bielle-biarrey-best-rugby-player-world-2026?utm_medium=rss",
+      "publishedAt": "2026-09-02T22:31:53Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर International Current Affairs से संबंधित है?",
+      "o": [
+        "Inside Afghanistan's secret schools where women defy the Taliban to educate girls"
+      ],
+      "a": 0,
+      "source": "https://www.pbs.org/newshour/show/inside-afghanistans-secret-schools-where-women-defy-the-taliban-to-educate-girls",
+      "publishedAt": "2026-09-02T22:30:44Z"
+    }
+  ],
+  "Sports": [
+    {
+      "q": "निम्न में से कौन-सी खबर Sports Current Affairs से संबंधित है?",
+      "o": [
+        "Sports Ministry approves 246-strong contingent of support staff for Asiad"
+      ],
+      "a": 0,
+      "source": "https://economictimes.indiatimes.com/news/sports/other-sports/sports-ministry-approves-246-strong-contingent-of-support-staff-for-asiad/articleshow/133717291.cms",
+      "publishedAt": "2026-09-02T17:51:15Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर Sports Current Affairs से संबंधित है?",
+      "o": [
+        "Nicole Williams English Fires Back at Her ‘The Girls’ Costars: ‘I Trust My Husband 100 Percent’"
+      ],
+      "a": 0,
+      "source": "https://thoughtcatalog.com/xstockton/2026/09/nicole-williams-english-fires-back-at-her-the-girls-costars-i-trust-my-husband-100-percent/",
+      "publishedAt": "2026-09-02T17:25:56Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर Sports Current Affairs से संबंधित है?",
+      "o": [
+        "Asian Games: India's Contingent Strength Reaches 768"
+      ],
+      "a": 0,
+      "source": "https://www.rediff.com/sports/report/sports-ministry-approves-246-strong-support-staff-for-asian-games/20260902.htm",
+      "publishedAt": "2026-09-02T17:17:41Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर Sports Current Affairs से संबंधित है?",
+      "o": [
+        "Today’s News in a Nutshell"
+      ],
+      "a": 0,
+      "source": "https://english.khabarhub.com/2026/02/566201/",
+      "publishedAt": "2026-09-02T16:15:27Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर Sports Current Affairs से संबंधित है?",
+      "o": [
+        "Cowboys’ Hall of Famer Emmitt Smith accused of running $2.5 million Ponzi scheme - Fort Worth Star-Telegram"
+      ],
+      "a": 0,
+      "source": "https://slashdot.org/firehose.pl?op=view&amp;id=185375295",
+      "publishedAt": "2026-09-02T16:12:59Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर Sports Current Affairs से संबंधित है?",
+      "o": [
+        "U.S. Cowboys to Compete in 'Horse Wrestling' at Central Asian World Nomad Games"
+      ],
+      "a": 0,
+      "source": "https://www.breitbart.com/asia/2026/09/02/u-s-cowboys-to-compete-in-horse-wrestling-at-central-asian-world-nomad-games/",
+      "publishedAt": "2026-09-02T15:05:52Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर Sports Current Affairs से संबंधित है?",
+      "o": [
+        "Scottie Scheffler cements spot atop Official World Golf Ranking; U.S. dominates"
+      ],
+      "a": 0,
+      "source": "https://golfweek.usatoday.com/story/sports/golf/2026/09/02/latest-official-world-golf-rankings-top-50-list-scheffler-is-no-1/91557823007/",
+      "publishedAt": "2026-09-02T15:01:01Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर Sports Current Affairs से संबंधित है?",
+      "o": [
+        "From Tiago to Byju's: How Indian brands pitched Messi as their global face"
+      ],
+      "a": 0,
+      "source": "https://www.business-standard.com/companies/people/from-tiago-to-byju-s-how-indian-brands-pitched-messi-as-their-global-face-126090201443_1.html",
+      "publishedAt": "2026-09-02T14:55:45Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर Sports Current Affairs से संबंधित है?",
+      "o": [
+        "For the love of the game"
+      ],
+      "a": 0,
+      "source": "https://chicagoreader.com/visual-arts/art-feature/independent-curators/",
+      "publishedAt": "2026-09-02T14:43:10Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर Sports Current Affairs से संबंधित है?",
+      "o": [
+        "Leaky roof at Dhar school soaks books, clip shows kids setting them out to dry"
+      ],
+      "a": 0,
+      "source": "https://timesofindia.indiatimes.com/city/indore/leaky-roof-at-dhar-school-soaks-books-clip-shows-kids-setting-them-out-to-dry/articleshow/133713092.cms",
+      "publishedAt": "2026-09-02T14:16:57Z"
+    }
+  ],
+  "Awards": [
+    {
+      "q": "निम्न में से कौन-सी खबर Awards Current Affairs से संबंधित है?",
+      "o": [
+        "Delhi Finds Itself In A Hole Lot Of Trouble"
+      ],
+      "a": 0,
+      "source": "https://timesofindia.indiatimes.com/city/delhi/delhi-finds-itself-in-a-hole-lot-of-trouble/articleshow/133717971.cms",
+      "publishedAt": "2026-09-02T18:00:47Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर Awards Current Affairs से संबंधित है?",
+      "o": [
+        "Maharashtra govt considers weightage to Class 12 marks for engineering admissions from 2027-28"
+      ],
+      "a": 0,
+      "source": "https://timesofindia.indiatimes.com/city/mumbai/maharashtra-govt-considers-weightage-to-class-12-marks-for-engineering-admissions-from-2027-28/articleshow/133717575.cms",
+      "publishedAt": "2026-09-02T18:00:35Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर Awards Current Affairs से संबंधित है?",
+      "o": [
+        "Pattas not entered in Webland records, villagers protest"
+      ],
+      "a": 0,
+      "source": "https://timesofindia.indiatimes.com/city/vijayawada/pattas-not-entered-in-webland-records-villagers-protest/articleshow/133717869.cms",
+      "publishedAt": "2026-09-02T18:00:26Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर Awards Current Affairs से संबंधित है?",
+      "o": [
+        "Two yrs after his death, ex-college clerk wins 14-yr legal battle"
+      ],
+      "a": 0,
+      "source": "https://timesofindia.indiatimes.com/city/chandigarh/two-yrs-after-his-death-ex-college-clerk-wins-14-yr-legal-battle/articleshow/133717839.cms",
+      "publishedAt": "2026-09-02T18:00:11Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर Awards Current Affairs से संबंधित है?",
+      "o": [
+        "70-year-old ex-BJP councillor enters JMC polls as oldest candidate"
+      ],
+      "a": 0,
+      "source": "https://timesofindia.indiatimes.com/city/jaipur/70-year-old-ex-bjp-councillor-enters-jmc-polls-as-oldest-candidate/articleshow/133717848.cms",
+      "publishedAt": "2026-09-02T17:59:54Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर Awards Current Affairs से संबंधित है?",
+      "o": [
+        "Targeted for speaking truth, says Pakistan’s Sikh TV anchor"
+      ],
+      "a": 0,
+      "source": "https://timesofindia.indiatimes.com/city/chandigarh/targeted-for-speaking-truth-says-pakistans-sikh-tv-anchor/articleshow/133717793.cms",
+      "publishedAt": "2026-09-02T17:59:47Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर Awards Current Affairs से संबंधित है?",
+      "o": [
+        "BJP stages protest against Rahul Gandhi over women’s reservation bill stand"
+      ],
+      "a": 0,
+      "source": "https://timesofindia.indiatimes.com/city/nashik/bjp-stages-protest-against-rahul-gandhi-over-womens-reservation-bill-stand/articleshow/133717843.cms",
+      "publishedAt": "2026-09-02T17:59:43Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर Awards Current Affairs से संबंधित है?",
+      "o": [
+        "Burglar held with Rs 84 lakh worth jewellery in Sathya Sai district"
+      ],
+      "a": 0,
+      "source": "https://timesofindia.indiatimes.com/city/vijayawada/burglar-held-with-rs-84-lakh-worth-jewellery-in-sathya-sai-district/articleshow/133717840.cms",
+      "publishedAt": "2026-09-02T17:59:37Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर Awards Current Affairs से संबंधित है?",
+      "o": [
+        "No bar for TN temples to acquire elephants, rules Madras high court"
+      ],
+      "a": 0,
+      "source": "https://timesofindia.indiatimes.com/city/chennai/no-bar-for-tn-temples-to-acquire-elephants-rules-madras-high-court/articleshow/133717767.cms",
+      "publishedAt": "2026-09-02T17:59:35Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर Awards Current Affairs से संबंधित है?",
+      "o": [
+        "32 burglaries detected as interstate house break-in gang busted in Nashik"
+      ],
+      "a": 0,
+      "source": "https://timesofindia.indiatimes.com/city/nashik/32-burglaries-detected-as-interstate-house-break-in-gang-busted-in-nashik/articleshow/133717836.cms",
+      "publishedAt": "2026-09-02T17:59:31Z"
+    }
+  ],
+  "Appointments": [
+    {
+      "q": "निम्न में से कौन-सी खबर Appointments Current Affairs से संबंधित है?",
+      "o": [
+        "Bangalore India hospital flow"
+      ],
+      "a": 0,
+      "source": "https://sive.rs/inflow",
+      "publishedAt": "2026-09-03T00:00:00Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर Appointments Current Affairs से संबंधित है?",
+      "o": [
+        "Haryana jails house 26,526 inmates against sanctioned capacity of 24,280"
+      ],
+      "a": 0,
+      "source": "https://timesofindia.indiatimes.com/city/chandigarh/haryana-jails-house-26526-inmates-against-sanctioned-capacity-of-24280/articleshow/133716331.cms",
+      "publishedAt": "2026-09-02T17:48:15Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर Appointments Current Affairs से संबंधित है?",
+      "o": [
+        "Seven Mistakes Footballers Make Chasing a Second Passport Abroad"
+      ],
+      "a": 0,
+      "source": "https://celticshorts.com/2026/09/seven-mistakes-footballers-make-chasing-a-second-passport-abroad/",
+      "publishedAt": "2026-09-02T09:55:00Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर Appointments Current Affairs से संबंधित है?",
+      "o": [
+        "8th pay commission: Chennai, Puducherry, Chandigarh, Bengaluru — Check full list of meeting dates in September, October"
+      ],
+      "a": 0,
+      "source": "https://www.livemint.com/money/personal-finance/8th-pay-commission-chennai-puducherry-chandigarh-bengaluru-mumbai-meet-employees-stakeholder-full-list-september-october-11788263035316.html",
+      "publishedAt": "2026-09-01T12:52:09Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर Appointments Current Affairs से संबंधित है?",
+      "o": [
+        "South Korea Will Give Every Citizen Free AI Access With Unlimited Tokens"
+      ],
+      "a": 0,
+      "source": "https://decrypt.co/376929/south-korea-will-give-every-citizen-free-ai-access-with-unlimited-tokens",
+      "publishedAt": "2026-08-31T14:03:39Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर Appointments Current Affairs से संबंधित है?",
+      "o": [
+        "Mint Explainer | Why the Mediation Council of India matters—and what comes next"
+      ],
+      "a": 0,
+      "source": "https://www.livemint.com/industry/mint-explainer-why-the-mediation-council-of-india-matters-and-what-comes-next-11788147713996.html",
+      "publishedAt": "2026-08-31T13:47:08Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर Appointments Current Affairs से संबंधित है?",
+      "o": [
+        "Weekly Climate and Energy News Roundup #703"
+      ],
+      "a": 0,
+      "source": "https://wattsupwiththat.com/2026/08/31/weekly-climate-and-energy-news-roundup-703-2/",
+      "publishedAt": "2026-08-31T09:00:00Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर Appointments Current Affairs से संबंधित है?",
+      "o": [
+        "Democracy is upheld not just by a constitution but by citizens accustomed to freedom"
+      ],
+      "a": 0,
+      "source": "https://www.livemint.com/opinion/online-views/democracy-upheld-not-just-by-constitution-but-by-citizens-accustomed-to-freedom-ambedkar-tagore-tocqueville-11788089898695.html",
+      "publishedAt": "2026-08-31T08:30:16Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर Appointments Current Affairs से संबंधित है?",
+      "o": [
+        "Guest and temporary teachers: How to build financial security with job uncertainty"
+      ],
+      "a": 0,
+      "source": "https://economictimes.indiatimes.com/wealth/plan/guest-and-temporary-teachers-how-to-build-financial-security-with-job-uncertainty/articleshow/133602958.cms",
+      "publishedAt": "2026-08-31T01:00:00Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर Appointments Current Affairs से संबंधित है?",
+      "o": [
+        "HDFC Bank weighs an insider and an outsider for new CEO"
+      ],
+      "a": 0,
+      "source": "https://www.livemint.com/companies/news/hdfc-bank-new-ceo-sashidhar-jagdishan-kaizad-bharucha-11788088969518.html",
+      "publishedAt": "2026-08-30T11:32:43Z"
+    }
+  ],
+  "Economy": [
+    {
+      "q": "निम्न में से कौन-सी खबर Economy Current Affairs से संबंधित है?",
+      "o": [
+        "Inside India newsletter: India’s economic growth smashes forecasts, but its biggest stocks aren't feeling the love"
+      ],
+      "a": 0,
+      "source": "https://www.cnbc.com/2026/09/03/india-nifty-sensex-manufacturing-economy-gdp.html",
+      "publishedAt": "2026-09-03T00:05:56Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर Economy Current Affairs से संबंधित है?",
+      "o": [
+        "Spotlight on startups: India and EU look seek deeper tech ties"
+      ],
+      "a": 0,
+      "source": "https://economictimes.indiatimes.com/news/economy/foreign-trade/spotlight-on-startups-india-and-eu-look-seek-deeper-tech-ties/articleshow/133719328.cms",
+      "publishedAt": "2026-09-02T19:55:25Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर Economy Current Affairs से संबंधित है?",
+      "o": [
+        "GDP data revision: Govt says it's revised base, not baseless"
+      ],
+      "a": 0,
+      "source": "https://economictimes.indiatimes.com/news/economy/indicators/gdp-data-revision-govt-says-its-revised-base-not-baseless/articleshow/133719320.cms",
+      "publishedAt": "2026-09-02T19:45:44Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर Economy Current Affairs से संबंधित है?",
+      "o": [
+        "After 35 years, Japan's JCRA upgrades India sovereign rating to A- from BBB+"
+      ],
+      "a": 0,
+      "source": "https://economictimes.indiatimes.com/news/economy/indicators/after-35-years-japans-jcra-upgrades-india-sovereign-rating-to-a-from-bbb/articleshow/133719290.cms",
+      "publishedAt": "2026-09-02T19:39:39Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर Economy Current Affairs से संबंधित है?",
+      "o": [
+        "‘We politicians, ministers and MPs do not manufacture these figures’: Goyal hits back at critics over 7.8% Q1 GDP growth"
+      ],
+      "a": 0,
+      "source": "https://economictimes.indiatimes.com/news/politics-and-nation/we-politicians-ministers-and-mps-do-not-manufacture-these-figures-goyal-hits-back-at-critics-over-7-8-q1-gdp-growth/articleshow/133718529.cms",
+      "publishedAt": "2026-09-02T18:35:40Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर Economy Current Affairs से संबंधित है?",
+      "o": [
+        "Why Russia should end its endless war"
+      ],
+      "a": 0,
+      "source": "https://economictimes.indiatimes.com/news/international/world-news/why-russia-should-end-its-endless-war/articleshow/133717353.cms",
+      "publishedAt": "2026-09-02T18:05:11Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर Economy Current Affairs से संबंधित है?",
+      "o": [
+        "Cash no king, but don't stash it: India wants a digital economy, but cash still holds the power of choice"
+      ],
+      "a": 0,
+      "source": "https://economictimes.indiatimes.com/opinion/et-commentary/cash-no-king-but-dont-stash-it-india-wants-a-digital-economy-but-cash-still-holds-the-power-of-choice/articleshow/133716840.cms",
+      "publishedAt": "2026-09-02T17:47:34Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर Economy Current Affairs से संबंधित है?",
+      "o": [
+        "How Trump Lost Asia"
+      ],
+      "a": 0,
+      "source": "https://www.theatlantic.com/podcasts/2026/09/david-frum-show-malcolm-turnbull-australia-pacific-china/688500/",
+      "publishedAt": "2026-09-02T17:00:00Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर Economy Current Affairs से संबंधित है?",
+      "o": [
+        "The art of judgement by stealth"
+      ],
+      "a": 0,
+      "source": "https://www.business-standard.com/book/the-art-of-judgement-by-stealth-126090201604_1.html",
+      "publishedAt": "2026-09-02T16:35:50Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर Economy Current Affairs से संबंधित है?",
+      "o": [
+        "Today’s News in a Nutshell"
+      ],
+      "a": 0,
+      "source": "https://english.khabarhub.com/2026/02/566201/",
+      "publishedAt": "2026-09-02T16:15:27Z"
+    }
+  ],
+  "Science & Technology": [
+    {
+      "q": "निम्न में से कौन-सी खबर Science & Technology Current Affairs से संबंधित है?",
+      "o": [
+        "Model-free pattern separation of two-color ultrafast X-ray diffraction"
+      ],
+      "a": 0,
+      "source": "https://www.nature.com/articles/s41467-026-77085-z.pdf",
+      "publishedAt": "2026-09-03T00:00:00Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर Science & Technology Current Affairs से संबंधित है?",
+      "o": [
+        "Just Join the Paani Points: India’s data centre boom puts water use and local security under scrutiny"
+      ],
+      "a": 0,
+      "source": "https://economictimes.indiatimes.com/opinion/et-commentary/just-join-the-paani-points-indias-data-centre-boom-puts-water-use-and-local-security-under-scrutiny/articleshow/133716682.cms",
+      "publishedAt": "2026-09-02T17:41:27Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर Science & Technology Current Affairs से संबंधित है?",
+      "o": [
+        "How Trump Lost Asia"
+      ],
+      "a": 0,
+      "source": "https://www.theatlantic.com/podcasts/2026/09/david-frum-show-malcolm-turnbull-australia-pacific-china/688500/",
+      "publishedAt": "2026-09-02T17:00:00Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर Science & Technology Current Affairs से संबंधित है?",
+      "o": [
+        "No protein bars. Salman Khan’s heroine, fit and radiant at 57, eats parathas for protein. One ingredient is India’s natural protein powder, can lower blood sugar"
+      ],
+      "a": 0,
+      "source": "https://economictimes.indiatimes.com/magazines/panache/no-protein-bars-salman-khans-heroine-fit-and-radiant-at-57-eats-parathas-for-protein-one-ingredient-is-indias-natural-protein-powder-can-lower-blood-sugar/articleshow/133715656.cms",
+      "publishedAt": "2026-09-02T16:24:48Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर Science & Technology Current Affairs से संबंधित है?",
+      "o": [
+        "Ahead of Market: 10 things that will decide stock market action on Thursday"
+      ],
+      "a": 0,
+      "source": "https://economictimes.indiatimes.com/markets/stocks/news/ahead-of-market-10-things-that-will-decide-stock-market-action-on-thursday/articleshow/133714998.cms",
+      "publishedAt": "2026-09-02T15:55:59Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर Science & Technology Current Affairs से संबंधित है?",
+      "o": [
+        "SSC JE Recruitment 2026: Check how to apply, direct link, eligibility, vacancies, application fee and more"
+      ],
+      "a": 0,
+      "source": "https://economictimes.indiatimes.com/news/new-updates/ssc-je-recruitment-2026-check-how-to-apply-direct-link-eligibility-vacancies-application-fee-and-more/articleshow/133714524.cms",
+      "publishedAt": "2026-09-02T15:37:39Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर Science & Technology Current Affairs से संबंधित है?",
+      "o": [
+        "Infectious illness stalks MP’s Baiga kids, 400 hospitalised in 1.5 months"
+      ],
+      "a": 0,
+      "source": "https://timesofindia.indiatimes.com/city/bhopal/infectious-illness-stalks-mps-baiga-kids-400-hospitalised-in-1-5-months/articleshow/133714562.cms",
+      "publishedAt": "2026-09-02T15:30:53Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर Science & Technology Current Affairs से संबंधित है?",
+      "o": [
+        "Health secretary asks districts to begin swine flu testing"
+      ],
+      "a": 0,
+      "source": "https://timesofindia.indiatimes.com/city/ranchi/health-secretary-asks-districts-to-begin-swine-flu-testing/articleshow/133714556.cms",
+      "publishedAt": "2026-09-02T15:30:35Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर Science & Technology Current Affairs से संबंधित है?",
+      "o": [
+        "HC seeks police response on Tahir Hussain appeal in IB staffer’s murder"
+      ],
+      "a": 0,
+      "source": "https://timesofindia.indiatimes.com/city/delhi/hc-seeks-police-response-on-tahir-hussain-appeal-in-ib-staffers-murder/articleshow/133714553.cms",
+      "publishedAt": "2026-09-02T15:30:27Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर Science & Technology Current Affairs से संबंधित है?",
+      "o": [
+        "Jharkhand rain likely to ease as low-pressure area weakens, Kharif sowing crosses 76%"
+      ],
+      "a": 0,
+      "source": "https://timesofindia.indiatimes.com/city/ranchi/jharkhand-rain-likely-to-ease-as-low-pressure-area-weakens-kharif-sowing-crosses-76/articleshow/133714547.cms",
+      "publishedAt": "2026-09-02T15:30:14Z"
+    }
+  ],
+  "Government Schemes": [
+    {
+      "q": "निम्न में से कौन-सी खबर Government Schemes Current Affairs से संबंधित है?",
+      "o": [
+        "PM Modi calls for greater adoption of water-saving technologies"
+      ],
+      "a": 0,
+      "source": "https://www.business-standard.com/india-news/pm-modi-calls-for-greater-adoption-of-water-saving-technologies-126090201641_1.html",
+      "publishedAt": "2026-09-02T17:41:28Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर Government Schemes Current Affairs से संबंधित है?",
+      "o": [
+        "The changing economics of weak monsoon"
+      ],
+      "a": 0,
+      "source": "https://www.thehindubusinessline.com/opinion/the-changing-economics-of-weak-monsoon/article71419836.ece",
+      "publishedAt": "2026-09-02T15:38:15Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर Government Schemes Current Affairs से संबंधित है?",
+      "o": [
+        "Record FCNR (B) inflows as banks mobilise $127 bln"
+      ],
+      "a": 0,
+      "source": "https://economictimes.indiatimes.com/news/economy/finance/record-fcnr-b-inflows-as-banks-mobilise-127-bln/articleshow/133714039.cms",
+      "publishedAt": "2026-09-02T14:56:13Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर Government Schemes Current Affairs से संबंधित है?",
+      "o": [
+        "Chaotic map based efficient anonymous authentication and key agreement scheme for VANETS"
+      ],
+      "a": 0,
+      "source": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0357045",
+      "publishedAt": "2026-09-02T14:00:00Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर Government Schemes Current Affairs से संबंधित है?",
+      "o": [
+        "Ukraine’s Refinery Strikes Force Russia to Process Oil Abroad"
+      ],
+      "a": 0,
+      "source": "https://oilprice.com/Energy/Gas-Prices/Ukraines-Refinery-Strikes-Force-Russia-to-Process-Oil-Abroad.html",
+      "publishedAt": "2026-09-02T14:00:00Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर Government Schemes Current Affairs से संबंधित है?",
+      "o": [
+        "Worker shortages hit 61% of auto suppliers even as EV shift promises 7.2 million jobs"
+      ],
+      "a": 0,
+      "source": "https://www.thehindubusinessline.com/economy/worker-shortages-hit-61-of-auto-suppliers-even-as-ev-shift-promises-72-million-jobs/article71417070.ece",
+      "publishedAt": "2026-09-02T07:10:39Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर Government Schemes Current Affairs से संबंधित है?",
+      "o": [
+        "IFCI share price spurts 11%, nears ₹100-mark after an 18-year gap"
+      ],
+      "a": 0,
+      "source": "https://www.business-standard.com/markets/news/ifci-share-price-spurts-11-nears-100-mark-after-an-18-year-gap-126090200431_1.html",
+      "publishedAt": "2026-09-02T07:09:03Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर Government Schemes Current Affairs से संबंधित है?",
+      "o": [
+        "ACMA Annual Session: Kumaraswamy urges auto industry to focus more on design, domestic value addition"
+      ],
+      "a": 0,
+      "source": "https://www.thehindubusinessline.com/economy/acma-annual-session-kumaraswamy-urges-auto-industry-to-focus-more-on-design-domestic-value-addition/article71418336.ece",
+      "publishedAt": "2026-09-02T06:31:36Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर Government Schemes Current Affairs से संबंधित है?",
+      "o": [
+        "Once invisible, 42,000 waste pickers now recognised as climate champions under UN project"
+      ],
+      "a": 0,
+      "source": "https://www.thehindubusinessline.com/news/once-invisible-42000-waste-pickers-now-recognised-as-climate-champions-under-un-project/article71418105.ece",
+      "publishedAt": "2026-09-02T06:16:46Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर Government Schemes Current Affairs से संबंधित है?",
+      "o": [
+        "₹25 ride: India’s bike taxis are cheap, fast and still fighting for a place on the road"
+      ],
+      "a": 0,
+      "source": "https://economictimes.indiatimes.com/industry/auto/auto-news/bike-taxi-india-2026-rules-price-rapido-uber-bike-taxi-regulations-market-future-25-ride-indias-bike-taxis-are-cheap-fast-and-still-fighting-for-a-place-on-the-road/articleshow/133539432.cms",
+      "publishedAt": "2026-09-02T06:13:10Z"
+    }
+  ],
+  "Current Affairs MCQ": [
+    {
+      "q": "निम्न में से कौन-सी खबर Current Affairs MCQ Current Affairs से संबंधित है?",
+      "o": [
+        "How Trump Lost Asia"
+      ],
+      "a": 0,
+      "source": "https://www.theatlantic.com/podcasts/2026/09/david-frum-show-malcolm-turnbull-australia-pacific-china/688500/",
+      "publishedAt": "2026-09-02T17:00:00Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर Current Affairs MCQ Current Affairs से संबंधित है?",
+      "o": [
+        "School assembly news headlines for September 3: Top India, world, sports and business updates"
+      ],
+      "a": 0,
+      "source": "https://economictimes.indiatimes.com/news/new-updates/school-assembly-news-headlines-for-september-3-top-india-world-sports-and-business-updates/articleshow/133710005.cms",
+      "publishedAt": "2026-09-02T12:49:05Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर Current Affairs MCQ Current Affairs से संबंधित है?",
+      "o": [
+        "President Xi Jinping Attends the \"SCO Plus\" Meeting and Delivers an Important Statement"
+      ],
+      "a": 0,
+      "source": "https://www.globalsecurity.org/wmd/library/news/china/2026/09/china-260902-prc-mofa01.htm",
+      "publishedAt": "2026-09-02T12:00:00Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर Current Affairs MCQ Current Affairs से संबंधित है?",
+      "o": [
+        "The US is gobbling up Venezuelan oil, but will it lower fuel prices?"
+      ],
+      "a": 0,
+      "source": "https://www.aljazeera.com/news/2026/9/2/the-us-is-gobbling-up-venezuelan-oil-but-will-it-lower-fuel-prices",
+      "publishedAt": "2026-09-02T11:43:31Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर Current Affairs MCQ Current Affairs से संबंधित है?",
+      "o": [
+        "PR can polish picture of GDP, but not economy itself: Congress slams Modi government"
+      ],
+      "a": 0,
+      "source": "https://economictimes.indiatimes.com/news/politics-and-nation/pr-can-polish-picture-of-gdp-but-not-economy-itself-congress-slams-modi-government/articleshow/133701101.cms",
+      "publishedAt": "2026-09-02T06:59:34Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर Current Affairs MCQ Current Affairs से संबंधित है?",
+      "o": [
+        "UN chief Antonio Guterres to attend BRICS summit in New Delhi"
+      ],
+      "a": 0,
+      "source": "https://economictimes.indiatimes.com/news/india/un-chief-antonio-guterres-to-attend-brics-summit-in-new-delhi/articleshow/133695368.cms",
+      "publishedAt": "2026-09-02T02:09:12Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर Current Affairs MCQ Current Affairs से संबंधित है?",
+      "o": [
+        "Iran Offers Trump An Off-Ramp As US, Tehran Trade Strikes"
+      ],
+      "a": 0,
+      "source": "https://dailycaller.com/2026/09/01/iran-donald-trump-off-ramp-trading-strikes",
+      "publishedAt": "2026-09-01T17:59:32Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर Current Affairs MCQ Current Affairs से संबंधित है?",
+      "o": [
+        "Rice University builds momentum with record demand, historic growth"
+      ],
+      "a": 0,
+      "source": "https://www.prnewswire.com/news-releases/rice-university-builds-momentum-with-record-demand-historic-growth-302866642.html",
+      "publishedAt": "2026-09-01T17:41:00Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर Current Affairs MCQ Current Affairs से संबंधित है?",
+      "o": [
+        "17 bidders vie for ₹8,300 crore Rameshwar-Paradip coastal highway"
+      ],
+      "a": 0,
+      "source": "https://www.business-standard.com/industry/news/17-bidders-vie-for-8-300-crore-rameshwar-paradip-coastal-highway-126090101533_1.html",
+      "publishedAt": "2026-09-01T15:44:58Z"
+    },
+    {
+      "q": "निम्न में से कौन-सी खबर Current Affairs MCQ Current Affairs से संबंधित है?",
+      "o": [
+        "Spike in onion prices likely to persist as drought hits Karnataka cultivation"
+      ],
+      "a": 0,
+      "source": "https://www.thehindubusinessline.com/economy/agri-business/spike-in-onion-prices-likely-to-persist-as-drought-hits-karnataka-cultivation/article71415944.ece",
+      "publishedAt": "2026-09-01T15:03:46Z"
+    }
+  ],
+  "_updatedAt": "2026-09-04T00:08:10.107270+00:00"
+}
