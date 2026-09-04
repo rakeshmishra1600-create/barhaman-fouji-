@@ -8,6 +8,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: update-current-affairs
+  cancel-in-progress: false
+
 jobs:
   update-current-affairs:
     runs-on: ubuntu-latest
@@ -15,13 +19,15 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.x"
 
-      - name: Generate Current Affairs
+      - name: Fetch Current Affairs
         env:
           NEWS_API_KEY: ${{ secrets.NEWS_API_KEY }}
         run: |
@@ -33,7 +39,10 @@ jobs:
           import urllib.request
           from datetime import datetime, timezone
 
-          API_KEY = os.environ["NEWS_API_KEY"]
+          API_KEY = os.environ.get("NEWS_API_KEY")
+
+          if not API_KEY:
+              raise RuntimeError("NEWS_API_KEY secret is missing.")
 
           categories = {
               "Daily": "India latest news",
@@ -59,21 +68,47 @@ jobs:
 
               url = "https://newsapi.org/v2/everything?" + params
 
-              with urllib.request.urlopen(url, timeout=30) as response:
-                  data = json.loads(response.read().decode("utf-8"))
+              with urllib.request.urlopen(url, timeout=40) as response:
+                  data = json.loads(
+                      response.read().decode("utf-8")
+                  )
 
-              return [
-                  article for article in data.get("articles", [])
-                  if article.get("title")
-                  and article.get("title") != "[Removed]"
-              ]
+              if data.get("status") != "ok":
+                  raise RuntimeError(
+                      "NewsAPI error: " + str(data)
+                  )
 
-          random.seed(datetime.now(timezone.utc).strftime("%Y-%m-%d"))
+              articles = []
+
+              for article in data.get("articles", []):
+                  title = article.get("title")
+
+                  if not title:
+                      continue
+
+                  if title == "[Removed]":
+                      continue
+
+                  articles.append(article)
+
+              return articles
+
+          print("Fetching current affairs...")
 
           news = {}
 
           for category, query in categories.items():
+              print("Fetching:", category)
               news[category] = get_news(query)
+              print(
+                  category,
+                  "articles:",
+                  len(news[category])
+              )
+
+          random.seed(
+              datetime.now(timezone.utc).strftime("%Y-%m-%d")
+          )
 
           result = {}
 
@@ -81,12 +116,28 @@ jobs:
 
               questions = []
 
-              for target in articles[:10]:
+              # Remove duplicate headlines
+              unique_articles = []
+              seen_titles = set()
 
-                  correct = target["title"]
+              for article in articles:
+                  title = article.get("title", "").strip()
 
-                  # दूसरी categories से 3 अलग headlines
-                  wrong = []
+                  if not title:
+                      continue
+
+                  if title in seen_titles:
+                      continue
+
+                  seen_titles.add(title)
+                  unique_articles.append(article)
+
+              for target in unique_articles[:10]:
+
+                  correct = target["title"].strip()
+
+                  # Collect wrong options from other categories
+                  candidates = []
 
                   for other_category, other_articles in news.items():
 
@@ -95,37 +146,64 @@ jobs:
 
                       for article in other_articles:
 
-                          title = article.get("title")
+                          title = article.get(
+                              "title", ""
+                          ).strip()
 
-                          if title and title != correct:
-                              wrong.append(title)
+                          if not title:
+                              continue
 
-                          if len(wrong) >= 3:
-                              break
+                          if title == correct:
+                              continue
 
-                      if len(wrong) >= 3:
-                          break
+                          if title in candidates:
+                              continue
 
-                  if len(wrong) < 3:
+                          candidates.append(title)
+
+                  # Need exactly 3 wrong options
+                  if len(candidates) < 3:
                       continue
 
-                  options = [correct] + wrong[:3]
+                  wrong_options = random.sample(
+                      candidates,
+                      3
+                  )
+
+                  options = [
+                      correct,
+                      wrong_options[0],
+                      wrong_options[1],
+                      wrong_options[2]
+                  ]
 
                   random.shuffle(options)
 
                   questions.append({
-                      "q": f"हाल की खबरों के अनुसार {category} से संबंधित खबर कौन-सी है?",
+                      "q": (
+                          f"हाल की खबरों के अनुसार "
+                          f"{category} से संबंधित खबर कौन-सी है?"
+                      ),
                       "o": options,
                       "a": options.index(correct),
                       "source": target.get("url", ""),
-                      "publishedAt": target.get("publishedAt", "")
+                      "publishedAt": target.get(
+                          "publishedAt", ""
+                      )
                   })
 
               result[category] = questions
 
-          result["_updatedAt"] = datetime.now(timezone.utc).isoformat()
+          result["_updatedAt"] = (
+              datetime.now(timezone.utc).isoformat()
+          )
 
-          with open("current-affairs.json", "w", encoding="utf-8") as file:
+          with open(
+              "current-affairs.json",
+              "w",
+              encoding="utf-8"
+          ) as file:
+
               json.dump(
                   result,
                   file,
@@ -133,19 +211,32 @@ jobs:
                   indent=2
               )
 
-          print("4-option Current Affairs generated successfully.")
+          total = sum(
+              len(v)
+              for k, v in result.items()
+              if isinstance(v, list)
+          )
+
+          print(
+              "Successfully generated",
+              total,
+              "four-option questions."
+          )
           PY
 
-      - name: Save Updated Questions
+      - name: Commit and Push Current Affairs
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
+          git pull --rebase origin main
+
           git add current-affairs.json
 
           if git diff --cached --quiet; then
-            echo "No changes."
+            echo "No changes to commit."
           else
             git commit -m "Auto update 4-option Current Affairs"
-            git push
+            git pull --rebase origin main
+            git push origin main
           fi
