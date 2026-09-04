@@ -132,7 +132,7 @@ jobs:
                   seen_titles.add(title)
                   unique_articles.append(article)
 
-              for target in unique_articles[:10]:
+             for target in articles:
 
                   correct = target["title"].strip()
 
