@@ -1624,13 +1624,20 @@ body.dark-mode .home-devotional{
 .ob-book{position:relative;width:min(64%,510px);height:min(92%,520px);min-height:280px;display:flex;align-items:stretch;justify-content:center;transform:rotate(0deg);filter:drop-shadow(0 20px 16px #000b);perspective:1800px}
 .ob-page-frame{position:relative;width:100%;height:100%;padding:9px;background:linear-gradient(135deg,#0b1f3a,#07152b);border:4px solid #4ea6c8;border-radius:12px;box-shadow:0 10px 25px #000b,0 0 5px rgba(78,166,200,.55),inset 0 0 0 2px rgba(165,224,242,.28);transform-style:preserve-3d}
 .ob-page-frame:before{content:"";position:absolute;inset:8px;border:2px solid rgba(110,190,220,.28);border-radius:5px;pointer-events:none;z-index:3}
-.ob-page-surface{position:relative;width:100%;height:100%;overflow:hidden;border-radius:4px;background:#f7eedb;box-shadow:inset 0 0 24px #4a2a1218}
-.ob-page-surface canvas{display:block;background:#fff;max-width:100%;max-height:100%}
-.ob-page-shadow{position:absolute;inset:0;pointer-events:none;box-shadow:inset 0 0 22px #43200818,inset -8px 0 12px #43200812}
+.ob-page-surface{position:relative;width:100%;height:100%;overflow:hidden;border-radius:6px;background:#f8f2df;box-shadow:inset 0 0 28px rgba(73,43,12,.10),inset 0 0 0 1px rgba(112,77,35,.16)}
+.ob-page-surface canvas{display:block;position:absolute;left:50%;top:50%;background:#fffdf6;max-width:none;max-height:none;image-rendering:auto}
+#oldBookCanvasUnder{z-index:1;visibility:hidden;opacity:1}
+#oldBookCanvasRight{z-index:2;visibility:visible;opacity:1}
+.ob-page-surface:after{content:"";position:absolute;inset:0;pointer-events:none;z-index:6;background:linear-gradient(90deg,rgba(98,58,20,.11),transparent 7%,transparent 92%,rgba(66,35,8,.13)),linear-gradient(180deg,rgba(255,255,255,.16),transparent 4%,transparent 96%,rgba(73,43,12,.08));mix-blend-mode:multiply}
+.ob-flip-sheet{position:absolute;left:50%;top:50%;z-index:5;width:100%;height:100%;transform:translate(-50%,-50%) rotateY(0deg);transform-style:preserve-3d;transform-origin:center;display:none;pointer-events:none;box-shadow:0 12px 20px rgba(53,31,7,.26);border-radius:6px}
+.ob-flip-face{position:absolute;inset:0;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:6px;background:#fffdf6;box-shadow:inset 0 0 0 1px rgba(90,58,20,.16),inset 0 0 28px rgba(73,43,12,.10)}
+.ob-flip-face canvas{position:absolute;left:50%;top:50%;display:block;background:#fffdf6;max-width:none;max-height:none}
+.ob-flip-back{transform:rotateY(180deg)}
+.ob-page-shadow{position:absolute;inset:0;pointer-events:none;z-index:7;box-shadow:inset 0 0 22px rgba(67,32,8,.10),inset -10px 0 14px rgba(67,32,8,.08)}
 .ob-loading{position:absolute;inset:0;display:none;align-items:center;justify-content:center;color:#5a3a1f;background:#f6edd9;font-weight:900;font-size:13px;z-index:9;text-align:center}.ob-loading.is-hidden{display:none!important}
-.ob-page-flip-next{animation:obPageNext .58s cubic-bezier(.2,.75,.2,1) both}.ob-page-flip-prev{animation:obPagePrev .58s cubic-bezier(.2,.75,.2,1) both}
-@keyframes obPageNext{0%{transform:rotateY(0) rotateZ(0deg);transform-origin:right center}45%{transform:rotateY(-72deg) rotateZ(0deg) translateX(-2%);box-shadow:20px 10px 30px #0008}100%{transform:rotateY(0) rotateZ(0deg);transform-origin:right center}}
-@keyframes obPagePrev{0%{transform:rotateY(0) rotateZ(0deg);transform-origin:left center}45%{transform:rotateY(72deg) rotateZ(0deg) translateX(2%);box-shadow:-20px 10px 30px #0008}100%{transform:rotateY(0) rotateZ(0deg);transform-origin:left center}}
+.ob-page-flip-next{animation:obPageNext .62s cubic-bezier(.2,.72,.18,1) both}.ob-page-flip-prev{animation:obPagePrev .62s cubic-bezier(.2,.72,.18,1) both}
+@keyframes obPageNext{0%{transform:translate(-50%,-50%) rotateY(0deg);opacity:1}42%{box-shadow:16px 14px 24px rgba(0,0,0,.34)}100%{transform:translate(-50%,-50%) rotateY(-180deg);opacity:1}}
+@keyframes obPagePrev{0%{transform:translate(-50%,-50%) rotateY(0deg);opacity:1}42%{box-shadow:-16px 14px 24px rgba(0,0,0,.34)}100%{transform:translate(-50%,-50%) rotateY(180deg);opacity:1}}
 .ob-kath-base{position:absolute;left:-1%;right:-1%;bottom:-4%;height:17%;border-radius:0 0 15px 15px;background:linear-gradient(180deg,#754321,#351a0d);box-shadow:0 13px 23px #0008}.ob-stand-ornament{position:absolute;z-index:4;bottom:6%;left:50%;transform:translateX(-50%);color:#f1ca73;font-size:20px;text-shadow:0 2px 5px #000}
 .ob-controls{display:flex;align-items:center;justify-content:center;gap:9px;margin-top:8px;background:#251207e8;padding:7px 9px;border-radius:12px;border:1px solid #e4bd7340;box-shadow:0 8px 24px #0008}.ob-nav-btn{border:1px solid #3165cf;background:linear-gradient(#17439a,#08225d);color:#fff;border-radius:8px;padding:8px 18px;font-size:11px;font-weight:900;cursor:pointer;min-width:92px}.ob-nav-btn:hover{border-color:#a9c6ff;transform:translateY(-1px)}.ob-page-count{color:#f5e3c0;font-size:10px;font-weight:900;min-width:90px;text-align:center}
 .ob-topic-panel{width:min(90vw,820px);margin-top:9px;background:linear-gradient(180deg,#432313,#1c0d07);border:1px solid #d0a45d55;border-radius:12px;padding:9px 10px;box-shadow:0 8px 25px #0008;max-height:145px;overflow:auto}.ob-topic-title{color:#ffe6ad;font-size:11px;font-weight:900;text-align:center;margin-bottom:7px} .ob-topic-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px 8px;align-items:stretch}.ob-topic-btn{border:1px solid #5f7890;background:linear-gradient(180deg,#263b4d,#182836);color:#f5f7fa;border-radius:7px;padding:6px 8px;font-size:10px;font-weight:800;cursor:pointer;line-height:1.25;text-align:left;min-width:0;white-space:normal;transition:transform .16s ease,border-color .16s ease,background .16s ease}.ob-topic-btn:hover{border-color:#7fc2d8;background:linear-gradient(180deg,#30495c,#1d303f);transform:translateY(-1px)}.ob-topic-btn:active{transform:translateY(0)}@media(max-width:700px){.ob-topic-list{grid-template-columns:repeat(2,minmax(0,1fr));gap:5px 6px}.ob-topic-btn{font-size:9px;padding:6px 7px}}
@@ -1656,6 +1663,71 @@ body.dark-mode .home-devotional{
 @media(max-width:700px){#oldBookReader{padding:4px}.ob-reader-panel{width:99vw;height:99vh}.ob-reader-top{width:95vw}.ob-reader-title{font-size:14px}.ob-book-info{width:95vw}.ob-main-thumb,.ob-last-thumb{width:46px;height:62px;flex-basis:46px}.ob-next-topic-mini{font-size:8px;padding:3px 5px}.ob-kath{width:95vw;height:57vh;min-height:320px;border-width:4px}.ob-book-holder{left:6%;right:6%;top:10%;bottom:18%}.ob-book{width:78%;height:91%;min-height:250px}.ob-page-frame{padding:6px;border-width:4px}.ob-controls{gap:5px;margin-top:6px}.ob-nav-btn{min-width:78px;padding:7px 10px;font-size:9px}.ob-page-count{min-width:65px;font-size:9px}.ob-topic-panel{width:95vw;max-height:120px}.ob-topic-btn{font-size:8px;padding:5px 6px}}
 </style>
 
+<style id="oldBookNavExtraStyle">
+.ob-controls{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:8px}
+.ob-home-btn,.ob-exit-btn{background:linear-gradient(135deg,#173c52,#0e2737)!important;border-color:#4ea6c8!important}
+@media(max-width:600px){.ob-controls{gap:4px}.ob-nav-btn{min-width:68px}.ob-home-btn,.ob-exit-btn{min-width:64px}}
+</style>
+<style id="oldBookControlsInsideOkFix">
+/* Navigation box: moved to the exact lower area marked "OK" in the screenshot. */
+#oldBookReader .ob-kath{position:relative;}
+#oldBookReader .ob-controls-inside{
+  position:absolute!important;
+  left:50%!important;
+  bottom:5%!important;
+  transform:translateX(-50%)!important;
+  z-index:20!important;
+  margin:0!important;
+  width:max-content!important;
+  max-width:94%!important;
+  background:#000!important;
+  border:1px solid #4f4f4f!important;
+  border-radius:12px!important;
+  padding:7px 9px!important;
+  box-shadow:0 6px 18px rgba(0,0,0,.75)!important;
+}
+#oldBookReader .ob-controls-inside .ob-nav-btn{
+  flex:0 0 auto;
+}
+@media(max-width:700px){
+  #oldBookReader .ob-controls-inside{
+    bottom:4%!important;
+    max-width:94%!important;
+    padding:6px 7px!important;
+  }
+}
+</style>
+<style id="oldBookDynamicHeaderStyle">
+/* ===== CURRENT TOPIC HEADER ===== */
+#oldBookReader .ob-book-info{width:min(90vw,820px);display:flex!important;align-items:center;gap:12px;padding:8px 12px;margin:0 0 8px;background:linear-gradient(90deg,#160904,#261108 55%,#0b0907);border:2px solid #d4a45e;border-radius:12px;box-shadow:0 8px 22px #0009;min-height:78px;box-sizing:border-box;}
+#oldBookReader .ob-main-thumb{width:58px;height:76px;flex:0 0 58px;border:2px solid #e6c06f;border-radius:6px;background:#fff;overflow:hidden;box-shadow:0 4px 12px #0008;cursor:pointer;}
+#oldBookReader .ob-book-info-text{min-width:0;flex:1;color:#fff1d0;border-left:2px solid #e6c06f;padding-left:13px;}
+#oldBookReader .ob-book-info-text strong{display:block;font-size:18px;font-weight:950;line-height:1.15;color:#fff7e8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+#oldBookReader .ob-book-info-text span#oldBookInfoMeta{display:block;margin-top:5px;font-size:12px;font-weight:800;color:#f2e3c5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+#oldBookReader .ob-book-info-text .ob-current-topic{display:block;margin-top:3px;font-size:11px;font-weight:900;color:#ffd66e;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+#oldBookReader .ob-last-thumb,#oldBookReader .ob-next-topic-mini{display:none!important;}
+@media(max-width:700px){#oldBookReader .ob-book-info{width:95vw;min-height:65px;padding:6px 8px;gap:8px;margin-bottom:6px;}#oldBookReader .ob-main-thumb{width:46px;height:60px;flex-basis:46px;}#oldBookReader .ob-book-info-text{padding-left:9px;}#oldBookReader .ob-book-info-text strong{font-size:14px;}#oldBookReader .ob-book-info-text span#oldBookInfoMeta{font-size:9px;margin-top:3px;}#oldBookReader .ob-book-info-text .ob-current-topic{font-size:9px;margin-top:2px;}}
+</style>
+<style id="oldBookPdfDisplayFix">
+#oldBookReader .ob-page-surface{display:flex!important;align-items:center!important;justify-content:center!important;visibility:visible!important;}
+#oldBookReader #oldBookCanvasRight{visibility:visible!important;opacity:1!important;}
+</style>
+
+<style id="oldBookCleanTopFix2">
+#oldBookReader .ob-reader-top{display:none!important;}
+#oldBookReader .ob-reader-panel{padding-top:0!important;}
+#oldBookReader .ob-reader-close{display:none!important;}
+</style>
+<style id="oldBookHardPaperClarity">
+  #oldBookReader .ob-page-frame{background:linear-gradient(135deg,#0a2038,#071523)!important;box-shadow:0 12px 30px rgba(0,0,0,.45),0 0 0 1px rgba(205,227,240,.18)!important}
+  #oldBookReader .ob-page-surface{background:#fffdf6!important}
+  #oldBookReader .ob-page-surface canvas,#oldBookReader .ob-flip-face canvas{filter:contrast(1.02) saturate(1.01);will-change:transform}
+  #oldBookReader .ob-flip-sheet{pointer-events:none}
+  @media(max-width:700px){
+    #oldBookReader .ob-page-surface{box-shadow:inset 0 0 22px rgba(73,43,12,.08)!important}
+    #oldBookReader .ob-flip-face{border-radius:5px}
+  }
+</style>
 </head>  <body>  <div id="progress"></div>
 
 <div id="toast" class="toast"></div>  <!-- ================= NAVBAR ================= -->  <nav class="navbar">
@@ -12604,18 +12676,15 @@ function openFileContent(id){
     </div>
 
     <div class="ob-book-info">
-      <div class="ob-main-thumb" onclick="oldBookJumpTo(1)" title="मुख्य किताब का पहला पेज">
+      <div class="ob-main-thumb" onclick="oldBookJumpTo(oldBookPageNum)" title="वर्तमान पाठ / पेज का छोटा फोटो">
         <canvas id="oldBookThumbFirst"></canvas>
       </div>
       <div class="ob-book-info-text">
         <strong id="oldBookInfoName">कोपल</strong>
-        <span>मुख्य पेज • किताब का पहला पन्ना</span>
-        <div id="oldBookNextTopicMini" class="ob-next-topic-mini" title="अगले पाठ का छोटा preview">
-          <canvas id="oldBookNextTopicThumb"></canvas>
-          <span id="oldBookNextTopicText">📚 अगला पाठ: —</span>
-        </div>
+        <span id="oldBookInfoMeta">कक्षा 3 • विषय</span>
+        <span id="oldBookCurrentTopic" class="ob-current-topic">📖 पाठ 1: —</span>
       </div>
-      <div class="ob-last-thumb" onclick="oldBookJumpTo('last')" title="किताब का आखिरी पेज">
+      <div class="ob-last-thumb" aria-hidden="true">
         <canvas id="oldBookThumbLast"></canvas>
       </div>
     </div>
@@ -12626,7 +12695,12 @@ function openFileContent(id){
         <div class="ob-book" id="oldBookBook">
           <div class="ob-page-frame">
             <div class="ob-page-surface">
+              <canvas id="oldBookCanvasUnder" aria-hidden="true"></canvas>
               <canvas id="oldBookCanvasRight"></canvas>
+              <div id="oldBookFlipSheet" class="ob-flip-sheet" aria-hidden="true">
+                <div class="ob-flip-face ob-flip-front"><canvas id="oldBookFlipFront"></canvas></div>
+                <div class="ob-flip-face ob-flip-back"><canvas id="oldBookFlipBack"></canvas></div>
+              </div>
               <div id="oldBookLoading" class="ob-loading">📖 किताब खोली जा रही है…</div>
               <div class="ob-page-shadow"></div>
             </div>
@@ -12634,13 +12708,15 @@ function openFileContent(id){
         </div>
       </div>
       <div class="ob-kath-base"></div>
-      <div class="ob-stand-ornament">✦</div>
-    </div>
 
-    <div class="ob-controls">
-      <button class="ob-nav-btn" type="button" onclick="oldBookPrev()">← Preview</button>
-      <div id="oldBookPageCount" class="ob-page-count">पृष्ठ 1 / 1</div>
-      <button class="ob-nav-btn" type="button" onclick="oldBookNext()">Next →</button>
+      <!-- Navigation controls are placed exactly inside the lower wooden area -->
+      <div class="ob-controls ob-controls-inside">
+        <button class="ob-nav-btn ob-home-btn" type="button" onclick="oldBookHome()">⌂ Home</button>
+        <button class="ob-nav-btn" type="button" onclick="oldBookPrev()">← Preview</button>
+        <div id="oldBookPageCount" class="ob-page-count">पृष्ठ 1 / 1</div>
+        <button class="ob-nav-btn" type="button" onclick="oldBookNext()">Next →</button>
+        <button class="ob-nav-btn ob-exit-btn" type="button" onclick="oldBookExit()">Exit ✕</button>
+      </div>
     </div>
 
     <div id="oldBookTopics" class="ob-topic-panel" style="display:none">
@@ -12666,9 +12742,24 @@ const OLD_BOOKS_DATA = [
     {name:"राजगीर",page:55},{name:"दीप जले",page:60},{name:"साहसी इंदिरा",page:64},{name:"गंगा नदी",page:70},
     {name:"बैलगाड़ी का दाम",page:74},{name:"हम सब",page:80},{name:"कुत्ते की कहानी",page:84},{name:"खेल-खेल में",page:91}
   ]}]},
-    {name:"English", books:[{name:"Blossom", pdf:"Class-3-English-BLOSSOM-github.pdf"}]},
-    {name:"पर्यावरण", books:[{name:"पर्यावरण और हम-3", pdf:"PARYAWARAN-AUR-HUM-3-github.pdf"}]},
-    {name:"गणित", books:[{name:"गणित-3", pdf:"GANIT-3-github.pdf"}]}
+    {name:"English", books:[{name:"Blossom", pdf:"Class-3-English-BLOSSOM-github.pdf", topics:[
+      {name:"This is The Way"},{name:"Murli's Mango Tree"},{name:"One Little Kitten"},{name:"Who's Afraid Of The Cat?"},
+      {name:"The Old Rabbit"},{name:"Upside Down"},{name:"The Tiger and The Mosquito"},{name:"Kith-Kith"},
+      {name:"Cats"},{name:"I Can Dance"},{name:"Unity Is Strength"},{name:"A Picnic"},
+      {name:"Mice"},{name:"Now The Road Will Be Fine"},{name:"The Phone Call"},{name:"Munia Goes To School"},{name:"Gonu And Bhonu"}
+    ]}]},
+    {name:"पर्यावरण", books:[{name:"पर्यावरण और हम-3", pdf:"PARYAWARAN-AUR-HUM-3-github.pdf", topics:[
+      {name:"चाचा की शादी"},{name:"हमारा परिवार"},{name:"जीव जंतुओं की दुनिया"},{name:"रंग बिरंगे पंख"},
+      {name:"पेड़ पौधों से दोस्ती"},{name:"पत्ता हूँ मैं हरा हरा"},{name:"तरह तरह के बचन"},{name:"कुछ कच्चा कुछ पक्का"},
+      {name:"पकाएँगे खाएँगे"},{name:"घर को जाने"},{name:"दीपावली की तैयारी"},{name:"किसी और का"},
+      {name:"स्कूल के आस पास"},{name:"पानी"},{name:"दानापुर से गौरा तक"},{name:"चिट्ठी का सफर"},
+      {name:"कपड़े तरह तरह के"},{name:"तेरी मेरी उछल कूद"},{name:"कोशिश करके देख ले"},{name:"आओ खेलें मिट्टी से"}
+    ]}]},
+    {name:"गणित", books:[{name:"गणित-3", pdf:"GANIT-3-github.pdf", topics:[
+      {name:"ज्यामिति"},{name:"संख्याएँ"},{name:"जोड़-घटाव"},{name:"गुणा"},{name:"भाग"},
+      {name:"भिन्न संख्याएँ"},{name:"मुद्रा"},{name:"लम्बाई"},{name:"भार"},{name:"धारिता"},
+      {name:"समय"},{name:"पैटर्न"},{name:"आँकड़ों का निरूपण"}
+    ]}]}
   ]},
   {className:"कक्षा 4", subjects:[]},
   {className:"कक्षा 5", subjects:[]},
@@ -12704,7 +12795,7 @@ function renderOldBooksTree(root){
         const books=sub.books||[];
         // एक ही किताब हो तो विषय/किताब पर क्लिक करते ही सीधे PDF reader खुले।
         if(books.length===1){
-          sh.onclick=()=>openOldBookViewer(books[0].pdf,books[0].name,books[0].topics||[]);
+          sh.onclick=()=>openOldBookViewer(books[0].pdf,books[0].name,books[0].topics||[],{className:cls.className,subjectName:sub.name,bookName:books[0].name});
           sh.classList.add("direct-book");
         }else{
           const sb=document.createElement("div");
@@ -12717,7 +12808,7 @@ function renderOldBooksTree(root){
             left.innerHTML=`<span>📖</span><span>${escapeOldBookText(book.name)}</span>`;
             const open=document.createElement("button");
             open.type="button"; open.className="ob-book-open"; open.textContent="पढ़ें";
-            open.onclick=()=>openOldBookViewer(book.pdf,book.name,book.topics||[]);
+            open.onclick=()=>openOldBookViewer(book.pdf,book.name,book.topics||[],{className:cls.className,subjectName:sub.name,bookName:book.name});
             row.append(left,open);
             sb.appendChild(row);
           });
@@ -12747,7 +12838,7 @@ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",
 else initOldBooksSystem();
 
 /* ================= PDF BOOK READER — SINGLE PAGE ================= */
-let oldBookPdf=null, oldBookPageNum=1, oldBookRendering=false, oldBookPending=null, oldBookUrl="", oldBookToken=0;
+let oldBookPdf=null, oldBookPageNum=1, oldBookRendering=false, oldBookPending=null, oldBookUrl="", oldBookToken=0, oldBookCurrentMeta={className:"",subjectName:"",bookName:""}, oldBookCurrentTopicIndex=0;
 function ensurePdfJs(){
   if(window.pdfjsLib)return Promise.resolve();
   return new Promise((resolve,reject)=>{
@@ -12758,7 +12849,7 @@ function ensurePdfJs(){
     document.head.appendChild(s);
   });
 }
-async function openOldBookViewer(pdfUrl,title,topics=[]){
+async function openOldBookViewer(pdfUrl,title,topics=[],meta={}){
   /* Old Books is opened inside fileContentPopup. Close that popup BEFORE
      showing the PDF reader, otherwise the popup stays above the reader and
      makes it look like the PDF is opening in the background. */
@@ -12770,13 +12861,19 @@ async function openOldBookViewer(pdfUrl,title,topics=[]){
   oldBookUrl=new URL(pdfUrl,document.baseURI).href;
   oldBookPageNum=1;oldBookPdf=null;oldBookPending=null;oldBookRendering=false;
   window.oldBookCurrentTopics=Array.isArray(topics)?topics:[];
+  oldBookCurrentMeta={className:meta.className||"",subjectName:meta.subjectName||title||"",bookName:meta.bookName||title||""};
+  oldBookCurrentTopicIndex=0;
   document.getElementById("oldBookReaderTitle").textContent="📖 "+(title||"Book");
-  document.getElementById("oldBookInfoName").textContent=title||"Book";
+  document.getElementById("oldBookInfoName").textContent=oldBookCurrentMeta.subjectName||title||"Book";
+  document.getElementById("oldBookInfoMeta").textContent=(oldBookCurrentMeta.className||"कक्षा —")+" • "+(oldBookCurrentMeta.bookName||title||"किताब");
+  document.getElementById("oldBookCurrentTopic").textContent="📖 पाठ 1: "+((topics&&topics[0]&&topics[0].name)||"—");
   document.getElementById("oldBookPageCount").textContent="पृष्ठ 1 / …";
   renderOldBookTopics(topics,title);
   book.classList.remove("ob-page-flip-next","ob-page-flip-prev");
   loading.classList.remove("is-hidden");loading.style.display="flex";loading.textContent="📖 किताब खोली जा रही है…";
   reader.classList.add("show");reader.setAttribute("aria-hidden","false");
+  /* Give the fixed reader one paint cycle before measuring/rendering the canvas. */
+  await new Promise(requestAnimationFrame);
   try{
     await ensurePdfJs();
     if(token!==oldBookToken)return;
@@ -12786,6 +12883,7 @@ async function openOldBookViewer(pdfUrl,title,topics=[]){
     loading.classList.add("is-hidden"); loading.style.display="none";
     await drawOldBookThumb(1,document.getElementById("oldBookThumbFirst"));
     await drawOldBookThumb(oldBookPdf.numPages,document.getElementById("oldBookThumbLast"));
+    updateOldBookHeader(1,topics);
     await updateOldBookNextTopic(1,topics,token);
     await renderOldBookPage(1,"",token,topics);
   }catch(e){
@@ -12795,6 +12893,29 @@ async function openOldBookViewer(pdfUrl,title,topics=[]){
     loading.innerHTML="⚠️ PDF नहीं खुल सकी।<br><small style='display:block;margin-top:6px'>PDF file और GitHub filename जाँचें।</small>";
   }
 }
+function updateOldBookHeader(pdfPage,topics){
+  const nameEl=document.getElementById("oldBookInfoName");
+  const metaEl=document.getElementById("oldBookInfoMeta");
+  const topicEl=document.getElementById("oldBookCurrentTopic");
+  const thumb=document.getElementById("oldBookThumbFirst");
+  if(nameEl)nameEl.textContent=oldBookCurrentMeta.subjectName||oldBookCurrentMeta.bookName||"Book";
+  if(metaEl)metaEl.textContent=(oldBookCurrentMeta.className||"कक्षा —")+" • "+(oldBookCurrentMeta.bookName||"किताब");
+  let idx=oldBookCurrentTopicIndex||0;
+  if(Array.isArray(topics)&&topics.length){
+    const hasPages=topics.some(t=>Number(t.page)>0);
+    if(hasPages){
+      const printed=Math.max(1,(Number(pdfPage)||1)-12);
+      let found=-1;
+      topics.forEach((t,i)=>{if(Number(t.page)>0 && Number(t.page)<=printed)found=i;});
+      if(found>=0)idx=found;
+    }
+    idx=Math.max(0,Math.min(topics.length-1,idx));
+    oldBookCurrentTopicIndex=idx;
+    if(topicEl)topicEl.textContent="📖 पाठ "+(idx+1)+": "+(topics[idx]?.name||"—");
+  }else if(topicEl){topicEl.textContent="📖 पाठ —";}
+  if(thumb&&oldBookPdf){drawOldBookThumb(pdfPage,thumb).catch(()=>{});}
+}
+
 function renderOldBookTopics(topics,title){
   const panel=document.getElementById("oldBookTopics"),list=document.getElementById("oldBookTopicList");
   if(!panel||!list)return;list.innerHTML="";
@@ -12806,8 +12927,8 @@ function renderOldBookTopics(topics,title){
     const b=document.createElement("button");
     b.type="button";b.className="ob-topic-btn";
     b.textContent=(i+1)+". "+topic.name;
-    b.title="PDF में पृष्ठ "+topic.page+" पर जाएँ";
-    b.onclick=()=>oldBookJumpToPrintedPage(topic.page,topics);
+    b.title=topic.page ? ("PDF में पृष्ठ "+topic.page+" पर जाएँ") : "इस पाठ को PDF में खोजें";
+    b.onclick=()=>{oldBookCurrentTopicIndex=i; topic.page ? oldBookJumpToPrintedPage(topic.page,topics) : oldBookJumpToTopic(topic,topics);};
     list.appendChild(b);
   });
   updateOldBookNextTopic(1,topics);
@@ -12821,6 +12942,15 @@ async function updateOldBookNextTopic(pdfPage,topics,token=oldBookToken){
   if(!topics||!topics.length){
     text.textContent="📚 अगला पाठ: —";
     el.classList.add("is-empty");
+    return;
+  }
+  // जिन किताबों में topic के printed-page numbers उपलब्ध नहीं हैं,
+  // वहाँ mini-preview को गलत page पर ले जाने के बजाय केवल सूचना दिखाएँ।
+  if(topics.some(t=>!Number(t.page))){
+    text.textContent="📚 नीचे दिए पाठों में से कोई भी पाठ खोलें।";
+    el.classList.add("is-empty");
+    el.onclick=null;
+    if(thumb){const c=thumb.getContext("2d");if(c)c.clearRect(0,0,thumb.width,thumb.height);}
     return;
   }
   const printed=Math.max(1,(Number(pdfPage)||1)-12);
@@ -12853,24 +12983,97 @@ function oldBookJumpTo(pageNum,topics){
   renderOldBookPage(n,"next",oldBookToken,topics||window.oldBookCurrentTopics||[]);
 }
 function oldBookJumpToPrintedPage(printedPage,topics){oldBookJumpTo((Number(printedPage)||1)+12,topics);}
-async function drawOldBookPage(pageNum,canvas){
+
+// जिन किताबों में page mapping नहीं दी गई है, topic पर क्लिक करने पर
+// PDF.js पूरे PDF के text में उस topic का heading खोजकर सही पेज पर ले जाएगा।
+const oldBookTopicPageCache=new Map();
+function normalizeOldBookTopicText(v){return String(v||"").toLowerCase().replace(/[\u2018\u2019]/g,"'").replace(/[^\p{L}\p{N}]+/gu," ").trim();}
+async function oldBookFindTopicPage(topic){
+  if(!oldBookPdf||!topic)return null;
+  const key=oldBookUrl+"::"+normalizeOldBookTopicText(topic.name);
+  if(oldBookTopicPageCache.has(key))return oldBookTopicPageCache.get(key);
+  const needle=normalizeOldBookTopicText(topic.name);
+  if(!needle)return null;
+  for(let i=1;i<=oldBookPdf.numPages;i++){
+    try{
+      const page=await oldBookPdf.getPage(i);
+      const tc=await page.getTextContent();
+      const text=normalizeOldBookTopicText(tc.items.map(x=>x.str||"").join(" "));
+      if(text.includes(needle)){oldBookTopicPageCache.set(key,i);return i;}
+    }catch(e){console.warn("Topic search page error",i,e);}
+  }
+  oldBookTopicPageCache.set(key,null);
+  return null;
+}
+async function oldBookJumpToTopic(topic,topics){
+  if(!oldBookPdf||!topic)return;
+  const topicIndex=(topics||[]).findIndex(t=>t===topic || t.name===topic.name);
+  if(topicIndex>=0)oldBookCurrentTopicIndex=topicIndex;
+  const btns=[...document.querySelectorAll("#oldBookTopicList .ob-topic-btn")];
+  btns.forEach(b=>{if(b.textContent.endsWith(". "+topic.name))b.disabled=true;});
+  try{
+    const page=await oldBookFindTopicPage(topic);
+    if(page) oldBookJumpTo(page,topics);
+    else alert("इस पाठ का पेज PDF के text में नहीं मिला।");
+  }finally{
+    btns.forEach(b=>b.disabled=false);
+  }
+}
+async function renderOldBookCanvasPage(pageNum,canvas){
   if(!oldBookPdf||!canvas||pageNum<1||pageNum>oldBookPdf.numPages)return;
+  await new Promise(requestAnimationFrame);
   const page=await oldBookPdf.getPage(pageNum);
   const surface=canvas.parentElement;
   const box=surface.getBoundingClientRect();
   const base=page.getViewport({scale:1});
-  const fit=Math.max(.25,Math.min((box.width-12)/base.width,(box.height-12)/base.height));
-  const ratio=Math.min(window.devicePixelRatio||1,2);
+  const availableW=Math.max(260,box.width-10);
+  const availableH=Math.max(300,box.height-10);
+  const fit=Math.max(.25,Math.min(availableW/base.width,availableH/base.height));
+  const ratio=Math.min(window.devicePixelRatio||1,3);
   const viewport=page.getViewport({scale:fit});
   canvas.width=Math.max(1,Math.floor(viewport.width*ratio));
   canvas.height=Math.max(1,Math.floor(viewport.height*ratio));
-  canvas.style.width=Math.floor(viewport.width)+"px";
-  canvas.style.height=Math.floor(viewport.height)+"px";
-  canvas.style.position="absolute";canvas.style.left="50%";canvas.style.top="50%";canvas.style.transform="translate(-50%,-50%)";
-  const ctx=canvas.getContext("2d",{alpha:false});
+  canvas.style.width=Math.floor(viewport.width)+'px';
+  canvas.style.height=Math.floor(viewport.height)+'px';
+  canvas.style.left='50%';canvas.style.top='50%';canvas.style.transform='translate(-50%,-50%)';
+  const ctx=canvas.getContext('2d',{alpha:false});
   ctx.setTransform(ratio,0,0,ratio,0,0);
-  ctx.fillStyle="#fff";ctx.fillRect(0,0,viewport.width,viewport.height);
-  await page.render({canvasContext:ctx,viewport}).promise;
+  ctx.fillStyle='#fffdf6';ctx.fillRect(0,0,viewport.width,viewport.height);
+  await page.render({canvasContext:ctx,viewport, intent:'display'}).promise;
+}
+async function drawOldBookPage(pageNum,canvas){
+  await renderOldBookCanvasPage(pageNum,canvas);
+}
+async function prepareOldBookFlip(fromPage,toPage,direction){
+  const surface=document.querySelector('#oldBookReader .ob-page-surface');
+  const sheet=document.getElementById('oldBookFlipSheet');
+  const front=document.getElementById('oldBookFlipFront');
+  const back=document.getElementById('oldBookFlipBack');
+  const under=document.getElementById('oldBookCanvasUnder');
+  if(!surface||!sheet||!front||!back||!under)return false;
+  await Promise.all([
+    renderOldBookCanvasPage(fromPage,front),
+    renderOldBookCanvasPage(toPage,back),
+    renderOldBookCanvasPage(toPage,under)
+  ]);
+  under.style.visibility='visible';
+  under.style.zIndex='1';
+  const main=document.getElementById('oldBookCanvasRight');
+  if(main){main.style.visibility='visible';main.style.zIndex='2';}
+  sheet.classList.remove('ob-page-flip-next','ob-page-flip-prev');
+  sheet.style.display='block';
+  sheet.style.transform='translate(-50%,-50%) rotateY(0deg)';
+  void sheet.offsetWidth;
+  sheet.classList.add(direction==='prev'?'ob-page-flip-prev':'ob-page-flip-next');
+  return true;
+}
+function finishOldBookFlip(){
+  const sheet=document.getElementById('oldBookFlipSheet');
+  const under=document.getElementById('oldBookCanvasUnder');
+  const main=document.getElementById('oldBookCanvasRight');
+  if(sheet){sheet.classList.remove('ob-page-flip-next','ob-page-flip-prev');sheet.style.display='none';sheet.style.transform='translate(-50%,-50%) rotateY(0deg)';}
+  if(under){under.style.visibility='hidden';under.style.zIndex='1';}
+  if(main){main.style.visibility='visible';main.style.zIndex='2';}
 }
 async function drawOldBookThumb(pageNum,canvas){
   if(!oldBookPdf||!canvas)return;const page=await oldBookPdf.getPage(pageNum),base=page.getViewport({scale:1}),box=canvas.parentElement.getBoundingClientRect(),scale=Math.min((box.width-4)/base.width,(box.height-4)/base.height),viewport=page.getViewport({scale:Math.max(.1,scale)}),ratio=Math.min(window.devicePixelRatio||1,2);canvas.width=Math.floor(viewport.width*ratio);canvas.height=Math.floor(viewport.height*ratio);canvas.style.width="100%";canvas.style.height="100%";const ctx=canvas.getContext("2d");ctx.setTransform(ratio,0,0,ratio,0,0);await page.render({canvasContext:ctx,viewport}).promise;
@@ -12881,14 +13084,23 @@ async function renderOldBookPage(num,direction="",token=oldBookToken,topics=wind
   try{
     loading.style.display="flex";
     book.classList.remove("ob-page-flip-next","ob-page-flip-prev");void book.offsetWidth;
-    await drawOldBookPage(num,canvas);
+    if(direction){
+      const prepared=await prepareOldBookFlip(oldBookPageNum,num,direction);
+      if(token!==oldBookToken)return;
+      await new Promise(resolve=>setTimeout(resolve,640));
+      if(prepared)finishOldBookFlip();
+      await drawOldBookPage(num,canvas);
+    }else{
+      await drawOldBookPage(num,canvas);
+    }
     if(token!==oldBookToken)return;
     oldBookPageNum=num;document.getElementById("oldBookPageCount").textContent=`पृष्ठ ${num} / ${oldBookPdf.numPages}`;
+    updateOldBookHeader(num,topics);
     await updateOldBookNextTopic(num,topics,token);
     loading.classList.add("is-hidden"); loading.style.display="none";
-    if(direction){book.classList.add(direction==="prev"?"ob-page-flip-prev":"ob-page-flip-next");setTimeout(()=>book.classList.remove("ob-page-flip-next","ob-page-flip-prev"),620);}
   }catch(err){console.error("Page render error:",err);if(token===oldBookToken){loading.classList.remove("is-hidden");loading.style.display="flex";loading.textContent="⚠️ यह पन्ना लोड नहीं हो पाया।";}}
   finally{
+    finishOldBookFlip();
     oldBookRendering=false;
     if(token===oldBookToken && oldBookPdf && document.getElementById("oldBookLoading")){
       const l=document.getElementById("oldBookLoading");
@@ -12897,11 +13109,129 @@ async function renderOldBookPage(num,direction="",token=oldBookToken,topics=wind
     if(oldBookPending){const p=oldBookPending;oldBookPending=null;renderOldBookPage(p.num,p.direction,p.token,p.topics||window.oldBookCurrentTopics||[]);}
   }
 }
+function oldBookHome(){closeOldBookReader();window.location.hash="#home";setTimeout(()=>{const h=document.getElementById("home");if(h)h.scrollIntoView({behavior:"smooth",block:"start"});},80);}
+function oldBookExit(){closeOldBookReader();setTimeout(()=>{if(typeof openFileContent==="function")openFileContent("oldBooks");},60);}
 function oldBookNext(){if(!oldBookPdf||oldBookRendering)return;if(oldBookPageNum<oldBookPdf.numPages)renderOldBookPage(oldBookPageNum+1,"next",oldBookToken,window.oldBookCurrentTopics||[])}
 function oldBookPrev(){if(!oldBookPdf||oldBookRendering)return;if(oldBookPageNum>1)renderOldBookPage(oldBookPageNum-1,"prev",oldBookToken,window.oldBookCurrentTopics||[])}
 function closeOldBookReader(){++oldBookToken;const reader=document.getElementById("oldBookReader");reader.classList.remove("show");reader.setAttribute("aria-hidden","true");oldBookPdf=null;oldBookPending=null;oldBookRendering=false;}
 document.addEventListener("keydown",e=>{const r=document.getElementById("oldBookReader");if(!r||!r.classList.contains("show"))return;if(e.key==="ArrowRight")oldBookNext();if(e.key==="ArrowLeft")oldBookPrev();if(e.key==="Escape")closeOldBookReader();});
-window.addEventListener("resize",()=>{if(oldBookPdf&&!oldBookRendering)renderOldBookPage(oldBookPageNum,"",oldBookToken,window.oldBookCurrentTopics||[]);});
+window.addEventListener("resize",()=>{if(oldBookPdf&&!oldBookRendering){finishOldBookFlip();renderOldBookPage(oldBookPageNum,"",oldBookToken,window.oldBookCurrentTopics||[]);}});
 </script>
 
-</body>    </html>
+</body>    </html><style id="oldBookMobileFinalFit">
+/* ===== Mobile reader final fit: no clipped header + no giant empty area ===== */
+@media(max-width:700px){
+  #oldBookReader{
+    align-items:flex-start!important;
+    justify-content:center!important;
+    padding:5px 3px!important;
+    overflow:hidden!important;
+    box-sizing:border-box!important;
+  }
+  #oldBookReader .ob-reader-panel{
+    width:100%!important;
+    height:100dvh!important;
+    max-height:100dvh!important;
+    min-height:0!important;
+    overflow-y:auto!important;
+    overflow-x:hidden!important;
+    justify-content:flex-start!important;
+    align-items:center!important;
+    box-sizing:border-box!important;
+    padding:0 0 8px!important;
+    margin:0!important;
+  }
+  #oldBookReader .ob-book-info{
+    width:96vw!important;
+    min-height:58px!important;
+    padding:5px 7px!important;
+    gap:7px!important;
+    margin:0 0 5px!important;
+    flex:0 0 auto!important;
+  }
+  #oldBookReader .ob-main-thumb{
+    width:42px!important;height:54px!important;flex-basis:42px!important;
+  }
+  #oldBookReader .ob-book-info-text{padding-left:8px!important}
+  #oldBookReader .ob-book-info-text strong{font-size:13px!important;line-height:1.1!important}
+  #oldBookReader .ob-book-info-text span#oldBookInfoMeta{font-size:8.5px!important;margin-top:2px!important}
+  #oldBookReader .ob-book-info-text .ob-current-topic{font-size:8.5px!important;margin-top:1px!important}
+
+  #oldBookReader .ob-kath{
+    width:96vw!important;
+    height:47dvh!important;
+    min-height:255px!important;
+    max-height:480px!important;
+    flex:0 0 auto!important;
+    margin:0!important;
+  }
+  #oldBookReader .ob-kath::before{bottom:12%!important}
+  #oldBookReader .ob-red-cloth{bottom:16%!important}
+  #oldBookReader .ob-book-holder{
+    left:7%!important;right:7%!important;top:8%!important;bottom:17%!important;
+  }
+  #oldBookReader .ob-book{
+    width:76%!important;height:90%!important;min-height:0!important;
+  }
+  #oldBookReader .ob-page-frame{padding:5px!important;border-width:3px!important;border-radius:10px!important}
+
+  #oldBookReader .ob-controls-inside{
+    left:50%!important;
+    bottom:3.5%!important;
+    gap:3px!important;
+    padding:5px 5px!important;
+    width:calc(100% - 14px)!important;
+    max-width:calc(100% - 14px)!important;
+    border-radius:10px!important;
+    box-sizing:border-box!important;
+  }
+  #oldBookReader .ob-controls-inside .ob-nav-btn{
+    min-width:0!important;
+    flex:1 1 0!important;
+    padding:7px 5px!important;
+    font-size:8px!important;
+    border-radius:7px!important;
+    white-space:nowrap!important;
+  }
+  #oldBookReader .ob-controls-inside .ob-page-count{
+    min-width:42px!important;
+    flex:0 0 42px!important;
+    font-size:8px!important;
+    white-space:nowrap!important;
+  }
+
+  #oldBookReader .ob-topic-panel{
+    width:96vw!important;
+    max-height:30dvh!important;
+    margin:5px 0 0!important;
+    padding:7px!important;
+    flex:0 0 auto!important;
+    box-sizing:border-box!important;
+  }
+  #oldBookReader .ob-topic-title{font-size:9px!important;margin-bottom:5px!important}
+  #oldBookReader .ob-topic-list{gap:4px 5px!important}
+  #oldBookReader .ob-topic-btn{font-size:8px!important;padding:5px 6px!important;border-radius:6px!important}
+}
+@media(max-width:380px){
+  #oldBookReader .ob-kath{height:45dvh!important;min-height:245px!important}
+  #oldBookReader .ob-book-info{width:97vw!important}
+  #oldBookReader .ob-kath,#oldBookReader .ob-topic-panel{width:97vw!important}
+  #oldBookReader .ob-controls-inside{width:calc(100% - 10px)!important;max-width:calc(100% - 10px)!important}
+  #oldBookReader .ob-controls-inside .ob-nav-btn{font-size:7.5px!important;padding-left:3px!important;padding-right:3px!important}
+  #oldBookReader .ob-controls-inside .ob-page-count{min-width:38px!important;flex-basis:38px!important;font-size:7.5px!important}
+}
+</style>
+<script>
+/* Always open the mobile reader from the top so the dynamic header is not clipped. */
+(function(){
+  const oldOpen=window.openOldBookViewer;
+  if(typeof oldOpen!=='function') return;
+  window.openOldBookViewer=async function(){
+    const p=document.querySelector('#oldBookReader .ob-reader-panel');
+    if(p) p.scrollTop=0;
+    const r=oldOpen.apply(this,arguments);
+    requestAnimationFrame(()=>{const q=document.querySelector('#oldBookReader .ob-reader-panel');if(q)q.scrollTop=0;});
+    return r;
+  };
+})();
+</script>
