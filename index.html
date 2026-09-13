@@ -13507,3 +13507,32 @@ window.addEventListener("resize",()=>{if(oldBookPdf&&!oldBookRendering){finishOl
 }
 </style>
 
+
+<style id="userExactPdfMargins">
+/* User-requested exact PDF area margins */
+#oldBookReader .ob-book-holder{
+  top:0.5in!important;
+  bottom:0.5in!important;
+  left:1in!important;
+  right:1in!important;
+}
+</style>
+<style id="oldBookQuickFinalPolish">
+/* Single blue frame: remove the inner blue ring while keeping the outer reader frame. */
+#oldBookReader .ob-page-frame{
+  border:0!important;
+  padding:3px!important;
+  border-radius:10px!important;
+  box-shadow:0 0 0 1px rgba(255,255,255,.16),0 8px 24px rgba(0,0,0,.42)!important;
+}
+/* Lift the real PDF slightly so the complete printed page, including its number, is easier to see. */
+#oldBookReader #oldBookCanvasRight{
+  transform:translate(-50%,calc(-50% - 7px))!important;
+}
+@media(max-width:700px){
+  #oldBookReader #oldBookCanvasRight{transform:translate(-50%,calc(-50% - 6px))!important;}
+}
+@media(max-width:380px){
+  #oldBookReader #oldBookCanvasRight{transform:translate(-50%,calc(-50% - 4px))!important;}
+}
+</style>
