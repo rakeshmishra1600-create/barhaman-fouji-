@@ -12743,10 +12743,10 @@ const OLD_BOOKS_DATA = [
     {name:"बैलगाड़ी का दाम",page:74},{name:"हम सब",page:80},{name:"कुत्ते की कहानी",page:84},{name:"खेल-खेल में",page:91}
   ]}]},
     {name:"English", books:[{name:"Blossom", pdf:"Class-3-English-BLOSSOM-github.pdf", topics:[
-      {name:"This is The Way"},{name:"Murli's Mango Tree"},{name:"One Little Kitten"},{name:"Who's Afraid Of The Cat?"},
-      {name:"The Old Rabbit"},{name:"Upside Down"},{name:"The Tiger and The Mosquito"},{name:"Kith-Kith"},
-      {name:"Cats"},{name:"I Can Dance"},{name:"Unity Is Strength"},{name:"A Picnic"},
-      {name:"Mice"},{name:"Now The Road Will Be Fine"},{name:"The Phone Call"},{name:"Munia Goes To School"},{name:"Gonu And Bhonu"}
+      {name:"This is The Way",page:1},{name:"Murli's Mango Tree",page:8},{name:"One Little Kitten",page:13},{name:"Who's Afraid Of The Cat?",page:20},
+      {name:"The Old Rabbit",page:27},{name:"Upside Down",page:33},{name:"The Tiger and The Mosquito",page:37},{name:"Kith-Kith",page:43},
+      {name:"Cats",page:48},{name:"I Can Dance",page:51},{name:"Unity Is Strength",page:57},{name:"A Picnic",page:61},
+      {name:"Mice",page:64},{name:"Now The Road Will Be Fine",page:71},{name:"The Phone Call",page:76},{name:"Munia Goes To School",page:81},{name:"Gonu And Bhonu",page:87}
     ]}]},
     {name:"पर्यावरण", books:[{name:"पर्यावरण और हम-3", pdf:"PARYAWARAN-AUR-HUM-3-github.pdf", topics:[
       {name:"चाचा की शादी"},{name:"हमारा परिवार"},{name:"जीव जंतुओं की दुनिया"},{name:"रंग बिरंगे पंख"},
@@ -12998,30 +12998,69 @@ async function updateOldBookNextTopic(pdfPage,topics,token=oldBookToken){
 function oldBookJumpTo(pageNum,topics){
   if(!oldBookPdf)return;
   const n=(pageNum==='last')?oldBookPdf.numPages:Math.max(1,Math.min(oldBookPdf.numPages,Number(pageNum)||1));
-  renderOldBookPage(n,"next",oldBookToken,topics||window.oldBookCurrentTopics||[]);
+  const t=topics||window.oldBookCurrentTopics||[];
+  if(oldBookRendering){oldBookPending={num:n,direction:"next",token:oldBookToken,topics:t};return;}
+  renderOldBookPage(n,"next",oldBookToken,t);
 }
 function oldBookJumpToPrintedPage(printedPage,topics){oldBookJumpTo((Number(printedPage)||1)+12,topics);}
 
 // जिन किताबों में page mapping नहीं दी गई है, topic पर क्लिक करने पर
 // PDF.js पूरे PDF के text में उस topic का heading खोजकर सही पेज पर ले जाएगा।
 const oldBookTopicPageCache=new Map();
-function normalizeOldBookTopicText(v){return String(v||"").toLowerCase().replace(/[\u2018\u2019]/g,"'").replace(/[^\p{L}\p{N}]+/gu," ").trim();}
+function normalizeOldBookTopicText(v){
+  return String(v||"").toLowerCase().normalize("NFKC")
+    .replace(/[\u2018\u2019\u201c\u201d]/g,"'")
+    .replace(/[\u200c\u200d]/g,"")
+    .replace(/[^\p{L}\p{N}]+/gu," ").trim();
+}
+function oldBookTopicAliases(topic){
+  const n=String(topic&&topic.name||"").trim();
+  const a=[n];
+  const aliases={
+    "तरह तरह के बचन":["तरह तरह के भोजन","तरह-तरह के भोजन"],
+    "कुछ कच्चा कुछ पक्का":["कुछ कच्चा कुछ पका हुआ"],
+    "किसी और का":["किस ओर क्या","किस ओर और क्या"],
+    "कपड़े तरह तरह के":["कपड़े तरह-तरह के","कपड़े तरह-तरह के"],
+    "तेरी मेरी उछल कूद":["तेरी-मेरी उछलकूद","तेरी मेरी उछलकूद"],
+    "कोशिश करके देख ले":["कोशिश करके देख लें"],
+    "आओ खेलें मिट्टी से":["आओ खेलें मिट्टी से","आओ खेले मिट्ठी से"],
+    "आँकड़ों का निरूपण":["आँकडों का निरूपण","आंकड़ों का निरूपण","आंकड़ों का निरूपण"],
+    "जोड़-घटाव":["जोड़-घटाव","जोड़ घटाव","जोड़ घटाव"]
+  };
+  return [...new Set(a.concat(aliases[n]||[]).map(normalizeOldBookTopicText).filter(Boolean))];
+}
+function oldBookTopicTokenScore(needle,text){
+  const nt=needle.split(/\s+/).filter(x=>x.length>1);
+  if(!nt.length)return 0;
+  const tt=new Set(text.split(/\s+/));
+  let hit=0;nt.forEach(x=>{if(tt.has(x)||text.includes(x))hit++;});
+  return hit/nt.length;
+}
 async function oldBookFindTopicPage(topic){
   if(!oldBookPdf||!topic)return null;
   const key=oldBookUrl+"::"+normalizeOldBookTopicText(topic.name);
   if(oldBookTopicPageCache.has(key))return oldBookTopicPageCache.get(key);
-  const needle=normalizeOldBookTopicText(topic.name);
-  if(!needle)return null;
+  const needles=oldBookTopicAliases(topic);
+  if(!needles.length)return null;
+  let bestPage=null,bestScore=0;
   for(let i=1;i<=oldBookPdf.numPages;i++){
     try{
       const page=await oldBookPdf.getPage(i);
       const tc=await page.getTextContent();
       const text=normalizeOldBookTopicText(tc.items.map(x=>x.str||"").join(" "));
-      if(text.includes(needle)){oldBookTopicPageCache.set(key,i);return i;}
+      if(!text)continue;
+      // First pass: exact heading/phrase match.
+      if(needles.some(n=>text.includes(n))){oldBookTopicPageCache.set(key,i);return i;}
+      // Second pass: tolerant token match for hyphens, punctuation and OCR spacing.
+      let score=0;
+      needles.forEach(n=>{score=Math.max(score,oldBookTopicTokenScore(n,text));});
+      if(score>bestScore){bestScore=score;bestPage=i;}
     }catch(e){console.warn("Topic search page error",i,e);}
   }
-  oldBookTopicPageCache.set(key,null);
-  return null;
+  // Avoid jumping to a random page: require a strong heading/token match.
+  const result=bestScore>=0.72?bestPage:null;
+  oldBookTopicPageCache.set(key,result);
+  return result;
 }
 async function oldBookJumpToTopic(topic,topics){
   if(!oldBookPdf||!topic)return;
@@ -13032,7 +13071,7 @@ async function oldBookJumpToTopic(topic,topics){
   try{
     const page=await oldBookFindTopicPage(topic);
     if(page) oldBookJumpTo(page,topics);
-    else alert("इस पाठ का पेज PDF के text में नहीं मिला।");
+    else alert("इस PDF में इस पाठ का सीधा पेज नंबर नहीं मिला। कृपया PDF में पाठ का शीर्षक जाँचें।");
   }finally{
     btns.forEach(b=>b.disabled=false);
   }
@@ -13158,8 +13197,8 @@ async function renderOldBookPage(num,direction="",token=oldBookToken,topics=wind
 }
 function oldBookHome(){closeOldBookReader();window.location.hash="#home";setTimeout(()=>{const h=document.getElementById("home");if(h)h.scrollIntoView({behavior:"smooth",block:"start"});},80);}
 function oldBookExit(){closeOldBookReader();setTimeout(()=>{if(typeof openFileContent==="function")openFileContent("oldBooks");},60);}
-function oldBookNext(){if(!oldBookPdf||oldBookRendering)return;if(oldBookPageNum<oldBookPdf.numPages)renderOldBookPage(oldBookPageNum+1,"next",oldBookToken,window.oldBookCurrentTopics||[])}
-function oldBookPrev(){if(!oldBookPdf||oldBookRendering)return;if(oldBookPageNum>1)renderOldBookPage(oldBookPageNum-1,"prev",oldBookToken,window.oldBookCurrentTopics||[])}
+function oldBookNext(){if(!oldBookPdf)return;const n=oldBookPageNum+1;if(n>oldBookPdf.numPages)return;const t=window.oldBookCurrentTopics||[];if(oldBookRendering){oldBookPending={num:n,direction:"next",token:oldBookToken,topics:t};return;}renderOldBookPage(n,"next",oldBookToken,t)}
+function oldBookPrev(){if(!oldBookPdf)return;const n=oldBookPageNum-1;if(n<1)return;const t=window.oldBookCurrentTopics||[];if(oldBookRendering){oldBookPending={num:n,direction:"prev",token:oldBookToken,topics:t};return;}renderOldBookPage(n,"prev",oldBookToken,t)}
 function closeOldBookReader(){++oldBookToken;const reader=document.getElementById("oldBookReader");reader.classList.remove("show");reader.setAttribute("aria-hidden","true");oldBookPdf=null;oldBookPending=null;oldBookRendering=false;}
 document.addEventListener("keydown",e=>{const r=document.getElementById("oldBookReader");if(!r||!r.classList.contains("show"))return;if(e.key==="ArrowRight")oldBookNext();if(e.key==="ArrowLeft")oldBookPrev();if(e.key==="Escape")closeOldBookReader();});
 window.addEventListener("resize",()=>{if(oldBookPdf&&!oldBookRendering){finishOldBookFlip();renderOldBookPage(oldBookPageNum,"",oldBookToken,window.oldBookCurrentTopics||[]);}});
@@ -13196,7 +13235,17 @@ window.addEventListener("resize",()=>{if(oldBookPdf&&!oldBookRendering){finishOl
   #oldBookReader .ob-book{width:99%!important;height:98%!important;}
 }
 </style>
-</body>    </html><style id="oldBookMobileFinalFit">
+</body>    
+<style id="oldBookTopicDirectFix">
+#oldBookReader .ob-topic-btn{cursor:pointer!important;pointer-events:auto!important;}
+</style>
+<script>
+(function(){
+  // Keep topic buttons clickable even while the PDF is finishing a render.
+  const oldRenderTopics=window.renderOldBookTopics;
+})();
+</script>
+</html><style id="oldBookMobileFinalFit">
 /* ===== Mobile reader final fit: no clipped header + no giant empty area ===== */
 @media(max-width:700px){
   #oldBookReader{
