@@ -12838,7 +12838,7 @@ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",
 else initOldBooksSystem();
 
 /* ================= PDF BOOK READER — SINGLE PAGE ================= */
-let oldBookPdf=null, oldBookPageNum=1, oldBookRendering=false, oldBookPending=null, oldBookUrl="", oldBookToken=0, oldBookCurrentMeta={className:"",subjectName:"",bookName:""}, oldBookCurrentTopicIndex=0;
+let oldBookPdf=null, oldBookPageNum=1, oldBookRendering=false, oldBookPending=null, oldBookUrl="", oldBookToken=0, oldBookCurrentMeta={className:"",subjectName:"",bookName:""}, oldBookCurrentTopicIndex=0, oldBookHeaderThumbTopic=-1;
 function ensurePdfJs(){
   if(window.pdfjsLib)return Promise.resolve();
   return new Promise((resolve,reject)=>{
@@ -12862,7 +12862,7 @@ async function openOldBookViewer(pdfUrl,title,topics=[],meta={}){
   oldBookPageNum=1;oldBookPdf=null;oldBookPending=null;oldBookRendering=false;
   window.oldBookCurrentTopics=Array.isArray(topics)?topics:[];
   oldBookCurrentMeta={className:meta.className||"",subjectName:meta.subjectName||title||"",bookName:meta.bookName||title||""};
-  oldBookCurrentTopicIndex=0;
+  oldBookCurrentTopicIndex=0; oldBookHeaderThumbTopic=-1;
   document.getElementById("oldBookReaderTitle").textContent="📖 "+(title||"Book");
   document.getElementById("oldBookInfoName").textContent=oldBookCurrentMeta.subjectName||title||"Book";
   document.getElementById("oldBookInfoMeta").textContent=(oldBookCurrentMeta.className||"कक्षा —")+" • "+(oldBookCurrentMeta.bookName||title||"किताब");
@@ -12913,8 +12913,16 @@ function updateOldBookHeader(pdfPage,topics){
     oldBookCurrentTopicIndex=idx;
     if(topicEl)topicEl.textContent="📖 पाठ "+(idx+1)+": "+(topics[idx]?.name||"—");
   }else if(topicEl){topicEl.textContent="📖 पाठ —";}
-  if(thumb&&oldBookPdf){drawOldBookThumb(pdfPage,thumb).catch(()=>{});}
+  // The top-left thumbnail belongs to the CURRENT TOPIC, not every PDF page.
+  // It changes only when the reader enters the next topic/chapter.
+  if(thumb&&oldBookPdf && oldBookHeaderThumbTopic!==idx){
+    const t=Array.isArray(topics)&&topics.length ? topics[idx] : null;
+    const topicStart=Number(t&&t.page)>0 ? Number(t.page)+12 : (Number(pdfPage)||1);
+    oldBookHeaderThumbTopic=idx;
+    drawOldBookThumb(Math.max(1,Math.min(oldBookPdf.numPages,topicStart)),thumb).catch(()=>{});
+  }
 }
+
 
 function renderOldBookTopics(topics,title){
   const panel=document.getElementById("oldBookTopics"),list=document.getElementById("oldBookTopicList");
@@ -13045,31 +13053,25 @@ async function drawOldBookPage(pageNum,canvas){
   await renderOldBookCanvasPage(pageNum,canvas);
 }
 async function prepareOldBookFlip(fromPage,toPage,direction){
-  /* Single-sheet flip: only the current page turns to the one target page.
-     Do NOT render the target page underneath the sheet; that was causing the
-     double/ghost page effect seen on mobile. */
-  const sheet=document.getElementById('oldBookFlipSheet');
-  const front=document.getElementById('oldBookFlipFront');
-  const back=document.getElementById('oldBookFlipBack');
+  /* Clean single-page transition: the visible page first folds vertically,
+     then the new PDF page is painted into the SAME canvas while it is closed.
+     This guarantees that two PDF pages are never visible together. */
+  const surface=document.querySelector('#oldBookReader .ob-page-surface');
   const main=document.getElementById('oldBookCanvasRight');
-  if(!sheet||!front||!back||!main)return false;
-  await Promise.all([
-    renderOldBookCanvasPage(fromPage,front),
-    renderOldBookCanvasPage(toPage,back)
-  ]);
-  if(main){main.style.visibility='hidden';main.style.zIndex='1';}
-  sheet.classList.remove('ob-page-flip-next','ob-page-flip-prev');
-  sheet.style.display='block';
-  sheet.style.zIndex='5';
-  sheet.style.transform='translate(-50%,-50%) rotateY(0deg)';
-  void sheet.offsetWidth;
-  sheet.classList.add(direction==='prev'?'ob-page-flip-prev':'ob-page-flip-next');
+  if(!surface||!main)return false;
+  surface.classList.remove('ob-clean-page-switch');
+  void surface.offsetWidth;
+  surface.classList.add('ob-clean-page-switch');
+  await new Promise(resolve=>setTimeout(resolve,190));
+  await renderOldBookCanvasPage(toPage,main);
   return true;
 }
 function finishOldBookFlip(){
+  const surface=document.querySelector('#oldBookReader .ob-page-surface');
   const sheet=document.getElementById('oldBookFlipSheet');
   const under=document.getElementById('oldBookCanvasUnder');
   const main=document.getElementById('oldBookCanvasRight');
+  if(surface){surface.classList.remove('ob-clean-page-switch');}
   if(sheet){sheet.classList.remove('ob-page-flip-next','ob-page-flip-prev');sheet.style.display='none';sheet.style.transform='translate(-50%,-50%) rotateY(0deg)';}
   if(under){under.style.visibility='hidden';under.style.zIndex='1';}
   if(main){main.style.visibility='visible';main.style.zIndex='2';}
@@ -13077,27 +13079,46 @@ function finishOldBookFlip(){
 async function drawOldBookThumb(pageNum,canvas){
   if(!oldBookPdf||!canvas)return;const page=await oldBookPdf.getPage(pageNum),base=page.getViewport({scale:1}),box=canvas.parentElement.getBoundingClientRect(),scale=Math.min((box.width-4)/base.width,(box.height-4)/base.height),viewport=page.getViewport({scale:Math.max(.1,scale)}),ratio=Math.min(window.devicePixelRatio||1,2);canvas.width=Math.floor(viewport.width*ratio);canvas.height=Math.floor(viewport.height*ratio);canvas.style.width="100%";canvas.style.height="100%";const ctx=canvas.getContext("2d");ctx.setTransform(ratio,0,0,ratio,0,0);await page.render({canvasContext:ctx,viewport}).promise;
 }
+async function updateOldBookBackPagePreview(pageNum){
+  const under=document.getElementById("oldBookCanvasUnder");
+  if(!under||!oldBookPdf)return;
+  // Keep a small paper sheet visible behind the current page. It automatically
+  // becomes the next page (or previous page at the end), like a real book stack.
+  let previewPage=Number(pageNum)+1;
+  if(previewPage>oldBookPdf.numPages) previewPage=Math.max(1,Number(pageNum)-1);
+  if(previewPage===Number(pageNum)){
+    under.style.visibility="hidden";
+    return;
+  }
+  try{
+    await renderOldBookCanvasPage(previewPage,under);
+    under.style.visibility="visible";
+    under.style.zIndex="1";
+  }catch(e){
+    console.warn("Back page preview error:",e);
+  }
+}
+
 async function renderOldBookPage(num,direction="",token=oldBookToken,topics=window.oldBookCurrentTopics||[]){
   if(!oldBookPdf||oldBookRendering)return;if(num<1||num>oldBookPdf.numPages)return;oldBookRendering=true;
   const book=document.getElementById("oldBookBook"),loading=document.getElementById("oldBookLoading"),canvas=document.getElementById("oldBookCanvasRight");
   try{
-    loading.style.display="flex";
+    /* Seamless page change: keep the current PDF visible while the next PDF
+       page is rendered into the SAME canvas. There is no flip, overlap,
+       preview page, or loading flash between page 1 -> page 2. */
     if(direction){
-      const from=oldBookPageNum;
-      const prepared=await prepareOldBookFlip(from,num,direction);
-      if(token!==oldBookToken)return;
-      /* One physical sheet flips exactly once, then the target page becomes the main page. */
-      if(prepared) await new Promise(resolve=>setTimeout(resolve,640));
-      if(token!==oldBookToken)return;
       finishOldBookFlip();
+      if(loading) loading.style.display="none";
       await drawOldBookPage(num,canvas);
     }else{
       finishOldBookFlip();
+      if(loading) loading.style.display="flex";
       await drawOldBookPage(num,canvas);
     }
     if(token!==oldBookToken)return;
     oldBookPageNum=num;document.getElementById("oldBookPageCount").textContent=`पृष्ठ ${num} / ${oldBookPdf.numPages}`;
     updateOldBookHeader(num,topics);
+    await updateOldBookBackPagePreview(num);
     await updateOldBookNextTopic(num,topics,token);
     loading.classList.add("is-hidden"); loading.style.display="none";
   }catch(err){console.error("Page render error:",err);if(token===oldBookToken){loading.classList.remove("is-hidden");loading.style.display="flex";loading.textContent="⚠️ यह पन्ना लोड नहीं हो पाया।";}}
@@ -13121,6 +13142,14 @@ window.addEventListener("resize",()=>{if(oldBookPdf&&!oldBookRendering){finishOl
 </script>
 
 
+<style id="oldBookCleanSinglePageTransition">
+/* One-page-only transition: compress the current sheet vertically, swap the
+   PDF inside the same canvas, then open it again. No two page texts overlap. */
+#oldBookReader .ob-page-surface{transform-origin:center center;transition:transform .22s cubic-bezier(.55,.05,.45,.95),opacity .18s ease;}
+#oldBookReader .ob-page-surface.ob-clean-page-switch{transform:scaleY(.035);opacity:.98;}
+#oldBookReader #oldBookFlipSheet{display:none!important;visibility:hidden!important;}
+#oldBookReader #oldBookCanvasUnder{visibility:hidden!important;opacity:0!important;}
+</style>
 <style id="oldBookFullAreaAndSingleSheetFix">
 /* Fill the complete red/wood reader area with the PDF page. */
 #oldBookReader .ob-book-holder{
@@ -13193,10 +13222,10 @@ window.addEventListener("resize",()=>{if(oldBookPdf&&!oldBookRendering){finishOl
   #oldBookReader .ob-kath::before{bottom:12%!important}
   #oldBookReader .ob-red-cloth{bottom:16%!important}
   #oldBookReader .ob-book-holder{
-    left:7%!important;right:7%!important;top:8%!important;bottom:17%!important;
+    left:2%!important;right:2%!important;top:5%!important;bottom:15%!important;
   }
   #oldBookReader .ob-book{
-    width:76%!important;height:90%!important;min-height:0!important;
+    width:94%!important;height:94%!important;min-height:0!important;
   }
   #oldBookReader .ob-page-frame{padding:5px!important;border-width:3px!important;border-radius:10px!important}
 
@@ -13339,5 +13368,76 @@ window.addEventListener("resize",()=>{if(oldBookPdf&&!oldBookRendering){finishOl
     width:98%!important;
     height:97%!important;
   }
+}
+</style>
+
+<style id="oldBookUserFinalLargePageAndAutoBackPreview">
+/* ===== Larger readable paper + automatic page tucked behind it ===== */
+#oldBookReader .ob-book-holder{
+  left:0!important;
+  right:0!important;
+  top:0!important;
+  bottom:15%!important;
+}
+#oldBookReader .ob-book{
+  width:100%!important;
+  height:100%!important;
+  max-width:none!important;
+  min-height:0!important;
+}
+#oldBookReader .ob-page-frame{padding:2px!important;}
+#oldBookReader .ob-page-surface{
+  overflow:visible!important;
+}
+#oldBookReader #oldBookCanvasUnder{
+  visibility:visible!important;
+  z-index:1!important;
+  opacity:.72!important;
+  transform:translate(calc(-50% + 9px),calc(-50% + 10px))!important;
+  filter:brightness(.93) saturate(.9)!important;
+  border:1px solid rgba(117,77,32,.35)!important;
+  border-radius:5px!important;
+  box-shadow:0 7px 12px rgba(45,23,5,.38)!important;
+}
+#oldBookReader #oldBookCanvasRight{z-index:2!important;}
+#oldBookReader #oldBookFlipSheet{z-index:8!important;}
+@media(max-width:700px){
+  #oldBookReader .ob-book-holder{left:0!important;right:0!important;top:0!important;bottom:15%!important;}
+  #oldBookReader .ob-book{width:100%!important;height:100%!important;}
+  #oldBookReader .ob-page-frame{padding:2px!important;border-width:3px!important;}
+  #oldBookReader #oldBookCanvasUnder{transform:translate(calc(-50% + 6px),calc(-50% + 7px))!important;opacity:.66!important;}
+}
+@media(max-width:380px){
+  #oldBookReader .ob-book-holder{left:0!important;right:0!important;top:0!important;bottom:15%!important;}
+  #oldBookReader .ob-book{width:100%!important;height:100%!important;}
+  #oldBookReader #oldBookCanvasUnder{transform:translate(calc(-50% + 5px),calc(-50% + 6px))!important;}
+}
+</style>
+
+<style id="oldBookSeamlessPageFinal">
+/* FINAL: single real PDF page only. Page changes are direct swaps with no
+   visible flip, no two-page overlap, and no back-page preview. */
+#oldBookReader .ob-page-surface{
+  transform:none!important;
+  opacity:1!important;
+  transition:none!important;
+}
+#oldBookReader .ob-page-surface.ob-clean-page-switch{
+  transform:none!important;
+  opacity:1!important;
+}
+#oldBookReader #oldBookFlipSheet{
+  display:none!important;
+  visibility:hidden!important;
+}
+#oldBookReader #oldBookCanvasUnder{
+  display:none!important;
+  visibility:hidden!important;
+  opacity:0!important;
+}
+#oldBookReader #oldBookCanvasRight{
+  z-index:2!important;
+  visibility:visible!important;
+  opacity:1!important;
 }
 </style>
