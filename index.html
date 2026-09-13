@@ -13536,3 +13536,70 @@ window.addEventListener("resize",()=>{if(oldBookPdf&&!oldBookRendering){finishOl
   #oldBookReader #oldBookCanvasRight{transform:translate(-50%,calc(-50% - 4px))!important;}
 }
 </style>
+
+<style id="removeYellowOuterReaderBoxOnly">
+/* User request: remove only the yellow/gold outer box; keep the blue frame and the four wall decorations/photos. */
+#oldBookReader .ob-book-info{
+  border-color:transparent!important;
+  box-shadow:0 8px 22px #0009!important;
+}
+/* Keep the thumbnail itself intact; remove only the large yellow container line. */
+#oldBookReader .ob-book-info-text{border-left-color:transparent!important;}
+</style>
+
+<style id="oldBookSoftRedPaperEdge">
+/* Very thin, soft red accent only around the bright paper area. */
+#oldBookReader .ob-page-surface::before{
+  content:"";
+  position:absolute;
+  inset:3px;
+  border:1px solid rgba(135,55,43,.62);
+  border-radius:7px;
+  pointer-events:none;
+  z-index:10;
+  box-sizing:border-box;
+  box-shadow:0 0 2px rgba(118,48,38,.16);
+}
+</style>
+<style id="oldBookFinalFullSizeAfterAllOverrides">
+/* FINAL: make the real PDF/book fill the available reader area again. */
+#oldBookReader .ob-book-holder{
+  left:0!important;
+  right:0!important;
+  top:0!important;
+  bottom:0!important;
+  margin:0!important;
+  padding:0!important;
+}
+#oldBookReader .ob-book{
+  width:100%!important;
+  height:100%!important;
+  max-width:none!important;
+  max-height:none!important;
+  min-width:0!important;
+  min-height:0!important;
+}
+#oldBookReader .ob-page-frame{
+  width:100%!important;
+  height:100%!important;
+  padding:0!important;
+  margin:0!important;
+  border:0!important;
+  box-shadow:none!important;
+  border-radius:8px!important;
+}
+#oldBookReader .ob-page-surface{
+  width:100%!important;
+  height:100%!important;
+  border-radius:6px!important;
+}
+@media(max-width:700px){
+  #oldBookReader .ob-book-holder{left:0!important;right:0!important;top:0!important;bottom:0!important;}
+  #oldBookReader .ob-book{width:100%!important;height:100%!important;}
+  #oldBookReader .ob-page-frame{width:100%!important;height:100%!important;padding:0!important;border:0!important;}
+}
+@media(max-width:380px){
+  #oldBookReader .ob-book-holder{left:0!important;right:0!important;top:0!important;bottom:0!important;}
+  #oldBookReader .ob-book{width:100%!important;height:100%!important;}
+}
+</style>
