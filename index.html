@@ -1602,126 +1602,39 @@ body.dark-mode .home-devotional{
 </style>
 
 <style id="old-book-reader-style">
-/* ================= OLD BOOK READER — WOODEN KATH / PATH ================= */
-#oldBookReader{
-  position:fixed;inset:0;z-index:999999;
-  display:none;align-items:center;justify-content:center;
-  padding:12px;background:rgba(0,0,0,.82);backdrop-filter:blur(5px);
-}
-#oldBookReader.show{display:flex;}
-.ob-reader-panel{
-  width:min(96vw,980px);height:min(94vh,850px);
-  display:flex;flex-direction:column;align-items:center;
-  position:relative;
-}
-.ob-reader-top{
-  width:100%;display:flex;align-items:center;justify-content:space-between;
-  gap:10px;margin-bottom:8px;color:#fff;
-}
-.ob-reader-title{
-  min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
-  font-size:14px;font-weight:800;text-shadow:0 1px 8px #000;
-}
-.ob-reader-close{
-  flex:none;border:1px solid #555;background:#151515;color:#fff;
-  width:34px;height:34px;border-radius:50%;cursor:pointer;font-size:16px;
-}
-.ob-kath{
-  position:relative;width:min(94vw,900px);height:calc(100% - 86px);
-  min-height:400px;border-radius:14px 14px 8px 8px;
-  background:
-    linear-gradient(90deg,rgba(255,255,255,.06),transparent 8%,transparent 92%,rgba(0,0,0,.15)),
-    linear-gradient(180deg,#6f3e20,#3c1d10 70%,#29150d);
-  box-shadow:0 18px 45px rgba(0,0,0,.55),inset 0 2px 0 rgba(255,255,255,.08);
-  border:7px solid #3a1c0e;
-  overflow:hidden;
-  display:flex;align-items:center;justify-content:center;
-}
-.ob-kath::before{
-  content:"";position:absolute;left:3%;right:3%;top:4%;bottom:10%;
-  border-radius:8px;
-  background:
-    radial-gradient(circle at 18% 25%,rgba(255,210,100,.28) 0 2px,transparent 3px),
-    radial-gradient(circle at 75% 35%,rgba(255,210,100,.20) 0 2px,transparent 3px),
-    linear-gradient(180deg,#8b512b,#542914);
-  box-shadow:inset 0 0 0 5px #32180d,inset 0 0 0 8px rgba(255,205,110,.10);
-}
-.ob-red-cloth{
-  position:absolute;left:7%;right:7%;top:9%;bottom:15%;
-  background:linear-gradient(145deg,#9d1118,#4c0508);
-  border-radius:5px;box-shadow:inset 0 0 35px rgba(0,0,0,.45);
-}
-.ob-book-holder{
-  position:absolute;left:8%;right:8%;top:7%;bottom:12%;
-  display:flex;align-items:center;justify-content:center;
-  perspective:1800px;
-}
-.ob-book{
-  position:relative;width:min(82%,650px);height:min(90%,690px);
-  min-height:300px;display:flex;align-items:stretch;justify-content:center;
-  transform:rotate(-1.2deg);
-  filter:drop-shadow(0 12px 8px rgba(0,0,0,.45));
-}
-.ob-page{
-  position:relative;width:100%;height:100%;
-  background:#f5ead1;
-  border:1px solid #c6b18b;border-radius:3px 7px 7px 3px;
-  box-shadow:inset -8px 0 15px rgba(90,45,10,.10),0 2px 0 rgba(255,255,255,.25);
-  transform-origin:left center;
-  overflow:hidden;
-}
-.ob-page.flip-next{animation:obFlipNext .38s ease both;}
-.ob-page.flip-prev{animation:obFlipPrev .38s ease both;}
-@keyframes obFlipNext{
-  0%{transform:rotateY(0deg);opacity:1}
-  45%{transform:rotateY(-82deg);opacity:.45}
-  100%{transform:rotateY(0deg);opacity:1}
-}
-@keyframes obFlipPrev{
-  0%{transform:rotateY(0deg);opacity:1}
-  45%{transform:rotateY(82deg);opacity:.45}
-  100%{transform:rotateY(0deg);opacity:1}
-}
-#oldBookCanvas{
-  display:block;width:100%;height:100%;object-fit:contain;
-  background:#f5ead1;
-}
-.ob-book-spine{
-  position:absolute;left:-8px;top:2%;bottom:2%;width:12px;
-  border-radius:7px 0 0 7px;
-  background:linear-gradient(90deg,#4c2412,#a86132,#4c2412);
-  box-shadow:2px 0 4px rgba(0,0,0,.3);
-}
-.ob-controls{
-  position:absolute;left:50%;bottom:2.5%;transform:translateX(-50%);
-  display:flex;align-items:center;gap:7px;z-index:5;
-  background:rgba(38,18,9,.86);padding:6px 8px;border-radius:12px;
-  border:1px solid rgba(255,220,150,.22);box-shadow:0 6px 20px rgba(0,0,0,.35);
-}
-.ob-nav-btn{
-  border:1px solid #76502f;background:linear-gradient(#4b2b18,#2a160c);
-  color:#fff;border-radius:8px;padding:6px 10px;font-size:11px;font-weight:800;
-  cursor:pointer;min-width:70px;
-}
-.ob-nav-btn:hover{border-color:#ffe16a;color:#ffe16a;}
-.ob-page-count{color:#f5e3c0;font-size:11px;font-weight:800;min-width:70px;text-align:center;}
-.ob-loading{
-  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
-  color:#5a3a1f;background:#f5ead1;font-weight:800;font-size:13px;
-}
-.ob-kath-base{
-  position:absolute;left:-1%;right:-1%;bottom:-4%;height:15%;
-  border-radius:0 0 13px 13px;
-  background:linear-gradient(180deg,#6e3d1e,#351a0d);
-  box-shadow:0 10px 20px rgba(0,0,0,.35);
-}
-@media(max-width:600px){
-  .ob-reader-panel{height:96vh;}
-  .ob-kath{height:calc(100% - 70px);min-height:300px;border-width:4px;}
-  .ob-book{width:88%;height:82%;}
-  .ob-nav-btn{min-width:58px;padding:6px 7px;font-size:10px;}
-  .ob-page-count{min-width:58px;font-size:10px;}
-}
+/* ===== OLD BOOK — SINGLE PAGE WOODEN READER ===== */
+#oldBookReader{position:fixed;inset:0;z-index:999999;display:none;align-items:center;justify-content:center;padding:10px;background:rgba(13,7,4,.94);backdrop-filter:blur(6px)}
+#oldBookReader.show{display:flex}
+.ob-reader-panel{width:min(94vw,900px);height:min(97vh,900px);display:flex;flex-direction:column;align-items:center;position:relative;overflow:auto}
+.ob-reader-top{width:min(90vw,820px);display:flex;align-items:center;justify-content:space-between;margin:2px 0 8px;color:#fff}
+.ob-reader-title{font-size:18px;font-weight:900;letter-spacing:.2px;transform:none;text-shadow:0 2px 8px #000;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ob-reader-close{width:36px;height:36px;border-radius:50%;border:1px solid #b17a3e;background:#241109;color:#fff;font-size:17px;font-weight:900;cursor:pointer;box-shadow:0 4px 15px #000}
+.ob-book-info{width:min(90vw,820px);display:flex;align-items:center;gap:12px;padding:8px 12px;margin-bottom:8px;background:linear-gradient(135deg,#4c2818,#251208);border:1px solid #d4a45e;border-radius:12px;box-shadow:0 7px 20px #0009}
+.ob-main-thumb{width:54px;height:72px;flex:0 0 54px;border:2px solid #e6c06f;border-radius:5px;background:#fff;overflow:hidden;box-shadow:0 4px 12px #0008;cursor:pointer}
+.ob-main-thumb canvas{width:100%;height:100%;display:block;object-fit:contain}
+.ob-last-thumb{width:54px;height:72px;flex:0 0 54px;border:2px solid #b9874b;border-radius:5px;background:#fff;overflow:hidden;box-shadow:0 4px 12px #0008;cursor:pointer;margin-left:auto}
+.ob-last-thumb canvas{width:100%;height:100%;display:block;object-fit:contain}
+.ob-next-topic-mini{margin-top:4px;display:flex;align-items:center;gap:6px;min-height:48px;padding:4px 6px;border:1px solid rgba(127,194,216,.42);border-radius:6px;background:rgba(15,32,45,.55);color:#cdeef7;font-size:9px;font-weight:800;line-height:1.25;white-space:normal;cursor:pointer;overflow:hidden}.ob-next-topic-mini canvas{width:34px;height:44px;flex:0 0 34px;display:block;background:#f7eedb;border:1px solid rgba(220,190,130,.8);border-radius:3px;object-fit:contain}.ob-next-topic-mini span{min-width:0;display:block}.ob-next-topic-mini.is-empty canvas{display:none}
+.ob-book-info-text{min-width:0;color:#ffeac0}.ob-book-info-text strong{display:block;font-size:13px}.ob-book-info-text span{font-size:10px;opacity:.82}
+.ob-kath{position:relative;width:min(90vw,820px);height:min(64vh,590px);min-height:370px;overflow:hidden;border:6px solid #32170c;border-radius:16px 16px 8px 8px;background:linear-gradient(180deg,#7d4828,#4e2815 70%,#2a130a);box-shadow:0 24px 60px #000b,inset 0 2px 0 #ffffff18,inset 0 -18px 25px #0006}
+.ob-kath::before{content:"";position:absolute;left:3%;right:3%;top:5%;bottom:14%;border-radius:11px;background:linear-gradient(180deg,#8a502f,#4b2513);box-shadow:inset 0 0 0 5px #2a1309,inset 0 0 0 8px #ffd46a18}
+.ob-red-cloth{position:absolute;left:7%;right:7%;top:9%;bottom:18%;border-radius:9px;background:linear-gradient(145deg,#a9151d,#710910 60%,#430407);box-shadow:inset 0 0 42px #0009}
+.ob-red-cloth:before,.ob-red-cloth:after{content:"";position:absolute;bottom:2%;width:17%;height:40%;background:linear-gradient(90deg,#3d1b0b,#a15b30 48%,#3b1a0b);border-radius:8px;box-shadow:0 12px 16px #0006}.ob-red-cloth:before{left:8%;transform:skewY(-8deg)}.ob-red-cloth:after{right:8%;transform:skewY(8deg)}
+.ob-book-holder{position:absolute;left:11%;right:11%;top:12%;bottom:18%;display:flex;align-items:center;justify-content:center;perspective:1800px}
+.ob-book{position:relative;width:min(64%,510px);height:min(92%,520px);min-height:280px;display:flex;align-items:stretch;justify-content:center;transform:rotate(0deg);filter:drop-shadow(0 20px 16px #000b);perspective:1800px}
+.ob-page-frame{position:relative;width:100%;height:100%;padding:9px;background:linear-gradient(135deg,#0b1f3a,#07152b);border:4px solid #4ea6c8;border-radius:12px;box-shadow:0 10px 25px #000b,0 0 5px rgba(78,166,200,.55),inset 0 0 0 2px rgba(165,224,242,.28);transform-style:preserve-3d}
+.ob-page-frame:before{content:"";position:absolute;inset:8px;border:2px solid rgba(110,190,220,.28);border-radius:5px;pointer-events:none;z-index:3}
+.ob-page-surface{position:relative;width:100%;height:100%;overflow:hidden;border-radius:4px;background:#f7eedb;box-shadow:inset 0 0 24px #4a2a1218}
+.ob-page-surface canvas{display:block;width:100%;height:100%;background:#f7eedb}
+.ob-page-shadow{position:absolute;inset:0;pointer-events:none;box-shadow:inset 0 0 22px #43200818,inset -8px 0 12px #43200812}
+.ob-loading{position:absolute;inset:0;display:none;align-items:center;justify-content:center;color:#5a3a1f;background:#f6edd9;font-weight:900;font-size:13px;z-index:9;text-align:center}.ob-loading.is-hidden{display:none!important}
+.ob-page-flip-next{animation:obPageNext .58s cubic-bezier(.2,.75,.2,1) both}.ob-page-flip-prev{animation:obPagePrev .58s cubic-bezier(.2,.75,.2,1) both}
+@keyframes obPageNext{0%{transform:rotateY(0) rotateZ(0deg);transform-origin:right center}45%{transform:rotateY(-72deg) rotateZ(0deg) translateX(-2%);box-shadow:20px 10px 30px #0008}100%{transform:rotateY(0) rotateZ(0deg);transform-origin:right center}}
+@keyframes obPagePrev{0%{transform:rotateY(0) rotateZ(0deg);transform-origin:left center}45%{transform:rotateY(72deg) rotateZ(0deg) translateX(2%);box-shadow:-20px 10px 30px #0008}100%{transform:rotateY(0) rotateZ(0deg);transform-origin:left center}}
+.ob-kath-base{position:absolute;left:-1%;right:-1%;bottom:-4%;height:17%;border-radius:0 0 15px 15px;background:linear-gradient(180deg,#754321,#351a0d);box-shadow:0 13px 23px #0008}.ob-stand-ornament{position:absolute;z-index:4;bottom:6%;left:50%;transform:translateX(-50%);color:#f1ca73;font-size:20px;text-shadow:0 2px 5px #000}
+.ob-controls{display:flex;align-items:center;justify-content:center;gap:9px;margin-top:8px;background:#251207e8;padding:7px 9px;border-radius:12px;border:1px solid #e4bd7340;box-shadow:0 8px 24px #0008}.ob-nav-btn{border:1px solid #3165cf;background:linear-gradient(#17439a,#08225d);color:#fff;border-radius:8px;padding:8px 18px;font-size:11px;font-weight:900;cursor:pointer;min-width:92px}.ob-nav-btn:hover{border-color:#a9c6ff;transform:translateY(-1px)}.ob-page-count{color:#f5e3c0;font-size:10px;font-weight:900;min-width:90px;text-align:center}
+.ob-topic-panel{width:min(90vw,820px);margin-top:9px;background:linear-gradient(180deg,#432313,#1c0d07);border:1px solid #d0a45d55;border-radius:12px;padding:9px 10px;box-shadow:0 8px 25px #0008;max-height:145px;overflow:auto}.ob-topic-title{color:#ffe6ad;font-size:11px;font-weight:900;text-align:center;margin-bottom:7px} .ob-topic-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px 8px;align-items:stretch}.ob-topic-btn{border:1px solid #5f7890;background:linear-gradient(180deg,#263b4d,#182836);color:#f5f7fa;border-radius:7px;padding:6px 8px;font-size:10px;font-weight:800;cursor:pointer;line-height:1.25;text-align:left;min-width:0;white-space:normal;transition:transform .16s ease,border-color .16s ease,background .16s ease}.ob-topic-btn:hover{border-color:#7fc2d8;background:linear-gradient(180deg,#30495c,#1d303f);transform:translateY(-1px)}.ob-topic-btn:active{transform:translateY(0)}@media(max-width:700px){.ob-topic-list{grid-template-columns:repeat(2,minmax(0,1fr));gap:5px 6px}.ob-topic-btn{font-size:9px;padding:6px 7px}}
+@media(max-width:700px){#oldBookReader{padding:4px}.ob-reader-panel{width:99vw;height:99vh}.ob-reader-top{width:95vw}.ob-reader-title{font-size:14px}.ob-book-info{width:95vw}.ob-main-thumb,.ob-last-thumb{width:46px;height:62px;flex-basis:46px}.ob-next-topic-mini{font-size:8px;padding:3px 5px}.ob-kath{width:95vw;height:57vh;min-height:320px;border-width:4px}.ob-book-holder{left:6%;right:6%;top:10%;bottom:18%}.ob-book{width:78%;height:91%;min-height:250px}.ob-page-frame{padding:6px;border-width:4px}.ob-controls{gap:5px;margin-top:6px}.ob-nav-btn{min-width:78px;padding:7px 10px;font-size:9px}.ob-page-count{min-width:65px;font-size:9px}.ob-topic-panel{width:95vw;max-height:120px}.ob-topic-btn{font-size:8px;padding:5px 6px}}
 </style>
 
 </head>  <body>  <div id="progress"></div>
@@ -12670,28 +12583,53 @@ function openFileContent(id){
       <div id="oldBookReaderTitle" class="ob-reader-title">📖 Book</div>
       <button class="ob-reader-close" type="button" onclick="closeOldBookReader()" aria-label="Close">✕</button>
     </div>
+
+    <div class="ob-book-info">
+      <div class="ob-main-thumb" onclick="oldBookJumpTo(1)" title="मुख्य किताब का पहला पेज">
+        <canvas id="oldBookThumbFirst"></canvas>
+      </div>
+      <div class="ob-book-info-text">
+        <strong id="oldBookInfoName">कोपल</strong>
+        <span>मुख्य पेज • किताब का पहला पन्ना</span>
+        <div id="oldBookNextTopicMini" class="ob-next-topic-mini" title="अगले पाठ का छोटा preview">
+          <canvas id="oldBookNextTopicThumb"></canvas>
+          <span id="oldBookNextTopicText">📚 अगला पाठ: —</span>
+        </div>
+      </div>
+      <div class="ob-last-thumb" onclick="oldBookJumpTo('last')" title="किताब का आखिरी पेज">
+        <canvas id="oldBookThumbLast"></canvas>
+      </div>
+    </div>
+
     <div class="ob-kath">
       <div class="ob-red-cloth"></div>
       <div class="ob-book-holder">
-        <div class="ob-book">
-          <div class="ob-page" id="oldBookPage">
-            <canvas id="oldBookCanvas"></canvas>
-            <div id="oldBookLoading" class="ob-loading">📖 किताब खोली जा रही है…</div>
-            <div class="ob-book-spine"></div>
+        <div class="ob-book" id="oldBookBook">
+          <div class="ob-page-frame">
+            <div class="ob-page-surface">
+              <canvas id="oldBookCanvasRight"></canvas>
+              <div id="oldBookLoading" class="ob-loading">📖 किताब खोली जा रही है…</div>
+              <div class="ob-page-shadow"></div>
+            </div>
           </div>
         </div>
       </div>
       <div class="ob-kath-base"></div>
-      <div class="ob-controls">
-        <button class="ob-nav-btn" type="button" onclick="oldBookPrev()">← Previous</button>
-        <div id="oldBookPageCount" class="ob-page-count">Page 0 / 0</div>
-        <button class="ob-nav-btn" type="button" onclick="oldBookNext()">Next →</button>
-      </div>
+      <div class="ob-stand-ornament">✦</div>
+    </div>
+
+    <div class="ob-controls">
+      <button class="ob-nav-btn" type="button" onclick="oldBookPrev()">← Preview</button>
+      <div id="oldBookPageCount" class="ob-page-count">पृष्ठ 1 / 1</div>
+      <button class="ob-nav-btn" type="button" onclick="oldBookNext()">Next →</button>
+    </div>
+
+    <div id="oldBookTopics" class="ob-topic-panel" style="display:none">
+      <div class="ob-topic-title">📚 इस किताब के पाठ</div>
+      <div id="oldBookTopicList" class="ob-topic-list"></div>
     </div>
   </div>
 </div>
-
-
 <script id="old-books-system-js">
 /* ================= OLD BOOKS DATA =================
    PDF paths are intentionally empty for now.
@@ -12702,7 +12640,13 @@ const OLD_BOOKS_DATA = [
   {className:"कक्षा 1", subjects:[]},
   {className:"कक्षा 2", subjects:[]},
   {className:"कक्षा 3", subjects:[
-    {name:"कोपल", books:[{name:"कोपल", pdf:"KOPAL-BHAG-1-github.pdf"}]},
+    {name:"कोपल", books:[{name:"कोपल", pdf:"KOPAL-BHAG-1-github.pdf", topics:[
+    {name:"प्रार्थना",page:1},{name:"प्रतीक्षा",page:5},{name:"मेरा गाँव",page:10},{name:"बब्बन बंदर",page:13},
+    {name:"खूब मजे हैं मौसम के",page:18},{name:"जंगल में सभा",page:21},{name:"फूलबाड़ी",page:24},{name:"रक्षाबंधन",page:28},
+    {name:"तिरंगा",page:33},{name:"कौवा और साँप",page:37},{name:"उल्टा-पुल्टा",page:45},{name:"गाँधीजी की कहानी-चित्रों की जुबानी",page:48},
+    {name:"राजगीर",page:55},{name:"दीप जले",page:60},{name:"साहसी इंदिरा",page:64},{name:"गंगा नदी",page:70},
+    {name:"बैलगाड़ी का दाम",page:74},{name:"हम सब",page:80},{name:"कुत्ते की कहानी",page:84},{name:"खेल-खेल में",page:91}
+  ]}]},
     {name:"English", books:[{name:"Blossom", pdf:"Class-3-English-BLOSSOM-github.pdf"}]},
     {name:"पर्यावरण", books:[{name:"पर्यावरण और हम-3", pdf:"PARYAWARAN-AUR-HUM-3-github.pdf"}]},
     {name:"गणित", books:[{name:"गणित-3", pdf:"GANIT-3-github.pdf"}]}
@@ -12739,7 +12683,7 @@ function renderOldBooksTree(root){
         const books=sub.books||[];
         // एक ही किताब हो तो विषय/किताब पर क्लिक करते ही सीधे PDF reader खुले।
         if(books.length===1){
-          sh.onclick=()=>openOldBookViewer(books[0].pdf,books[0].name);
+          sh.onclick=()=>openOldBookViewer(books[0].pdf,books[0].name,books[0].topics||[]);
           sh.classList.add("direct-book");
         }else{
           const sb=document.createElement("div");
@@ -12752,7 +12696,7 @@ function renderOldBooksTree(root){
             left.innerHTML=`<span>📖</span><span>${escapeOldBookText(book.name)}</span>`;
             const open=document.createElement("button");
             open.type="button"; open.className="ob-book-open"; open.textContent="पढ़ें";
-            open.onclick=()=>openOldBookViewer(book.pdf,book.name);
+            open.onclick=()=>openOldBookViewer(book.pdf,book.name,book.topics||[]);
             row.append(left,open);
             sb.appendChild(row);
           });
@@ -12781,95 +12725,150 @@ function initOldBooksSystem(root){
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",initOldBooksSystem);
 else initOldBooksSystem();
 
-/* ================= PDF BOOK READER ================= */
-let oldBookPdf=null, oldBookPageNum=1, oldBookRendering=false, oldBookPending=null;
-
+/* ================= PDF BOOK READER — SINGLE PAGE ================= */
+let oldBookPdf=null, oldBookPageNum=1, oldBookRendering=false, oldBookPending=null, oldBookUrl="", oldBookToken=0;
 function ensurePdfJs(){
   if(window.pdfjsLib)return Promise.resolve();
   return new Promise((resolve,reject)=>{
     const s=document.createElement("script");
     s.src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js";
-    s.onload=()=>{
-      if(window.pdfjsLib){
-        window.pdfjsLib.GlobalWorkerOptions.workerSrc=
-          "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
-        resolve();
-      }else reject(new Error("PDF.js unavailable"));
-    };
+    s.onload=()=>{if(window.pdfjsLib){window.pdfjsLib.GlobalWorkerOptions.workerSrc="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";resolve();}else reject(new Error("PDF.js unavailable"));};
     s.onerror=()=>reject(new Error("PDF.js load failed"));
     document.head.appendChild(s);
   });
 }
-
-function openOldBookViewer(pdfUrl,title){
-  if(!pdfUrl){
-    alert("इस किताब की PDF अभी जोड़ी नहीं गई है।");
+async function openOldBookViewer(pdfUrl,title,topics=[]){
+  /* Old Books is opened inside fileContentPopup. Close that popup BEFORE
+     showing the PDF reader, otherwise the popup stays above the reader and
+     makes it look like the PDF is opening in the background. */
+  const oldBooksPopup=document.getElementById("fileContentPopup");
+  if(oldBooksPopup) oldBooksPopup.remove();
+  if(!pdfUrl){alert("इस किताब की PDF अभी जोड़ी नहीं गई है।");return;}
+  const token=++oldBookToken;
+  const reader=document.getElementById("oldBookReader"),loading=document.getElementById("oldBookLoading"),book=document.getElementById("oldBookBook");
+  oldBookUrl=new URL(pdfUrl,document.baseURI).href;
+  oldBookPageNum=1;oldBookPdf=null;oldBookPending=null;oldBookRendering=false;
+  window.oldBookCurrentTopics=Array.isArray(topics)?topics:[];
+  document.getElementById("oldBookReaderTitle").textContent="📖 "+(title||"Book");
+  document.getElementById("oldBookInfoName").textContent=title||"Book";
+  document.getElementById("oldBookPageCount").textContent="पृष्ठ 1 / …";
+  renderOldBookTopics(topics,title);
+  book.classList.remove("ob-page-flip-next","ob-page-flip-prev");
+  loading.classList.remove("is-hidden");loading.style.display="flex";loading.textContent="📖 किताब खोली जा रही है…";
+  reader.classList.add("show");reader.setAttribute("aria-hidden","false");
+  try{
+    await ensurePdfJs();
+    if(token!==oldBookToken)return;
+    oldBookPdf=await window.pdfjsLib.getDocument({url:oldBookUrl,withCredentials:false,disableAutoFetch:false,disableStream:false}).promise;
+    if(token!==oldBookToken)return;
+    document.getElementById("oldBookPageCount").textContent=`पृष्ठ 1 / ${oldBookPdf.numPages}`;
+    loading.classList.add("is-hidden"); loading.style.display="none";
+    await drawOldBookThumb(1,document.getElementById("oldBookThumbFirst"));
+    await drawOldBookThumb(oldBookPdf.numPages,document.getElementById("oldBookThumbLast"));
+    await updateOldBookNextTopic(1,topics,token);
+    await renderOldBookPage(1,"",token,topics);
+  }catch(e){
+    console.error("Old book PDF error:",e);
+    if(token!==oldBookToken)return;
+    loading.classList.remove("is-hidden"); loading.style.display="flex";
+    loading.innerHTML="⚠️ PDF नहीं खुल सकी।<br><small style='display:block;margin-top:6px'>PDF file और GitHub filename जाँचें।</small>";
+  }
+}
+function renderOldBookTopics(topics,title){
+  const panel=document.getElementById("oldBookTopics"),list=document.getElementById("oldBookTopicList");
+  if(!panel||!list)return;list.innerHTML="";
+  if(!topics||!topics.length){panel.style.display="none";updateOldBookNextTopic(1,[]);return;}
+  panel.style.display="block";
+  const titleEl=panel.querySelector(".ob-topic-title");
+  if(titleEl)titleEl.textContent="📚 "+(title||"किताब")+" — पाठ सीधे खोलें";
+  topics.forEach((topic,i)=>{
+    const b=document.createElement("button");
+    b.type="button";b.className="ob-topic-btn";
+    b.textContent=(i+1)+". "+topic.name;
+    b.title="PDF में पृष्ठ "+topic.page+" पर जाएँ";
+    b.onclick=()=>oldBookJumpToPrintedPage(topic.page,topics);
+    list.appendChild(b);
+  });
+  updateOldBookNextTopic(1,topics);
+}
+async function updateOldBookNextTopic(pdfPage,topics,token=oldBookToken){
+  const el=document.getElementById("oldBookNextTopicMini");
+  const text=document.getElementById("oldBookNextTopicText");
+  const thumb=document.getElementById("oldBookNextTopicThumb");
+  if(!el||!text)return;
+  el.classList.remove("is-empty");
+  if(!topics||!topics.length){
+    text.textContent="📚 अगला पाठ: —";
+    el.classList.add("is-empty");
     return;
   }
-  // GitHub Pages पर PDF.js के बजाय सीधे PDF खोलें — इससे किताब तुरंत खुलेगी।
-  const url = new URL(pdfUrl, document.baseURI).href;
-  window.open(url, "_blank", "noopener,noreferrer");
-}
-
-async function renderOldBookPage(num,direction){
-  if(!oldBookPdf)return;
-  if(num<1||num>oldBookPdf.numPages)return;
-  if(oldBookRendering){oldBookPending={num,direction};return;}
-  oldBookRendering=true;
-
-  const pageBox=document.getElementById("oldBookPage");
-  if(direction){
-    pageBox.classList.remove("flip-next","flip-prev");
-    void pageBox.offsetWidth;
-    pageBox.classList.add(direction==="next"?"flip-next":"flip-prev");
+  const printed=Math.max(1,(Number(pdfPage)||1)-12);
+  let current=-1;
+  topics.forEach((t,i)=>{if(Number(t.page)<=printed)current=i;});
+  const next=current+1;
+  if(next>=topics.length){
+    text.textContent="✓ यह किताब का अंतिम पाठ है।";
+    el.classList.add("is-empty");
+    el.onclick=null;
+    return;
   }
-
-  try{
-    const page=await oldBookPdf.getPage(num);
-    const canvas=document.getElementById("oldBookCanvas");
-    const box=canvas.parentElement.getBoundingClientRect();
-    const base=page.getViewport({scale:1});
-    const scale=Math.min((box.width-8)/base.width,(box.height-8)/base.height);
-    const viewport=page.getViewport({scale:Math.max(.5,scale)});
-    const ratio=window.devicePixelRatio||1;
-    canvas.width=Math.floor(viewport.width*ratio);
-    canvas.height=Math.floor(viewport.height*ratio);
-    canvas.style.width=Math.floor(viewport.width)+"px";
-    canvas.style.height=Math.floor(viewport.height)+"px";
-    const ctx=canvas.getContext("2d");
-    ctx.setTransform(ratio,0,0,ratio,0,0);
-    await page.render({canvasContext:ctx,viewport}).promise;
-    oldBookPageNum=num;
-    document.getElementById("oldBookPageCount").textContent=`Page ${num} / ${oldBookPdf.numPages}`;
-    document.getElementById("oldBookLoading").style.display="none";
-  }finally{
-    oldBookRendering=false;
-    if(oldBookPending){
-      const p=oldBookPending; oldBookPending=null; renderOldBookPage(p.num,p.direction);
+  const t=topics[next];
+  const label=(next+1)+". "+t.name;
+  text.textContent="📚 अगला पाठ: "+label+" — इसमें यही पाठ पढ़ना है।";
+  const targetPdfPage=(Number(t.page)||1)+12;
+  el.onclick=()=>oldBookJumpToPrintedPage(t.page,topics);
+  if(thumb&&oldBookPdf){
+    try{
+      await drawOldBookThumb(targetPdfPage,thumb);
+      if(token!==oldBookToken)return;
+    }catch(e){
+      console.warn("Next topic thumbnail error:",e);
     }
   }
 }
-function oldBookNext(){
-  if(oldBookPdf && oldBookPageNum<oldBookPdf.numPages)renderOldBookPage(oldBookPageNum+1,"next");
+function oldBookJumpTo(pageNum,topics){
+  if(!oldBookPdf)return;
+  const n=(pageNum==='last')?oldBookPdf.numPages:Math.max(1,Math.min(oldBookPdf.numPages,Number(pageNum)||1));
+  renderOldBookPage(n,"next",oldBookToken,topics||window.oldBookCurrentTopics||[]);
 }
-function oldBookPrev(){
-  if(oldBookPdf && oldBookPageNum>1)renderOldBookPage(oldBookPageNum-1,"prev");
+function oldBookJumpToPrintedPage(printedPage,topics){oldBookJumpTo((Number(printedPage)||1)+12,topics);}
+async function drawOldBookPage(pageNum,canvas){
+  if(!oldBookPdf||!canvas||pageNum<1||pageNum>oldBookPdf.numPages)return;
+  const page=await oldBookPdf.getPage(pageNum),box=canvas.parentElement.getBoundingClientRect(),base=page.getViewport({scale:1});
+  const scale=Math.min((box.width-4)/base.width,(box.height-4)/base.height),viewport=page.getViewport({scale:Math.max(.25,scale)}),ratio=Math.min(window.devicePixelRatio||1,2);
+  canvas.width=Math.floor(viewport.width*ratio);canvas.height=Math.floor(viewport.height*ratio);canvas.style.width="100%";canvas.style.height="100%";canvas.style.objectFit="contain";
+  const ctx=canvas.getContext("2d",{alpha:false});ctx.setTransform(ratio,0,0,ratio,0,0);await page.render({canvasContext:ctx,viewport}).promise;
 }
-function closeOldBookReader(){
-  const reader=document.getElementById("oldBookReader");
-  reader.classList.remove("show"); reader.setAttribute("aria-hidden","true");
-  oldBookPdf=null;
+async function drawOldBookThumb(pageNum,canvas){
+  if(!oldBookPdf||!canvas)return;const page=await oldBookPdf.getPage(pageNum),base=page.getViewport({scale:1}),box=canvas.parentElement.getBoundingClientRect(),scale=Math.min((box.width-4)/base.width,(box.height-4)/base.height),viewport=page.getViewport({scale:Math.max(.1,scale)}),ratio=Math.min(window.devicePixelRatio||1,2);canvas.width=Math.floor(viewport.width*ratio);canvas.height=Math.floor(viewport.height*ratio);canvas.style.width="100%";canvas.style.height="100%";const ctx=canvas.getContext("2d");ctx.setTransform(ratio,0,0,ratio,0,0);await page.render({canvasContext:ctx,viewport}).promise;
 }
-document.addEventListener("keydown",e=>{
-  const r=document.getElementById("oldBookReader");
-  if(!r || !r.classList.contains("show"))return;
-  if(e.key==="ArrowRight")oldBookNext();
-  if(e.key==="ArrowLeft")oldBookPrev();
-  if(e.key==="Escape")closeOldBookReader();
-});
-window.addEventListener("resize",()=>{
-  if(oldBookPdf)renderOldBookPage(oldBookPageNum,"");
-});
+async function renderOldBookPage(num,direction="",token=oldBookToken,topics=window.oldBookCurrentTopics||[]){
+  if(!oldBookPdf||oldBookRendering)return;if(num<1||num>oldBookPdf.numPages)return;oldBookRendering=true;
+  const book=document.getElementById("oldBookBook"),loading=document.getElementById("oldBookLoading"),canvas=document.getElementById("oldBookCanvasRight");
+  try{
+    loading.style.display="flex";
+    book.classList.remove("ob-page-flip-next","ob-page-flip-prev");void book.offsetWidth;
+    await drawOldBookPage(num,canvas);
+    if(token!==oldBookToken)return;
+    oldBookPageNum=num;document.getElementById("oldBookPageCount").textContent=`पृष्ठ ${num} / ${oldBookPdf.numPages}`;
+    await updateOldBookNextTopic(num,topics,token);
+    loading.classList.add("is-hidden"); loading.style.display="none";
+    if(direction){book.classList.add(direction==="prev"?"ob-page-flip-prev":"ob-page-flip-next");setTimeout(()=>book.classList.remove("ob-page-flip-next","ob-page-flip-prev"),620);}
+  }catch(err){console.error("Page render error:",err);if(token===oldBookToken){loading.classList.remove("is-hidden");loading.style.display="flex";loading.textContent="⚠️ यह पन्ना लोड नहीं हो पाया।";}}
+  finally{
+    oldBookRendering=false;
+    if(token===oldBookToken && oldBookPdf && document.getElementById("oldBookLoading")){
+      const l=document.getElementById("oldBookLoading");
+      if(!l.textContent.includes("⚠️")){l.classList.add("is-hidden");l.style.display="none";}
+    }
+    if(oldBookPending){const p=oldBookPending;oldBookPending=null;renderOldBookPage(p.num,p.direction,p.token,p.topics||window.oldBookCurrentTopics||[]);}
+  }
+}
+function oldBookNext(){if(!oldBookPdf||oldBookRendering)return;if(oldBookPageNum<oldBookPdf.numPages)renderOldBookPage(oldBookPageNum+1,"next",oldBookToken,window.oldBookCurrentTopics||[])}
+function oldBookPrev(){if(!oldBookPdf||oldBookRendering)return;if(oldBookPageNum>1)renderOldBookPage(oldBookPageNum-1,"prev",oldBookToken,window.oldBookCurrentTopics||[])}
+function closeOldBookReader(){++oldBookToken;const reader=document.getElementById("oldBookReader");reader.classList.remove("show");reader.setAttribute("aria-hidden","true");oldBookPdf=null;oldBookPending=null;oldBookRendering=false;}
+document.addEventListener("keydown",e=>{const r=document.getElementById("oldBookReader");if(!r||!r.classList.contains("show"))return;if(e.key==="ArrowRight")oldBookNext();if(e.key==="ArrowLeft")oldBookPrev();if(e.key==="Escape")closeOldBookReader();});
+window.addEventListener("resize",()=>{if(oldBookPdf&&!oldBookRendering)renderOldBookPage(oldBookPageNum,"",oldBookToken,window.oldBookCurrentTopics||[]);});
 </script>
 
 </body>    </html>
