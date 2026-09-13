@@ -13045,23 +13045,22 @@ async function drawOldBookPage(pageNum,canvas){
   await renderOldBookCanvasPage(pageNum,canvas);
 }
 async function prepareOldBookFlip(fromPage,toPage,direction){
-  const surface=document.querySelector('#oldBookReader .ob-page-surface');
+  /* Single-sheet flip: only the current page turns to the one target page.
+     Do NOT render the target page underneath the sheet; that was causing the
+     double/ghost page effect seen on mobile. */
   const sheet=document.getElementById('oldBookFlipSheet');
   const front=document.getElementById('oldBookFlipFront');
   const back=document.getElementById('oldBookFlipBack');
-  const under=document.getElementById('oldBookCanvasUnder');
-  if(!surface||!sheet||!front||!back||!under)return false;
+  const main=document.getElementById('oldBookCanvasRight');
+  if(!sheet||!front||!back||!main)return false;
   await Promise.all([
     renderOldBookCanvasPage(fromPage,front),
-    renderOldBookCanvasPage(toPage,back),
-    renderOldBookCanvasPage(toPage,under)
+    renderOldBookCanvasPage(toPage,back)
   ]);
-  under.style.visibility='visible';
-  under.style.zIndex='1';
-  const main=document.getElementById('oldBookCanvasRight');
-  if(main){main.style.visibility='visible';main.style.zIndex='2';}
+  if(main){main.style.visibility='hidden';main.style.zIndex='1';}
   sheet.classList.remove('ob-page-flip-next','ob-page-flip-prev');
   sheet.style.display='block';
+  sheet.style.zIndex='5';
   sheet.style.transform='translate(-50%,-50%) rotateY(0deg)';
   void sheet.offsetWidth;
   sheet.classList.add(direction==='prev'?'ob-page-flip-prev':'ob-page-flip-next');
@@ -13083,14 +13082,17 @@ async function renderOldBookPage(num,direction="",token=oldBookToken,topics=wind
   const book=document.getElementById("oldBookBook"),loading=document.getElementById("oldBookLoading"),canvas=document.getElementById("oldBookCanvasRight");
   try{
     loading.style.display="flex";
-    book.classList.remove("ob-page-flip-next","ob-page-flip-prev");void book.offsetWidth;
     if(direction){
-      const prepared=await prepareOldBookFlip(oldBookPageNum,num,direction);
+      const from=oldBookPageNum;
+      const prepared=await prepareOldBookFlip(from,num,direction);
       if(token!==oldBookToken)return;
-      await new Promise(resolve=>setTimeout(resolve,640));
-      if(prepared)finishOldBookFlip();
+      /* One physical sheet flips exactly once, then the target page becomes the main page. */
+      if(prepared) await new Promise(resolve=>setTimeout(resolve,640));
+      if(token!==oldBookToken)return;
+      finishOldBookFlip();
       await drawOldBookPage(num,canvas);
     }else{
+      finishOldBookFlip();
       await drawOldBookPage(num,canvas);
     }
     if(token!==oldBookToken)return;
@@ -13118,6 +13120,29 @@ document.addEventListener("keydown",e=>{const r=document.getElementById("oldBook
 window.addEventListener("resize",()=>{if(oldBookPdf&&!oldBookRendering){finishOldBookFlip();renderOldBookPage(oldBookPageNum,"",oldBookToken,window.oldBookCurrentTopics||[]);}});
 </script>
 
+
+<style id="oldBookFullAreaAndSingleSheetFix">
+/* Fill the complete red/wood reader area with the PDF page. */
+#oldBookReader .ob-book-holder{
+  left:1%!important;right:1%!important;top:2%!important;bottom:13%!important;
+}
+#oldBookReader .ob-book{
+  width:97%!important;height:98%!important;max-width:none!important;min-height:0!important;
+}
+#oldBookReader .ob-page-frame{padding:4px!important;}
+/* During a turn, only the one physical sheet is visible. */
+#oldBookReader #oldBookCanvasUnder{visibility:hidden!important;}
+#oldBookReader #oldBookFlipSheet{z-index:8!important;}
+@media(max-width:700px){
+  #oldBookReader .ob-book-holder{left:1%!important;right:1%!important;top:2%!important;bottom:13%!important;}
+  #oldBookReader .ob-book{width:98%!important;height:98%!important;}
+  #oldBookReader .ob-page-frame{padding:3px!important;border-width:3px!important;}
+}
+@media(max-width:380px){
+  #oldBookReader .ob-book-holder{left:0.5%!important;right:0.5%!important;top:1.5%!important;bottom:13%!important;}
+  #oldBookReader .ob-book{width:99%!important;height:98%!important;}
+}
+</style>
 </body>    </html><style id="oldBookMobileFinalFit">
 /* ===== Mobile reader final fit: no clipped header + no giant empty area ===== */
 @media(max-width:700px){
@@ -13235,3 +13260,40 @@ window.addEventListener("resize",()=>{if(oldBookPdf&&!oldBookRendering){finishOl
   };
 })();
 </script>
+<style id="oldBookUserFinalPhotoTopicFit">
+/* User-requested final fit: enlarge the PDF page inside the red area and make current topic clearly readable. */
+#oldBookReader .ob-book-holder{left:5%!important;right:5%!important;top:8%!important;bottom:17%!important;}
+#oldBookReader .ob-book{width:88%!important;height:94%!important;max-width:none!important;}
+#oldBookReader .ob-page-frame{padding:7px!important;}
+#oldBookReader .ob-book-info-text{flex:1 1 auto!important;min-width:0!important;}
+#oldBookReader .ob-book-info-text strong{font-size:19px!important;line-height:1.12!important;}
+#oldBookReader .ob-book-info-text span#oldBookInfoMeta{font-size:12px!important;}
+#oldBookReader .ob-book-info-text .ob-current-topic{
+  font-size:14px!important;
+  font-weight:950!important;
+  color:#ffe36e!important;
+  white-space:normal!important;
+  overflow:visible!important;
+  text-overflow:clip!important;
+  line-height:1.25!important;
+}
+#oldBookReader .ob-main-thumb{width:64px!important;height:82px!important;flex-basis:64px!important;}
+@media(max-width:700px){
+  #oldBookReader .ob-book-info{padding:6px 8px!important;gap:8px!important;}
+  #oldBookReader .ob-main-thumb{width:56px!important;height:72px!important;flex-basis:56px!important;}
+  #oldBookReader .ob-book-info-text{padding-left:9px!important;}
+  #oldBookReader .ob-book-info-text strong{font-size:15px!important;}
+  #oldBookReader .ob-book-info-text span#oldBookInfoMeta{font-size:10px!important;}
+  #oldBookReader .ob-book-info-text .ob-current-topic{font-size:12px!important;line-height:1.2!important;}
+  #oldBookReader .ob-book-holder{left:3%!important;right:3%!important;top:5%!important;bottom:16%!important;}
+  #oldBookReader .ob-book{width:91%!important;height:95%!important;}
+  #oldBookReader .ob-page-frame{padding:4px!important;border-width:3px!important;}
+}
+@media(max-width:380px){
+  #oldBookReader .ob-main-thumb{width:52px!important;height:68px!important;flex-basis:52px!important;}
+  #oldBookReader .ob-book-info-text strong{font-size:14px!important;}
+  #oldBookReader .ob-book-info-text span#oldBookInfoMeta{font-size:9px!important;}
+  #oldBookReader .ob-book-info-text .ob-current-topic{font-size:11px!important;}
+  #oldBookReader .ob-book{width:93%!important;}
+}
+</style>
