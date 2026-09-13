@@ -12912,6 +12912,7 @@ function updateOldBookHeader(pdfPage,topics){
     idx=Math.max(0,Math.min(topics.length-1,idx));
     oldBookCurrentTopicIndex=idx;
     if(topicEl)topicEl.textContent="📖 पाठ "+(idx+1)+": "+(topics[idx]?.name||"—");
+    updateOldBookTopicHighlight(idx);
   }else if(topicEl){topicEl.textContent="📖 पाठ —";}
   // The top-left thumbnail belongs to the CURRENT TOPIC, not every PDF page.
   // It changes only when the reader enters the next topic/chapter.
@@ -12939,7 +12940,16 @@ function renderOldBookTopics(topics,title){
     b.onclick=()=>{oldBookCurrentTopicIndex=i; topic.page ? oldBookJumpToPrintedPage(topic.page,topics) : oldBookJumpToTopic(topic,topics);};
     list.appendChild(b);
   });
+  updateOldBookTopicHighlight(oldBookCurrentTopicIndex||0);
   updateOldBookNextTopic(1,topics);
+}
+function updateOldBookTopicHighlight(index){
+  const list=document.getElementById("oldBookTopicList");
+  if(!list)return;
+  const btns=[...list.querySelectorAll(".ob-topic-btn")];
+  btns.forEach((b,i)=>b.classList.toggle("ob-topic-active",i===Number(index)));
+  const active=btns[Number(index)];
+  if(active)active.scrollIntoView({behavior:"smooth",block:"nearest",inline:"nearest"});
 }
 async function updateOldBookNextTopic(pdfPage,topics,token=oldBookToken){
   const el=document.getElementById("oldBookNextTopicMini");
@@ -13027,15 +13037,15 @@ async function oldBookJumpToTopic(topic,topics){
     btns.forEach(b=>b.disabled=false);
   }
 }
-async function renderOldBookCanvasPage(pageNum,canvas){
+async function renderOldBookCanvasPage(pageNum,canvas,hostSurface=null){
   if(!oldBookPdf||!canvas||pageNum<1||pageNum>oldBookPdf.numPages)return;
   await new Promise(requestAnimationFrame);
   const page=await oldBookPdf.getPage(pageNum);
-  const surface=canvas.parentElement;
+  const surface=hostSurface||canvas.parentElement;
   const box=surface.getBoundingClientRect();
   const base=page.getViewport({scale:1});
-  const availableW=Math.max(260,box.width-10);
-  const availableH=Math.max(300,box.height-10);
+  const availableW=Math.max(260,box.width-8);
+  const availableH=Math.max(300,box.height-8);
   const fit=Math.max(.25,Math.min(availableW/base.width,availableH/base.height));
   const ratio=Math.min(window.devicePixelRatio||1,3);
   const viewport=page.getViewport({scale:fit});
@@ -13047,23 +13057,37 @@ async function renderOldBookCanvasPage(pageNum,canvas){
   const ctx=canvas.getContext('2d',{alpha:false});
   ctx.setTransform(ratio,0,0,ratio,0,0);
   ctx.fillStyle='#fffdf6';ctx.fillRect(0,0,viewport.width,viewport.height);
-  await page.render({canvasContext:ctx,viewport, intent:'display'}).promise;
+  await page.render({canvasContext:ctx,viewport,intent:'display'}).promise;
 }
 async function drawOldBookPage(pageNum,canvas){
   await renderOldBookCanvasPage(pageNum,canvas);
 }
 async function prepareOldBookFlip(fromPage,toPage,direction){
-  /* Clean single-page transition: the visible page first folds vertically,
-     then the new PDF page is painted into the SAME canvas while it is closed.
-     This guarantees that two PDF pages are never visible together. */
+  /* Truly seamless page swap: render the target PDF page off-screen first,
+     then copy it to the visible canvas in one synchronous paint. The old
+     page stays intact until the new page is completely ready, so there is
+     never a half-rendered page or two pages visible together. */
   const surface=document.querySelector('#oldBookReader .ob-page-surface');
   const main=document.getElementById('oldBookCanvasRight');
   if(!surface||!main)return false;
-  surface.classList.remove('ob-clean-page-switch');
-  void surface.offsetWidth;
-  surface.classList.add('ob-clean-page-switch');
-  await new Promise(resolve=>setTimeout(resolve,190));
-  await renderOldBookCanvasPage(toPage,main);
+  let buffer=document.getElementById('oldBookRenderBuffer');
+  if(!buffer){
+    buffer=document.createElement('canvas');
+    buffer.id='oldBookRenderBuffer';
+    buffer.setAttribute('aria-hidden','true');
+    buffer.style.position='absolute';buffer.style.visibility='hidden';buffer.style.pointerEvents='none';
+    buffer.style.left='-99999px';buffer.style.top='-99999px';
+    surface.appendChild(buffer);
+  }
+  await renderOldBookCanvasPage(toPage,buffer,surface);
+  const ratio=Math.min(window.devicePixelRatio||1,3);
+  main.width=buffer.width;main.height=buffer.height;
+  main.style.width=buffer.style.width;main.style.height=buffer.style.height;
+  const ctx=main.getContext('2d',{alpha:false});
+  ctx.setTransform(1,0,0,1,0,0);
+  ctx.clearRect(0,0,main.width,main.height);
+  ctx.drawImage(buffer,0,0);
+  main.style.left='50%';main.style.top='50%';main.style.transform='translate(-50%,-50%)';
   return true;
 }
 function finishOldBookFlip(){
@@ -13441,3 +13465,45 @@ window.addEventListener("resize",()=>{if(oldBookPdf&&!oldBookRendering){finishOl
   opacity:1!important;
 }
 </style>
+<style id="oldBookFinalOptimalVisual">
+/* FINAL OPTIMAL READER LOOK — preserve the real PDF, enlarge the readable area,
+   keep the paper white, and use blue only for the surrounding reader frame. */
+#oldBookReader .ob-kath{
+  width:min(98vw,980px)!important;
+  height:min(68vh,680px)!important;
+  border-color:#0b8ed1!important;
+  background:linear-gradient(180deg,#071c2b,#06121c 72%,#04090e)!important;
+  box-shadow:0 20px 55px #000c, inset 0 0 0 2px #0aa9ff33!important;
+}
+#oldBookReader .ob-red-cloth{
+  left:2%!important;right:2%!important;top:2%!important;bottom:3%!important;
+  background:linear-gradient(145deg,#082b43,#061a29 65%,#04101a)!important;
+  box-shadow:inset 0 0 34px #0008,0 0 0 2px #0aa9ff22!important;
+}
+#oldBookReader .ob-book-holder{left:0!important;right:0!important;top:0!important;bottom:0!important;}
+#oldBookReader .ob-book{width:100%!important;height:100%!important;max-width:none!important;min-height:0!important;}
+#oldBookReader .ob-page-frame{padding:2px!important;border:3px solid #0a9fe8!important;border-radius:14px!important;box-shadow:0 0 0 2px #00131f,0 10px 35px #000b!important;}
+#oldBookReader .ob-page-surface{background:#fffdf6!important;border-radius:8px!important;box-shadow:inset 0 0 22px rgba(73,43,12,.08)!important;}
+#oldBookReader #oldBookCanvasRight{z-index:4!important;image-rendering:auto!important;}
+#oldBookReader #oldBookCanvasUnder{display:none!important;visibility:hidden!important;}
+#oldBookReader .ob-topic-active{
+  background:linear-gradient(180deg,#168eff,#005ed5)!important;
+  border-color:#4fc7ff!important;
+  box-shadow:0 0 0 1px #78d9ff55,0 4px 12px #001b3d99!important;
+  color:#fff!important;
+}
+@media(max-width:700px){
+  #oldBookReader{padding:3px!important;}
+  #oldBookReader .ob-reader-panel{width:100%!important;height:100dvh!important;max-height:100dvh!important;padding:0 0 6px!important;}
+  #oldBookReader .ob-book-info{width:98vw!important;min-height:72px!important;margin-bottom:5px!important;}
+  #oldBookReader .ob-kath{width:99vw!important;height:59dvh!important;min-height:360px!important;max-height:620px!important;}
+  #oldBookReader .ob-page-frame{padding:2px!important;border-width:3px!important;}
+  #oldBookReader .ob-nav{width:98vw!important;margin-top:4px!important;}
+  #oldBookReader .ob-topic-panel{width:98vw!important;max-height:28dvh!important;margin-top:5px!important;}
+}
+@media(max-width:380px){
+  #oldBookReader .ob-kath{height:56dvh!important;min-height:330px!important;}
+  #oldBookReader .ob-book-info{min-height:68px!important;}
+}
+</style>
+
