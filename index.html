@@ -4251,6 +4251,9 @@ function openFileContent(id){
   if(id==="currentAffairs" && typeof initCurrentAffairsPopup==="function") {
     initCurrentAffairsPopup(clone);
   }
+  if(id==="oldBooks" && typeof initOldBooksSystem==="function") {
+    initOldBooksSystem(clone.querySelector("#oldBooksTree"));
+  }
 
   if(typeof closeAllMenus==='function')closeAllMenus();
 }
@@ -12699,7 +12702,7 @@ const OLD_BOOKS_DATA = [
   {className:"कक्षा 1", subjects:[]},
   {className:"कक्षा 2", subjects:[]},
   {className:"कक्षा 3", subjects:[
-    {name:"हिंदी", books:[{name:"अंकुर / कोपल भाग-1", pdf:"KOPAL-BHAG-1-github.pdf"}]},
+    {name:"कोपल", books:[{name:"कोपल", pdf:"KOPAL-BHAG-1-github.pdf"}]},
     {name:"English", books:[{name:"Blossom", pdf:"Class-3-English-BLOSSOM-github.pdf"}]},
     {name:"पर्यावरण", books:[{name:"पर्यावरण और हम-3", pdf:"PARYAWARAN-AUR-HUM-3-github.pdf"}]},
     {name:"गणित", books:[{name:"गणित-3", pdf:"GANIT-3-github.pdf"}]}
@@ -12731,29 +12734,33 @@ function renderOldBooksTree(root){
         s.className="ob-subject";
         const sh=document.createElement("button");
         sh.type="button"; sh.className="ob-subject-head";
-        sh.innerHTML=`<span>📘 ${sub.name}</span><span class="ob-arrow">›</span>`;
-        const sb=document.createElement("div");
-        sb.className="ob-subject-body";
+        sh.innerHTML=`<span>📖 ${escapeOldBookText(sub.name)}</span>`;
 
-        (sub.books||[]).forEach(book=>{
-          const row=document.createElement("div");
-          row.className="ob-book-row";
-          const left=document.createElement("div");
-          left.className="ob-book-name";
-          left.innerHTML=`<span>📖</span><span>${escapeOldBookText(book.name)}</span>`;
-          const open=document.createElement("button");
-          open.type="button"; open.className="ob-book-open"; open.textContent="पढ़ें";
-          open.onclick=()=>openOldBookViewer(book.pdf,book.name);
-          row.append(left,open);
-          sb.appendChild(row);
-        });
-        if(!(sub.books||[]).length)sb.innerHTML='<div class="ob-empty">इस विषय की PDF अभी जोड़ी नहीं गई है।</div>';
-
-        sh.onclick=()=>{
-          s.classList.toggle("open");
-          sh.querySelector(".ob-arrow").textContent=s.classList.contains("open")?"⌄":"›";
-        };
-        s.append(sh,sb); body.appendChild(s);
+        const books=sub.books||[];
+        // एक ही किताब हो तो विषय/किताब पर क्लिक करते ही सीधे PDF reader खुले।
+        if(books.length===1){
+          sh.onclick=()=>openOldBookViewer(books[0].pdf,books[0].name);
+          sh.classList.add("direct-book");
+        }else{
+          const sb=document.createElement("div");
+          sb.className="ob-subject-body";
+          books.forEach(book=>{
+            const row=document.createElement("div");
+            row.className="ob-book-row";
+            const left=document.createElement("div");
+            left.className="ob-book-name";
+            left.innerHTML=`<span>📖</span><span>${escapeOldBookText(book.name)}</span>`;
+            const open=document.createElement("button");
+            open.type="button"; open.className="ob-book-open"; open.textContent="पढ़ें";
+            open.onclick=()=>openOldBookViewer(book.pdf,book.name);
+            row.append(left,open);
+            sb.appendChild(row);
+          });
+          sh.innerHTML=`<span>📘 ${escapeOldBookText(sub.name)}</span><span class="ob-arrow">›</span>`;
+          sh.onclick=()=>{s.classList.toggle("open"); sh.querySelector(".ob-arrow").textContent=s.classList.contains("open")?"⌄":"›";};
+          s.append(sh,sb); body.appendChild(s); return;
+        }
+        s.append(sh); body.appendChild(s);
       });
     }
 
@@ -12767,8 +12774,9 @@ function renderOldBooksTree(root){
 function escapeOldBookText(v){
   return String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
 }
-function initOldBooksSystem(){
-  renderOldBooksTree(document.getElementById("oldBooksTree"));
+function initOldBooksSystem(root){
+  const target = root || document.getElementById("oldBooksTree");
+  renderOldBooksTree(target);
 }
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",initOldBooksSystem);
 else initOldBooksSystem();
@@ -12793,27 +12801,16 @@ function ensurePdfJs(){
   });
 }
 
-async function openOldBookViewer(pdfUrl,title){
+function openOldBookViewer(pdfUrl,title){
   if(!pdfUrl){
-    alert("इस किताब की PDF अभी जोड़ी नहीं गई है। PDF भेजते ही इसे यहीं जोड़ दिया जाएगा।");
+    alert("इस किताब की PDF अभी जोड़ी नहीं गई है।");
     return;
   }
-  const reader=document.getElementById("oldBookReader");
-  reader.classList.add("show"); reader.setAttribute("aria-hidden","false");
-  document.getElementById("oldBookReaderTitle").textContent="📖 "+(title||"Book");
-  document.getElementById("oldBookLoading").style.display="flex";
-  oldBookPageNum=1; oldBookPdf=null; oldBookPending=null;
-
-  try{
-    await ensurePdfJs();
-    oldBookPdf=await window.pdfjsLib.getDocument(pdfUrl).promise;
-    document.getElementById("oldBookPageCount").textContent=`Page 1 / ${oldBookPdf.numPages}`;
-    await renderOldBookPage(1,"");
-  }catch(e){
-    document.getElementById("oldBookLoading").textContent="⚠️ PDF नहीं खुल सकी। File path जाँचें।";
-    console.error(e);
-  }
+  // GitHub Pages पर PDF.js के बजाय सीधे PDF खोलें — इससे किताब तुरंत खुलेगी।
+  const url = new URL(pdfUrl, document.baseURI).href;
+  window.open(url, "_blank", "noopener,noreferrer");
 }
+
 async function renderOldBookPage(num,direction){
   if(!oldBookPdf)return;
   if(num<1||num>oldBookPdf.numPages)return;
