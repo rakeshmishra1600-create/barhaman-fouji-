@@ -13297,3 +13297,47 @@ window.addEventListener("resize",()=>{if(oldBookPdf&&!oldBookRendering){finishOl
   #oldBookReader .ob-book{width:93%!important;}
 }
 </style>
+<style id="oldBookMainPageExtraLargeFinal">
+/* Final mobile sizing: make the single main PDF page substantially larger for easy reading. */
+#oldBookReader .ob-book-holder{
+  left:1%!important;
+  right:1%!important;
+  top:2%!important;
+  bottom:16%!important;
+}
+#oldBookReader .ob-book{
+  width:97%!important;
+  height:97%!important;
+  max-width:none!important;
+  min-height:0!important;
+}
+#oldBookReader .ob-page-frame{padding:3px!important;}
+@media(max-width:700px){
+  #oldBookReader .ob-book-holder{
+    left:1%!important;
+    right:1%!important;
+    top:2%!important;
+    bottom:16%!important;
+  }
+  #oldBookReader .ob-book{
+    width:97%!important;
+    height:97%!important;
+  }
+  #oldBookReader .ob-page-frame{
+    padding:3px!important;
+    border-width:3px!important;
+  }
+}
+@media(max-width:380px){
+  #oldBookReader .ob-book-holder{
+    left:.5%!important;
+    right:.5%!important;
+    top:1.5%!important;
+    bottom:16%!important;
+  }
+  #oldBookReader .ob-book{
+    width:98%!important;
+    height:97%!important;
+  }
+}
+</style>
