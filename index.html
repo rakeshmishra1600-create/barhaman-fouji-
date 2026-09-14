@@ -12745,8 +12745,8 @@ const OLD_BOOKS_DATA = [
     {name:"English", books:[{name:"Blossom", pdf:"Class-3-English-BLOSSOM-github.pdf", topics:[
       {name:"This is The Way",page:1},{name:"Murli's Mango Tree",page:7},{name:"One Little Kitten",page:13},{name:"Who's Afraid Of The Cat?",page:20},
       {name:"The Old Rabbit",page:27},{name:"Upside Down",page:33},{name:"The Tiger and The Mosquito",page:37},{name:"Kith-Kith",page:43},
-      {name:"Cats",page:48},{name:"I Can Dance",page:51},{name:"Unity Is Strength",page:57},{name:"A Picnic",page:61},
-      {name:"Mice",page:64},{name:"Now The Road Will Be Fine",page:71},{name:"The Phone Call",page:76},{name:"Munia Goes To School",page:81},{name:"Gonu And Bhonu",page:87}
+      {name:"Cats",page:48},{name:"I Can Dance",page:52},{name:"Unity Is Strength",page:57},{name:"A Picnic",page:61},
+      {name:"Mice",page:65},{name:"Now The Road Will Be Fine",page:70},{name:"The Phone Call",page:75},{name:"Munia Goes To School",page:81},{name:"Gonu And Bhonu",page:87}
     ]}]},
     {name:"पर्यावरण", books:[{name:"पर्यावरण और हम-3", pdf:"PARYAWARAN-AUR-HUM-3-github.pdf", topics:[
       {name:"चाचा की शादी",page:1},{name:"हमारा परिवार",page:6},{name:"जीव जंतुओं की दुनिया",page:11},{name:"रंग बिरंगे पंख",page:18},
@@ -12838,7 +12838,7 @@ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",
 else initOldBooksSystem();
 
 /* ================= PDF BOOK READER — SINGLE PAGE ================= */
-let oldBookPdf=null, oldBookPageNum=1, oldBookRendering=false, oldBookPending=null, oldBookUrl="", oldBookToken=0, oldBookCurrentMeta={className:"",subjectName:"",bookName:""}, oldBookCurrentTopicIndex=0, oldBookHeaderThumbTopic=-1;
+let oldBookPdf=null, oldBookPageNum=1, oldBookRendering=false, oldBookPending=null, oldBookUrl="", oldBookToken=0, oldBookCurrentMeta={className:"",subjectName:"",bookName:""}, oldBookCurrentTopicIndex=0, oldBookHeaderThumbTopic=-1, oldBookResolvedTopicPages=new Map();
 function ensurePdfJs(){
   if(window.pdfjsLib)return Promise.resolve();
   return new Promise((resolve,reject)=>{
@@ -12863,6 +12863,7 @@ async function openOldBookViewer(pdfUrl,title,topics=[],meta={}){
   window.oldBookCurrentTopics=Array.isArray(topics)?topics:[];
   oldBookCurrentMeta={className:meta.className||"",subjectName:meta.subjectName||title||"",bookName:meta.bookName||title||""};
   oldBookCurrentTopicIndex=0; oldBookHeaderThumbTopic=-1;
+  oldBookResolvedTopicPages=new Map();
   document.getElementById("oldBookReaderTitle").textContent="📖 "+(title||"Book");
   document.getElementById("oldBookInfoName").textContent=oldBookCurrentMeta.subjectName||title||"Book";
   document.getElementById("oldBookInfoMeta").textContent=(oldBookCurrentMeta.className||"कक्षा —")+" • "+(oldBookCurrentMeta.bookName||title||"किताब");
@@ -12904,9 +12905,12 @@ function updateOldBookHeader(pdfPage,topics){
   if(Array.isArray(topics)&&topics.length){
     const hasPages=topics.some(t=>Number(t.page)>0);
     if(hasPages){
-      const printed=Math.max(1,(Number(pdfPage)||1)-12);
+      const pageNow=Number(pdfPage)||1;
       let found=-1;
-      topics.forEach((t,i)=>{if(Number(t.page)>0 && Number(t.page)<=printed)found=i;});
+      topics.forEach((t,i)=>{
+        const start=oldBookResolvedTopicPages.has(i) ? Number(oldBookResolvedTopicPages.get(i)) : (Number(t.page)>0 ? Number(t.page)+12 : 0);
+        if(start>0 && start<=pageNow)found=i;
+      });
       if(found>=0)idx=found;
     }
     idx=Math.max(0,Math.min(topics.length-1,idx));
@@ -12918,7 +12922,7 @@ function updateOldBookHeader(pdfPage,topics){
   // It changes only when the reader enters the next topic/chapter.
   if(thumb&&oldBookPdf && oldBookHeaderThumbTopic!==idx){
     const t=Array.isArray(topics)&&topics.length ? topics[idx] : null;
-    const topicStart=Number(t&&t.page)>0 ? Number(t.page)+12 : (Number(pdfPage)||1);
+    const topicStart=oldBookResolvedTopicPages.has(idx) ? Number(oldBookResolvedTopicPages.get(idx)) : (Number(t&&t.page)>0 ? Number(t.page)+12 : (Number(pdfPage)||1));
     oldBookHeaderThumbTopic=idx;
     drawOldBookThumb(Math.max(1,Math.min(oldBookPdf.numPages,topicStart)),thumb).catch(()=>{});
   }
@@ -12937,7 +12941,7 @@ function renderOldBookTopics(topics,title){
     b.type="button";b.className="ob-topic-btn";
     b.textContent=(i+1)+". "+topic.name;
     b.title=topic.page ? ("PDF में पृष्ठ "+topic.page+" पर जाएँ") : "इस पाठ को PDF में खोजें";
-    b.onclick=()=>{oldBookCurrentTopicIndex=i; topic.page ? oldBookJumpToPrintedPage(topic.page,topics) : oldBookJumpToTopic(topic,topics);};
+    b.onclick=()=>{oldBookCurrentTopicIndex=i; topic.page ? oldBookJumpToPrintedPage(topic.page,topics,i) : oldBookJumpToTopic(topic,topics);};
     list.appendChild(b);
   });
   updateOldBookTopicHighlight(oldBookCurrentTopicIndex||0);
@@ -12984,8 +12988,8 @@ async function updateOldBookNextTopic(pdfPage,topics,token=oldBookToken){
   const t=topics[next];
   const label=(next+1)+". "+t.name;
   text.textContent="📚 अगला पाठ: "+label+" — इसमें यही पाठ पढ़ना है।";
-  const targetPdfPage=(Number(t.page)||1)+12;
-  el.onclick=()=>oldBookJumpToPrintedPage(t.page,topics);
+  const targetPdfPage=oldBookResolvedTopicPages.has(next) ? oldBookResolvedTopicPages.get(next) : (Number(t.page)||1)+12;
+  el.onclick=()=>oldBookJumpToPrintedPage(t.page,topics,next);
   if(thumb&&oldBookPdf){
     try{
       await drawOldBookThumb(targetPdfPage,thumb);
@@ -13002,30 +13006,34 @@ function oldBookJumpTo(pageNum,topics){
   if(oldBookRendering){oldBookPending={num:n,direction:"next",token:oldBookToken,topics:t};return;}
   renderOldBookPage(n,"next",oldBookToken,t);
 }
-async function oldBookJumpToPrintedPage(printedPage,topics){
+async function oldBookJumpToPrintedPage(printedPage,topics,topicIndex=null){
   if(!oldBookPdf)return;
   const list=topics||window.oldBookCurrentTopics||[];
   const targetPrinted=Math.max(1,Number(printedPage)||1);
-  const targetPdf=Math.max(1,Math.min(oldBookPdf.numPages,targetPrinted+12));
-  // The page numbers printed in the book/TOC can occasionally point to the
-  // first exercise/continuation page instead of the very first page of a lesson.
-  // Before jumping, look a few pages backward for the actual lesson heading.
-  const idx=list.findIndex(t=>Number(t&&t.page)===targetPrinted);
-  const topic=idx>=0?list[idx]:null;
+  const fallback=Math.max(1,Math.min(oldBookPdf.numPages,targetPrinted+12));
+  let idx=Number.isInteger(topicIndex)?topicIndex:list.findIndex(t=>Number(t&&t.page)===targetPrinted);
+  if(idx<0)idx=0;
+  const topic=list[idx]||null;
   if(topic){
-    const found=await oldBookFindTopicStartNearPage(topic,targetPdf,5);
+    // Printed page numbers and PDF page numbers do not have one fixed offset.
+    // Find the actual chapter heading near the expected location.
+    const found=await oldBookFindTopicStartNearPage(topic,fallback,16,idx+1);
     if(found){
+      oldBookResolvedTopicPages.set(idx,found);
       oldBookCurrentTopicIndex=idx;
       updateOldBookTopicHighlight(idx);
       oldBookJumpTo(found,list);
       return;
     }
   }
-  oldBookJumpTo(targetPdf,list);
+  oldBookResolvedTopicPages.set(idx,fallback);
+  oldBookCurrentTopicIndex=idx;
+  updateOldBookTopicHighlight(idx);
+  oldBookJumpTo(fallback,list);
 }
 
-// जिन किताबों में page mapping नहीं दी गई है, topic पर क्लिक करने पर
-// PDF.js पूरे PDF के text में उस topic का heading खोजकर सही पेज पर ले जाएगा।
+// जिन किताबों में page mapping दी गई है, printed page से केवल अनुमानित PDF page
+// मिलता है। यह helper उस अनुमान के आसपास chapter heading खोजकर असली शुरुआत पकड़ता है।
 const oldBookTopicPageCache=new Map();
 function normalizeOldBookTopicText(v){
   return String(v||"").toLowerCase().normalize("NFKC")
@@ -13056,28 +13064,40 @@ function oldBookTopicTokenScore(needle,text){
   let hit=0;nt.forEach(x=>{if(tt.has(x)||text.includes(x))hit++;});
   return hit/nt.length;
 }
-async function oldBookFindTopicStartNearPage(topic,targetPdfPage,lookBack=5){
-  if(!oldBookPdf||!topic)return null;
+function oldBookTopicHeadingScore(topic,topicNumber,text){
   const needles=oldBookTopicAliases(topic);
-  if(!needles.length)return null;
-  const start=Math.max(1,(Number(targetPdfPage)||1)-Math.max(0,lookBack));
-  const end=Math.min(oldBookPdf.numPages,Number(targetPdfPage)||1);
-  let best=null;
+  if(!needles.length)return 0;
+  const n=normalizeOldBookTopicText(topicNumber||"");
+  let best=0;
+  needles.forEach(needle=>{
+    const numbered=[n+" "+needle,"पाठ "+n+" "+needle,"अध्याय "+n+" "+needle];
+    if(numbered.some(x=>text.includes(x)))best=Math.max(best,1);
+    else if(text.includes(needle))best=Math.max(best,.82);
+    else best=Math.max(best,oldBookTopicTokenScore(needle,text));
+  });
+  return best;
+}
+async function oldBookFindTopicStartNearPage(topic,targetPdfPage,lookAround=16,topicNumber=null){
+  if(!oldBookPdf||!topic)return null;
+  const center=Number(targetPdfPage)||1;
+  const start=Math.max(1,center-Math.max(0,lookAround));
+  const end=Math.min(oldBookPdf.numPages,center+Math.max(0,lookAround));
+  const candidates=[];
   for(let i=start;i<=end;i++){
     try{
       const page=await oldBookPdf.getPage(i);
       const tc=await page.getTextContent();
       const text=normalizeOldBookTopicText(tc.items.map(x=>x.str||"").join(" "));
       if(!text)continue;
-      // Prefer an exact lesson heading over a loose token match.
-      if(needles.some(n=>text.includes(n))) return i;
-      let score=0;
-      needles.forEach(n=>{score=Math.max(score,oldBookTopicTokenScore(n,text));});
-      if(!best || score>best.score)best={page:i,score};
+      const score=oldBookTopicHeadingScore(topic,topicNumber,text);
+      if(score>=.82)candidates.push({page:i,score,distance:Math.abs(i-center)});
     }catch(e){console.warn("Topic start probe error",i,e);}
   }
-  return best&&best.score>=0.72?best.page:null;
+  if(!candidates.length)return null;
+  candidates.sort((a,b)=>(b.score-a.score)||(a.distance-b.distance));
+  return candidates[0].page;
 }
+
 async function oldBookFindTopicPage(topic){
   if(!oldBookPdf||!topic)return null;
   const key=oldBookUrl+"::"+normalizeOldBookTopicText(topic.name);
