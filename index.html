@@ -1169,6 +1169,10 @@ body.dark-mode .hero::after{background:linear-gradient(to bottom,rgba(0,0,0,.16)
 
 #oldBookReader .ob-topic-badge{position:absolute;top:10px;left:10px;z-index:8;display:none;padding:6px 12px;border-radius:999px;background:rgba(255,255,255,.94);color:#071c2b;font-weight:900;font-size:14px;letter-spacing:.4px;box-shadow:0 3px 12px #0005;border:2px solid #0b8ed1;pointer-events:none}
 #oldBookReader .ob-topic-badge.show{display:block}
+#oldBookReader .ob-page-number-badge{position:absolute;z-index:9;display:none;align-items:center;justify-content:center;gap:8px;transform:translate(-50%,-50%);min-width:74px;height:34px;padding:0 8px;box-sizing:border-box;border-radius:999px;background:linear-gradient(180deg,#ff7892,#f34f72);color:#fff;box-shadow:0 3px 10px rgba(65,18,28,.28),inset 0 1px 0 rgba(255,255,255,.55);border:2px solid rgba(255,255,255,.88);pointer-events:none;font-family:Georgia,"Noto Serif Devanagari",serif;}
+#oldBookReader .ob-page-number-badge strong{font-size:21px;line-height:1;font-weight:950;min-width:26px;text-align:center;color:#fff;text-shadow:0 1px 2px rgba(90,0,15,.35);}
+#oldBookReader .ob-page-ornament{font-size:17px;line-height:1;color:#238a55;transform:translateY(-1px);text-shadow:0 1px 0 rgba(255,255,255,.5);}
+@media(max-width:700px){#oldBookReader .ob-page-number-badge{min-width:62px;height:28px;gap:5px;padding:0 6px;border-width:1.5px;}#oldBookReader .ob-page-number-badge strong{font-size:17px}#oldBookReader .ob-page-ornament{font-size:13px}}
 </style>  <style id="final-home-photo-fix">
 /* FINAL HOME PHOTO / DARK MODE */
 .hero{position:relative;min-height:calc(100vh - 95px);margin:0 auto;padding:0 16px 45px;overflow:hidden;isolation:isolate;text-align:center;background:#000;}
@@ -12705,8 +12709,8 @@ function openFileContent(id){
                 <div class="ob-flip-face ob-flip-back"><canvas id="oldBookFlipBack"></canvas></div>
               </div>
               <div id="oldBookLoading" class="ob-loading">📖 किताब खोली जा रही है…</div>
-              <div id="oldBookPageNumberOverlay" class="ob-page-number-overlay" aria-live="polite">1</div>
               <div id="oldBookTopicBadge" class="ob-topic-badge" aria-live="polite">TOPIC 1</div>
+              <div id="oldBookPageNumberBadge" class="ob-page-number-badge" aria-live="polite"><span class="ob-page-ornament">❧</span><strong>1</strong><span class="ob-page-ornament">❧</span></div>
               <div class="ob-page-shadow"></div>
             </div>
           </div>
@@ -12889,17 +12893,21 @@ async function openOldBookViewer(pdfUrl,title,topics=[],meta={}){
     if(token!==oldBookToken)return;
     oldBookPdf=await window.pdfjsLib.getDocument({url:oldBookUrl,withCredentials:false,disableAutoFetch:false,disableStream:false}).promise;
     if(token!==oldBookToken)return;
-    document.getElementById("oldBookPageCount").textContent=`पृष्ठ 1 / ${oldBookPdf.numPages}`;
-    /* FAST FIRST PAINT: render the requested page before thumbnails/extra previews.
+    const firstTopic=topics&&topics[0]?topics[0]:null;
+    const firstTopicPdf=oldBookTopicPdfPage(firstTopic,0,topics);
+    const firstPage=firstTopicPdf>0?firstTopicPdf:Math.min(oldBookPdf.numPages,oldBookPdfOffset()+1);
+    oldBookCurrentTopicIndex=0;
+    document.getElementById("oldBookPageCount").textContent=`पृष्ठ ${Math.max(1,firstPage-oldBookPdfOffset())} / ${Math.max(1,oldBookPdf.numPages-oldBookPdfOffset())}`;
+    /* FAST FIRST PAINT: render the first topic page before thumbnails/extra previews.
        This makes the reader usable as soon as page 1 is ready instead of waiting
        for the first+last thumbnail renders. */
-    updateOldBookHeader(1,topics);
-    await renderOldBookPage(1,"",token,topics);
+    updateOldBookHeader(firstPage,topics);
+    await renderOldBookPage(firstPage,"",token,topics);
     if(token!==oldBookToken)return;
     /* Thumbnails are secondary UI; load them after the main page is visible. */
-    drawOldBookThumb(1,document.getElementById("oldBookThumbFirst")).catch(()=>{});
+    drawOldBookThumb(firstPage,document.getElementById("oldBookThumbFirst")).catch(()=>{});
     drawOldBookThumb(oldBookPdf.numPages,document.getElementById("oldBookThumbLast")).catch(()=>{});
-    updateOldBookNextTopic(1,topics,token).catch(()=>{});
+    updateOldBookNextTopic(firstPage,topics,token).catch(()=>{});
   }catch(e){
     console.error("Old book PDF error:",e);
     if(token!==oldBookToken)return;
@@ -13263,6 +13271,27 @@ async function updateOldBookBackPagePreview(pageNum){
   }
 }
 
+function oldBookRelativePageNumber(pdfPage){
+  const offset=oldBookPdfOffset();
+  const n=Number(pdfPage)||0;
+  if(n<=offset)return 0;
+  return n-offset;
+}
+function updateOldBookPageNumberBadge(pdfPage){
+  const badge=document.getElementById("oldBookPageNumberBadge");
+  const canvas=document.getElementById("oldBookCanvasRight");
+  const surface=document.querySelector("#oldBookReader .ob-page-surface");
+  if(!badge||!canvas||!surface)return;
+  const rel=oldBookRelativePageNumber(pdfPage);
+  if(rel<=0){badge.style.display="none";return;}
+  badge.style.display="flex";
+  const cr=canvas.getBoundingClientRect(), sr=surface.getBoundingClientRect();
+  const centerX=cr.left-sr.left+cr.width/2;
+  const bottomY=cr.bottom-sr.top-10;
+  badge.style.left=Math.round(centerX)+"px";
+  badge.style.top=Math.round(bottomY)+"px";
+  badge.querySelector("strong").textContent=String(rel);
+}
 async function renderOldBookPage(num,direction="",token=oldBookToken,topics=window.oldBookCurrentTopics||[]){
   if(!oldBookPdf||oldBookRendering)return;if(num<1||num>oldBookPdf.numPages)return;oldBookRendering=true;
   const book=document.getElementById("oldBookBook"),loading=document.getElementById("oldBookLoading"),canvas=document.getElementById("oldBookCanvasRight");
@@ -13280,7 +13309,11 @@ async function renderOldBookPage(num,direction="",token=oldBookToken,topics=wind
       await drawOldBookPage(num,canvas);
     }
     if(token!==oldBookToken)return;
-    oldBookPageNum=num;document.getElementById("oldBookPageCount").textContent=`पृष्ठ ${num} / ${oldBookPdf.numPages}`;const pageNoEl=document.getElementById("oldBookPageNumberOverlay");if(pageNoEl)pageNoEl.textContent=String(num);
+    oldBookPageNum=num;
+    const relativePage=oldBookRelativePageNumber(num);
+    const totalRelative=Math.max(1,oldBookPdf.numPages-oldBookPdfOffset());
+    document.getElementById("oldBookPageCount").textContent=relativePage>0?`पृष्ठ ${relativePage} / ${totalRelative}`:`पृष्ठ — / ${totalRelative}`;
+    updateOldBookPageNumberBadge(num);
     updateOldBookHeader(num,topics);
     await updateOldBookBackPagePreview(num);
     await updateOldBookNextTopic(num,topics,token);
@@ -13334,37 +13367,6 @@ window.addEventListener("resize",()=>{if(oldBookPdf&&!oldBookRendering){finishOl
 @media(max-width:380px){
   #oldBookReader .ob-book-holder{left:0.5%!important;right:0.5%!important;top:1.5%!important;bottom:13%!important;}
   #oldBookReader .ob-book{width:99%!important;height:98%!important;}
-}
-</style>
-
-<style id="oldBookPageNumberOverlayStyle">
-/* Printed-style page number shown at the bottom of every PDF page in the HTML reader. */
-#oldBookReader .ob-page-surface{position:relative!important;}
-#oldBookReader .ob-page-number-overlay{
-  position:absolute!important;
-  left:50%!important;
-  bottom:7px!important;
-  transform:translateX(-50%)!important;
-  z-index:30!important;
-  min-width:34px!important;
-  height:24px!important;
-  padding:2px 9px!important;
-  box-sizing:border-box!important;
-  display:flex!important;
-  align-items:center!important;
-  justify-content:center!important;
-  border-radius:12px!important;
-  background:rgba(8,35,58,.92)!important;
-  border:1px solid rgba(90,205,255,.9)!important;
-  box-shadow:0 2px 8px rgba(0,0,0,.32)!important;
-  color:#fff!important;
-  font:700 13px/1 Arial,sans-serif!important;
-  text-shadow:0 1px 2px rgba(0,0,0,.5)!important;
-  pointer-events:none!important;
-  user-select:none!important;
-}
-@media(max-width:700px){
-  #oldBookReader .ob-page-number-overlay{bottom:5px!important;min-width:30px!important;height:21px!important;font-size:11px!important;padding:1px 7px!important;}
 }
 </style>
 </body>    
