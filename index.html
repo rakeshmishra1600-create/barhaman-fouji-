@@ -12874,7 +12874,7 @@ async function openOldBookViewer(pdfUrl,title,topics=[],meta={}){
   oldBookUrl=new URL(pdfUrl,document.baseURI).href;
   oldBookPageNum=1;oldBookPdf=null;oldBookPending=null;oldBookRendering=false;
   window.oldBookCurrentTopics=Array.isArray(topics)?topics:[];
-  oldBookCurrentMeta={className:meta.className||"",subjectName:meta.subjectName||title||"",bookName:meta.bookName||title||"",pdfOffset:Number(meta.pdfOffset)||12};
+  oldBookCurrentMeta={className:meta.className||"",subjectName:meta.subjectName||title||"",bookName:meta.bookName||title||"",pdfOffset:Number(meta.pdfOffset)||12,contentStartPdfPage:(Number(topics&&topics[0]&&topics[0].pdfPage)>0?Number(topics[0].pdfPage):((Number(meta.pdfOffset)||12)+1))};
   oldBookCurrentTopicIndex=0; oldBookHeaderThumbTopic=-1;
   oldBookResolvedTopicPages=new Map();
   document.getElementById("oldBookReaderTitle").textContent="📖 "+(title||"Book");
@@ -12916,9 +12916,10 @@ async function openOldBookViewer(pdfUrl,title,topics=[],meta={}){
   }
 }
 function oldBookPdfOffset(){return Math.max(0,Number(oldBookCurrentMeta&&oldBookCurrentMeta.pdfOffset)||12);}
-// Reader view excludes the PDF's front-matter/extra pages. The first visible
-// page is the first content page (offset + 1), which is numbered 1.
-function oldBookContentStartPage(){return Math.max(1,oldBookPdfOffset()+1);}
+// Reader view skips only the PDF front-matter/extra pages. The FIRST TOPIC
+// page itself is never removed: EVS starts with "चाचा की शादी" and Math starts
+// with "ज्यामिति"; each is displayed as visible page 1.
+function oldBookContentStartPage(){return Math.max(1,Number(oldBookCurrentMeta&&oldBookCurrentMeta.contentStartPdfPage)||oldBookPdfOffset()+1);}
 function oldBookContentLastPage(){return oldBookPdf?oldBookPdf.numPages:oldBookContentStartPage();}
 
 
