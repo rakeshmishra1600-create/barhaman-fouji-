@@ -1170,6 +1170,9 @@ body.dark-mode .hero::after{background:linear-gradient(to bottom,rgba(0,0,0,.16)
 #oldBookReader .ob-topic-badge{position:absolute;top:10px;left:10px;z-index:8;display:none;padding:6px 12px;border-radius:999px;background:rgba(255,255,255,.94);color:#071c2b;font-weight:900;font-size:14px;letter-spacing:.4px;box-shadow:0 3px 12px #0005;border:2px solid #0b8ed1;pointer-events:none}
 #oldBookReader .ob-topic-badge.show{display:block}
 #oldBookReader .ob-page-number-badge{position:absolute;z-index:9;display:none;align-items:center;justify-content:center;gap:8px;transform:translate(-50%,-50%);min-width:74px;height:34px;padding:0 8px;box-sizing:border-box;border-radius:999px;background:linear-gradient(180deg,#ff7892,#f34f72);color:#fff;box-shadow:0 3px 10px rgba(65,18,28,.28),inset 0 1px 0 rgba(255,255,255,.55);border:2px solid rgba(255,255,255,.88);pointer-events:none;font-family:Georgia,"Noto Serif Devanagari",serif;}
+/* Completely cover the original PDF's printed page number at the bottom-center. */
+#oldBookReader .ob-printed-page-number-mask{position:absolute;z-index:8;left:50%;bottom:0;transform:translateX(-50%);width:118px;height:46px;background:#fffdf6;border-radius:0 0 8px 8px;pointer-events:none;}
+
 #oldBookReader .ob-page-number-badge strong{font-size:21px;line-height:1;font-weight:950;min-width:26px;text-align:center;color:#fff;text-shadow:0 1px 2px rgba(90,0,15,.35);}
 #oldBookReader .ob-page-ornament{font-size:17px;line-height:1;color:#238a55;transform:translateY(-1px);text-shadow:0 1px 0 rgba(255,255,255,.5);}
 @media(max-width:700px){#oldBookReader .ob-page-number-badge{min-width:62px;height:28px;gap:5px;padding:0 6px;border-width:1.5px;}#oldBookReader .ob-page-number-badge strong{font-size:17px}#oldBookReader .ob-page-ornament{font-size:13px}}
@@ -12709,6 +12712,8 @@ function openFileContent(id){
                 <div class="ob-flip-face ob-flip-back"><canvas id="oldBookFlipBack"></canvas></div>
               </div>
               <div id="oldBookLoading" class="ob-loading">📖 किताब खोली जा रही है…</div>
+              <!-- Hide the original printed PDF page number so only our continuous reader number is visible. -->
+              <div id="oldBookPrintedPageNumberMask" class="ob-printed-page-number-mask" aria-hidden="true"></div>
               <div id="oldBookPageNumberBadge" class="ob-page-number-badge" aria-live="polite"><span class="ob-page-ornament">❧</span><strong>1</strong><span class="ob-page-ornament">❧</span></div>
               <div class="ob-page-shadow"></div>
             </div>
@@ -12999,7 +13004,16 @@ function renderOldBookTopics(topics,title){
     b.title="पृष्ठ "+(topic.page||"—")+" पर जाएँ";
     b.onclick=()=>{
       oldBookCurrentTopicIndex=i;
-      oldBookJumpToPrintedPage(topic.page,topics,i);
+      // सीधे इसी Topic की database में दी गई PDF page mapping पर जाएँ।
+      // इससे चारों विषयों में Topic पर click करने पर उसी पेज का पहला पन्ना खुलता है।
+      const targetPdfPage=oldBookTopicPdfPage(topic,i,topics);
+      if(targetPdfPage>0){
+        oldBookResolvedTopicPages.set(i,targetPdfPage);
+        updateOldBookTopicHighlight(i);
+        oldBookJumpTo(targetPdfPage,topics);
+      }else{
+        oldBookJumpToPrintedPage(topic.page,topics,i);
+      }
     };
     b.onkeydown=(e)=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();b.click();}};
     list.appendChild(b);
