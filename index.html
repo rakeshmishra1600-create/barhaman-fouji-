@@ -12735,27 +12735,27 @@ const OLD_BOOKS_DATA = [
   {className:"कक्षा 1", subjects:[]},
   {className:"कक्षा 2", subjects:[]},
   {className:"कक्षा 3", subjects:[
-    {name:"कोपल", books:[{name:"कोपल", pdf:"KOPAL-BHAG-1-github.pdf", topics:[
+    {name:"कोपल", books:[{name:"कोपल", pdf:"KOPAL-BHAG-1-github.pdf", pdfOffset:12, topics:[
     {name:"प्रार्थना",page:1},{name:"प्रतीक्षा",page:5},{name:"मेरा गाँव",page:10},{name:"बब्बन बंदर",page:13},
     {name:"खूब मजे हैं मौसम के",page:18},{name:"जंगल में सभा",page:21},{name:"फूलबाड़ी",page:24},{name:"रक्षाबंधन",page:28},
     {name:"तिरंगा",page:33},{name:"कौवा और साँप",page:37},{name:"उल्टा-पुल्टा",page:45},{name:"गाँधीजी की कहानी-चित्रों की जुबानी",page:48},
     {name:"राजगीर",page:55},{name:"दीप जले",page:60},{name:"साहसी इंदिरा",page:64},{name:"गंगा नदी",page:70},
     {name:"बैलगाड़ी का दाम",page:74},{name:"हम सब",page:80},{name:"कुत्ते की कहानी",page:84},{name:"खेल-खेल में",page:91}
   ]}]},
-    {name:"English", books:[{name:"Blossom", pdf:"Class-3-English-BLOSSOM-github.pdf", topics:[
+    {name:"English", books:[{name:"Blossom", pdf:"Class-3-English-BLOSSOM-github.pdf", pdfOffset:12, topics:[
       {name:"This is The Way",page:1},{name:"Murli's Mango Tree",page:7},{name:"One Little Kitten",page:13},{name:"Who's Afraid Of The Cat?",page:20},
       {name:"The Old Rabbit",page:27},{name:"Upside Down",page:33},{name:"The Tiger and The Mosquito",page:37},{name:"Kith-Kith",page:43},
       {name:"Cats",page:48},{name:"I Can Dance",page:52},{name:"Unity Is Strength",page:57},{name:"A Picnic",page:61},
       {name:"Mice",page:65},{name:"Now The Road Will Be Fine",page:70},{name:"The Phone Call",page:75},{name:"Munia Goes To School",page:81},{name:"Gonu And Bhonu",page:87}
     ]}]},
-    {name:"पर्यावरण", books:[{name:"पर्यावरण और हम-3", pdf:"PARYAWARAN-AUR-HUM-3-github.pdf", topics:[
+    {name:"पर्यावरण", books:[{name:"पर्यावरण और हम-3", pdf:"PARYAWARAN-AUR-HUM-3-github.pdf", pdfOffset:13, topics:[
       {name:"चाचा की शादी",page:1},{name:"हमारा परिवार",page:6},{name:"जीव जंतुओं की दुनिया",page:11},{name:"रंग बिरंगे पंख",page:18},
       {name:"पेड़ पौधों से दोस्ती",page:25},{name:"पत्ता हूँ मैं हरा हरा",page:30},{name:"तरह तरह के बचन",page:35},{name:"कुछ कच्चा कुछ पक्का",page:40},
       {name:"पकाएँगे खाएँगे",page:45},{name:"घर को जाने",page:48},{name:"दीपावली की तैयारी",page:53},{name:"किसी और का",page:60},
       {name:"स्कूल के आस पास",page:65},{name:"पानी",page:69},{name:"दानापुर से गौरा तक",page:77},{name:"चिट्ठी का सफर",page:85},
       {name:"कपड़े तरह तरह के",page:90},{name:"तेरी मेरी उछल कूद",page:94},{name:"कोशिश करके देख ले",page:99},{name:"आओ खेलें मिट्टी से",page:104}
     ]}]},
-    {name:"गणित", books:[{name:"गणित-3", pdf:"GANIT-3-github.pdf", topics:[
+    {name:"गणित", books:[{name:"गणित-3", pdf:"GANIT-3-github.pdf", pdfOffset:13, topics:[
       {name:"ज्यामिति",page:1},{name:"संख्याएँ",page:23},{name:"जोड़-घटाव",page:36},{name:"गुणा",page:46},{name:"भाग",page:54},
       {name:"भिन्न संख्याएँ",page:64},{name:"मुद्रा",page:71},{name:"लम्बाई",page:75},{name:"भार",page:80},{name:"धारिता",page:87},
       {name:"समय",page:91},{name:"पैटर्न",page:102},{name:"आँकड़ों का निरूपण",page:108}
@@ -12795,7 +12795,7 @@ function renderOldBooksTree(root){
         const books=sub.books||[];
         // एक ही किताब हो तो विषय/किताब पर क्लिक करते ही सीधे PDF reader खुले।
         if(books.length===1){
-          sh.onclick=()=>openOldBookViewer(books[0].pdf,books[0].name,books[0].topics||[],{className:cls.className,subjectName:sub.name,bookName:books[0].name});
+          sh.onclick=()=>openOldBookViewer(books[0].pdf,books[0].name,books[0].topics||[],{className:cls.className,subjectName:sub.name,bookName:books[0].name,pdfOffset:books[0].pdfOffset||12});
           sh.classList.add("direct-book");
         }else{
           const sb=document.createElement("div");
@@ -12861,7 +12861,7 @@ async function openOldBookViewer(pdfUrl,title,topics=[],meta={}){
   oldBookUrl=new URL(pdfUrl,document.baseURI).href;
   oldBookPageNum=1;oldBookPdf=null;oldBookPending=null;oldBookRendering=false;
   window.oldBookCurrentTopics=Array.isArray(topics)?topics:[];
-  oldBookCurrentMeta={className:meta.className||"",subjectName:meta.subjectName||title||"",bookName:meta.bookName||title||""};
+  oldBookCurrentMeta={className:meta.className||"",subjectName:meta.subjectName||title||"",bookName:meta.bookName||title||"",pdfOffset:Number(meta.pdfOffset)||12};
   oldBookCurrentTopicIndex=0; oldBookHeaderThumbTopic=-1;
   oldBookResolvedTopicPages=new Map();
   document.getElementById("oldBookReaderTitle").textContent="📖 "+(title||"Book");
@@ -12894,6 +12894,8 @@ async function openOldBookViewer(pdfUrl,title,topics=[],meta={}){
     loading.innerHTML="⚠️ PDF नहीं खुल सकी।<br><small style='display:block;margin-top:6px'>PDF file और GitHub filename जाँचें।</small>";
   }
 }
+function oldBookPdfOffset(){return Math.max(0,Number(oldBookCurrentMeta&&oldBookCurrentMeta.pdfOffset)||12);}
+
 function updateOldBookHeader(pdfPage,topics){
   const nameEl=document.getElementById("oldBookInfoName");
   const metaEl=document.getElementById("oldBookInfoMeta");
@@ -12908,7 +12910,7 @@ function updateOldBookHeader(pdfPage,topics){
       const pageNow=Number(pdfPage)||1;
       let found=-1;
       topics.forEach((t,i)=>{
-        const start=oldBookResolvedTopicPages.has(i) ? Number(oldBookResolvedTopicPages.get(i)) : (Number(t.page)>0 ? Number(t.page)+12 : 0);
+        const start=oldBookResolvedTopicPages.has(i) ? Number(oldBookResolvedTopicPages.get(i)) : (Number(t.page)>0 ? Number(t.page)+oldBookPdfOffset() : 0);
         if(start>0 && start<=pageNow)found=i;
       });
       if(found>=0)idx=found;
@@ -12922,7 +12924,7 @@ function updateOldBookHeader(pdfPage,topics){
   // It changes only when the reader enters the next topic/chapter.
   if(thumb&&oldBookPdf && oldBookHeaderThumbTopic!==idx){
     const t=Array.isArray(topics)&&topics.length ? topics[idx] : null;
-    const topicStart=oldBookResolvedTopicPages.has(idx) ? Number(oldBookResolvedTopicPages.get(idx)) : (Number(t&&t.page)>0 ? Number(t.page)+12 : (Number(pdfPage)||1));
+    const topicStart=oldBookResolvedTopicPages.has(idx) ? Number(oldBookResolvedTopicPages.get(idx)) : (Number(t&&t.page)>0 ? Number(t.page)+oldBookPdfOffset() : (Number(pdfPage)||1));
     oldBookHeaderThumbTopic=idx;
     drawOldBookThumb(Math.max(1,Math.min(oldBookPdf.numPages,topicStart)),thumb).catch(()=>{});
   }
@@ -12975,7 +12977,7 @@ async function updateOldBookNextTopic(pdfPage,topics,token=oldBookToken){
     if(thumb){const c=thumb.getContext("2d");if(c)c.clearRect(0,0,thumb.width,thumb.height);}
     return;
   }
-  const printed=Math.max(1,(Number(pdfPage)||1)-12);
+  const printed=Math.max(1,(Number(pdfPage)||1)-oldBookPdfOffset());
   let current=-1;
   topics.forEach((t,i)=>{if(Number(t.page)<=printed)current=i;});
   const next=current+1;
@@ -12988,7 +12990,7 @@ async function updateOldBookNextTopic(pdfPage,topics,token=oldBookToken){
   const t=topics[next];
   const label=(next+1)+". "+t.name;
   text.textContent="📚 अगला पाठ: "+label+" — इसमें यही पाठ पढ़ना है।";
-  const targetPdfPage=oldBookResolvedTopicPages.has(next) ? oldBookResolvedTopicPages.get(next) : (Number(t.page)||1)+12;
+  const targetPdfPage=oldBookResolvedTopicPages.has(next) ? oldBookResolvedTopicPages.get(next) : (Number(t.page)||1)+oldBookPdfOffset();
   el.onclick=()=>oldBookJumpToPrintedPage(t.page,topics,next);
   if(thumb&&oldBookPdf){
     try{
@@ -13010,27 +13012,18 @@ async function oldBookJumpToPrintedPage(printedPage,topics,topicIndex=null){
   if(!oldBookPdf)return;
   const list=topics||window.oldBookCurrentTopics||[];
   const targetPrinted=Math.max(1,Number(printedPage)||1);
-  const fallback=Math.max(1,Math.min(oldBookPdf.numPages,targetPrinted+12));
+  // Use the exact printed-page mapping for this book. Do not OCR/search the
+  // surrounding pages: the PDFs contain TOC/continuation pages that can make
+  // a heading search resolve to the next lesson.
+  const fallback=Math.max(1,Math.min(oldBookPdf.numPages,targetPrinted+oldBookPdfOffset()));
   let idx=Number.isInteger(topicIndex)?topicIndex:list.findIndex(t=>Number(t&&t.page)===targetPrinted);
   if(idx<0)idx=0;
-  const topic=list[idx]||null;
-  if(topic){
-    // Printed page numbers and PDF page numbers do not have one fixed offset.
-    // Find the actual chapter heading near the expected location.
-    const found=await oldBookFindTopicStartNearPage(topic,fallback,16,idx+1);
-    if(found){
-      oldBookResolvedTopicPages.set(idx,found);
-      oldBookCurrentTopicIndex=idx;
-      updateOldBookTopicHighlight(idx);
-      oldBookJumpTo(found,list);
-      return;
-    }
-  }
   oldBookResolvedTopicPages.set(idx,fallback);
   oldBookCurrentTopicIndex=idx;
   updateOldBookTopicHighlight(idx);
   oldBookJumpTo(fallback,list);
 }
+
 
 // जिन किताबों में page mapping दी गई है, printed page से केवल अनुमानित PDF page
 // मिलता है। यह helper उस अनुमान के आसपास chapter heading खोजकर असली शुरुआत पकड़ता है।
