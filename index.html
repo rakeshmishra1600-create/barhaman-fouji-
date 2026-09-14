@@ -12709,7 +12709,6 @@ function openFileContent(id){
                 <div class="ob-flip-face ob-flip-back"><canvas id="oldBookFlipBack"></canvas></div>
               </div>
               <div id="oldBookLoading" class="ob-loading">📖 किताब खोली जा रही है…</div>
-              <div id="oldBookTopicBadge" class="ob-topic-badge" aria-live="polite">TOPIC 1</div>
               <div id="oldBookPageNumberBadge" class="ob-page-number-badge" aria-live="polite"><span class="ob-page-ornament">❧</span><strong>1</strong><span class="ob-page-ornament">❧</span></div>
               <div class="ob-page-shadow"></div>
             </div>
@@ -12938,9 +12937,7 @@ function updateOldBookHeader(pdfPage,topics){
     }
     idx=Math.max(0,Math.min(topics.length-1,idx));
     oldBookCurrentTopicIndex=idx;
-    if(topicEl)topicEl.textContent="📖 TOPIC "+(idx+1)+" • "+(topics[idx]?.name||"—");
-    const badge=document.getElementById("oldBookTopicBadge");
-    if(badge){ badge.textContent="TOPIC "+(idx+1)+" • "+(topics[idx]?.name||"—"); badge.classList.add("show"); }
+    if(topicEl)topicEl.textContent="📖 "+(idx+1)+" • "+(topics[idx]?.name||"—");
     updateOldBookTopicHighlight(idx);
   }else if(topicEl){topicEl.textContent="📖 पाठ —";}
   // The top-left thumbnail belongs to the CURRENT TOPIC, not every PDF page.
@@ -12965,14 +12962,14 @@ function oldBookTopicPdfPage(topic,index,topics){
 function renderOldBookTopics(topics,title){
   const panel=document.getElementById("oldBookTopics"),list=document.getElementById("oldBookTopicList");
   if(!panel||!list)return;list.innerHTML="";
-  if(!topics||!topics.length){panel.style.display="none";const badge=document.getElementById("oldBookTopicBadge");if(badge)badge.classList.remove("show");updateOldBookNextTopic(1,[]);return;}
+  if(!topics||!topics.length){panel.style.display="none";updateOldBookNextTopic(1,[]);return;}
   panel.style.display="block";
   const titleEl=panel.querySelector(".ob-topic-title");
   if(titleEl)titleEl.textContent="📚 "+(title||"किताब")+" — पाठ सीधे खोलें";
   topics.forEach((topic,i)=>{
     const b=document.createElement("button");
     b.type="button";b.className="ob-topic-btn";
-    b.textContent="TOPIC "+(i+1)+" • "+topic.name;
+    b.textContent=(i+1)+". "+topic.name;
     const target=oldBookTopicPdfPage(topic,i,topics);
     b.title=target>0 ? ("इस पाठ का पहला PDF पृष्ठ: "+target) : "इस पाठ को PDF में खोजें";
     b.onclick=()=>{
@@ -13285,11 +13282,12 @@ function updateOldBookPageNumberBadge(pdfPage){
   const rel=oldBookRelativePageNumber(pdfPage);
   if(rel<=0){badge.style.display="none";return;}
   badge.style.display="flex";
-  const cr=canvas.getBoundingClientRect(), sr=surface.getBoundingClientRect();
-  const centerX=cr.left-sr.left+cr.width/2;
-  const bottomY=cr.bottom-sr.top-10;
-  badge.style.left=Math.round(centerX)+"px";
-  badge.style.top=Math.round(bottomY)+"px";
+  // Keep the page number fixed at the bottom-center of the real PDF page.
+  // Do not calculate from the canvas bounds: on mobile the canvas can be
+  // letterboxed, which previously made the badge disappear/off-page.
+  badge.style.left="50%";
+  badge.style.top="auto";
+  badge.style.bottom="16px";
   badge.querySelector("strong").textContent=String(rel);
 }
 async function renderOldBookPage(num,direction="",token=oldBookToken,topics=window.oldBookCurrentTopics||[]){
@@ -13784,5 +13782,28 @@ window.addEventListener("resize",()=>{if(oldBookPdf&&!oldBookRendering){finishOl
 @media(max-width:380px){
   #oldBookReader .ob-book-holder{left:0!important;right:0!important;top:0!important;bottom:0!important;}
   #oldBookReader .ob-book{width:100%!important;height:100%!important;}
+}
+</style>
+
+<style id="oldBookFinalPageNumberDesign">
+/* Page numbering: starts from Topic 1 = page 1 and stays visible on every PDF page. */
+#oldBookReader .ob-page-number-badge{
+  left:50%!important; right:auto!important; top:auto!important; bottom:16px!important;
+  transform:translateX(-50%)!important;
+  display:flex!important;
+  min-width:62px!important; height:30px!important; padding:0 8px!important;
+  z-index:50!important; pointer-events:none!important;
+  border-radius:999px!important;
+  background:linear-gradient(180deg,#ff7892,#f34f72)!important;
+  border:2px solid rgba(255,255,255,.92)!important;
+  box-shadow:0 3px 10px rgba(65,18,28,.28),inset 0 1px 0 rgba(255,255,255,.55)!important;
+}
+#oldBookReader .ob-page-number-badge strong{font-size:19px!important;color:#fff!important;}
+#oldBookReader .ob-page-number-badge .ob-page-ornament{font-size:14px!important;color:#fff!important;}
+/* No duplicate TOPIC badge on the PDF itself. */
+#oldBookReader .ob-topic-badge{display:none!important;}
+@media(max-width:700px){
+  #oldBookReader .ob-page-number-badge{bottom:13px!important;min-width:56px!important;height:27px!important;padding:0 6px!important;}
+  #oldBookReader .ob-page-number-badge strong{font-size:17px!important;}
 }
 </style>
