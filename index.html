@@ -12758,7 +12758,7 @@ const OLD_BOOKS_DATA = [
     ]}]},
     {name:"पर्यावरण", books:[{name:"पर्यावरण और हम-3", pdf:"PARYAWARAN-AUR-HUM-3-github.pdf", pdfOffset:13, topics:[
       // EVS visible numbering starts at 1 on the first content page (PDF page 14).
-      {name:"चाचा की शादी",page:1,pdfPage:14},{name:"हमारा परिवार",page:6,pdfPage:19},{name:"जीव जंतुओं की दुनिया",page:11,pdfPage:24},{name:"रंग बिरंगे पंख",page:18,pdfPage:31},
+      {name:"चाचा की शादी",page:1,pdfPage:15},{name:"हमारा परिवार",page:6,pdfPage:19},{name:"जीव जंतुओं की दुनिया",page:11,pdfPage:24},{name:"रंग बिरंगे पंख",page:18,pdfPage:31},
       {name:"पेड़ पौधों से दोस्ती",page:25,pdfPage:38},{name:"पत्ता हूँ मैं हरा हरा",page:30,pdfPage:43},{name:"तरह तरह के बचन",page:35,pdfPage:48},{name:"कुछ कच्चा कुछ पक्का",page:40,pdfPage:53},
       {name:"पकाएँगे खाएँगे",page:45,pdfPage:58},{name:"घर को जाने",page:48,pdfPage:61},{name:"दीपावली की तैयारी",page:53,pdfPage:66},{name:"किसी और का",page:60,pdfPage:73},
       {name:"स्कूल के आस पास",page:65,pdfPage:78},{name:"पानी",page:69,pdfPage:82},{name:"दानापुर से गौरा तक",page:77,pdfPage:90},{name:"चिट्ठी का सफर",page:85,pdfPage:98},
@@ -12916,10 +12916,19 @@ async function openOldBookViewer(pdfUrl,title,topics=[],meta={}){
   }
 }
 function oldBookPdfOffset(){return Math.max(0,Number(oldBookCurrentMeta&&oldBookCurrentMeta.pdfOffset)||12);}
-// Reader view skips only the PDF front-matter/extra pages. The FIRST TOPIC
-// page itself is never removed: EVS starts with "चाचा की शादी" and Math starts
-// with "ज्यामिति"; each is displayed as visible page 1.
-function oldBookContentStartPage(){return Math.max(1,Number(oldBookCurrentMeta&&oldBookCurrentMeta.contentStartPdfPage)||oldBookPdfOffset()+1);}
+// Reader counting always starts from the FIRST actual topic page.
+// For Math this is "ज्यामिति" (printed page 1 / PDF page 14), so it must
+// appear as पृष्ठ 1 and then continue 2, 3, 4 ... up to the final PDF page.
+// The topic page itself is never skipped or counted as front matter.
+function oldBookContentStartPage(){
+  const topics=window.oldBookCurrentTopics||[];
+  const first=topics[0];
+  const firstPdf=Number(first&&first.pdfPage);
+  if(Number.isFinite(firstPdf)&&firstPdf>0)return Math.max(1,firstPdf);
+  const metaStart=Number(oldBookCurrentMeta&&oldBookCurrentMeta.contentStartPdfPage);
+  if(Number.isFinite(metaStart)&&metaStart>0)return Math.max(1,metaStart);
+  return Math.max(1,oldBookPdfOffset()+1);
+}
 function oldBookContentLastPage(){return oldBookPdf?oldBookPdf.numPages:oldBookContentStartPage();}
 
 
