@@ -13061,7 +13061,7 @@ function oldBookTopicTokenScore(needle,text){
   const nt=needle.split(/\s+/).filter(x=>x.length>1);
   if(!nt.length)return 0;
   const tt=new Set(text.split(/\s+/));
-  let hit=0;nt.forEach(x=>{if(tt.has(x)||text.includes(x))hit++;});
+  let hit=0;nt.forEach(x=>{if(tt.has(x))hit++;});
   return hit/nt.length;
 }
 function oldBookTopicHeadingScore(topic,topicNumber,text){
@@ -13070,10 +13070,20 @@ function oldBookTopicHeadingScore(topic,topicNumber,text){
   const n=normalizeOldBookTopicText(topicNumber||"");
   let best=0;
   needles.forEach(needle=>{
+    const parts=needle.split(/\s+/).filter(Boolean);
     const numbered=[n+" "+needle,"पाठ "+n+" "+needle,"अध्याय "+n+" "+needle];
+    // A full title is the strongest evidence. Do not let one common word
+    // (e.g. "can" or "dance") select an unrelated chapter.
     if(numbered.some(x=>text.includes(x)))best=Math.max(best,1);
-    else if(text.includes(needle))best=Math.max(best,.82);
-    else best=Math.max(best,oldBookTopicTokenScore(needle,text));
+    else if(text.includes(needle))best=Math.max(best,.94);
+    else {
+      const score=oldBookTopicTokenScore(needle,text);
+      // For very short/common titles require every meaningful token.
+      // For longer titles allow one OCR/token miss, but never accept a
+      // two-word partial match as a chapter heading.
+      const required=parts.length<=2 ? 1 : (parts.length>=4 ? .75 : .8);
+      if(score>=required)best=Math.max(best,score*.84);
+    }
   });
   return best;
 }
