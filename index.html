@@ -1170,9 +1170,6 @@ body.dark-mode .hero::after{background:linear-gradient(to bottom,rgba(0,0,0,.16)
 #oldBookReader .ob-topic-badge{position:absolute;top:10px;left:10px;z-index:8;display:none;padding:6px 12px;border-radius:999px;background:rgba(255,255,255,.94);color:#071c2b;font-weight:900;font-size:14px;letter-spacing:.4px;box-shadow:0 3px 12px #0005;border:2px solid #0b8ed1;pointer-events:none}
 #oldBookReader .ob-topic-badge.show{display:block}
 #oldBookReader .ob-page-number-badge{position:absolute;z-index:9;display:none;align-items:center;justify-content:center;gap:8px;transform:translate(-50%,-50%);min-width:74px;height:34px;padding:0 8px;box-sizing:border-box;border-radius:999px;background:linear-gradient(180deg,#ff7892,#f34f72);color:#fff;box-shadow:0 3px 10px rgba(65,18,28,.28),inset 0 1px 0 rgba(255,255,255,.55);border:2px solid rgba(255,255,255,.88);pointer-events:none;font-family:Georgia,"Noto Serif Devanagari",serif;}
-/* Completely cover the original PDF's printed page number at the bottom-center. */
-#oldBookReader .ob-printed-page-number-mask{position:absolute;z-index:8;left:50%;bottom:0;transform:translateX(-50%);width:118px;height:46px;background:#fffdf6;border-radius:0 0 8px 8px;pointer-events:none;}
-
 #oldBookReader .ob-page-number-badge strong{font-size:21px;line-height:1;font-weight:950;min-width:26px;text-align:center;color:#fff;text-shadow:0 1px 2px rgba(90,0,15,.35);}
 #oldBookReader .ob-page-ornament{font-size:17px;line-height:1;color:#238a55;transform:translateY(-1px);text-shadow:0 1px 0 rgba(255,255,255,.5);}
 @media(max-width:700px){#oldBookReader .ob-page-number-badge{min-width:62px;height:28px;gap:5px;padding:0 6px;border-width:1.5px;}#oldBookReader .ob-page-number-badge strong{font-size:17px}#oldBookReader .ob-page-ornament{font-size:13px}}
@@ -12712,8 +12709,6 @@ function openFileContent(id){
                 <div class="ob-flip-face ob-flip-back"><canvas id="oldBookFlipBack"></canvas></div>
               </div>
               <div id="oldBookLoading" class="ob-loading">📖 किताब खोली जा रही है…</div>
-              <!-- Hide the original printed PDF page number so only our continuous reader number is visible. -->
-              <div id="oldBookPrintedPageNumberMask" class="ob-printed-page-number-mask" aria-hidden="true"></div>
               <div id="oldBookPageNumberBadge" class="ob-page-number-badge" aria-live="polite"><span class="ob-page-ornament">❧</span><strong>1</strong><span class="ob-page-ornament">❧</span></div>
               <div class="ob-page-shadow"></div>
             </div>
@@ -12756,14 +12751,14 @@ const OLD_BOOKS_DATA = [
     {name:"बैलगाड़ी का दाम",page:74,pdfPage:86},{name:"हम सब",page:80,pdfPage:92},{name:"कुत्ते की कहानी",page:84,pdfPage:96},{name:"खेल-खेल में",page:91,pdfPage:103}
   ]}]},
     {name:"English", books:[{name:"Blossom", pdf:"Class-3-English-BLOSSOM-github.pdf", pdfOffset:12, topics:[
-      {name:"This is The Way",page:1,pdfPage:13},{name:"Murli's Mango Tree",page:7,pdfPage:19},{name:"One Little Kitten",page:12,pdfPage:25},{name:"Who's Afraid Of The Cat?",page:19,pdfPage:32},
-      {name:"The Old Rabbit",page:26,pdfPage:39},{name:"Upside Down",page:32,pdfPage:45},{name:"The Tiger and The Mosquito",page:37,pdfPage:49},{name:"Kith-Kith",page:42,pdfPage:55},
-      {name:"Cats",page:47,pdfPage:60},{name:"I Can Dance",page:51,pdfPage:64},{name:"Unity Is Strength",page:56,pdfPage:69},{name:"A Picnic",page:61,pdfPage:73},
-      {name:"Mice",page:65,pdfPage:77},{name:"Now The Road Will Be Fine",page:69,pdfPage:82},{name:"The Phone Call",page:75,pdfPage:87},{name:"Munia Goes To School",page:80,pdfPage:93},{name:"Gonu And Bhonu",page:86,pdfPage:99}
+      {name:"This is The Way",page:1,pdfPage:13},{name:"Murli's Mango Tree",page:7,pdfPage:19},{name:"One Little Kitten",page:13,pdfPage:24},{name:"Who's Afraid Of The Cat?",page:20,pdfPage:31},
+      {name:"The Old Rabbit",page:27,pdfPage:38},{name:"Upside Down",page:33,pdfPage:44},{name:"The Tiger and The Mosquito",page:37,pdfPage:49},{name:"Kith-Kith",page:43,pdfPage:54},
+      {name:"Cats",page:48,pdfPage:59},{name:"I Can Dance",page:52,pdfPage:63},{name:"Unity Is Strength",page:57,pdfPage:68},{name:"A Picnic",page:61,pdfPage:73},
+      {name:"Mice",page:65,pdfPage:77},{name:"Now The Road Will Be Fine",page:70,pdfPage:81},{name:"The Phone Call",page:75,pdfPage:87},{name:"Munia Goes To School",page:81,pdfPage:92},{name:"Gonu And Bhonu",page:87,pdfPage:98}
     ]}]},
     {name:"पर्यावरण", books:[{name:"पर्यावरण और हम-3", pdf:"PARYAWARAN-AUR-HUM-3-github.pdf", pdfOffset:13, topics:[
       // EVS visible numbering starts at 1 on the first content page (PDF page 14).
-      {name:"चाचा की शादी",page:1,pdfPage:15},{name:"हमारा परिवार",page:6,pdfPage:19},{name:"जीव जंतुओं की दुनिया",page:11,pdfPage:24},{name:"रंग बिरंगे पंख",page:18,pdfPage:31},
+      {name:"चाचा की शादी",page:1,pdfPage:14},{name:"हमारा परिवार",page:6,pdfPage:19},{name:"जीव जंतुओं की दुनिया",page:11,pdfPage:24},{name:"रंग बिरंगे पंख",page:18,pdfPage:31},
       {name:"पेड़ पौधों से दोस्ती",page:25,pdfPage:38},{name:"पत्ता हूँ मैं हरा हरा",page:30,pdfPage:43},{name:"तरह तरह के बचन",page:35,pdfPage:48},{name:"कुछ कच्चा कुछ पक्का",page:40,pdfPage:53},
       {name:"पकाएँगे खाएँगे",page:45,pdfPage:58},{name:"घर को जाने",page:48,pdfPage:61},{name:"दीपावली की तैयारी",page:53,pdfPage:66},{name:"किसी और का",page:60,pdfPage:73},
       {name:"स्कूल के आस पास",page:65,pdfPage:78},{name:"पानी",page:69,pdfPage:82},{name:"दानापुर से गौरा तक",page:77,pdfPage:90},{name:"चिट्ठी का सफर",page:85,pdfPage:98},
@@ -12921,19 +12916,10 @@ async function openOldBookViewer(pdfUrl,title,topics=[],meta={}){
   }
 }
 function oldBookPdfOffset(){return Math.max(0,Number(oldBookCurrentMeta&&oldBookCurrentMeta.pdfOffset)||12);}
-// Reader counting always starts from the FIRST actual topic page.
-// For Math this is "ज्यामिति" (printed page 1 / PDF page 14), so it must
-// appear as पृष्ठ 1 and then continue 2, 3, 4 ... up to the final PDF page.
-// The topic page itself is never skipped or counted as front matter.
-function oldBookContentStartPage(){
-  const topics=window.oldBookCurrentTopics||[];
-  const first=topics[0];
-  const firstPdf=Number(first&&first.pdfPage);
-  if(Number.isFinite(firstPdf)&&firstPdf>0)return Math.max(1,firstPdf);
-  const metaStart=Number(oldBookCurrentMeta&&oldBookCurrentMeta.contentStartPdfPage);
-  if(Number.isFinite(metaStart)&&metaStart>0)return Math.max(1,metaStart);
-  return Math.max(1,oldBookPdfOffset()+1);
-}
+// Reader view skips only the PDF front-matter/extra pages. The FIRST TOPIC
+// page itself is never removed: EVS starts with "चाचा की शादी" and Math starts
+// with "ज्यामिति"; each is displayed as visible page 1.
+function oldBookContentStartPage(){return Math.max(1,Number(oldBookCurrentMeta&&oldBookCurrentMeta.contentStartPdfPage)||oldBookPdfOffset()+1);}
 function oldBookContentLastPage(){return oldBookPdf?oldBookPdf.numPages:oldBookContentStartPage();}
 
 
@@ -12998,24 +12984,9 @@ function renderOldBookTopics(topics,title){
     const b=document.createElement("div");
     b.className="ob-topic-btn";
     b.textContent=(i+1)+". "+topic.name;
-    b.setAttribute("aria-label",(i+1)+". "+topic.name+" — पृष्ठ "+(topic.page||"—"));
-    b.setAttribute("role","button");
-    b.tabIndex=0;
-    b.title="पृष्ठ "+(topic.page||"—")+" पर जाएँ";
-    b.onclick=()=>{
-      oldBookCurrentTopicIndex=i;
-      // सीधे इसी Topic की database में दी गई PDF page mapping पर जाएँ।
-      // इससे चारों विषयों में Topic पर click करने पर उसी पेज का पहला पन्ना खुलता है।
-      const targetPdfPage=oldBookTopicPdfPage(topic,i,topics);
-      if(targetPdfPage>0){
-        oldBookResolvedTopicPages.set(i,targetPdfPage);
-        updateOldBookTopicHighlight(i);
-        oldBookJumpTo(targetPdfPage,topics);
-      }else{
-        oldBookJumpToPrintedPage(topic.page,topics,i);
-      }
-    };
-    b.onkeydown=(e)=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();b.click();}};
+    b.setAttribute("aria-label",(i+1)+". "+topic.name);
+    b.setAttribute("role","listitem");
+    b.title="पाठ की सूची";
     list.appendChild(b);
   });
   updateOldBookTopicHighlight(-1);
