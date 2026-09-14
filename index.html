@@ -1166,6 +1166,9 @@ body.dark-mode .hero::after{background:linear-gradient(to bottom,rgba(0,0,0,.16)
 .nav-music-btn{padding:11px 12px;border:1px solid #777;border-radius:14px;background:rgba(0,0,0,.76);color:#fff;font-weight:800;cursor:pointer;box-shadow:0 0 12px rgba(255,0,200,.3);margin-left:6px;}@media(max-width:600px){.nav-music-btn{padding:9px 8px;font-size:12px;margin-left:4px;}}
 .nav-social-wrap{position:relative!important;z-index:9999!important;}
 #socialLinks{z-index:10001!important;pointer-events:auto!important;}
+
+#oldBookReader .ob-topic-badge{position:absolute;top:10px;left:10px;z-index:8;display:none;padding:6px 12px;border-radius:999px;background:rgba(255,255,255,.94);color:#071c2b;font-weight:900;font-size:14px;letter-spacing:.4px;box-shadow:0 3px 12px #0005;border:2px solid #0b8ed1;pointer-events:none}
+#oldBookReader .ob-topic-badge.show{display:block}
 </style>  <style id="final-home-photo-fix">
 /* FINAL HOME PHOTO / DARK MODE */
 .hero{position:relative;min-height:calc(100vh - 95px);margin:0 auto;padding:0 16px 45px;overflow:hidden;isolation:isolate;text-align:center;background:#000;}
@@ -12702,6 +12705,8 @@ function openFileContent(id){
                 <div class="ob-flip-face ob-flip-back"><canvas id="oldBookFlipBack"></canvas></div>
               </div>
               <div id="oldBookLoading" class="ob-loading">📖 किताब खोली जा रही है…</div>
+              <div id="oldBookPageNumberOverlay" class="ob-page-number-overlay" aria-live="polite">1</div>
+              <div id="oldBookTopicBadge" class="ob-topic-badge" aria-live="polite">TOPIC 1</div>
               <div class="ob-page-shadow"></div>
             </div>
           </div>
@@ -12925,7 +12930,9 @@ function updateOldBookHeader(pdfPage,topics){
     }
     idx=Math.max(0,Math.min(topics.length-1,idx));
     oldBookCurrentTopicIndex=idx;
-    if(topicEl)topicEl.textContent="📖 पाठ "+(idx+1)+": "+(topics[idx]?.name||"—");
+    if(topicEl)topicEl.textContent="📖 TOPIC "+(idx+1)+" • "+(topics[idx]?.name||"—");
+    const badge=document.getElementById("oldBookTopicBadge");
+    if(badge){ badge.textContent="TOPIC "+(idx+1)+" • "+(topics[idx]?.name||"—"); badge.classList.add("show"); }
     updateOldBookTopicHighlight(idx);
   }else if(topicEl){topicEl.textContent="📖 पाठ —";}
   // The top-left thumbnail belongs to the CURRENT TOPIC, not every PDF page.
@@ -12950,14 +12957,14 @@ function oldBookTopicPdfPage(topic,index,topics){
 function renderOldBookTopics(topics,title){
   const panel=document.getElementById("oldBookTopics"),list=document.getElementById("oldBookTopicList");
   if(!panel||!list)return;list.innerHTML="";
-  if(!topics||!topics.length){panel.style.display="none";updateOldBookNextTopic(1,[]);return;}
+  if(!topics||!topics.length){panel.style.display="none";const badge=document.getElementById("oldBookTopicBadge");if(badge)badge.classList.remove("show");updateOldBookNextTopic(1,[]);return;}
   panel.style.display="block";
   const titleEl=panel.querySelector(".ob-topic-title");
   if(titleEl)titleEl.textContent="📚 "+(title||"किताब")+" — पाठ सीधे खोलें";
   topics.forEach((topic,i)=>{
     const b=document.createElement("button");
     b.type="button";b.className="ob-topic-btn";
-    b.textContent=(i+1)+". "+topic.name;
+    b.textContent="TOPIC "+(i+1)+" • "+topic.name;
     const target=oldBookTopicPdfPage(topic,i,topics);
     b.title=target>0 ? ("इस पाठ का पहला PDF पृष्ठ: "+target) : "इस पाठ को PDF में खोजें";
     b.onclick=()=>{
@@ -13273,7 +13280,7 @@ async function renderOldBookPage(num,direction="",token=oldBookToken,topics=wind
       await drawOldBookPage(num,canvas);
     }
     if(token!==oldBookToken)return;
-    oldBookPageNum=num;document.getElementById("oldBookPageCount").textContent=`पृष्ठ ${num} / ${oldBookPdf.numPages}`;
+    oldBookPageNum=num;document.getElementById("oldBookPageCount").textContent=`पृष्ठ ${num} / ${oldBookPdf.numPages}`;const pageNoEl=document.getElementById("oldBookPageNumberOverlay");if(pageNoEl)pageNoEl.textContent=String(num);
     updateOldBookHeader(num,topics);
     await updateOldBookBackPagePreview(num);
     await updateOldBookNextTopic(num,topics,token);
@@ -13327,6 +13334,37 @@ window.addEventListener("resize",()=>{if(oldBookPdf&&!oldBookRendering){finishOl
 @media(max-width:380px){
   #oldBookReader .ob-book-holder{left:0.5%!important;right:0.5%!important;top:1.5%!important;bottom:13%!important;}
   #oldBookReader .ob-book{width:99%!important;height:98%!important;}
+}
+</style>
+
+<style id="oldBookPageNumberOverlayStyle">
+/* Printed-style page number shown at the bottom of every PDF page in the HTML reader. */
+#oldBookReader .ob-page-surface{position:relative!important;}
+#oldBookReader .ob-page-number-overlay{
+  position:absolute!important;
+  left:50%!important;
+  bottom:7px!important;
+  transform:translateX(-50%)!important;
+  z-index:30!important;
+  min-width:34px!important;
+  height:24px!important;
+  padding:2px 9px!important;
+  box-sizing:border-box!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  border-radius:12px!important;
+  background:rgba(8,35,58,.92)!important;
+  border:1px solid rgba(90,205,255,.9)!important;
+  box-shadow:0 2px 8px rgba(0,0,0,.32)!important;
+  color:#fff!important;
+  font:700 13px/1 Arial,sans-serif!important;
+  text-shadow:0 1px 2px rgba(0,0,0,.5)!important;
+  pointer-events:none!important;
+  user-select:none!important;
+}
+@media(max-width:700px){
+  #oldBookReader .ob-page-number-overlay{bottom:5px!important;min-width:30px!important;height:21px!important;font-size:11px!important;padding:1px 7px!important;}
 }
 </style>
 </body>    
