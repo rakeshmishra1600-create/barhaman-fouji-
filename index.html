@@ -12837,6 +12837,10 @@ function initOldBooksSystem(root){
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",initOldBooksSystem);
 else initOldBooksSystem();
 
+/* Preload PDF.js quietly in the background. This removes the PDF.js script
+   download from the first book-open click, while the page itself stays fast. */
+setTimeout(()=>{ensurePdfJs().catch(()=>{});},250);
+
 /* ================= PDF BOOK READER — SINGLE PAGE ================= */
 let oldBookPdf=null, oldBookPageNum=1, oldBookRendering=false, oldBookPending=null, oldBookUrl="", oldBookToken=0, oldBookCurrentMeta={className:"",subjectName:"",bookName:""}, oldBookCurrentTopicIndex=0, oldBookHeaderThumbTopic=-1, oldBookResolvedTopicPages=new Map();
 function ensurePdfJs(){
@@ -12881,12 +12885,16 @@ async function openOldBookViewer(pdfUrl,title,topics=[],meta={}){
     oldBookPdf=await window.pdfjsLib.getDocument({url:oldBookUrl,withCredentials:false,disableAutoFetch:false,disableStream:false}).promise;
     if(token!==oldBookToken)return;
     document.getElementById("oldBookPageCount").textContent=`पृष्ठ 1 / ${oldBookPdf.numPages}`;
-    loading.classList.add("is-hidden"); loading.style.display="none";
-    await drawOldBookThumb(1,document.getElementById("oldBookThumbFirst"));
-    await drawOldBookThumb(oldBookPdf.numPages,document.getElementById("oldBookThumbLast"));
+    /* FAST FIRST PAINT: render the requested page before thumbnails/extra previews.
+       This makes the reader usable as soon as page 1 is ready instead of waiting
+       for the first+last thumbnail renders. */
     updateOldBookHeader(1,topics);
-    await updateOldBookNextTopic(1,topics,token);
     await renderOldBookPage(1,"",token,topics);
+    if(token!==oldBookToken)return;
+    /* Thumbnails are secondary UI; load them after the main page is visible. */
+    drawOldBookThumb(1,document.getElementById("oldBookThumbFirst")).catch(()=>{});
+    drawOldBookThumb(oldBookPdf.numPages,document.getElementById("oldBookThumbLast")).catch(()=>{});
+    updateOldBookNextTopic(1,topics,token).catch(()=>{});
   }catch(e){
     console.error("Old book PDF error:",e);
     if(token!==oldBookToken)return;
@@ -12931,6 +12939,14 @@ function updateOldBookHeader(pdfPage,topics){
 }
 
 
+function oldBookTopicPdfPage(topic,index,topics){
+  if(!topic)return 0;
+  const exact=Number(topic.pdfPage);
+  if(Number.isFinite(exact)&&exact>0)return exact;
+  const printed=Number(topic.page);
+  if(Number.isFinite(printed)&&printed>0)return printed+oldBookPdfOffset();
+  return 0;
+}
 function renderOldBookTopics(topics,title){
   const panel=document.getElementById("oldBookTopics"),list=document.getElementById("oldBookTopicList");
   if(!panel||!list)return;list.innerHTML="";
@@ -12942,8 +12958,18 @@ function renderOldBookTopics(topics,title){
     const b=document.createElement("button");
     b.type="button";b.className="ob-topic-btn";
     b.textContent=(i+1)+". "+topic.name;
-    b.title=topic.page ? ("PDF में पृष्ठ "+topic.page+" पर जाएँ") : "इस पाठ को PDF में खोजें";
-    b.onclick=()=>{oldBookCurrentTopicIndex=i; topic.page ? oldBookJumpToPrintedPage(topic.page,topics,i) : oldBookJumpToTopic(topic,topics);};
+    const target=oldBookTopicPdfPage(topic,i,topics);
+    b.title=target>0 ? ("इस पाठ का पहला PDF पृष्ठ: "+target) : "इस पाठ को PDF में खोजें";
+    b.onclick=()=>{
+      oldBookCurrentTopicIndex=i;
+      if(target>0){
+        oldBookResolvedTopicPages.set(i,target);
+        updateOldBookTopicHighlight(i);
+        oldBookJumpTo(target,topics);
+      }else{
+        oldBookJumpToTopic(topic,topics);
+      }
+    };
     list.appendChild(b);
   });
   updateOldBookTopicHighlight(oldBookCurrentTopicIndex||0);
@@ -12968,18 +12994,12 @@ async function updateOldBookNextTopic(pdfPage,topics,token=oldBookToken){
     el.classList.add("is-empty");
     return;
   }
-  // जिन किताबों में topic के printed-page numbers उपलब्ध नहीं हैं,
-  // वहाँ mini-preview को गलत page पर ले जाने के बजाय केवल सूचना दिखाएँ।
-  if(topics.some(t=>!Number(t.page))){
-    text.textContent="📚 नीचे दिए पाठों में से कोई भी पाठ खोलें।";
-    el.classList.add("is-empty");
-    el.onclick=null;
-    if(thumb){const c=thumb.getContext("2d");if(c)c.clearRect(0,0,thumb.width,thumb.height);}
-    return;
-  }
-  const printed=Math.max(1,(Number(pdfPage)||1)-oldBookPdfOffset());
+  const currentPage=Number(pdfPage)||1;
   let current=-1;
-  topics.forEach((t,i)=>{if(Number(t.page)<=printed)current=i;});
+  topics.forEach((t,i)=>{
+    const start=oldBookResolvedTopicPages.has(i) ? Number(oldBookResolvedTopicPages.get(i)) : oldBookTopicPdfPage(t,i,topics);
+    if(start>0 && start<=currentPage)current=i;
+  });
   const next=current+1;
   if(next>=topics.length){
     text.textContent="✓ यह किताब का अंतिम पाठ है।";
@@ -12990,8 +13010,17 @@ async function updateOldBookNextTopic(pdfPage,topics,token=oldBookToken){
   const t=topics[next];
   const label=(next+1)+". "+t.name;
   text.textContent="📚 अगला पाठ: "+label+" — इसमें यही पाठ पढ़ना है।";
-  const targetPdfPage=oldBookResolvedTopicPages.has(next) ? oldBookResolvedTopicPages.get(next) : (Number(t.pdfPage)>0 ? Number(t.pdfPage) : (Number(t.page)||1)+oldBookPdfOffset());
-  el.onclick=()=>oldBookJumpToPrintedPage(t.page,topics,next);
+  const targetPdfPage=oldBookResolvedTopicPages.has(next) ? Number(oldBookResolvedTopicPages.get(next)) : oldBookTopicPdfPage(t,next,topics);
+  el.onclick=()=>{
+    oldBookCurrentTopicIndex=next;
+    if(targetPdfPage>0){
+      oldBookResolvedTopicPages.set(next,targetPdfPage);
+      updateOldBookTopicHighlight(next);
+      oldBookJumpTo(targetPdfPage,topics);
+    }else{
+      oldBookJumpToTopic(t,topics);
+    }
+  };
   if(thumb&&oldBookPdf){
     try{
       await drawOldBookThumb(targetPdfPage,thumb);
@@ -13015,12 +13044,8 @@ async function oldBookJumpToPrintedPage(printedPage,topics,topicIndex=null){
   let idx=Number.isInteger(topicIndex)?topicIndex:list.findIndex(t=>Number(t&&t.page)===targetPrinted);
   if(idx<0)idx=0;
   const topic=list[idx]||null;
-  // Every mapped book now stores the REAL PDF page for each lesson, just like
-  // the working Kopal book data. Printed page numbers remain informational;
-  // navigation uses pdfPage so TOC/front-matter pages can never be mistaken
-  // for the first page of a lesson.
-  const exact=topic&&Number(topic.pdfPage)>0?Number(topic.pdfPage):0;
-  const target=exact||Math.max(1,Math.min(oldBookPdf.numPages,targetPrinted+oldBookPdfOffset()));
+  const mapped=oldBookTopicPdfPage(topic,idx,list);
+  const target=mapped||Math.max(1,Math.min(oldBookPdf.numPages,targetPrinted+oldBookPdfOffset()));
   const page=Math.max(1,Math.min(oldBookPdf.numPages,target));
   oldBookResolvedTopicPages.set(idx,page);
   oldBookCurrentTopicIndex=idx;
