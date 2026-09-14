@@ -12895,9 +12895,9 @@ async function openOldBookViewer(pdfUrl,title,topics=[],meta={}){
     if(token!==oldBookToken)return;
     const firstTopic=topics&&topics[0]?topics[0]:null;
     const firstTopicPdf=oldBookTopicPdfPage(firstTopic,0,topics);
-    const firstPage=firstTopicPdf>0?firstTopicPdf:Math.min(oldBookPdf.numPages,oldBookPdfOffset()+1);
+    const firstPage=firstTopicPdf>=oldBookContentStartPage()?firstTopicPdf:oldBookContentStartPage();
     oldBookCurrentTopicIndex=0;
-    document.getElementById("oldBookPageCount").textContent=`पृष्ठ ${Math.max(1,firstPage-oldBookPdfOffset())} / ${Math.max(1,oldBookPdf.numPages-oldBookPdfOffset())}`;
+    document.getElementById("oldBookPageCount").textContent=`पृष्ठ ${Math.max(1,firstPage-oldBookPdfOffset())} / ${Math.max(1,oldBookContentLastPage()-oldBookContentStartPage()+1)}`;
     /* FAST FIRST PAINT: render the first topic page before thumbnails/extra previews.
        This makes the reader usable as soon as page 1 is ready instead of waiting
        for the first+last thumbnail renders. */
@@ -12906,7 +12906,7 @@ async function openOldBookViewer(pdfUrl,title,topics=[],meta={}){
     if(token!==oldBookToken)return;
     /* Thumbnails are secondary UI; load them after the main page is visible. */
     drawOldBookThumb(firstPage,document.getElementById("oldBookThumbFirst")).catch(()=>{});
-    drawOldBookThumb(oldBookPdf.numPages,document.getElementById("oldBookThumbLast")).catch(()=>{});
+    drawOldBookThumb(oldBookContentLastPage(),document.getElementById("oldBookThumbLast")).catch(()=>{});
     updateOldBookNextTopic(firstPage,topics,token).catch(()=>{});
   }catch(e){
     console.error("Old book PDF error:",e);
@@ -12916,6 +12916,11 @@ async function openOldBookViewer(pdfUrl,title,topics=[],meta={}){
   }
 }
 function oldBookPdfOffset(){return Math.max(0,Number(oldBookCurrentMeta&&oldBookCurrentMeta.pdfOffset)||12);}
+// Reader view excludes the PDF's front-matter/extra pages. The first visible
+// page is the first content page (offset + 1), which is numbered 1.
+function oldBookContentStartPage(){return Math.max(1,oldBookPdfOffset()+1);}
+function oldBookContentLastPage(){return oldBookPdf?oldBookPdf.numPages:oldBookContentStartPage();}
+
 
 function oldBookTopicIndexForPage(pdfPage,topics){
   if(!Array.isArray(topics)||!topics.length)return 0;
@@ -13041,7 +13046,7 @@ async function updateOldBookNextTopic(pdfPage,topics,token=oldBookToken){
 }
 function oldBookJumpTo(pageNum,topics){
   if(!oldBookPdf)return;
-  const n=(pageNum==='last')?oldBookPdf.numPages:Math.max(1,Math.min(oldBookPdf.numPages,Number(pageNum)||1));
+  const n=(pageNum==='last')?oldBookContentLastPage():Math.max(oldBookContentStartPage(),Math.min(oldBookContentLastPage(),Number(pageNum)||oldBookContentStartPage()));
   const t=topics||window.oldBookCurrentTopics||[];
   if(oldBookRendering){oldBookPending={num:n,direction:"next",token:oldBookToken,topics:t};return;}
   renderOldBookPage(n,"next",oldBookToken,t);
@@ -13055,7 +13060,7 @@ async function oldBookJumpToPrintedPage(printedPage,topics,topicIndex=null){
   const topic=list[idx]||null;
   const mapped=oldBookTopicPdfPage(topic,idx,list);
   const target=mapped||Math.max(1,Math.min(oldBookPdf.numPages,targetPrinted+oldBookPdfOffset()));
-  const page=Math.max(1,Math.min(oldBookPdf.numPages,target));
+  const page=Math.max(oldBookContentStartPage(),Math.min(oldBookContentLastPage(),target));
   oldBookResolvedTopicPages.set(idx,page);
   oldBookCurrentTopicIndex=idx;
   updateOldBookTopicHighlight(idx);
@@ -13266,10 +13271,10 @@ async function updateOldBookBackPagePreview(pageNum){
 }
 
 function oldBookRelativePageNumber(pdfPage){
-  const offset=oldBookPdfOffset();
+  const start=oldBookContentStartPage();
   const n=Number(pdfPage)||0;
-  if(n<=offset)return 0;
-  return n-offset;
+  if(n<start)return 0;
+  return n-start+1;
 }
 function updateOldBookPageNumberBadge(pdfPage){
   const badge=document.getElementById("oldBookPageNumberBadge");
@@ -13288,7 +13293,7 @@ function updateOldBookPageNumberBadge(pdfPage){
   badge.querySelector("strong").textContent=String(rel);
 }
 async function renderOldBookPage(num,direction="",token=oldBookToken,topics=window.oldBookCurrentTopics||[]){
-  if(!oldBookPdf||oldBookRendering)return;if(num<1||num>oldBookPdf.numPages)return;oldBookRendering=true;
+  if(!oldBookPdf||oldBookRendering)return;if(num<oldBookContentStartPage()||num>oldBookContentLastPage())return;oldBookRendering=true;
   const book=document.getElementById("oldBookBook"),loading=document.getElementById("oldBookLoading"),canvas=document.getElementById("oldBookCanvasRight");
   try{
     /* Seamless page change: keep the current PDF visible while the next PDF
@@ -13306,7 +13311,7 @@ async function renderOldBookPage(num,direction="",token=oldBookToken,topics=wind
     if(token!==oldBookToken)return;
     oldBookPageNum=num;
     const relativePage=oldBookRelativePageNumber(num);
-    const totalRelative=Math.max(1,oldBookPdf.numPages-oldBookPdfOffset());
+    const totalRelative=Math.max(1,oldBookContentLastPage()-oldBookContentStartPage()+1);
     document.getElementById("oldBookPageCount").textContent=relativePage>0?`पृष्ठ ${relativePage} / ${totalRelative}`:`पृष्ठ — / ${totalRelative}`;
     updateOldBookPageNumberBadge(num);
     updateOldBookHeader(num,topics);
@@ -13326,8 +13331,8 @@ async function renderOldBookPage(num,direction="",token=oldBookToken,topics=wind
 }
 function oldBookHome(){closeOldBookReader();window.location.hash="#home";setTimeout(()=>{const h=document.getElementById("home");if(h)h.scrollIntoView({behavior:"smooth",block:"start"});},80);}
 function oldBookExit(){closeOldBookReader();setTimeout(()=>{if(typeof openFileContent==="function")openFileContent("oldBooks");},60);}
-function oldBookNext(){if(!oldBookPdf)return;const n=oldBookPageNum+1;if(n>oldBookPdf.numPages)return;const t=window.oldBookCurrentTopics||[];if(oldBookRendering){oldBookPending={num:n,direction:"next",token:oldBookToken,topics:t};return;}renderOldBookPage(n,"next",oldBookToken,t)}
-function oldBookPrev(){if(!oldBookPdf)return;const n=oldBookPageNum-1;if(n<1)return;const t=window.oldBookCurrentTopics||[];if(oldBookRendering){oldBookPending={num:n,direction:"prev",token:oldBookToken,topics:t};return;}renderOldBookPage(n,"prev",oldBookToken,t)}
+function oldBookNext(){if(!oldBookPdf)return;const n=oldBookPageNum+1;if(n>oldBookContentLastPage())return;const t=window.oldBookCurrentTopics||[];if(oldBookRendering){oldBookPending={num:n,direction:"next",token:oldBookToken,topics:t};return;}renderOldBookPage(n,"next",oldBookToken,t)}
+function oldBookPrev(){if(!oldBookPdf)return;const n=oldBookPageNum-1;if(n<oldBookContentStartPage())return;const t=window.oldBookCurrentTopics||[];if(oldBookRendering){oldBookPending={num:n,direction:"prev",token:oldBookToken,topics:t};return;}renderOldBookPage(n,"prev",oldBookToken,t)}
 function closeOldBookReader(){++oldBookToken;const reader=document.getElementById("oldBookReader");reader.classList.remove("show");reader.setAttribute("aria-hidden","true");oldBookPdf=null;oldBookPending=null;oldBookRendering=false;}
 document.addEventListener("keydown",e=>{const r=document.getElementById("oldBookReader");if(!r||!r.classList.contains("show"))return;if(e.key==="ArrowRight")oldBookNext();if(e.key==="ArrowLeft")oldBookPrev();if(e.key==="Escape")closeOldBookReader();});
 window.addEventListener("resize",()=>{if(oldBookPdf&&!oldBookRendering){finishOldBookFlip();renderOldBookPage(oldBookPageNum,"",oldBookToken,window.oldBookCurrentTopics||[]);}});
