@@ -12771,20 +12771,20 @@ const OLD_BOOKS_DATA = [
     ]}]}
   ]},
   {className:"कक्षा 4", subjects:[
-    {name:"कोपल", books:[{name:"कोपल भाग-2", pdf:"https://raw.githubusercontent.com/rakeshmishra1600-create/barhaman-fouji/main/kopal86.pdf", pdfOffset:12, topics:[
+    {name:"कोपल", books:[{name:"कोपल भाग-2", pdf:"kopal86.pdf", pdfOffset:12, topics:[
       {name:"याद तुम्हारी आती है",page:1,pdfPage:13},{name:"चार मित्र",page:2,pdfPage:14},{name:"घर प्यारा",page:7,pdfPage:19},{name:"बिल्ली का पंजा",page:11,pdfPage:23},
       {name:"घाघ भड्डरी",page:16,pdfPage:28},{name:"सेर को सवा सेर",page:17,pdfPage:29},{name:"सीखो",page:23,pdfPage:35},{name:"सुनीता की पहिया कुर्सी",page:26,pdfPage:38},
       {name:"हमारा आहार",page:34,pdfPage:46},{name:"तीन बुद्धिमान",page:38,pdfPage:50},{name:"टेसू राजा",page:45,pdfPage:57},{name:"ऐसे थे बापू",page:46,pdfPage:58},
       {name:"चाचा का पत्र",page:52,pdfPage:64},{name:"बिजुका",page:56,pdfPage:68},{name:"शूलपाणि",page:60,pdfPage:72},{name:"साहसी ऋचा",page:65,pdfPage:77},
       {name:"बल्ब",page:67,pdfPage:79},{name:"बौना हुआ पहाड़",page:71,pdfPage:83},{name:"सुबह",page:76,pdfPage:88},{name:"पत्तियों का चिड़ियाघर",page:80,pdfPage:92},{name:"बरगद का पेड़",page:82,pdfPage:94}
     ]}]},
-    {name:"English", books:[{name:"Blossom Part-IV", pdf:"https://raw.githubusercontent.com/rakeshmishra1600-create/barhaman-fouji/main/BLOSSOM.pdf", pdfOffset:8, topics:[
+    {name:"English", books:[{name:"Blossom Part-IV", pdf:"BLOSSOM.pdf", pdfOffset:8, topics:[
       {name:"I Love Grandma",page:1,pdfPage:9},{name:"Our Home",page:7,pdfPage:15},{name:"Vikram - The Wise King",page:15,pdfPage:23},{name:"Let Me Dial",page:24,pdfPage:32},
       {name:"Heera and Moti",page:28,pdfPage:36},{name:"The Boy who Cried Wolf",page:37,pdfPage:45},{name:"The Quarrel",page:47,pdfPage:55},{name:"Our National Flag",page:52,pdfPage:60},
       {name:"Our Festivals",page:61,pdfPage:69},{name:"Work will Bring its Own Rewards",page:72,pdfPage:80},{name:"Asserting Voice",page:77,pdfPage:85},{name:"From an Illiterate Village Girl to a Teacher",page:83,pdfPage:91},
       {name:"The Little Red Hen",page:89,pdfPage:97},{name:"He Leaves the Nest",page:97,pdfPage:105},{name:"Computer",page:103,pdfPage:111},{name:"Dirt and Flies",page:110,pdfPage:118}
     ]}]},
-    {name:"पर्यावरण", books:[{name:"पर्यावरण और हम", pdf:"https://raw.githubusercontent.com/rakeshmishra1600-create/barhaman-fouji/main/Paryawaran-aur-Hum.pdf", pdfOffset:10, topics:[
+    {name:"पर्यावरण", books:[{name:"पर्यावरण और हम", pdf:"Paryawaran-aur-Hum.pdf", pdfOffset:10, topics:[
       {name:"रंग-बिरंगे खिलते फूल",page:1,pdfPage:11},{name:"कोई देता अंडे, कोई देता बच्चे",page:6,pdfPage:16},{name:"हड़बड़ में गड़बड़",page:11,pdfPage:21},
       {name:"त्योहार और भोजन",page:17,pdfPage:27},{name:"स्वाद अलग-अलग",page:22,pdfPage:32},{name:"हरियाली और हम",page:27,pdfPage:37},{name:"जड़ों की पकड़",page:31,pdfPage:41},
       {name:"देख तमाशा",page:38,pdfPage:48},{name:"जब मामाजी घर आए",page:41,pdfPage:51},{name:"छठ पर्व और बच्चे",page:47,pdfPage:57},{name:"आओ बनाएँ नक्शा",page:52,pdfPage:62},
@@ -12793,7 +12793,7 @@ const OLD_BOOKS_DATA = [
       {name:"हमारे मददगार-कामगार",page:100,pdfPage:110},{name:"तरह-तरह के घर",page:106,pdfPage:116},{name:"अजय जब गाँव लौटे",page:112,pdfPage:122},{name:"आस-पास की खोज खबर",page:121,pdfPage:131},
       {name:"चिड़ियाघर की सैर",page:127,pdfPage:137},{name:"बंटी का सफर",page:134,pdfPage:144}
     ]}]},
-    {name:"गणित", books:[{name:"Mathematics", pdf:"https://raw.githubusercontent.com/rakeshmishra1600-create/barhaman-fouji/main/Mathematics.pdf", pdfOffset:13, topics:[
+    {name:"गणित", books:[{name:"Mathematics", pdf:"Mathematics.pdf", pdfOffset:13, topics:[
       {name:"संख्याओं का मेला",page:1,pdfPage:14},{name:"जोड़-घटाव",page:14,pdfPage:27},{name:"गुणा",page:21,pdfPage:34},{name:"भाग",page:28,pdfPage:41},
       {name:"मुद्रा",page:33,pdfPage:46},{name:"भिन्नात्मक संख्याएँ",page:44,pdfPage:57},{name:"सममिति",page:53,pdfPage:66},{name:"लम्बाई की माप",page:66,pdfPage:79},
       {name:"भार",page:73,pdfPage:86},{name:"धारिता",page:82,pdfPage:95},{name:"समय",page:90,pdfPage:103},{name:"टाइलीकरण",page:98,pdfPage:111},
@@ -12902,6 +12902,11 @@ async function openOldBookViewer(pdfUrl,title,topics=[],meta={}){
   const token=++oldBookToken;
   const reader=document.getElementById("oldBookReader"),loading=document.getElementById("oldBookLoading"),book=document.getElementById("oldBookBook");
   oldBookUrl=new URL(pdfUrl,document.baseURI).href;
+  // GitHub Pages can resolve relative PDF URLs differently on some deployments.
+  // Keep the local URL first, then use the repository Raw URL as a fallback.
+  const oldBookCandidates=[oldBookUrl,
+    `https://raw.githubusercontent.com/rakeshmishra1600-create/barhaman-fouji/main/${encodeURIComponent(pdfUrl).replace(/%2F/g,"/")}`
+  ];
   oldBookPageNum=1;oldBookPdf=null;oldBookPending=null;oldBookRendering=false;
   window.oldBookCurrentTopics=Array.isArray(topics)?topics:[];
   oldBookCurrentMeta={className:meta.className||"",subjectName:meta.subjectName||title||"",bookName:meta.bookName||title||"",pdfOffset:Number(meta.pdfOffset)||12,contentStartPdfPage:(Number(topics&&topics[0]&&topics[0].pdfPage)>0?Number(topics[0].pdfPage):((Number(meta.pdfOffset)||12)+1))};
@@ -12921,7 +12926,15 @@ async function openOldBookViewer(pdfUrl,title,topics=[],meta={}){
   try{
     await ensurePdfJs();
     if(token!==oldBookToken)return;
-    oldBookPdf=await window.pdfjsLib.getDocument({url:oldBookUrl,withCredentials:false,disableAutoFetch:true,disableStream:false,rangeChunkSize:262144}).promise;
+    let lastPdfError=null;
+    for(const candidate of oldBookCandidates){
+      try{
+        oldBookUrl=candidate;
+        oldBookPdf=await window.pdfjsLib.getDocument({url:candidate,withCredentials:false,disableAutoFetch:true,disableStream:false,rangeChunkSize:262144}).promise;
+        break;
+      }catch(err){ lastPdfError=err; oldBookPdf=null; }
+    }
+    if(!oldBookPdf) throw lastPdfError || new Error("PDF unavailable");
     if(token!==oldBookToken)return;
     const firstTopic=topics&&topics[0]?topics[0]:null;
     const firstTopicPdf=oldBookTopicPdfPage(firstTopic,0,topics);
@@ -12942,7 +12955,7 @@ async function openOldBookViewer(pdfUrl,title,topics=[],meta={}){
     console.error("Old book PDF error:",e);
     if(token!==oldBookToken)return;
     loading.classList.remove("is-hidden"); loading.style.display="flex";
-    loading.innerHTML="⚠️ PDF नहीं खुल सकी।<br><small style='display:block;margin-top:6px'>GitHub PDF link जाँचें या थोड़ी देर बाद फिर कोशिश करें।</small>";
+    loading.innerHTML="⚠️ PDF नहीं खुल सकी।<br><small style='display:block;margin-top:6px'>PDF file और GitHub filename जाँचें।</small>";
   }
 }
 function oldBookPdfOffset(){return Math.max(0,Number(oldBookCurrentMeta&&oldBookCurrentMeta.pdfOffset)||12);}
@@ -13407,6 +13420,45 @@ window.addEventListener("resize",()=>{if(oldBookPdf&&!oldBookRendering){finishOl
 @media(max-width:380px){
   #oldBookReader .ob-book-holder{left:0.5%!important;right:0.5%!important;top:1.5%!important;bottom:13%!important;}
   #oldBookReader .ob-book{width:99%!important;height:98%!important;}
+}
+</style>
+
+<style id="oldBookUserFinalRestoredFloralBook">
+/* Final visual restoration: warm hard-paper book, floral corners, centered page number. */
+#oldBookReader .ob-page-frame{
+  padding:0!important; border:0!important; border-radius:10px!important;
+  background:#fffdf7!important; box-shadow:0 14px 28px rgba(44,18,5,.35)!important;
+  overflow:hidden!important;
+}
+#oldBookReader .ob-page-surface{
+  background:#fffdf7!important; border-radius:6px!important;
+  box-shadow:inset 0 0 26px rgba(73,43,12,.12)!important;
+}
+#oldBookReader .ob-page-surface::before{
+  content:"🌸  🍃"; position:absolute; z-index:7; left:9px; top:7px;
+  font-size:28px; letter-spacing:-7px; line-height:1; pointer-events:none;
+  filter:saturate(1.25);
+}
+#oldBookReader .ob-page-surface::after{
+  content:"🌸  🍃"; position:absolute; z-index:7; right:8px; bottom:7px;
+  font-size:28px; letter-spacing:-7px; line-height:1; pointer-events:none;
+  transform:scaleX(-1); filter:saturate(1.25);
+}
+#oldBookReader .ob-page-number-badge{
+  display:flex!important; left:50%!important; right:auto!important; top:auto!important; bottom:8px!important;
+  transform:translateX(-50%)!important; width:auto!important; min-width:46px!important; height:30px!important;
+  padding:2px 14px!important; border-radius:18px!important;
+  background:#fffdf7!important; color:#111!important; border:2px solid #e3b51e!important;
+  box-shadow:none!important; z-index:8!important;
+}
+#oldBookReader .ob-page-number-badge strong{color:#111!important;font-size:17px!important;text-shadow:none!important}
+#oldBookReader .ob-page-number-badge .ob-page-ornament{display:inline!important;color:#159447!important;font-size:15px!important}
+#oldBookReader #oldBookCanvasUnder{display:block!important;visibility:visible!important;opacity:.32!important}
+#oldBookReader .ob-stand-ornament{display:none!important}
+@media(max-width:700px){
+ #oldBookReader .ob-page-surface::before,#oldBookReader .ob-page-surface::after{font-size:21px}
+ #oldBookReader .ob-page-number-badge{min-width:40px!important;height:25px!important;padding:1px 10px!important}
+ #oldBookReader .ob-page-number-badge strong{font-size:14px!important}
 }
 </style>
 </body>    
