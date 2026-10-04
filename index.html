@@ -2181,6 +2181,11 @@ body.my-routine-open > .navbar{
   visibility:hidden!important;
 }
 </style>
+<style id="my-routine-auth-visibility-final">
+/* Keep every routine option completely hidden until the correct PIN unlocks the routine. */
+#myRoutineList{display:none!important;visibility:hidden!important;}
+#myRoutineModal.routine-unlocked #myRoutineList{display:flex!important;visibility:visible!important;}
+</style>
 </head>  <body>  <div id="progress"></div>
 
 <div id="toast" class="toast"></div>  <!-- ================= NAVBAR ================= -->  <nav class="navbar">
@@ -14071,12 +14076,23 @@ window.addEventListener("resize",()=>{if(oldBookPdf&&!oldBookRendering){finishOl
  }
  function openUnlocked(){
    unlocked=true;
+   const routineModal=document.getElementById('myRoutineModal');
+   if(routineModal) routineModal.classList.add('routine-unlocked');
    localStorage.removeItem(ATTEMPT_KEY);
+   // Correct PIN: stop the rotating display code and permanently show the real PIN.
+   stopDisplayCode();
+   const codeBox=document.getElementById('myRoutineDynamicCode');
+   if(codeBox){
+     codeBox.innerHTML='1600'.split('').map(d=>'<span>'+d+'</span>').join('');
+   }
    document.getElementById('myRoutineLock').style.display='none';
    document.getElementById('myRoutineList').style.display='flex';
    render();
  }
  window.openMyRoutine=function(){
+   const routineModal=document.getElementById('myRoutineModal');
+   if(routineModal) routineModal.classList.remove('routine-unlocked');
+   // Every fresh entry into My Routine must require PIN again.
    unlocked=false;
    stopCountdown();
    stopDisplayCode();
@@ -14117,6 +14133,8 @@ window.addEventListener("resize",()=>{if(oldBookPdf&&!oldBookRendering){finishOl
  };
  window.closeMyRoutine=function(){
    unlocked=false;
+   const routineModal=document.getElementById('myRoutineModal');
+   if(routineModal) routineModal.classList.remove('routine-unlocked');
    stopCountdown();
    stopDisplayCode();
    const pin=document.getElementById('myRoutinePin'); if(pin)pin.value='';
@@ -14126,6 +14144,26 @@ window.addEventListener("resize",()=>{if(oldBookPdf&&!oldBookRendering){finishOl
    const m=document.getElementById('myRoutineModal');
    if(m){m.classList.remove('show');m.setAttribute('aria-hidden','true');}
  };
+ function forceRoutineLock(){
+   const routineModal=document.getElementById('myRoutineModal');
+   if(routineModal) routineModal.classList.remove('routine-unlocked');
+   // Used when the page returns from browser Back/Forward or bfcache.
+   // Never restore the already-unlocked routine screen without a fresh PIN.
+   unlocked=false;
+   stopCountdown();
+   stopDisplayCode();
+   const pin=document.getElementById('myRoutinePin'); if(pin)pin.value='';
+   const lock=document.getElementById('myRoutineLock'); if(lock)lock.style.display='block';
+   const list=document.getElementById('myRoutineList'); if(list)list.style.display='none';
+   const codeBox=document.getElementById('myRoutineDynamicCode');
+   if(codeBox){ updateDisplayCode(); displayCodeTimer=setInterval(updateDisplayCode,4000); }
+   const err=document.getElementById('myRoutineError');
+   if(err){err.style.display='none';err.textContent='';}
+ }
+ window.addEventListener('pageshow',function(){
+   const m=document.getElementById('myRoutineModal');
+   if(m && m.classList.contains('show')) forceRoutineLock();
+ });
  window.resetMyRoutine=function(){
    // Never allow this action while locked or before PIN authentication.
    if(!unlocked || lockRemaining()>0){startCountdown();return;}
