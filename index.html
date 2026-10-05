@@ -2517,33 +2517,17 @@ body.my-routine-open > .navbar{
   };
 
   async function updateBiometricButtons(){
-    const f=$('myRoutineFingerprintBtn'), setup=$('myRoutineSetupFingerprintBtn');
-    if(!f||!setup)return;
-    const has=!!localStorage.getItem(CRED_KEY);
+    const f=$('myRoutineFingerprintBtn'), s=$('myRoutineSetupFingerprintBtn');
+    if(!f||!s)return;
     const ok=await available();
-    // The setup option is shown after PIN unlock even if the current
-    // environment cannot register WebAuthn; the click handler explains why.
-    const unlockedNow = !!window.__myRoutineUnlocked ||
-      !!document.getElementById('myRoutineModal')?.classList.contains('routine-unlocked');
-    setup.style.display=(unlockedNow && !has)?'inline-block':'none';
-    f.style.display=(ok && has)?'inline-block':'none';
+    const has=!!localStorage.getItem(CRED_KEY);
+    f.style.display=(ok&&has)?'inline-block':'none';
+    s.style.display=(ok&&!has)?'inline-block':'none';
   }
 
   document.addEventListener('DOMContentLoaded',updateBiometricButtons);
   window.addEventListener('load',updateBiometricButtons);
   window.addEventListener('pageshow',updateBiometricButtons);
-  const bioObs=new MutationObserver(function(){
-    const modal=document.getElementById('myRoutineModal');
-    if(modal && modal.classList.contains('routine-unlocked')){
-      window.__myRoutineUnlocked=true;
-      updateBiometricButtons();
-    }
-  });
-  document.addEventListener('DOMContentLoaded',function(){
-    const modal=document.getElementById('myRoutineModal');
-    if(modal) bioObs.observe(modal,{attributes:true,childList:true,subtree:true});
-  });
-
 
   // Expose a tiny hook; the existing PIN unlock remains unchanged.
   const oldUnlock=window.unlockMyRoutine;
@@ -2551,10 +2535,6 @@ body.my-routine-open > .navbar{
     window.unlockMyRoutine=function(){
       const r=oldUnlock.apply(this,arguments);
       setTimeout(function(){
-        const modal=document.getElementById('myRoutineModal');
-        const list=document.getElementById('myRoutineList');
-        if(modal && modal.classList.contains('routine-unlocked')) window.__myRoutineUnlocked=true;
-        else if(list && list.style.display!=='none') window.__myRoutineUnlocked=true;
         if(document.getElementById('myRoutineList')?.style.display!=='none'){
           window.__myRoutineUnlocked=true;
         }
