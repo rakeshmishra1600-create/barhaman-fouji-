@@ -13929,12 +13929,70 @@ window.addEventListener("resize",()=>{if(oldBookPdf&&!oldBookRendering){finishOl
       <div id="myRoutineError" class="my-routine-error">गलत PIN</div>
     </div>
     <div id="myRoutineList" class="my-routine-list">
-      <div class="my-routine-actions"><button onclick="resetMyRoutine()">↻ सब फिर दिखाएँ</button><button onclick="closeMyRoutine()">बंद करें</button></div>
-      <div id="myRoutineItems"></div>
-<div class="my-routine-note">✓ करने पर वह काम इस सूची से छिप जाएगा।</div>
+      <div id="myRoutineHome" class="routine-home-screen" style="display:none!important;"></div>
+
+      <div id="routineMissionScreen" class="routine-mission-screen" style="display:none;">
+        <div class="my-routine-actions routine-switch-actions">
+          <button onclick="closeMyRoutine()">बंद करें</button>
+          <button onclick="resetRoutineMission()">↻ फिर से करें</button>
+          <button class="routine-switch-number" onclick="openRoutineMission(1)">1</button>
+          <button class="routine-switch-number" onclick="openRoutineMission(2)">2</button>
+        </div>
+        <div class="routine-inline-title"><span id="routineMissionNumber">1</span> <span id="routineMissionTitle">साधना / भक्ति</span></div>
+        <div id="routineMissionItems" class="routine-mission-items"></div>
+      </div>
+
+      <div id="brahmanRoutineScreen" class="routine-brahman-screen" style="display:none;">
+        <div class="my-routine-actions routine-switch-actions">
+          <button onclick="closeMyRoutine()">बंद करें</button>
+          <button onclick="resetMyRoutine()">↻ फिर से करें</button>
+          <button class="routine-switch-number" onclick="openRoutineMission(1)">1</button>
+          <button class="routine-switch-number" onclick="openRoutineMission(2)">2</button>
+        </div>
+        <div id="myRoutineItems"></div>
+        <div class="my-routine-note">✓ करने पर वह काम इस सूची से छिप जाएगा।</div>
+      </div>
     </div>
   </div>
 </div>
+
+
+
+<style id="my-routine-1-2-fullscreen">
+.routine-home-screen{display:flex;flex-direction:column;gap:12px;align-items:stretch;width:100%;min-height:100%;padding:4px 2px 8px}
+.routine-home-title{text-align:center;font-size:25px;font-weight:1000;color:#ffd43b;text-shadow:0 0 10px rgba(255,80,220,.55);margin-top:2px}
+.routine-home-sub{text-align:center;color:#cfeaff;font-size:13px;font-weight:800}
+.routine-home-buttons{display:flex;flex-direction:column;gap:12px;margin-top:8px}
+.routine-big-btn{width:100%;display:flex;align-items:center;gap:15px;text-align:left;border:1px solid rgba(255,255,255,.16);border-radius:17px;padding:14px;color:#fff;cursor:pointer;box-shadow:0 7px 22px rgba(0,0,0,.28)}
+.routine-btn-one{background:linear-gradient(135deg,rgba(126,34,206,.85),rgba(37,99,235,.72))}
+.routine-btn-two{background:linear-gradient(135deg,rgba(220,38,38,.82),rgba(124,58,237,.78))}
+.routine-big-number{width:58px;height:58px;display:grid;place-items:center;flex:0 0 auto;border-radius:15px;background:rgba(0,0,0,.34);font-size:35px;font-weight:1000;color:#fff;box-shadow:inset 0 0 15px rgba(255,255,255,.08)}
+.routine-big-btn b{display:block;font-size:18px}.routine-big-btn small{display:block;margin-top:4px;color:#e8f7ff;font-size:12px}
+.routine-old-btn,.routine-close-home{border:0;border-radius:11px;padding:11px 13px;color:#fff;font-weight:900;background:linear-gradient(135deg,#334155,#475569);cursor:pointer}
+.routine-close-home{background:linear-gradient(135deg,#7c3aed,#db2777)}
+.routine-mission-screen{position:fixed;inset:0;z-index:100001;display:flex;flex-direction:column;background:linear-gradient(160deg,#090909,#160d22 55%,#090909);padding:8px 4px 4px;min-height:100%}
+.routine-mission-head{display:flex;align-items:center;gap:9px;flex:0 0 auto;padding:3px 2px 12px;border-bottom:1px solid rgba(255,255,255,.12)}
+.routine-back-btn,.routine-screen-close{border:0;border-radius:10px;padding:9px 11px;background:#292033;color:#fff;font-weight:900;cursor:pointer}
+.routine-screen-close{margin-left:auto;background:linear-gradient(135deg,#7c3aed,#db2777);font-size:18px}
+.routine-mission-number{color:#ffd43b;font-size:13px;font-weight:1000;letter-spacing:1px}
+.routine-mission-title{font-size:19px;font-weight:1000;color:#fff}
+.routine-mission-items{flex:1 1 auto;min-height:0;overflow-y:auto;padding:8px 2px}
+.routine-rule-row{display:flex;align-items:center;gap:11px;width:100%;padding:13px 8px;border-bottom:1px solid rgba(255,255,255,.11);font-weight:850;background:rgba(255,255,255,.025);border-radius:10px;margin-bottom:4px}
+.routine-rule-row input{width:22px;height:22px;flex:0 0 auto;accent-color:#a855f7}
+.routine-rule-row.done{display:none}.routine-rule-text{font-size:15px;line-height:1.35}
+.routine-mission-bottom{flex:0 0 auto;padding:7px 2px 3px}.routine-mission-bottom button{width:100%;border:0;border-radius:11px;padding:11px;color:#fff;font-weight:900;background:linear-gradient(135deg,#334155,#475569);cursor:pointer}
+.routine-brahman-screen{display:flex;flex-direction:column;min-height:0;flex:1}.routine-brahman-screen #myRoutineItems{flex:1;min-height:0;overflow-y:auto}
+#myRoutineList{position:relative}
+.routine-switch-actions{display:flex;align-items:center;gap:6px;flex-wrap:nowrap!important}
+.routine-switch-actions button{min-width:0!important;white-space:nowrap}
+.routine-switch-number{width:42px!important;height:38px!important;padding:0!important;font-size:20px!important;font-weight:1000!important;background:linear-gradient(135deg,#7c3aed,#db2777)!important;border-radius:10px!important}
+.routine-inline-title{padding:6px 8px 8px;color:#ffd43b;font-size:17px;font-weight:1000;text-align:center}
+.routine-inline-title span:last-child{color:#fff}
+.routine-mission-screen{position:static!important;inset:auto!important;z-index:auto!important;display:flex;flex-direction:column;background:transparent!important;padding:0!important;min-height:0!important;flex:1}
+.routine-mission-items{flex:1 1 auto;min-height:0;overflow-y:auto;padding:2px 0}
+@media(max-width:600px){.routine-switch-actions{gap:4px}.routine-switch-number{width:38px!important;height:36px!important;font-size:18px!important}.routine-switch-actions button{font-size:12px;padding:9px 8px!important}.routine-inline-title{font-size:16px}}
+@media(max-width:600px){.routine-home-title{font-size:22px}.routine-big-btn{padding:12px}.routine-big-number{width:52px;height:52px;font-size:31px}.routine-big-btn b{font-size:16px}.routine-mission-title{font-size:17px}.routine-rule-text{font-size:14px}}
+</style>
 
 <style id="my-routine-final-pin-ui">
 .my-routine-security-card{margin:10px 0 4px;padding:11px 12px;border:1px solid rgba(255,210,70,.55);border-radius:13px;background:linear-gradient(135deg,rgba(124,58,237,.22),rgba(219,39,119,.18),rgba(255,193,7,.10));box-shadow:0 0 12px rgba(255,0,200,.12),inset 0 0 12px rgba(255,255,255,.03);text-align:center;}
@@ -13945,6 +14003,87 @@ window.addEventListener("resize",()=>{if(oldBookPdf&&!oldBookRendering){finishOl
 .my-routine-countdown{display:inline-block;margin-top:4px;padding:4px 10px;border-radius:9px;background:linear-gradient(135deg,#7c3aed,#db2777);color:#fff!important;font-size:22px!important;font-weight:1000!important;letter-spacing:1px;box-shadow:0 0 12px rgba(219,39,119,.35);}
 .my-routine-security-card{display:none!important;}
 </style>
+
+<script id="my-routine-1-2-script">
+(function(){
+  const routineMissions={
+    1:[
+      ['भजन सुनना','🎵'],['नाम जाप करना','📿'],['गीता पढ़ना','📖'],['1000 बार नाम जाप करना','🕉️'],
+      ['भगवान का नाम लेते हुए घूमना है','📿'],
+      ['सोने से पहले भगवान को याद करना है','🌙']
+    ],
+    2:[
+      ['लड़की की तरफ नहीं देखना है','🚫'],['मुरगा और मछली नहीं खाना है','🐔🐟'],['चाय नहीं पीना है','☕'],
+      ['वीर्य नाश नहीं करना है','🛡️'],['गाली नहीं देना है','🤐'],['माता-पिता को रोना नहीं देना है','🙏'],
+      ['शादी नहीं करना है','💠'],['जरूरत से ज्यादा नहीं बोलना है','🤫'],['किसी की बुराई नहीं करना है','🙅'],
+      ['किसी का मजाक नहीं उड़ाना है','🫱'],['सूर्य की ओर पेशाब नहीं करना है','☀️'],['चंद्रमा की ओर पेशाब नहीं करना है','🌙'],
+      ['चोरी नहीं करना है','🔒'],['दूसरे की बात नहीं करना है','🤐'],['भाई पर हाथ नहीं उठाना है','🕊️'],
+      ['पैर तकिये पर रखकर नहीं सोना है','🛏️'],['छाती पर जोर देकर नहीं सोना है','🛌'],
+      ['टॉयलेट में मोबाइल नहीं चलाना है','📵'],['बिना पूछे किसी से कुछ नहीं बोलना है','🤫'],
+      ['भोज का अन्न नहीं खाना है','🍚'],
+      ['जानबूझकर गलत संगति में नहीं बैठना है','🚫'],
+      ['जरूरी काम को बार-बार कल पर नहीं टालना है','⏳'],
+      ['सुबह उठने के बाद बेवजह बिस्तर में नहीं पड़े रहना है','🛏️'],
+      ['झूठ नहीं बोलना है','🤥'],
+      ['गुस्से में किसी को अपशब्द नहीं कहना है','🤬'],
+      ['किसी को गलत नजर से नहीं देखना है','👀'],
+      ['खाने की बर्बादी नहीं करनी है','🍽️'],
+      ['रात में बिना जरूरत देर तक जागना नहीं है','🌙'],
+      ['नशे की चीजों से दूर रहना है','🚫'],
+      ['बिना सोचे किसी भी तरह की कसम नहीं खानी चाहिए','🙏']
+    ]
+  };
+  let activeMission=0;
+  function missionKey(group,index){return 'myRoutineMission'+group+'Done_'+index}
+  function showRoutineHome(){
+    activeMission=0;
+    const home=document.getElementById('myRoutineHome'),screen=document.getElementById('routineMissionScreen'),brahman=document.getElementById('brahmanRoutineScreen');
+    if(home)home.style.display='flex';if(screen)screen.style.display='none';if(brahman)brahman.style.display='none';
+  }
+  window.showRoutineHome=showRoutineHome;
+  function renderRoutineMission(){
+    const list=document.getElementById('routineMissionItems');if(!list||!activeMission)return;
+    list.innerHTML='';
+    (routineMissions[activeMission]||[]).forEach((m,i)=>{
+      const done=localStorage.getItem(missionKey(activeMission,i))==='1';
+      const row=document.createElement('label');row.className='routine-rule-row'+(done?' done':'');
+      row.innerHTML='<input type="checkbox" '+(done?'checked':'')+'><span class="routine-rule-text">'+(i+1)+'. '+m[1]+' '+m[0]+'</span>';
+      row.querySelector('input').addEventListener('change',function(){
+        if(this.checked){localStorage.setItem(missionKey(activeMission,i),'1');row.classList.add('done')}
+        else{localStorage.removeItem(missionKey(activeMission,i));row.classList.remove('done')}
+      });
+      list.appendChild(row);
+    });
+  }
+  window.openRoutineMission=function(group){
+    if(group!==1&&group!==2)return;activeMission=group;
+    const home=document.getElementById('myRoutineHome'),screen=document.getElementById('routineMissionScreen'),brahman=document.getElementById('brahmanRoutineScreen');
+    if(home)home.style.display='none';if(brahman)brahman.style.display='none';if(screen)screen.style.display='flex';
+    const num=document.getElementById('routineMissionNumber'),title=document.getElementById('routineMissionTitle');
+    if(num)num.textContent=String(group);if(title)title.textContent=group===1?'साधना / भक्ति':'संयम / नियम';
+    renderRoutineMission();
+    const list=document.getElementById('routineMissionItems');if(list)list.scrollTop=0;
+  };
+  window.resetRoutineMission=function(){
+    if(!activeMission)return;
+    (routineMissions[activeMission]||[]).forEach((_,i)=>localStorage.removeItem(missionKey(activeMission,i)));
+    renderRoutineMission();
+  };
+  window.resetAllRoutineMissions=function(){
+    [1,2].forEach(group=>(routineMissions[group]||[]).forEach((_,i)=>localStorage.removeItem(missionKey(group,i))));
+    if(activeMission)renderRoutineMission();
+  };
+  window.openBrahmanRoutine=function(){
+    const home=document.getElementById('myRoutineHome'),screen=document.getElementById('routineMissionScreen'),brahman=document.getElementById('brahmanRoutineScreen');
+    if(home)home.style.display='none';if(screen)screen.style.display='none';if(brahman)brahman.style.display='flex';
+    if(window.renderMyRoutine) window.renderMyRoutine();
+    const box=document.getElementById('myRoutineItems');if(box)box.scrollTop=0;
+  };
+  window.showRoutineAfterPin=openBrahmanRoutine;
+  document.addEventListener('myRoutineClosed',showRoutineHome);
+})();
+</script>
+
 <script id="my-routine-pin-script">
 (function(){
  const PIN='1600';
@@ -13956,58 +14095,58 @@ window.addEventListener("resize",()=>{if(oldBookPdf&&!oldBookRendering){finishOl
  let countdownTimer=null;
  let displayCodeTimer=null;
  const items=[
-'Good morning 🌅🥱',
-'Body putkna hai 😈💪',
-'Jamin ko parnam karma hai 🙏🌍',
-'Pani pina hai 💧🥤',
-'Cold pani se face dhona hai 🥶💦',
-'Sochalye jna hai 🚽😁',
-'Muh dhona hai 🧼😷',
-'Snan karna hai 🚿💦',
-'Kapda pahna hai 👕😏',
-'Chest workout karna hai 🏋️‍♂️💪',
-'Abs workout karna hai 🔥💪',
-'Hand strong karna hai 💪🦾',
-'Leg workout karna hai 🦵🔥',
-'Running karna hai 🏃‍♂️💨',
-'Ground pe jna hai 🏟️😎',
-'Leg excice karna hai 🦵🏋️',
-'Hand excice karna hai 💪🏋️',
-'Kamer excice karna hai 🔥😁',
-'Home time 🏠😊',
-'Mandil saaf karna hai 🛕✨',
-'Snan karna hai 🚿💦',
-'Pani pina hai 💧🥶',
-'Mandil me jal chadhna hai 🙏💧',
-'Dudha pina hai 🥛🤤',
-'Coching jna hai 📚😅',
-'Tulsi ji ke pta khana hai 🌿🙏',
-'Home time 🏠😊',
-'Pani pina hai 💧🥶',
-'Chana khana hai 🫘🤤',
-'Geeta padhana hai 📖🙏',
-'Hatha per dhona hai 🧼💦',
-'Khana khna hai 🍲😁',
-'Polity padhana hai 📚🤯',
-'Geography padhna hai 🌍📚',
-'History padhna hai 🏛️📚',
-'Room saaf karna hai 🧹✨',
-'Cold Pani se face dhona hai 🥶💦',
-'Snan karna hai 🚿💦',
-'Pani pin hai 💧🥶',
-'Mandil me diye jlana hai 🪔🙏',
-'Ghumne or naam jaap karna hai 🚶‍♂️🙏',
-'Home time 🏠😊',
-'gaau mata ko khna dena hai 🐄🌾🙏',
-'Kapda room me rkhana hai 👕🏠',
-'Body hit karna hai 🔥💪',
-'Sochalye jna hai 🚽😅',
-'Cold pani se face dhona hai 🥶💦',
-'Hatha per dhona hai 🧼😷',
-'Khana khana hai 🍛🤤',
-'Hatha per dhona hai 🧼💦',
-'Naam jaap bol kar karna hai 🙏📿',
-'Good night 🌙😴',
+'Good morning ☀️',
+'Body putkna hai 💪',
+'Jamin ko parnam karma hai 🙏',
+'Pani pina hai 💧',
+'Cold pani se face dhona hai 🧼',
+'Sochalye jna hai 🚽',
+'Muh dhona hai 🧼',
+'Snan karna hai 🚿',
+'Kapda pahna hai 👕',
+'Chest workout karna hai 🏋️',
+'Abs workout karna hai 🔥',
+'Hand strong karna hai 🦾',
+'Leg workout karna hai 🦵',
+'Running karna hai 🏃',
+'Ground pe jna hai 🏟️',
+'Leg excice karna hai 🦵',
+'Hand excice karna hai 💪',
+'Kamer excice karna hai 🔄',
+'Home time 🏠',
+'Mandil saaf karna hai 🛕',
+'Snan karna hai 🚿',
+'Pani pina hai 💧',
+'Mandil me jal chadhna hai 🙏',
+'Dudha pina hai 🥛',
+'Coching jna hai 🎓',
+'Tulsi ji ke pta khana hai 🌿',
+'Home time 🏠',
+'Pani pina hai 💧',
+'Chana khana hai 🫘',
+'Geeta padhana hai 📖',
+'Hatha per dhona hai 🧼',
+'Khana khna hai 🍲',
+'Polity padhana hai ⚖️',
+'Geography padhna hai 🌍',
+'History padhna hai 🏛️',
+'Room saaf karna hai 🧹',
+'Cold Pani se face dhona hai 🧼',
+'Snan karna hai 🚿',
+'Pani pin hai 💧',
+'Mandil me diye jlana hai 🪔',
+'Ghumne or naam jaap karna hai 🚶',
+'Home time 🏠',
+'gaau mata ko khna dena hai 🐄',
+'Kapda room me rkhana hai 👕',
+'Body hit karna hai 🔥',
+'Sochalye jna hai 🚽',
+'Cold pani se face dhona hai 🧼',
+'Hatha per dhona hai 🧼',
+'Khana khana hai 🍛',
+'Hatha per dhona hai 🧼',
+'Naam jaap bol kar karna hai 📿',
+'Good night 🌙',
  ];
  function key(i){return 'myRoutineDone_'+i}
  function render(){
@@ -14028,6 +14167,7 @@ window.addEventListener("resize",()=>{if(oldBookPdf&&!oldBookRendering){finishOl
      box.appendChild(r);
    });
  }
+ window.renderMyRoutine=render;
  function lockRemaining(){const until=Number(localStorage.getItem(LOCK_KEY)||0);return Math.max(0,until-Date.now())}
  function formatTime(ms){
    const total=Math.max(0,Math.ceil(ms/1000));
@@ -14087,7 +14227,7 @@ window.addEventListener("resize",()=>{if(oldBookPdf&&!oldBookRendering){finishOl
    }
    document.getElementById('myRoutineLock').style.display='none';
    document.getElementById('myRoutineList').style.display='flex';
-   render();
+   if(window.showRoutineAfterPin) window.showRoutineAfterPin();
  }
  window.openMyRoutine=function(){
    const routineModal=document.getElementById('myRoutineModal');
@@ -14143,6 +14283,7 @@ window.addEventListener("resize",()=>{if(oldBookPdf&&!oldBookRendering){finishOl
    document.body.classList.remove('my-routine-open');
    const m=document.getElementById('myRoutineModal');
    if(m){m.classList.remove('show');m.setAttribute('aria-hidden','true');}
+   document.dispatchEvent(new Event('myRoutineClosed'));
  };
  function forceRoutineLock(){
    const routineModal=document.getElementById('myRoutineModal');
@@ -14168,6 +14309,7 @@ window.addEventListener("resize",()=>{if(oldBookPdf&&!oldBookRendering){finishOl
    // Never allow this action while locked or before PIN authentication.
    if(!unlocked || lockRemaining()>0){startCountdown();return;}
    items.forEach((_,i)=>localStorage.removeItem(key(i)));
+   if(window.resetAllRoutineMissions) window.resetAllRoutineMissions();
    render();
  };
  const pinInput=document.getElementById('myRoutinePin');
