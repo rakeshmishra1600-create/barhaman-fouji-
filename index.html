@@ -1753,6 +1753,10 @@ body.dark-mode .home-devotional{
 .my-routine-pin{display:flex;gap:8px;margin:12px 0}.my-routine-pin input{flex:1;min-width:0;padding:12px;border-radius:10px;border:2px solid #8b5cf6;background:#080808;color:#fff;font-size:20px;font-weight:900;letter-spacing:5px;outline:none}.my-routine-pin input:focus{border-color:#ffd43b;box-shadow:0 0 10px rgba(255,212,59,.3)}.my-routine-pin button,.my-routine-actions button{padding:10px 13px;border:0;border-radius:10px;background:linear-gradient(135deg,#7c3aed,#db2777);color:#fff;font-weight:900}.my-routine-error{display:none;color:#ff7b9c;margin:6px 0;font-weight:900}.my-routine-list{display:none;margin-top:12px}.my-routine-row{display:flex;align-items:center;gap:10px;padding:10px 8px;border-bottom:1px solid rgba(255,255,255,.12);font-weight:800}.my-routine-row.done{display:none}.my-routine-row input{width:20px;height:20px;flex:0 0 auto;accent-color:#a855f7}.my-routine-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.my-routine-note{opacity:.85;font-size:12px;margin-top:10px;color:#ffd86b;font-weight:700}
 </style>
 
+<style id="my-routine-biometric-style">
+.my-routine-biometric-row{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 4px}.my-routine-biometric-row button{padding:10px 12px;border:0;border-radius:10px;color:#fff;font-weight:900;cursor:pointer}.my-routine-biometric-btn{background:linear-gradient(135deg,#059669,#0ea5e9)}.my-routine-biometric-setup{background:linear-gradient(135deg,#374151,#6b7280)}
+@media(max-width:600px){.my-routine-biometric-row{display:grid;grid-template-columns:1fr 1fr}.my-routine-biometric-row button{font-size:12px;padding:10px 7px}}
+</style>
 <style id="my-routine-scroll-fix">
 /* Routine: keep the banner/title fixed; only the task text list scrolls */
 .my-routine-card{
@@ -2344,7 +2348,7 @@ body.my-routine-open > .navbar{
       '#brahmanRoutineScreen .my-routine-actions button,'+
       '#routineMissionScreen .my-routine-actions button'
     ).forEach(b=>{
-      if((b.textContent||'').includes('फिर से करें')){
+      if(!b.classList.contains('routine-restart-btn') && (b.textContent||'').includes('फिर से करें')){
         b.textContent = t;
       }
     });
@@ -14281,6 +14285,7 @@ window.addEventListener("resize",()=>{if(oldBookPdf&&!oldBookRendering){finishOl
     <div id="myRoutineLock">
       <div>अपना PIN डालें:</div>
       <div class="my-routine-pin"><input id="myRoutinePin" type="password" inputmode="numeric" maxlength="4" placeholder="PIN"><button onclick="unlockMyRoutine()">खोलें</button></div>
+      <div class="my-routine-biometric-row"><button type="button" id="myRoutineBiometricBtn" class="my-routine-biometric-btn" onclick="unlockMyRoutineWithBiometric()">👆 Fingerprint से खोलें</button><button type="button" id="myRoutineBiometricSetupBtn" class="my-routine-biometric-setup" onclick="setupMyRoutineBiometric()">⚙️ Fingerprint सेट करें</button></div>
       <div id="myRoutineBiometricArea" style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;justify-content:center;">
         <button type="button" id="myRoutineFingerprintBtn" onclick="unlockMyRoutineWithBiometric()" style="display:none;">🔐 Fingerprint से खोलें</button>
         <button type="button" id="myRoutineSetupFingerprintBtn" onclick="setupMyRoutineBiometric()" style="display:none;">⚙️ Fingerprint सेट करें</button>
@@ -14299,7 +14304,7 @@ window.addEventListener("resize",()=>{if(oldBookPdf&&!oldBookRendering){finishOl
       <div id="routineMissionScreen" class="routine-mission-screen" style="display:none;">
         <div class="my-routine-actions routine-switch-actions">
           <button onclick="closeMyRoutine()">बंद करें</button>
-          <button type="button" disabled aria-disabled="true">00:00:00</button>
+          <button type="button" class="routine-restart-btn" onclick="restartMyRoutineTasks()">↻ फिर से करें</button>
           <button class="routine-switch-number" onclick="openRoutineMission(1)">1</button>
           <button class="routine-switch-number" onclick="openRoutineMission(2)">2</button>
         </div>
@@ -14312,7 +14317,7 @@ window.addEventListener("resize",()=>{if(oldBookPdf&&!oldBookRendering){finishOl
       <div id="brahmanRoutineScreen" class="routine-brahman-screen" style="display:none;">
         <div class="my-routine-actions routine-switch-actions">
           <button onclick="closeMyRoutine()">बंद करें</button>
-          <button type="button" disabled aria-disabled="true">00:00:00</button>
+          <button type="button" class="routine-restart-btn" onclick="restartMyRoutineTasks()">↻ फिर से करें</button>
           <button class="routine-switch-number" onclick="openRoutineMission(1)">1</button>
           <button class="routine-switch-number" onclick="openRoutineMission(2)">2</button>
         </div>
@@ -14449,7 +14454,7 @@ window.addEventListener("resize",()=>{if(oldBookPdf&&!oldBookRendering){finishOl
             this.disabled=true;
             row.classList.add('done','permanent-locked');
           }else{
-            row.classList.add('done');
+            row.remove();
           }
         }else{
           localStorage.removeItem(missionKey(activeMission,i));
@@ -14608,7 +14613,10 @@ window.addEventListener("resize",()=>{if(oldBookPdf&&!oldBookRendering){finishOl
      r.innerHTML='<input type="checkbox" '+(done?'checked':'')+'><span><span class="routine-text">'+(i+1)+'. '+taskText+'</span> <span class="routine-emoji">'+taskEmoji+'</span></span>';
      r.querySelector('input').addEventListener('change',function(){
        if(!unlocked || lockRemaining()>0){ this.checked=false; return; }
-       if(this.checked){localStorage.setItem(key(i),'1');r.classList.add('done')}
+       if(this.checked){
+         localStorage.setItem(key(i),'1');
+         r.remove();
+       }
        else{localStorage.removeItem(key(i));r.classList.remove('done')}
        updateBrahmanTodayGoal();
      });
@@ -14755,12 +14763,40 @@ window.addEventListener("resize",()=>{if(oldBookPdf&&!oldBookRendering){finishOl
    const m=document.getElementById('myRoutineModal');
    if(m && m.classList.contains('show')) forceRoutineLock();
  });
+
+ // WebAuthn/platform biometric unlock. The private key remains on the device.
+ const BIO_CRED_KEY='myRoutineWebAuthnCredentialId_v1';
+ function b64u(buf){return btoa(String.fromCharCode(...new Uint8Array(buf))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');}
+ function b64uToBuf(s){s=s.replace(/-/g,'+').replace(/_/g,'/');while(s.length%4)s+='=';const bin=atob(s);const a=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)a[i]=bin.charCodeAt(i);return a.buffer;}
+ function bioAvailable(){return window.isSecureContext && !!window.PublicKeyCredential && !!navigator.credentials;}
+ function bioMsg(msg){const el=document.getElementById('myRoutineBiometricMsg')||document.getElementById('myRoutineError');if(el){el.textContent=msg;el.style.display='block';}}
+ function updateBioButtons(){const login=document.getElementById('myRoutineBiometricBtn'),setup=document.getElementById('myRoutineBiometricSetupBtn'),has=!!localStorage.getItem(BIO_CRED_KEY);if(login)login.style.display=(bioAvailable()&&has)?'inline-block':'none';if(setup)setup.style.display=bioAvailable()?'inline-block':'none';}
+ window.setupMyRoutineBiometric=async function(){
+   if(!bioAvailable()){bioMsg('Fingerprint unlock के लिए वेबसाइट HTTPS पर होनी चाहिए।');return;}
+   if(lockRemaining()>0){startCountdown();return;}
+   try{
+     if(!(await PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable())){bioMsg('इस डिवाइस/ब्राउज़र में fingerprint/biometric unlock उपलब्ध नहीं है।');return;}
+     const cred=await navigator.credentials.create({publicKey:{challenge:crypto.getRandomValues(new Uint8Array(32)),rp:{name:document.title||'My Routine',id:location.hostname},user:{id:crypto.getRandomValues(new Uint8Array(16)),name:'my-routine-user',displayName:'My Routine User'},pubKeyCredParams:[{type:'public-key',alg:-7},{type:'public-key',alg:-257}],authenticatorSelection:{authenticatorAttachment:'platform',userVerification:'required',residentKey:'preferred'},timeout:60000,attestation:'none'}});
+     if(!cred)throw new Error('cancelled');
+     localStorage.setItem(BIO_CRED_KEY,b64u(cred.rawId));updateBioButtons();bioMsg('✅ Fingerprint/biometric unlock सेट हो गया।');
+   }catch(e){bioMsg(e&&e.name==='NotAllowedError'?'Fingerprint setup रद्द हो गया या अनुमति नहीं मिली।':'Fingerprint setup नहीं हो पाया: '+(e.message||e.name||'Unknown error'));}
+ };
+ window.unlockMyRoutineWithBiometric=async function(){
+   if(lockRemaining()>0){startCountdown();return;}
+   if(!bioAvailable()){bioMsg('Fingerprint unlock के लिए वेबसाइट HTTPS पर होनी चाहिए।');return;}
+   const saved=localStorage.getItem(BIO_CRED_KEY);if(!saved){bioMsg('पहले “Fingerprint सेट करें” दबाएँ।');return;}
+   try{
+     const assertion=await navigator.credentials.get({publicKey:{challenge:crypto.getRandomValues(new Uint8Array(32)),rpId:location.hostname,allowCredentials:[{type:'public-key',id:b64uToBuf(saved)}],userVerification:'required',timeout:60000}});
+     if(!assertion)throw new Error('cancelled');openUnlocked();
+   }catch(e){bioMsg(e&&e.name==='NotAllowedError'?'Fingerprint verification रद्द हो गया या सफल नहीं हुआ।':'Fingerprint unlock नहीं हो पाया: '+(e.message||e.name||'Unknown error'));}
+ };
  window.resetMyRoutine=function(){
    // Permanently disabled.
    return false;
  };
  const pinInput=document.getElementById('myRoutinePin');
  pinInput.addEventListener('input',function(){this.value=this.value.replace(/\D/g,'').slice(0,4);if(this.value.length===4)unlockMyRoutine()});
+ updateBioButtons();
  document.addEventListener('keydown',e=>{
    if(e.key==='Escape')closeMyRoutine();
    if(e.key==='Enter'&&document.activeElement===document.getElementById('myRoutinePin'))unlockMyRoutine();
@@ -15431,6 +15467,13 @@ window.addEventListener("resize",()=>{if(oldBookPdf&&!oldBookRendering){finishOl
   }
   function renderTimer(){
     document.querySelectorAll('#routineMissionScreen .routine-mission-bottom button,#brahmanRoutineScreen .routine-mission-bottom button,#routineMissionScreen button,#brahmanRoutineScreen button').forEach(b=>{
+      if(b.classList.contains('routine-restart-btn')){
+        b.dataset.dailyCountdownButton='0';
+        b.disabled=false;
+        b.classList.remove('daily-midnight-countdown');
+        b.textContent='↻ फिर से करें';
+        return;
+      }
       if(!b.dataset.dailyCountdownButton && (b.textContent||'').includes('फिर से करें')) b.dataset.dailyCountdownButton='1';
       if(b.dataset.dailyCountdownButton==='1'){
         if(isActive() && left()>0){
@@ -15480,5 +15523,149 @@ window.addEventListener("resize",()=>{if(oldBookPdf&&!oldBookRendering){finishOl
   mo.observe(document.body,{childList:true,subtree:true});
   resetIfNewDay();
   setInterval(function(){resetIfNewDay();applyLocks();renderTimer()},1000);
+})();
+</script>
+
+
+<style id="my-routine-check-disappear-restart-final">
+#brahmanRoutineScreen .my-routine-row.done,
+#brahmanRoutineScreen .my-routine-row.daily-midnight-locked,
+#routineMissionScreen #routineMissionItems .routine-rule-row.done,
+#routineMissionScreen #routineMissionItems .routine-rule-row.daily-midnight-locked{display:none!important;visibility:hidden!important}
+.routine-restart-btn{border:0!important;border-radius:10px!important;padding:9px 10px!important;background:linear-gradient(135deg,#059669,#16a34a)!important;color:#fff!important;font-weight:1000!important;cursor:pointer!important;white-space:nowrap!important;box-shadow:0 0 8px rgba(34,197,94,.25)!important}
+@media(max-width:600px){.routine-restart-btn{font-size:12px!important;padding:9px 7px!important}}
+</style>
+<script id="my-routine-check-disappear-restart-final-script">
+(function(){
+  window.restartMyRoutineTasks=function(){
+    /* Restart ONLY Brahman 52 tasks + Routine 1's 6 tasks. */
+    for(let i=0;i<52;i++) localStorage.removeItem('myRoutineDone_'+i);
+    for(let i=0;i<6;i++) localStorage.removeItem('myRoutineMission1Done_'+i);
+    for(let i=0;i<60;i++){
+      localStorage.removeItem('myRoutineDailyDone_'+i);
+      localStorage.removeItem('routine1DailyDone_'+i);
+    }
+    localStorage.removeItem('dailyMidnightLockActive_v3');
+    localStorage.removeItem('dailyMidnightLockDate_v3');
+    localStorage.removeItem('dailyTaskLockDateV2');
+
+    /* If Routine 1 is open, force a completely fresh six-task render. */
+    const missionNo=((document.getElementById('routineMissionNumber')||{}).textContent||'').trim();
+    if(missionNo==='1' && typeof window.renderRoutineMission==='function'){
+      window.renderRoutineMission();
+      const list=document.getElementById('routineMissionItems');
+      if(list) list.querySelectorAll('.routine-rule-row').forEach(row=>{
+        row.classList.remove('done','daily-locked','daily-midnight-locked','permanent-locked');
+        row.style.removeProperty('display');
+        row.style.removeProperty('visibility');
+        const cb=row.querySelector('input[type="checkbox"]');
+        if(cb){cb.checked=false;cb.disabled=false;}
+      });
+    }
+    if(typeof window.renderMyRoutine==='function') window.renderMyRoutine();
+    const b=document.getElementById('myRoutineItems');if(b)b.scrollTop=0;
+    const r=document.getElementById('routineMissionItems');if(r)r.scrollTop=0;
+  };
+  document.addEventListener('change',function(e){
+    const cb=e.target;if(!cb||cb.type!=='checkbox'||!cb.checked)return;
+    const row=cb.closest('.my-routine-row,.routine-rule-row');if(!row)return;
+    const inB=!!row.closest('#brahmanRoutineScreen');
+    const missionNo=((document.getElementById('routineMissionNumber')||{}).textContent||'').trim();
+    const inR1=!!row.closest('#routineMissionScreen')&&missionNo==='1';
+    if(inB||inR1)setTimeout(function(){if(row.isConnected)row.remove()},0);
+  },true);
+  function keepRoutine2Visible(){
+    const n=((document.getElementById('routineMissionNumber')||{}).textContent||'').trim();
+    if(n!=='2') return;
+    document.querySelectorAll('#routineMissionScreen #routineMissionItems .routine-rule-row').forEach(function(row){
+      row.style.setProperty('display','flex','important');
+      row.style.setProperty('visibility','visible','important');
+      row.classList.remove('daily-midnight-locked');
+      const cb=row.querySelector('input[type=checkbox]');
+      if(cb) cb.disabled=false;
+    });
+  }
+  window.addEventListener('load',keepRoutine2Visible);
+  document.addEventListener('DOMContentLoaded',keepRoutine2Visible);
+  setInterval(keepRoutine2Visible,500);
+})();
+</script>
+
+<style id="routine1-restart-visible-final">
+#routineMissionScreen #routineMissionItems .routine-rule-row.restart-visible{
+  display:flex!important;visibility:visible!important;
+}
+</style>
+<script id="routine1-restart-visible-final-script">
+(function(){
+  const old=window.restartMyRoutineTasks;
+  if(typeof old!=='function') return;
+  window.restartMyRoutineTasks=function(){
+    old();
+    setTimeout(function(){
+      const n=((document.getElementById('routineMissionNumber')||{}).textContent||'').trim();
+      if(n!=='1') return;
+      const list=document.getElementById('routineMissionItems');
+      if(!list) return;
+      list.querySelectorAll('.routine-rule-row').forEach(row=>{
+        row.classList.add('restart-visible');
+        row.classList.remove('done','daily-midnight-locked','daily-locked','permanent-locked');
+        const cb=row.querySelector('input[type=checkbox]');
+        if(cb){cb.checked=false;cb.disabled=false;}
+      });
+    },30);
+  };
+})();
+</script>
+
+<style id="routine-restart-instant-fix">
+#routineMissionScreen #routineMissionItems .routine-rule-row.restart-visible-instant{
+  display:flex!important;visibility:visible!important;
+}
+</style>
+<script id="routine-restart-instant-fix-script">
+(function(){
+  function clearRestartTasks(){
+    for(let i=0;i<52;i++) localStorage.removeItem('myRoutineDone_'+i);
+    for(let i=0;i<6;i++) localStorage.removeItem('myRoutineMission1Done_'+i);
+    for(let i=0;i<60;i++){
+      localStorage.removeItem('myRoutineDailyDone_'+i);
+      localStorage.removeItem('routine1DailyDone_'+i);
+    }
+    localStorage.removeItem('dailyMidnightLockActive_v3');
+    localStorage.removeItem('dailyMidnightLockDate_v3');
+    localStorage.removeItem('dailyTaskLockDateV2');
+  }
+  window.restartMyRoutineTasks=function(){
+    const screen=document.getElementById('routineMissionScreen');
+    const brahman=document.getElementById('brahmanRoutineScreen');
+    const missionNo=((document.getElementById('routineMissionNumber')||{}).textContent||'').trim();
+    const wasRoutine1=!!screen && getComputedStyle(screen).display!=='none' && missionNo==='1';
+    const wasRoutine2=!!screen && getComputedStyle(screen).display!=='none' && missionNo==='2';
+    const wasBrahman=!!brahman && getComputedStyle(brahman).display!=='none';
+
+    clearRestartTasks();
+
+    /* Re-open the currently visible section so its renderer builds a fresh DOM
+       immediately. This avoids needing a second tap on the Restart button. */
+    if(wasRoutine1 && typeof window.openRoutineMission==='function'){
+      window.openRoutineMission(1);
+      const list=document.getElementById('routineMissionItems');
+      if(list) list.querySelectorAll('.routine-rule-row').forEach(function(row){
+        row.classList.remove('done','daily-locked','daily-midnight-locked','permanent-locked');
+        row.classList.add('restart-visible-instant');
+        row.style.removeProperty('display');
+        row.style.removeProperty('visibility');
+        const cb=row.querySelector('input[type="checkbox"]');
+        if(cb){cb.checked=false;cb.disabled=false;}
+      });
+    }else if(wasRoutine2 && typeof window.openRoutineMission==='function'){
+      window.openRoutineMission(2);
+    }else if(wasBrahman && typeof window.openBrahmanRoutine==='function'){
+      window.openBrahmanRoutine();
+    }else{
+      if(typeof window.renderMyRoutine==='function') window.renderMyRoutine();
+    }
+  };
 })();
 </script>
