@@ -2475,6 +2475,8 @@ body.my-routine-open > .navbar{
       localStorage.setItem(CRED_KEY,b64u(cred.rawId));
       msg('✅ Fingerprint सेट हो गया। अगली बार Fingerprint से खोल सकते हैं।');
       updateBiometricButtons();
+      const setupBtn=document.getElementById('myRoutineSetupFingerprintBtn');
+      if(setupBtn) setupBtn.style.display='none';
     }catch(e){
       msg('Fingerprint सेट नहीं हुआ। PIN से Routine खोल सकते हैं।');
     }
@@ -14686,6 +14688,7 @@ window.addEventListener("resize",()=>{if(oldBookPdf&&!oldBookRendering){finishOl
    document.getElementById('myRoutineLock').style.display='none';
    document.getElementById('myRoutineList').style.display='flex';
    if(window.showRoutineAfterPin) window.showRoutineAfterPin();
+   if(typeof updateBioButtons==='function') updateBioButtons();
  }
  window.openMyRoutine=function(){
    const routineModal=document.getElementById('myRoutineModal');
@@ -14706,6 +14709,7 @@ window.addEventListener("resize",()=>{if(oldBookPdf&&!oldBookRendering){finishOl
    document.getElementById('myRoutineLock').style.display='block';
    document.getElementById('myRoutineList').style.display='none';
    showLockMessage();
+   if(typeof updateBioButtons==='function') updateBioButtons();
    if(lockRemaining()>0)startCountdown();
    setTimeout(()=>document.getElementById('myRoutinePin').focus(),50);
  };
@@ -14770,9 +14774,11 @@ window.addEventListener("resize",()=>{if(oldBookPdf&&!oldBookRendering){finishOl
  function b64uToBuf(s){s=s.replace(/-/g,'+').replace(/_/g,'/');while(s.length%4)s+='=';const bin=atob(s);const a=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)a[i]=bin.charCodeAt(i);return a.buffer;}
  function bioAvailable(){return window.isSecureContext && !!window.PublicKeyCredential && !!navigator.credentials;}
  function bioMsg(msg){const el=document.getElementById('myRoutineBiometricMsg')||document.getElementById('myRoutineError');if(el){el.textContent=msg;el.style.display='block';}}
- function updateBioButtons(){const login=document.getElementById('myRoutineBiometricBtn'),setup=document.getElementById('myRoutineBiometricSetupBtn'),has=!!localStorage.getItem(BIO_CRED_KEY);if(login)login.style.display=(bioAvailable()&&has)?'inline-block':'none';if(setup)setup.style.display=bioAvailable()?'inline-block':'none';}
+ function updateBioButtons(){const login=document.getElementById('myRoutineBiometricBtn'),setup=document.getElementById('myRoutineBiometricSetupBtn'),has=!!localStorage.getItem(BIO_CRED_KEY);if(login)login.style.display=(bioAvailable()&&has)?'inline-block':'none';if(setup)setup.style.display=(bioAvailable()&&unlocked&&!has)?'inline-block':'none';}
  window.setupMyRoutineBiometric=async function(){
    if(!bioAvailable()){bioMsg('Fingerprint unlock के लिए वेबसाइट HTTPS पर होनी चाहिए।');return;}
+   if(!unlocked){bioMsg('पहले सही PIN से My Routine खोलें, फिर Fingerprint सेट करें।');return;}
+   if(localStorage.getItem(BIO_CRED_KEY)){bioMsg('इस डिवाइस पर Fingerprint पहले से सेट है।');updateBioButtons();return;}
    if(lockRemaining()>0){startCountdown();return;}
    try{
      if(!(await PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable())){bioMsg('इस डिवाइस/ब्राउज़र में fingerprint/biometric unlock उपलब्ध नहीं है।');return;}
