@@ -14790,7 +14790,20 @@ window.addEventListener("resize",()=>{if(oldBookPdf&&!oldBookRendering){finishOl
    const saved=localStorage.getItem(BIO_CRED_KEY)||localStorage.getItem('myRoutineBiometricCredentialV1');if(!saved){bioMsg('इस फोन पर Fingerprint अभी उपलब्ध नहीं है।');return;}
    try{
      const assertion=await navigator.credentials.get({publicKey:{challenge:crypto.getRandomValues(new Uint8Array(32)),rpId:location.hostname,allowCredentials:[{type:'public-key',id:b64uToBuf(saved)}],userVerification:'required',timeout:60000}});
-     if(!assertion)throw new Error('cancelled');openUnlocked();
+     if(!assertion)throw new Error('cancelled');
+     /* Biometric success: unlock the same My Routine content as the normal PIN path. */
+     openUnlocked();
+     try{
+       var modal=document.getElementById('myRoutineModal');
+       var lock=document.getElementById('myRoutineLock');
+       var list=document.getElementById('myRoutineList');
+       if(modal) modal.classList.add('routine-unlocked');
+       if(lock) lock.style.display='none';
+       if(list){ list.style.display='flex'; list.style.visibility='visible'; }
+       if(typeof window.renderMyRoutine==='function') window.renderMyRoutine();
+       if(typeof window.render==='function') window.render();
+       if(typeof window.showRoutineAfterPin==='function') window.showRoutineAfterPin();
+     }catch(e){}
    }catch(e){bioMsg(e&&e.name==='NotAllowedError'?'Fingerprint verification रद्द हो गया या सफल नहीं हुआ।':'Fingerprint unlock नहीं हो पाया: '+(e.message||e.name||'Unknown error'));}
  };
  window.resetMyRoutine=function(){
@@ -14936,6 +14949,29 @@ window.addEventListener("resize",()=>{if(oldBookPdf&&!oldBookRendering){finishOl
   #myRoutineDynamicTimer.routine-timer-overlay{left:81.15%!important;top:27%!important;width:15.3%!important;height:46%!important;font-size:clamp(8px,2.35vw,13px)!important;}
 }
 </style>
+
+<script id="my-routine-biometric-render-final">
+(function(){
+  var previous=window.unlockMyRoutineWithBiometric;
+  window.unlockMyRoutineWithBiometric=async function(){
+    if(typeof previous==='function') await previous();
+    setTimeout(function(){
+      try{
+        var modal=document.getElementById('myRoutineModal');
+        var lock=document.getElementById('myRoutineLock');
+        var list=document.getElementById('myRoutineList');
+        if(window.__myRoutineBiometricSuccess || (modal&&modal.classList.contains('routine-unlocked'))){
+          if(modal) modal.classList.add('routine-unlocked');
+          if(lock) lock.style.display='none';
+          if(list){list.style.display='flex';list.style.visibility='visible';}
+          if(typeof window.renderMyRoutine==='function') window.renderMyRoutine();
+          if(typeof window.showRoutineAfterPin==='function') window.showRoutineAfterPin();
+        }
+      }catch(e){}
+    },30);
+  };
+})();
+</script>
 </body>    
 <style id="oldBookTopicDirectFix">
 #oldBookReader .ob-topic-btn{cursor:pointer!important;pointer-events:auto!important;}
