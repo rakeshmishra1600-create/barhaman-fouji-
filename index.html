@@ -15723,3 +15723,81 @@ window.addEventListener("resize",()=>{if(oldBookPdf&&!oldBookRendering){finishOl
   setTimeout(forceFingerprint,50);setTimeout(forceFingerprint,300);setTimeout(forceFingerprint,1000);
 })();
 </script>
+<style id="my-routine-fingerprint-final-visible-v2">
+/* My Routine lock screen: remove the old access banner/overlay and keep the biometric button visible. */
+#myRoutineLock .my-routine-banner,
+#myRoutineLock .my-routine-lock-banner,
+#myRoutineLock .routine-code-overlay,
+#myRoutineLock .routine-timer-overlay{display:none!important;visibility:hidden!important;}
+/* Keep the wrapper because it contains the Fingerprint button. */
+#myRoutineLock .my-routine-lock-banner-wrap{display:block!important;visibility:visible!important;overflow:visible!important;}
+#myRoutineLock #myRoutineBiometricArea{
+  display:flex!important;visibility:visible!important;opacity:1!important;
+  position:relative!important;z-index:999999!important;
+  width:100%!important;min-height:52px!important;
+  margin:18px 0 8px!important;padding:0!important;
+  align-items:center!important;justify-content:center!important;
+}
+#myRoutineLock #myRoutineBiometricBtn{
+  display:inline-flex!important;visibility:visible!important;opacity:1!important;
+  position:relative!important;z-index:1000000!important;
+  align-items:center!important;justify-content:center!important;
+  min-height:44px!important;padding:10px 20px!important;
+}
+#myRoutineLock .my-routine-pin,
+#myRoutineLock #myRoutineSetupFingerprintBtn,
+#myRoutineLock .my-routine-biometric-setup{display:none!important;}
+</style>
+<script id="my-routine-fingerprint-final-visible-v2-script">
+(function(){
+  function showOnlyFingerprint(){
+    var area=document.getElementById('myRoutineBiometricArea');
+    var btn=document.getElementById('myRoutineBiometricBtn')||document.getElementById('myRoutineFingerprintBtn');
+    if(area){area.style.setProperty('display','flex','important');area.style.setProperty('visibility','visible','important');area.style.setProperty('opacity','1','important');}
+    if(btn){btn.style.setProperty('display','inline-flex','important');btn.style.setProperty('visibility','visible','important');btn.style.setProperty('opacity','1','important');btn.hidden=false;}
+  }
+  document.addEventListener('DOMContentLoaded',showOnlyFingerprint);
+  window.addEventListener('load',showOnlyFingerprint);
+  window.addEventListener('pageshow',showOnlyFingerprint);
+  setTimeout(showOnlyFingerprint,50);setTimeout(showOnlyFingerprint,250);setTimeout(showOnlyFingerprint,800);
+})();
+</script>
+
+<style id="my-routine-fingerprint-guaranteed-final">
+#myRoutineLock #myRoutineBiometricArea.my-fingerprint-guaranteed{
+  display:flex!important;visibility:visible!important;opacity:1!important;
+  position:relative!important;z-index:2147483647!important;
+  width:100%!important;min-height:54px!important;
+  margin:18px 0!important;padding:0!important;
+  align-items:center!important;justify-content:center!important;
+}
+#myRoutineLock #myRoutineBiometricArea.my-fingerprint-guaranteed #myRoutineBiometricBtn{
+  display:inline-flex!important;visibility:visible!important;opacity:1!important;
+  position:relative!important;z-index:2147483647!important;
+}
+</style>
+<script id="my-routine-fingerprint-guaranteed-final">
+(function(){
+  function guarantee(){
+    var lock=document.getElementById('myRoutineLock');
+    var area=document.getElementById('myRoutineBiometricArea');
+    var btn=document.getElementById('myRoutineBiometricBtn')||document.getElementById('myRoutineFingerprintBtn');
+    if(!lock||!area||!btn)return;
+    /* Move the biometric control outside the old hidden banner wrapper. */
+    if(area.parentElement!==lock) lock.appendChild(area);
+    area.classList.add('my-fingerprint-guaranteed');
+    area.style.setProperty('display','flex','important');
+    area.style.setProperty('visibility','visible','important');
+    area.style.setProperty('opacity','1','important');
+    btn.style.setProperty('display','inline-flex','important');
+    btn.style.setProperty('visibility','visible','important');
+    btn.style.setProperty('opacity','1','important');
+    btn.hidden=false;
+  }
+  document.addEventListener('DOMContentLoaded',guarantee);
+  window.addEventListener('load',guarantee);
+  window.addEventListener('pageshow',guarantee);
+  [50,200,500,1000,2000].forEach(function(t){setTimeout(guarantee,t);});
+  new MutationObserver(guarantee).observe(document.documentElement,{childList:true,subtree:true});
+})();
+</script>
