@@ -13939,6 +13939,8 @@ window.addEventListener("resize",()=>{if(oldBookPdf&&!oldBookRendering){finishOl
           <button class="routine-switch-number" onclick="openRoutineMission(2)">2</button>
         </div>
         <div class="routine-inline-title"><span id="routineMissionNumber">1</span> <span id="routineMissionTitle">साधना / भक्ति</span></div>
+        <div class="routine-streak-wrap" id="routineStreakWrap"><span id="routineStreakDate" class="routine-streak-date">आज से शुरू करें</span><button type="button" id="routineStreakButton" class="routine-streak-button" onclick="startOrShow5000Streak()">🔥 Day 0 / 5000</button><span id="routineStreakPercent" class="routine-streak-percent">0%</span></div>
+        <div id="routineTodayGoal" class="routine-today-goal"><span>🎯 Today's Goal</span><b id="routineTodayGoalCount">0 / 0</b><i><em id="routineTodayGoalBar"></em></i></div>
         <div id="routineMissionItems" class="routine-mission-items"></div>
       </div>
 
@@ -13949,6 +13951,8 @@ window.addEventListener("resize",()=>{if(oldBookPdf&&!oldBookRendering){finishOl
           <button class="routine-switch-number" onclick="openRoutineMission(1)">1</button>
           <button class="routine-switch-number" onclick="openRoutineMission(2)">2</button>
         </div>
+        <div class="routine-streak-wrap" id="brahmanStreakWrap"><span id="brahmanStreakDate" class="routine-streak-date">आज से शुरू करें</span><button type="button" id="brahmanStreakButton" class="routine-streak-button" onclick="startOrShow5000Streak()">🔥 Day 0 / 5000</button><span id="brahmanStreakPercent" class="routine-streak-percent">0%</span></div>
+        <div id="brahmanTodayGoal" class="routine-today-goal"><span>🎯 Today's Goal</span><b id="brahmanTodayGoalCount">0 / 52</b><i><em id="brahmanTodayGoalBar"></em></i></div>
         <div id="myRoutineItems"></div>
         <div class="my-routine-note">✓ करने पर वह काम इस सूची से छिप जाएगा।</div>
       </div>
@@ -13970,6 +13974,13 @@ window.addEventListener("resize",()=>{if(oldBookPdf&&!oldBookRendering){finishOl
 .routine-big-btn b{display:block;font-size:18px}.routine-big-btn small{display:block;margin-top:4px;color:#e8f7ff;font-size:12px}
 .routine-old-btn,.routine-close-home{border:0;border-radius:11px;padding:11px 13px;color:#fff;font-weight:900;background:linear-gradient(135deg,#334155,#475569);cursor:pointer}
 .routine-close-home{background:linear-gradient(135deg,#7c3aed,#db2777)}
+.routine-streak-wrap{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:6px;margin:1px 2px 5px;padding:5px 7px;border:1px solid rgba(245,158,11,.58);border-radius:9px;background:linear-gradient(90deg,rgba(70,35,5,.72),rgba(25,18,10,.72));box-sizing:border-box}.routine-streak-date{font-size:10px;font-weight:900;color:#ffe9a8;text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}.routine-streak-button{justify-self:center;border:0;border-radius:8px;padding:6px 9px;background:linear-gradient(135deg,#f59e0b,#dc2626);color:#fff;font-size:11px;font-weight:1000;white-space:nowrap;cursor:pointer}.routine-streak-percent{font-size:10px;font-weight:1000;color:#ffe9a8;text-align:right;white-space:nowrap}.routine-streak-wrap.is-idle .routine-streak-date,.routine-streak-wrap.is-idle .routine-streak-percent{color:#cfcfcf}@media(max-width:600px){.routine-streak-wrap{grid-template-columns:1fr auto 1fr;gap:4px;padding:4px 6px}.routine-streak-date,.routine-streak-percent{font-size:9px}.routine-streak-button{font-size:10px;padding:5px 7px}}
+.routine-today-goal{display:flex;align-items:center;gap:8px;margin:2px 2px 6px;padding:6px 9px;border:1px solid rgba(59,130,246,.72);border-radius:9px;background:linear-gradient(90deg,rgba(8,35,78,.82),rgba(17,24,39,.78));box-shadow:0 0 8px rgba(37,99,235,.14);min-height:30px;box-sizing:border-box}
+.routine-today-goal span{font-size:12px;font-weight:900;color:#fff;white-space:nowrap}
+.routine-today-goal b{font-size:13px;font-weight:1000;color:#ffd43b;white-space:nowrap}
+.routine-today-goal i{display:block;flex:1;height:5px;min-width:45px;border-radius:99px;background:rgba(59,130,246,.22);overflow:hidden}
+.routine-today-goal i em{display:block;width:0;height:100%;border-radius:99px;background:linear-gradient(90deg,#06b6d4,#22c55e);transition:width .25s ease}
+@media(max-width:600px){.routine-today-goal{gap:6px;margin:1px 1px 5px;padding:5px 7px;min-height:27px}.routine-today-goal span{font-size:11px}.routine-today-goal b{font-size:12px}.routine-today-goal i{height:4px;min-width:35px}}
 .routine-mission-screen{position:fixed;inset:0;z-index:100001;display:flex;flex-direction:column;background:linear-gradient(160deg,#090909,#160d22 55%,#090909);padding:8px 4px 4px;min-height:100%}
 .routine-mission-head{display:flex;align-items:center;gap:9px;flex:0 0 auto;padding:3px 2px 12px;border-bottom:1px solid rgba(255,255,255,.12)}
 .routine-back-btn,.routine-screen-close{border:0;border-radius:10px;padding:9px 11px;background:#292033;color:#fff;font-weight:900;cursor:pointer}
@@ -14041,6 +14052,16 @@ window.addEventListener("resize",()=>{if(oldBookPdf&&!oldBookRendering){finishOl
     if(home)home.style.display='flex';if(screen)screen.style.display='none';if(brahman)brahman.style.display='none';
   }
   window.showRoutineHome=showRoutineHome;
+  function updateRoutineTodayGoal(){
+    const count=document.getElementById('routineTodayGoalCount'),bar=document.getElementById('routineTodayGoalBar');
+    if(!count||!bar||!activeMission)return;
+    const total=(routineMissions[activeMission]||[]).length;
+    let done=0;
+    for(let i=0;i<total;i++){if(localStorage.getItem(missionKey(activeMission,i))==='1')done++;}
+    const pct=total?Math.round(done*100/total):0;
+    count.textContent=done+' / '+total;
+    bar.style.width=pct+'%';
+  }
   function renderRoutineMission(){
     const list=document.getElementById('routineMissionItems');if(!list||!activeMission)return;
     list.innerHTML='';
@@ -14051,9 +14072,11 @@ window.addEventListener("resize",()=>{if(oldBookPdf&&!oldBookRendering){finishOl
       row.querySelector('input').addEventListener('change',function(){
         if(this.checked){localStorage.setItem(missionKey(activeMission,i),'1');row.classList.add('done')}
         else{localStorage.removeItem(missionKey(activeMission,i));row.classList.remove('done')}
+        updateRoutineTodayGoal();
       });
       list.appendChild(row);
     });
+    updateRoutineTodayGoal();
   }
   window.openRoutineMission=function(group){
     if(group!==1&&group!==2)return;activeMission=group;
@@ -14079,6 +14102,8 @@ window.addEventListener("resize",()=>{if(oldBookPdf&&!oldBookRendering){finishOl
     if(window.renderMyRoutine) window.renderMyRoutine();
     const box=document.getElementById('myRoutineItems');if(box)box.scrollTop=0;
   };
+  // Streak updates are handled by the PIN/routine script below.
+  // Do not call update5000Streak here because that function is scoped to the other script.
   window.showRoutineAfterPin=openBrahmanRoutine;
   document.addEventListener('myRoutineClosed',showRoutineHome);
 })();
@@ -14149,6 +14174,45 @@ window.addEventListener("resize",()=>{if(oldBookPdf&&!oldBookRendering){finishOl
 'Good night 🌙',
  ];
  function key(i){return 'myRoutineDone_'+i}
+ function updateBrahmanTodayGoal(){
+   const count=document.getElementById('brahmanTodayGoalCount'),bar=document.getElementById('brahmanTodayGoalBar');
+   if(!count||!bar)return;
+   let done=0;
+   items.forEach((_,i)=>{if(localStorage.getItem(key(i))==='1')done++;});
+   const pct=items.length?Math.round(done*100/items.length):0;
+   count.textContent=done+' / '+items.length;
+   bar.style.width=pct+'%';
+ }
+ const STREAK_KEY='myRoutine5000DayStart';
+ const STREAK_TOTAL=5000;
+ function streakDateValue(d){return Date.UTC(d.getFullYear(),d.getMonth(),d.getDate());}
+ function getStreakDay(){
+   const raw=localStorage.getItem(STREAK_KEY); if(!raw)return 0;
+   const start=new Date(raw+'T00:00:00'); if(Number.isNaN(start.getTime()))return 0;
+   const now=new Date();
+   const days=Math.floor((streakDateValue(now)-streakDateValue(start))/86400000)+1;
+   return Math.max(1,Math.min(STREAK_TOTAL,days));
+ }
+ function update5000Streak(){
+   const day=getStreakDay();
+   const buttonIds=['routineStreakButton','brahmanStreakButton'];
+   const dateIds=['routineStreakDate','brahmanStreakDate'];
+   const percentIds=['routineStreakPercent','brahmanStreakPercent'];
+   const wrapIds=['routineStreakWrap','brahmanStreakWrap'];
+   const pct=day?Math.round(day*100/STREAK_TOTAL):0;
+   const dateText=day?((()=>{const d=new Date(localStorage.getItem(STREAK_KEY)+'T00:00:00');const s=d.toLocaleDateString('en-IN',{day:'2-digit',month:'2-digit',year:'numeric'});return s.replace(/[0-9]/g,n=>'०१२३४५६७८९'[n]);})()):'आज से शुरू करें';
+   buttonIds.forEach(id=>{const b=document.getElementById(id);if(b)b.textContent='🔥 Day '+day+' / '+STREAK_TOTAL;});
+   dateIds.forEach(id=>{const x=document.getElementById(id);if(x)x.textContent=dateText;});
+   percentIds.forEach(id=>{const x=document.getElementById(id);if(x)x.textContent=pct+'%';});
+   wrapIds.forEach(id=>{const w=document.getElementById(id);if(w)w.classList.toggle('is-idle',!day);});
+ }
+ window.startOrShow5000Streak=function(){
+   if(!localStorage.getItem(STREAK_KEY)){
+     const now=new Date(); const iso=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0')+'-'+String(now.getDate()).padStart(2,'0');
+     localStorage.setItem(STREAK_KEY,iso);
+   }
+   update5000Streak();
+ };
  function render(){
    const box=document.getElementById('myRoutineItems'); if(!box)return;
    box.innerHTML='';
@@ -14163,9 +14227,12 @@ window.addEventListener("resize",()=>{if(oldBookPdf&&!oldBookRendering){finishOl
        if(!unlocked || lockRemaining()>0){ this.checked=false; return; }
        if(this.checked){localStorage.setItem(key(i),'1');r.classList.add('done')}
        else{localStorage.removeItem(key(i));r.classList.remove('done')}
+       updateBrahmanTodayGoal();
      });
      box.appendChild(r);
    });
+   updateBrahmanTodayGoal();
+   update5000Streak();
  }
  window.renderMyRoutine=render;
  function lockRemaining(){const until=Number(localStorage.getItem(LOCK_KEY)||0);return Math.max(0,until-Date.now())}
