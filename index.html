@@ -14576,11 +14576,11 @@ window.addEventListener("resize",()=>{if(oldBookPdf&&!oldBookRendering){finishOl
  const STREAK_TOTAL=5000;
  function streakDateValue(d){return Date.UTC(d.getFullYear(),d.getMonth(),d.getDate());}
  function getStreakDay(){
-   const raw=localStorage.getItem(STREAK_KEY); if(!raw)return 0;
-   const start=new Date(raw+'T00:00:00'); if(Number.isNaN(start.getTime()))return 0;
+   const start=new Date('2026-10-08T00:00:00');
    const now=new Date();
-   const days=Math.floor((streakDateValue(now)-streakDateValue(start))/86400000)+1;
-   return Math.max(1,Math.min(STREAK_TOTAL,days));
+   if(Number.isNaN(start.getTime()))return 0;
+   const days=Math.floor((streakDateValue(now)-streakDateValue(start))/86400000);
+   return Math.max(0,Math.min(STREAK_TOTAL,days));
  }
  function update5000Streak(){
    const day=getStreakDay();
@@ -14596,10 +14596,7 @@ window.addEventListener("resize",()=>{if(oldBookPdf&&!oldBookRendering){finishOl
    wrapIds.forEach(id=>{const w=document.getElementById(id);if(w)w.classList.toggle('is-idle',!day);});
  }
  window.startOrShow5000Streak=function(){
-   if(!localStorage.getItem(STREAK_KEY)){
-     const now=new Date(); const iso=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0')+'-'+String(now.getDate()).padStart(2,'0');
-     localStorage.setItem(STREAK_KEY,iso);
-   }
+   localStorage.setItem(STREAK_KEY,'2026-10-08');
    update5000Streak();
  };
  function render(){
@@ -15673,5 +15670,45 @@ window.addEventListener("resize",()=>{if(oldBookPdf&&!oldBookRendering){finishOl
       if(typeof window.renderMyRoutine==='function') window.renderMyRoutine();
     }
   };
+})();
+</script>
+
+
+<style id="final-fixed-date-day-counter-style">
+/* Final rule: start date stays fixed; only Day changes with calendar date. */
+</style>
+<script id="final-fixed-date-day-counter">
+(function(){
+  'use strict';
+  var Y=2026, M=9, D=8, TOTAL=5000; // 8-10-2026 = Day 0
+  function midnight(d){ return new Date(d.getFullYear(),d.getMonth(),d.getDate()).getTime(); }
+  function dayNumber(){
+    var start=new Date(Y,M,D);
+    var diff=Math.floor((midnight(new Date())-midnight(start))/86400000);
+    return Math.max(0, Math.min(TOTAL, diff));
+  }
+  function refresh(){
+    var day=dayNumber();
+    var pct=Math.round(day*100/TOTAL);
+    ['routineStreakButton','brahmanStreakButton'].forEach(function(id){
+      var el=document.getElementById(id);
+      if(el) el.textContent='🔥 Day '+day+' / '+TOTAL;
+    });
+    // The displayed start date is permanently fixed at 8-10-2026.
+    ['routineStreakDate','brahmanStreakDate'].forEach(function(id){
+      var el=document.getElementById(id);
+      if(el) el.textContent='8-10-2026';
+    });
+    ['routineStreakPercent','brahmanStreakPercent'].forEach(function(id){
+      var el=document.getElementById(id);
+      if(el) el.textContent=pct+'%';
+    });
+    try{ localStorage.setItem('myRoutine5000DayStart','2026-10-08'); }catch(e){}
+  }
+  function boot(){ refresh(); setTimeout(refresh,100); setTimeout(refresh,500); }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',boot);
+  else boot();
+  window.addEventListener('load',refresh);
+  setInterval(refresh,60000);
 })();
 </script>
