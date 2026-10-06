@@ -14311,7 +14311,7 @@ window.addEventListener("resize",()=>{if(oldBookPdf&&!oldBookRendering){finishOl
           <button class="routine-switch-number" onclick="openRoutineMission(2)">2</button>
         </div>
         <div class="routine-inline-title"><span id="routineMissionNumber">1</span> <span id="routineMissionTitle">साधना / भक्ति</span></div>
-        <div class="routine-streak-wrap" id="routineStreakWrap"><span id="routineStreakDate" class="routine-streak-date">6-10-2026</span><button type="button" id="routineStreakButton" class="routine-streak-button" onclick="startOrShow5000Streak()">🔥 Day 0 / 5000</button><span id="routineStreakPercent" class="routine-streak-percent">0%</span></div>
+        <div class="routine-streak-wrap" id="routineStreakWrap"><span id="routineStreakDate" class="routine-streak-date">8-10-2026</span><button type="button" id="routineStreakButton" class="routine-streak-button" onclick="startOrShow5000Streak()">🔥 Day 0 / 5000</button><span id="routineStreakPercent" class="routine-streak-percent">0%</span></div>
         <div id="routineTodayGoal" class="routine-today-goal"><span>🎯 Today's Goal</span><b id="routineTodayGoalCount">0 / 0</b><i><em id="routineTodayGoalBar"></em></i></div>
         <div id="routineMissionItems" class="routine-mission-items"></div>
       </div>
@@ -14323,7 +14323,7 @@ window.addEventListener("resize",()=>{if(oldBookPdf&&!oldBookRendering){finishOl
           <button class="routine-switch-number" onclick="openRoutineMission(1)">1</button>
           <button class="routine-switch-number" onclick="openRoutineMission(2)">2</button>
         </div>
-        <div class="routine-streak-wrap" id="brahmanStreakWrap"><span id="brahmanStreakDate" class="routine-streak-date">6-10-2026</span><button type="button" id="brahmanStreakButton" class="routine-streak-button" onclick="startOrShow5000Streak()">🔥 Day 0 / 5000</button><span id="brahmanStreakPercent" class="routine-streak-percent">0%</span></div>
+        <div class="routine-streak-wrap" id="brahmanStreakWrap"><span id="brahmanStreakDate" class="routine-streak-date">8-10-2026</span><button type="button" id="brahmanStreakButton" class="routine-streak-button" onclick="startOrShow5000Streak()">🔥 Day 0 / 5000</button><span id="brahmanStreakPercent" class="routine-streak-percent">0%</span></div>
         <div id="brahmanTodayGoal" class="routine-today-goal"><span>🎯 Today's Goal</span><b id="brahmanTodayGoalCount">0 / 52</b><i><em id="brahmanTodayGoalBar"></em></i></div>
         <div id="myRoutineItems"></div>
         <div class="my-routine-note">✓ चेक करने के बाद टास्क इसी लाइन में रहेगा और हमेशा के लिए लॉक रहेगा।</div>
@@ -14589,7 +14589,7 @@ window.addEventListener("resize",()=>{if(oldBookPdf&&!oldBookRendering){finishOl
    const percentIds=['routineStreakPercent','brahmanStreakPercent'];
    const wrapIds=['routineStreakWrap','brahmanStreakWrap'];
    const pct=day?Math.round(day*100/STREAK_TOTAL):0;
-   const dateText=day?((()=>{const d=new Date(localStorage.getItem(STREAK_KEY)+'T00:00:00');return d.getDate()+'-'+(d.getMonth()+1)+'-'+d.getFullYear();})()):'आज से शुरू करें';
+   const dateText='8-10-2026';
    buttonIds.forEach(id=>{const b=document.getElementById(id);if(b)b.textContent='🔥 Day '+day+' / '+STREAK_TOTAL;});
    dateIds.forEach(id=>{const x=document.getElementById(id);if(x)x.textContent=dateText;});
    percentIds.forEach(id=>{const x=document.getElementById(id);if(x)x.textContent=pct+'%';});
