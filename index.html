@@ -14714,7 +14714,7 @@ window.addEventListener("resize",()=>{if(oldBookPdf&&!oldBookRendering){finishOl
    const now=new Date();
    if(Number.isNaN(start.getTime()))return 0;
    const days=Math.floor((streakDateValue(now)-streakDateValue(start))/86400000);
-   return Math.max(0,Math.min(STREAK_TOTAL,days));
+   return Math.max(1,Math.min(STREAK_TOTAL,days+1));
  }
  function update5000Streak(){
    const day=getStreakDay();
@@ -14723,7 +14723,8 @@ window.addEventListener("resize",()=>{if(oldBookPdf&&!oldBookRendering){finishOl
    const percentIds=['routineStreakPercent','brahmanStreakPercent'];
    const wrapIds=['routineStreakWrap','brahmanStreakWrap'];
    const pct=day?Math.round(day*100/STREAK_TOTAL):0;
-   const dateText='8-10-2026';
+   const now=new Date();
+   const dateText=now.getDate()+'-'+(now.getMonth()+1)+'-'+now.getFullYear();
    buttonIds.forEach(id=>{const b=document.getElementById(id);if(b)b.textContent='🔥 Day '+day+' / '+STREAK_TOTAL;});
    dateIds.forEach(id=>{const x=document.getElementById(id);if(x)x.textContent=dateText;});
    percentIds.forEach(id=>{const x=document.getElementById(id);if(x)x.textContent=pct+'%';});
@@ -16629,5 +16630,508 @@ window.addEventListener('load',()=>{const b=document.getElementById('routineRout
       showRoute('routineRoute5Screen');
     }
   };
+})();
+</script>
+
+
+
+<!-- FINAL FIX: My Routine 5000-day counter + Routing 3/1/2 clean navigation -->
+<script id="final-routine-day-and-route-fix">
+(function(){
+  'use strict';
+
+  /* 5000-day mission: 8 Oct 2026 is Day 1, not Day 0. */
+  function routineDateOnly(d){ return new Date(d.getFullYear(),d.getMonth(),d.getDate()).getTime(); }
+  function update5000DayFinal(){
+    var start = new Date(2026,9,8); // 8 October 2026
+    var now = new Date();
+    var diff = Math.floor((routineDateOnly(now)-routineDateOnly(start))/86400000);
+    var day = Math.max(1, Math.min(5000, diff + 1));
+    var pct = Math.round(day * 100 / 5000);
+    ['routineStreakButton','brahmanStreakButton'].forEach(function(id){
+      var e=document.getElementById(id); if(e) e.textContent='🔥 Day '+day+' / 5000';
+    });
+    ['routineStreakDate','brahmanStreakDate'].forEach(function(id){
+      var e=document.getElementById(id); if(e) e.textContent=now.getDate()+'-'+(now.getMonth()+1)+'-'+now.getFullYear();
+    });
+    ['routineStreakPercent','brahmanStreakPercent'].forEach(function(id){
+      var e=document.getElementById(id); if(e) e.textContent=pct+'%';
+    });
+  }
+  window.update5000Streak = update5000DayFinal;
+  window.startOrShow5000Streak = function(){ update5000DayFinal(); };
+
+  /* Route 3 is internally route=4 in the existing HTML. When opening 1 or 2,
+     hide every extra route first so Route 3 cannot remain underneath. */
+  function hideExtraRoutesFinal(){
+    ['routineRoute4Screen','routineRoute5Screen'].forEach(function(id){
+      var e=document.getElementById(id);
+      if(e){
+        e.classList.remove('r4-visible','r5-diary-screen');
+        e.style.setProperty('display','none','important');
+      }
+    });
+  }
+  function hideAllRoutineScreensFinal(){
+    hideExtraRoutesFinal();
+  }
+
+  var oldMission = window.openRoutineMission;
+  window.openRoutineMission = function(n){
+    hideAllRoutineScreensFinal();
+    if(typeof oldMission==='function') return oldMission.apply(this,arguments);
+  };
+
+  var oldRoute = window.openRoutineRoute45;
+  window.openRoutineRoute45 = function(route){
+    /* Clear stale Route 3/4/5 state before the requested route is shown. */
+    hideExtraRoutesFinal();
+    if(typeof oldRoute==='function') oldRoute.apply(this,arguments);
+    /* If route 3 (route=4) is requested, keep only its screen visible. */
+    if(route===4){
+      var e=document.getElementById('routineRoute4Screen');
+      if(e) e.style.setProperty('display','flex','important');
+      var r5=document.getElementById('routineRoute5Screen');
+      if(r5) r5.style.setProperty('display','none','important');
+    }
+  };
+
+  /* Back/close from Route 3/4/5 always returns cleanly without leaving the
+     previous route visible underneath. */
+  var oldClose = window.closeRoutineRoute45;
+  window.closeRoutineRoute45 = function(){
+    hideExtraRoutesFinal();
+    if(typeof oldClose==='function') oldClose.apply(this,arguments);
+    hideExtraRoutesFinal();
+  };
+
+  function boot(){
+    update5000DayFinal();
+    setInterval(update5000DayFinal,60000);
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',boot); else boot();
+  window.addEventListener('load',update5000DayFinal);
+})();
+</script>
+<style id="final-route-clean-style">
+/* Never let an old Route 3/4/5 screen sit underneath Routine 1 or 2. */
+#routineMissionScreen ~ #routineRoute4Screen,
+#routineMissionScreen ~ #routineRoute5Screen{box-sizing:border-box;}
+</style>
+
+
+<!-- FINAL FIX: My Routine route back must restore the exact 52-task screen. -->
+<style id="my-routine-route-back-exact-final-style">
+  #myRoutineList > #routineRoute4Screen.route-final-hidden,
+  #myRoutineList > #routineRoute5Screen.route-final-hidden{
+    display:none!important;
+  }
+</style>
+<script id="my-routine-route-back-exact-final-script">
+(function(){
+  'use strict';
+  var routeParent='brahmanRoutineScreen';
+
+  function el(id){return document.getElementById(id)}
+  function hide(id){
+    var e=el(id);
+    if(!e)return;
+    e.classList.add('route-final-hidden');
+    e.style.setProperty('display','none','important');
+  }
+  function show(id,display){
+    var e=el(id);
+    if(!e)return;
+    e.classList.remove('route-final-hidden');
+    e.style.setProperty('display',display||'flex','important');
+  }
+  function hideRoutes(){
+    hide('routineRoute4Screen');
+    hide('routineRoute5Screen');
+  }
+  function hideRoutineScreens(){
+    hide('myRoutineHome');
+    hide('routineMissionScreen');
+    hide('brahmanRoutineScreen');
+  }
+
+  /* Remember which My Routine screen opened the route, so Back returns to
+     exactly that screen instead of stacking a route below the 52 tasks. */
+  var previousOpen=window.openRoutineRoute45;
+  window.openRoutineRoute45=function(route){
+    var mission=el('routineMissionScreen');
+    var brahman=el('brahmanRoutineScreen');
+    if(brahman && getComputedStyle(brahman).display!=='none') routeParent='brahmanRoutineScreen';
+    else if(mission && getComputedStyle(mission).display!=='none') routeParent='routineMissionScreen';
+    else routeParent='brahmanRoutineScreen';
+
+    hideRoutineScreens();
+    hideRoutes();
+    if(typeof previousOpen==='function') previousOpen.apply(this,arguments);
+
+    /* Older wrappers can change these displays; enforce one visible screen. */
+    hideRoutineScreens();
+    hideRoutes();
+    if(route===4) show('routineRoute4Screen','flex');
+    else if(route===5) show('routineRoute5Screen','flex');
+  };
+
+  window.closeRoutineRoute45=function(){
+    hideRoutes();
+    hideRoutineScreens();
+    show(routeParent,'flex');
+
+    /* Rebuild the 52-task list after returning, without changing saved state. */
+    if(routeParent==='brahmanRoutineScreen' && typeof window.renderMyRoutine==='function'){
+      window.renderMyRoutine();
+    }else if(routeParent==='routineMissionScreen' && typeof window.openRoutineMission==='function'){
+      var n=(el('routineMissionNumber')||{}).textContent||'1';
+      window.openRoutineMission(n==='2'?2:1);
+    }
+    hideRoutes();
+  };
+
+  /* If a route is accidentally re-shown by an older observer after Back,
+     immediately hide it while the 52-task screen is active. */
+  var observer=new MutationObserver(function(){
+    var brahman=el('brahmanRoutineScreen'), mission=el('routineMissionScreen');
+    var r4=el('routineRoute4Screen'), r5=el('routineRoute5Screen');
+    var parentVisible=(brahman&&getComputedStyle(brahman).display!=='none') || (mission&&getComputedStyle(mission).display!=='none');
+    var routeVisible=(r4&&getComputedStyle(r4).display!=='none') || (r5&&getComputedStyle(r5).display!=='none');
+    if(parentVisible && routeVisible) hideRoutes();
+  });
+  if(document.documentElement) observer.observe(document.documentElement,{subtree:true,attributes:true,attributeFilter:['style','class']});
+})();
+</script>
+
+<!-- ===== MY ROUTINE: SELF-MANAGEABLE ROUTINGS + TASKS ===== -->
+<style id="my-routine-dynamic-manager-style">
+  .routine-switch-actions{overflow-x:auto!important;overflow-y:hidden!important;scrollbar-width:none!important;-webkit-overflow-scrolling:touch!important;padding-bottom:2px!important}
+  .routine-switch-actions::-webkit-scrollbar{display:none!important}
+  .routine-manager-btn{
+    width:38px!important;height:36px!important;min-width:38px!important;padding:0!important;
+    border:1px solid rgba(255,255,255,.25)!important;border-radius:10px!important;
+    background:linear-gradient(135deg,#f59e0b,#ea580c)!important;color:#fff!important;
+    font-size:19px!important;font-weight:1000!important;box-shadow:0 0 10px rgba(245,158,11,.35)!important;
+    cursor:pointer!important;flex:0 0 auto!important
+  }
+  .routine-dynamic-route-btn{flex:0 0 auto!important}
+  #routineManagerOverlay{position:fixed;inset:0;z-index:100020;display:none;align-items:center;justify-content:center;padding:12px;background:rgba(0,0,0,.72);backdrop-filter:blur(4px)}
+  #routineManagerOverlay.show{display:flex}
+  .routine-manager-card{width:min(94vw,520px);max-height:90vh;overflow:auto;border:1px solid rgba(255,193,7,.7);border-radius:18px;background:linear-gradient(160deg,#0b0915,#171027 60%,#09070e);box-shadow:0 0 30px rgba(168,85,247,.28);padding:14px;color:#fff;box-sizing:border-box}
+  .routine-manager-head{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+  .routine-manager-head b{flex:1;font-size:18px;color:#ffd43b}
+  .routine-manager-close{border:0;border-radius:9px;background:#7c3aed;color:#fff;font-size:18px;font-weight:1000;width:36px;height:36px;cursor:pointer}
+  .routine-manager-note{font-size:11px;line-height:1.4;color:#cfeaff;margin-bottom:10px}
+  .routine-manager-section{border:1px solid rgba(255,255,255,.12);border-radius:13px;padding:10px;margin:8px 0;background:rgba(255,255,255,.025)}
+  .routine-manager-section-title{font-size:13px;font-weight:1000;color:#8ee7ff;margin-bottom:8px}
+  .routine-manager-grid{display:grid;grid-template-columns:1fr auto;gap:7px}
+  .routine-manager-input,.routine-manager-select{width:100%;box-sizing:border-box;border:1px solid rgba(255,255,255,.18);border-radius:9px;background:#0c0a14;color:#fff;padding:10px;font-size:13px;font-weight:800;outline:none}
+  .routine-manager-btn2{border:0;border-radius:9px;padding:9px 11px;background:linear-gradient(135deg,#7c3aed,#db2777);color:#fff;font-weight:1000;cursor:pointer;white-space:nowrap}
+  .routine-manager-btn2.orange{background:linear-gradient(135deg,#f59e0b,#ea580c)}
+  .routine-manager-list{display:flex;flex-direction:column;gap:6px;margin-top:8px}
+  .routine-manager-route{display:flex;align-items:center;gap:7px;padding:8px;border-radius:10px;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.08)}
+  .routine-manager-route b{width:31px;height:31px;display:grid;place-items:center;border-radius:8px;background:linear-gradient(135deg,#06b6d4,#2563eb);font-weight:1000}
+  .routine-manager-route span{flex:1;min-width:0;font-size:12px;font-weight:900;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .routine-manager-route small{color:#a8b4c7;font-weight:800}
+  .routine-task-panel{margin:7px 0 8px;border:1px solid rgba(59,130,246,.35);border-radius:12px;background:linear-gradient(135deg,rgba(8,35,78,.38),rgba(17,24,39,.3));padding:8px}
+  .routine-task-panel-head{display:flex;align-items:center;gap:7px;margin-bottom:7px}
+  .routine-task-panel-head b{flex:1;font-size:12px;color:#8ee7ff}
+  .routine-task-add-btn{border:0;border-radius:8px;padding:6px 8px;background:linear-gradient(135deg,#059669,#16a34a);color:#fff;font-weight:1000;font-size:11px;cursor:pointer}
+  .routine-custom-task-list{display:flex;flex-direction:column;gap:4px}
+  .routine-custom-task-row{display:flex;align-items:center;gap:8px;padding:7px 6px;border-bottom:1px solid rgba(255,255,255,.08);font-size:12px;font-weight:850}
+  .routine-custom-task-row:last-child{border-bottom:0}
+  .routine-custom-task-row.done{display:none!important}
+  .routine-custom-task-row input{width:19px;height:19px;flex:0 0 auto;accent-color:#22c55e}
+  .routine-custom-task-row span{flex:1;min-width:0}
+  .routine-custom-empty{font-size:10px;color:#9aa8bc;text-align:center;padding:6px}
+  .routine-task-add-form{display:grid;grid-template-columns:46px 1fr auto;gap:5px;margin-bottom:7px}
+  .routine-task-add-form input{min-width:0}
+  @media(max-width:430px){
+    .routine-manager-card{padding:11px;width:96vw;border-radius:15px}
+    .routine-manager-head b{font-size:16px}.routine-manager-note{font-size:10px}
+    .routine-manager-grid{grid-template-columns:1fr}.routine-manager-btn2{width:100%}
+    .routine-task-add-form{grid-template-columns:42px 1fr}
+    .routine-task-add-form button{grid-column:1/-1}
+  }
+</style>
+<script id="my-routine-dynamic-manager-script">
+(function(){
+  'use strict';
+  const ROUTES_KEY='myRoutineDynamicRoutes_v1';
+  const TASKS_KEY='myRoutineDynamicTasks_v1';
+  let currentParent='brahmanRoutineScreen';
+
+  function safeParse(key,fallback){try{const x=JSON.parse(localStorage.getItem(key)||'');return x&&typeof x==='object'?x:fallback}catch(e){return fallback}}
+  function saveRoutes(a){localStorage.setItem(ROUTES_KEY,JSON.stringify(a))}
+  function saveTasks(o){localStorage.setItem(TASKS_KEY,JSON.stringify(o))}
+  function routes(){const x=safeParse(ROUTES_KEY,[]);return Array.isArray(x)?x.filter(r=>r&&Number(r.no)>4).sort((a,b)=>Number(a.no)-Number(b.no)):[]}
+  function tasks(){const x=safeParse(TASKS_KEY,{});return x&&typeof x==='object'&&!Array.isArray(x)?x:{} }
+  function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+  function nextNo(){return routes().reduce((m,r)=>Math.max(m,Number(r.no)||4),4)+1}
+  function routeTitle(no){if(no===1)return 'Routing 1';if(no===2)return 'Routing 2';if(no===3)return 'Routing 3';if(no===4)return 'Routing 4';const r=routes().find(x=>Number(x.no)===Number(no));return r?(r.title||('Routing '+no)):'Routing '+no}
+  function taskId(no,id){return String(no)+'_'+String(id)}
+
+  function ensureManager(){
+    if(document.getElementById('routineManagerOverlay'))return;
+    const ov=document.createElement('div');ov.id='routineManagerOverlay';
+    ov.innerHTML='<div class="routine-manager-card" role="dialog" aria-modal="true">'
+      +'<div class="routine-manager-head"><b>⚙️ My Routine Manager</b><button class="routine-manager-close" type="button">×</button></div>'
+      +'<div class="routine-manager-note">यहाँ से Routing 5, 6, 7… और किसी भी Routing के अंदर नया Task जोड़ सकते हो। सब कुछ इसी डिवाइस में सेव रहेगा।</div>'
+      +'<div class="routine-manager-section"><div class="routine-manager-section-title">➕ नया Routing</div>'
+      +'<div class="routine-manager-grid"><input id="newRoutineRouteTitle" class="routine-manager-input" maxlength="60" placeholder="Routing का नाम (जैसे Study Mission)"><button id="addRoutineRouteBtn" class="routine-manager-btn2 orange" type="button">Routing जोड़ें</button></div></div>'
+      +'<div class="routine-manager-section"><div class="routine-manager-section-title">📝 किसी Routing में नया Task</div>'
+      +'<select id="routineTaskRouteSelect" class="routine-manager-select"></select>'
+      +'<div class="routine-task-add-form" style="margin-top:7px"><input id="newRoutineTaskEmoji" class="routine-manager-input" maxlength="4" value="⭐" aria-label="Emoji"><input id="newRoutineTaskText" class="routine-manager-input" maxlength="100" placeholder="नया Task लिखें"><button id="addRoutineTaskBtn" class="routine-manager-btn2" type="button">Task जोड़ें</button></div>'
+      +'<div id="routineManagerTaskPreview" class="routine-custom-empty">अभी कोई custom task नहीं है।</div></div>'
+      +'<div class="routine-manager-section"><div class="routine-manager-section-title">📌 Added Routings</div><div id="routineManagerRouteList" class="routine-manager-list"></div></div>'
+      +'</div>';
+    document.body.appendChild(ov);
+    ov.querySelector('.routine-manager-close').onclick=closeManager;
+    ov.addEventListener('click',e=>{if(e.target===ov)closeManager()});
+    ov.querySelector('#addRoutineRouteBtn').onclick=addRoute;
+    ov.querySelector('#addRoutineTaskBtn').onclick=addTaskFromManager;
+    ov.querySelector('#routineTaskRouteSelect').addEventListener('change',renderManagerTaskPreview);
+    ov.querySelector('#newRoutineTaskText').addEventListener('keydown',e=>{if(e.key==='Enter')addTaskFromManager()});
+  }
+  function openManager(){ensureManager();renderManager();document.getElementById('routineManagerOverlay').classList.add('show')}
+  function closeManager(){const x=document.getElementById('routineManagerOverlay');if(x)x.classList.remove('show')}
+  window.openMyRoutineManager=openManager;
+
+  function allRouteNumbers(){return [1,2,3,4].concat(routes().map(r=>Number(r.no)))}
+  function addManagerButtons(){
+    document.querySelectorAll('.routine-switch-actions').forEach(bar=>{
+      if(!bar.querySelector('.routine-manager-btn')){
+        const m=document.createElement('button');m.type='button';m.className='routine-manager-btn';m.textContent='＋';m.title='Routing / Task जोड़ें';m.onclick=openManager;bar.appendChild(m);
+      }
+      const existing=[...bar.querySelectorAll('.routine-dynamic-route-btn')].map(b=>Number(b.dataset.routeNo));
+      const wanted=routes().map(r=>Number(r.no));
+      if(existing.join(',')!==wanted.join(',')){
+        bar.querySelectorAll('.routine-dynamic-route-btn').forEach(b=>b.remove());
+        wanted.forEach(no=>{const r=routes().find(x=>Number(x.no)===no);const b=document.createElement('button');b.type='button';b.dataset.routeNo=String(no);b.className='routine-switch-number routine-dynamic-route-btn';b.textContent=String(no);b.title=r&&r.title?r.title:'Routing '+no;b.onclick=()=>openDynamicRoute(no);bar.appendChild(b)});
+      }
+    });
+  }
+
+  function makeTaskPanel(id,no,title){
+    let panel=document.getElementById(id);
+    if(panel)return panel;
+    panel=document.createElement('div');panel.id=id;panel.className='routine-task-panel';panel.dataset.routeNo=String(no);
+    panel.innerHTML='<div class="routine-task-panel-head"><b></b><button class="routine-task-add-btn" type="button">＋ Task</button></div><div class="routine-custom-task-list"></div>';
+    panel.querySelector('.routine-task-panel-head b').textContent='📝 '+title+' के Extra Tasks';
+    panel.querySelector('button').onclick=()=>openManagerForTask(no);
+    return panel;
+  }
+  function renderTaskPanel(no,panel){
+    if(!panel)return;
+    const list=panel.querySelector('.routine-custom-task-list');if(!list)return;
+    const data=tasks();const arr=Array.isArray(data[String(no)])?data[String(no)]:[];list.innerHTML='';
+    let visible=0;
+    arr.forEach((t,i)=>{
+      const done=localStorage.getItem('myRoutineCustomDone_'+taskId(no,t.id||i))==='1';if(done)return;visible++;
+      const row=document.createElement('label');row.className='routine-custom-task-row';
+      const cb=document.createElement('input');cb.type='checkbox';
+      const text=document.createElement('span');text.textContent=(i+1)+'. '+(t.emoji||'⭐')+' '+(t.text||'');
+      cb.addEventListener('change',function(){if(!this.checked)return;localStorage.setItem('myRoutineCustomDone_'+taskId(no,t.id||i),'1');row.remove();if(!list.children.length)list.innerHTML='<div class="routine-custom-empty">सारे extra tasks पूरे हो चुके हैं।</div>';});
+      row.append(cb,text);list.appendChild(row);
+    });
+    if(!visible)list.innerHTML='<div class="routine-custom-empty">अभी कोई pending extra task नहीं है।</div>';
+  }
+  function refreshBasePanels(){
+    const mission=document.getElementById('routineMissionScreen');
+    if(mission){
+      let panel=document.getElementById('routineCustomMissionPanel');
+      if(!panel){panel=makeTaskPanel('routineCustomMissionPanel',1,'Routing 1');mission.appendChild(panel)}
+      const n=Number((document.getElementById('routineMissionNumber')||{}).textContent)||1;panel.dataset.routeNo=String(n);panel.querySelector('.routine-task-panel-head b').textContent='📝 '+routeTitle(n)+' के Extra Tasks';panel.querySelector('.routine-task-add-btn').onclick=()=>openManagerForTask(n);renderTaskPanel(n,panel);
+    }
+    const r4=document.getElementById('routineRoute4Screen');
+    if(r4){let p=document.getElementById('routineCustomRoute3Panel');if(!p){p=makeTaskPanel('routineCustomRoute3Panel',3,'Routing 3');r4.appendChild(p)}renderTaskPanel(3,p)}
+    const r5=document.getElementById('routineRoute5Screen');
+    if(r5){let p=document.getElementById('routineCustomRoute4Panel');if(!p){p=makeTaskPanel('routineCustomRoute4Panel',4,'Routing 4');r5.appendChild(p)}renderTaskPanel(4,p)}
+  }
+  function refreshAllCustom(){
+    refreshBasePanels();
+    routes().forEach(r=>{const p=document.getElementById('routineCustomDynamicPanel_'+r.no);if(p)renderTaskPanel(r.no,p)})
+  }
+  function openManagerForTask(no){openManager();setTimeout(()=>{const s=document.getElementById('routineTaskRouteSelect');if(s){s.value=String(no);renderManagerTaskPreview()}},0)}
+
+  function addRoute(){
+    const inp=document.getElementById('newRoutineRouteTitle');let title=(inp.value||'').trim();const no=nextNo();if(!title)title='Routing '+no;
+    const rs=routes();rs.push({no,title,createdAt:Date.now()});saveRoutes(rs);if(inp)inp.value='';renderManager();ensureDynamicRouteScreens();addManagerButtons();
+  }
+  function addTaskFromManager(){
+    const s=document.getElementById('routineTaskRouteSelect'),te=document.getElementById('newRoutineTaskText'),ee=document.getElementById('newRoutineTaskEmoji');const no=Number(s&&s.value||0),text=(te&&te.value||'').trim(),emoji=(ee&&ee.value||'⭐').trim()||'⭐';
+    if(!no||!text)return;const data=tasks();if(!Array.isArray(data[String(no)]))data[String(no)]=[];data[String(no)].push({id:Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,7),text,emoji});saveTasks(data);if(te)te.value='';renderManagerTaskPreview();refreshAllCustom();
+  }
+  function renderManager(){
+    const s=document.getElementById('routineTaskRouteSelect');if(!s)return;s.innerHTML='';allRouteNumbers().forEach(no=>{const o=document.createElement('option');o.value=String(no);o.textContent=no+' — '+routeTitle(no);s.appendChild(o)});renderManagerTaskPreview();
+    const list=document.getElementById('routineManagerRouteList');if(!list)return;list.innerHTML='';const rs=routes();if(!rs.length){list.innerHTML='<div class="routine-custom-empty">अभी Routing 5 से आगे कुछ नहीं जोड़ा गया है।</div>';return}
+    const data=tasks();rs.forEach(r=>{const arr=Array.isArray(data[String(r.no)])?data[String(r.no)]:[];const done=arr.filter((t,i)=>localStorage.getItem('myRoutineCustomDone_'+taskId(r.no,t.id||i))==='1').length;const row=document.createElement('div');row.className='routine-manager-route';row.innerHTML='<b>'+r.no+'</b><span>'+esc(r.title||('Routing '+r.no))+'</span><small>'+Math.max(0,arr.length-done)+' Task</small>';list.appendChild(row)})
+  }
+  function renderManagerTaskPreview(){
+    const s=document.getElementById('routineTaskRouteSelect'),box=document.getElementById('routineManagerTaskPreview');if(!s||!box)return;const no=Number(s.value||1),data=tasks(),arr=Array.isArray(data[String(no)])?data[String(no)]:[];const pending=arr.filter((t,i)=>localStorage.getItem('myRoutineCustomDone_'+taskId(no,t.id||i))!=='1');box.innerHTML=pending.length?pending.map((t,i)=>'<div style="padding:4px 0;border-bottom:1px solid rgba(255,255,255,.07)">'+(i+1)+'. '+esc(t.emoji||'⭐')+' '+esc(t.text||'')+'</div>').join(''):'अभी कोई pending custom task नहीं है।';
+  }
+
+  function ensureDynamicRouteScreens(){
+    const host=document.getElementById('myRoutineList');if(!host)return;
+    routes().forEach(r=>{
+      const id='routineDynamicRouteScreen_'+r.no;let el=document.getElementById(id);
+      if(!el){el=document.createElement('div');el.id=id;el.className='routine-extra-screen routine-dynamic-route-screen';el.style.display='none';el.innerHTML='<div class="routine-extra-head"><div class="routine-extra-mini-nav"><button type="button" class="routine-extra-back">← वापस</button></div><div class="routine-extra-title"></div><div class="routine-extra-actions"></div></div><div class="routine-dynamic-route-body"></div>';host.appendChild(el);el.querySelector('.routine-extra-back').onclick=closeDynamicRoute}
+      const title=(r.title||('Routing '+r.no));const t=el.querySelector('.routine-extra-title');if(t&&t.textContent!==title+' • Routing '+r.no)t.textContent=title+' • Routing '+r.no;
+      const body=el.querySelector('.routine-dynamic-route-body');let p=body&&body.querySelector('.routine-task-panel');if(!p&&body){p=makeTaskPanel('routineCustomDynamicPanel_'+r.no,r.no,title);body.appendChild(p)}if(p)renderTaskPanel(r.no,p);
+    });
+  }
+  function hideDynamic(){routes().forEach(r=>{const e=document.getElementById('routineDynamicRouteScreen_'+r.no);if(e)e.style.display='none'})}
+  function openDynamicRoute(no){
+    const r=routes().find(x=>Number(x.no)===Number(no));if(!r)return;const bra=document.getElementById('brahmanRoutineScreen'),mis=document.getElementById('routineMissionScreen');currentParent=(bra&&getComputedStyle(bra).display!=='none')?'brahmanRoutineScreen':((mis&&getComputedStyle(mis).display!=='none')?'routineMissionScreen':'brahmanRoutineScreen');
+    ['myRoutineHome','routineMissionScreen','brahmanRoutineScreen','routineRoute4Screen','routineRoute5Screen'].forEach(id=>{const e=document.getElementById(id);if(e)e.style.display='none'});hideDynamic();const el=document.getElementById('routineDynamicRouteScreen_'+no);if(el)el.style.display='flex';
+  }
+  function closeDynamicRoute(){hideDynamic();const p=document.getElementById(currentParent);if(p)p.style.display='flex';if(currentParent==='brahmanRoutineScreen'&&typeof window.renderMyRoutine==='function')window.renderMyRoutine();else if(currentParent==='routineMissionScreen'&&typeof window.openRoutineMission==='function')window.openRoutineMission(Number((document.getElementById('routineMissionNumber')||{}).textContent)||1)}
+  window.openMyRoutineDynamicRoute=openDynamicRoute;window.closeMyRoutineDynamicRoute=closeDynamicRoute;
+
+  function boot(){ensureManager();ensureDynamicRouteScreens();refreshBasePanels();addManagerButtons();}
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();
+  setTimeout(boot,300);setTimeout(boot,1000);
+  window.addEventListener('load',boot);
+  const oldMission=window.openRoutineMission;
+  if(typeof oldMission==='function'){window.openRoutineMission=function(group){const r=oldMission.apply(this,arguments);setTimeout(refreshBasePanels,0);return r}}
+  const oldBrahman=window.openBrahmanRoutine;
+  if(typeof oldBrahman==='function'){window.openBrahmanRoutine=function(){const r=oldBrahman.apply(this,arguments);setTimeout(refreshBasePanels,0);return r}}
+  const oldRouteOpen=window.openRoutineRoute45;
+  if(typeof oldRouteOpen==='function'){
+    window.openRoutineRoute45=function(route){const r=oldRouteOpen.apply(this,arguments);setTimeout(refreshBasePanels,0);return r}
+  }
+})();
+</script>
+
+<!-- ===== SECURE MY ROUTINE CONFIG: replace ONLY these two values after setup ===== -->
+<script id="my-routine-supabase-config">
+window.MY_ROUTINE_SUPABASE_CONFIG={
+  url:'https://icsuljoqapnjmysjcetx.supabase.co',
+  anonKey:'sb_publishable_e3v7dabdPpSNbrUJGI2EYg_545uEtHA'
+};
+</script>
+<!-- ===== SECURE MY ROUTINE ADMIN MODE (SUPABASE + RLS) ===== -->
+<style id="secure-routine-admin-style">
+#secureRoutineAdminLogin{position:fixed;inset:0;z-index:100050;display:none;align-items:center;justify-content:center;padding:14px;background:rgba(0,0,0,.82);backdrop-filter:blur(7px)}
+#secureRoutineAdminLogin.show{display:flex}
+.secure-admin-card{width:min(94vw,430px);box-sizing:border-box;padding:18px;border-radius:20px;border:1px solid rgba(255,193,7,.75);background:linear-gradient(160deg,#0a0711,#171027 65%,#08060c);box-shadow:0 0 35px rgba(168,85,247,.35);color:#fff}
+.secure-admin-card h3{margin:0 0 8px;color:#ffd43b;font-size:20px}.secure-admin-card p{font-size:11px;color:#cbd5e1;line-height:1.45}.secure-admin-input{width:100%;box-sizing:border-box;margin:6px 0;padding:11px;border-radius:10px;border:1px solid rgba(255,255,255,.18);background:#0b0913;color:#fff;font-weight:800;outline:none}.secure-admin-actions{display:flex;gap:7px;margin-top:8px}.secure-admin-btn{flex:1;border:0;border-radius:10px;padding:10px;background:linear-gradient(135deg,#7c3aed,#db2777);color:#fff;font-weight:1000}.secure-admin-btn.alt{background:#27213a}.secure-admin-msg{font-size:11px;margin-top:8px;min-height:16px;color:#fbbf24}
+#secureAdminPanel{position:fixed;inset:0;z-index:100040;display:none;align-items:center;justify-content:center;padding:12px;background:rgba(0,0,0,.78);backdrop-filter:blur(6px)}#secureAdminPanel.show{display:flex}
+.secure-admin-panel-card{width:min(96vw,560px);max-height:91vh;overflow:auto;box-sizing:border-box;padding:14px;border-radius:18px;border:1px solid rgba(255,193,7,.7);background:#0c0914;color:#fff}.secure-admin-panel-head{display:flex;gap:8px;align-items:center}.secure-admin-panel-head b{flex:1;color:#ffd43b}.secure-admin-small{font-size:10px;color:#9ca3af}.secure-admin-route-row{display:flex;gap:6px;align-items:center;margin:6px 0;padding:7px;border-radius:10px;background:rgba(255,255,255,.045)}.secure-admin-route-row span{flex:1;font-weight:900;font-size:12px}.secure-admin-route-row button{border:0;border-radius:8px;padding:6px 8px;background:#312e81;color:#fff;font-weight:900}.secure-admin-route-row button.danger{background:#7f1d1d}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script id="secure-routine-admin-script">
+(function(){
+'use strict';
+/* IMPORTANT: Put only your Supabase PROJECT URL and PUBLIC ANON KEY here.
+   Never put a service_role/secret key in this HTML. */
+const SUPABASE_URL=(window.MY_ROUTINE_SUPABASE_CONFIG||{}).url||'PASTE_YOUR_SUPABASE_PROJECT_URL_HERE';
+const SUPABASE_ANON_KEY=(window.MY_ROUTINE_SUPABASE_CONFIG||{}).anonKey||'PASTE_YOUR_SUPABASE_ANON_KEY_HERE';
+let sb=null,adminUser=null;
+function configured(){return SUPABASE_URL.indexOf('PASTE_')!==0&&SUPABASE_ANON_KEY.indexOf('PASTE_')!==0&&window.supabase&&window.supabase.createClient}
+function ui(){
+ if(document.getElementById('secureRoutineAdminLogin'))return;
+ const x=document.createElement('div');x.id='secureRoutineAdminLogin';x.innerHTML='<div class="secure-admin-card"><h3>🔐 Admin Login</h3><p>Routing और Task बदलने के लिए Admin account से sign in करें। यह password HTML में सेव नहीं होता।</p><input id="sraEmail" class="secure-admin-input" type="email" autocomplete="username" placeholder="Admin email"><input id="sraPass" class="secure-admin-input" type="password" autocomplete="current-password" placeholder="Password"><div class="secure-admin-actions"><button id="sraLogin" class="secure-admin-btn">Login</button><button id="sraCancel" class="secure-admin-btn alt">Cancel</button></div><div id="sraMsg" class="secure-admin-msg"></div></div>';
+ document.body.appendChild(x);x.querySelector('#sraCancel').onclick=()=>x.classList.remove('show');x.querySelector('#sraLogin').onclick=login;
+ const p=document.createElement('div');p.id='secureAdminPanel';p.innerHTML='<div class="secure-admin-panel-card"><div class="secure-admin-panel-head"><b>⚙️ Secure My Routine Manager</b><button id="sraClose" class="routine-manager-close">×</button></div><div class="secure-admin-small">Only an authenticated admin can change these records.</div><div class="routine-manager-section"><div class="routine-manager-section-title">➕ नया Routing</div><div class="routine-manager-grid"><input id="sraRouteTitle" class="routine-manager-input" maxlength="60" placeholder="जैसे Study Mission"><button id="sraAddRoute" class="routine-manager-btn2 orange">Routing जोड़ें</button></div></div><div class="routine-manager-section"><div class="routine-manager-section-title">📝 नया Task</div><select id="sraRouteSelect" class="routine-manager-select"></select><div class="routine-task-add-form" style="margin-top:7px"><input id="sraEmoji" class="routine-manager-input" maxlength="4" value="⭐"><input id="sraTaskText" class="routine-manager-input" maxlength="100" placeholder="Task"><button id="sraAddTask" class="routine-manager-btn2">Task जोड़ें</button></div></div><div class="routine-manager-section"><div class="routine-manager-section-title">📌 Routings</div><div id="sraRouteList"></div></div><div class="secure-admin-actions"><button id="sraLogout" class="secure-admin-btn alt">Logout</button></div><div id="sraPanelMsg" class="secure-admin-msg"></div></div>';
+ document.body.appendChild(p);p.querySelector('#sraClose').onclick=closePanel;p.querySelector('#sraLogout').onclick=logout;p.querySelector('#sraAddRoute').onclick=addRoute;p.querySelector('#sraAddTask').onclick=addTask;
+}
+function msg(t){const e=document.getElementById('sraMsg');if(e)e.textContent=t}function pmsg(t){const e=document.getElementById('sraPanelMsg');if(e)e.textContent=t}
+async function init(){ui();if(!configured())return;sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);const {data}=await sb.auth.getSession();adminUser=data.session&&data.session.user?data.session.user:null;}
+async function login(){if(!configured()){msg('पहले Supabase setup पूरा करना होगा।');return}const email=document.getElementById('sraEmail').value.trim(),password=document.getElementById('sraPass').value;if(!email||!password){msg('Email और password भरें।');return}msg('Login हो रहा है…');const r=await sb.auth.signInWithPassword({email,password});if(r.error){msg('Login failed: '+r.error.message);return}adminUser=r.data.user;document.getElementById('secureRoutineAdminLogin').classList.remove('show');await ensureBaseRoutes();await loadRoutes();document.getElementById('secureAdminPanel').classList.add('show')}
+async function logout(){if(sb)await sb.auth.signOut();adminUser=null;closePanel()}
+function closePanel(){const e=document.getElementById('secureAdminPanel');if(e)e.classList.remove('show')}
+async function adminCheck(){if(!sb)return false;const {data}=await sb.auth.getSession();if(!data.session){document.getElementById('secureRoutineAdminLogin').classList.add('show');return false}adminUser=data.session.user;return true}
+async function openAdmin(){ui();if(!configured()){document.getElementById('secureRoutineAdminLogin').classList.add('show');msg('HTML में Supabase URL/Anon Key अभी नहीं डाला गया है।');return}if(await adminCheck()){await ensureBaseRoutes();await loadRoutes();document.getElementById('secureAdminPanel').classList.add('show')}}
+async function ensureBaseRoutes(){
+  if(!sb||!adminUser)return;
+  const base=[{route_no:1,title:'Routing 1'},{route_no:2,title:'Routing 2'},{route_no:3,title:'Routing 3'},{route_no:4,title:'Routing 4'}];
+  const {data}=await sb.from('routine_routes').select('route_no').in('route_no',[1,2,3,4]);
+  const have=new Set((data||[]).map(x=>Number(x.route_no)));
+  const missing=base.filter(x=>!have.has(x.route_no)).map(x=>({...x,owner_id:adminUser.id}));
+  if(missing.length)await sb.from('routine_routes').insert(missing);
+}
+async function loadRoutes(){const {data,error}=await sb.from('routine_routes').select('id,route_no,title').order('route_no');if(error){pmsg(error.message);return}const s=document.getElementById('sraRouteSelect'),list=document.getElementById('sraRouteList');s.innerHTML='';list.innerHTML='';(data||[]).forEach(r=>{const o=document.createElement('option');o.value=r.id;o.textContent=r.route_no+' — '+r.title;s.appendChild(o);const row=document.createElement('div');row.className='secure-admin-route-row';row.innerHTML='<b>'+r.route_no+'</b><span>'+esc(r.title)+'</span><button data-id="'+r.id+'" data-no="'+r.route_no+'">Rename</button><button class="danger" data-del="'+r.id+'">Delete</button>';list.appendChild(row)});list.querySelectorAll('[data-id]').forEach(b=>b.onclick=()=>renameRoute(b.dataset.id,b.dataset.no));list.querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>deleteRoute(b.dataset.del))}
+function esc(s){return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+async function addRoute(){const title=document.getElementById('sraRouteTitle').value.trim();if(!title)return pmsg('Routing का नाम लिखें।');const {data:mx}=await sb.from('routine_routes').select('route_no').order('route_no',{ascending:false}).limit(1);const no=Math.max(4,(mx&&mx[0]?Number(mx[0].route_no):4))+1;const r=await sb.from('routine_routes').insert({route_no:no,title,owner_id:adminUser.id}).select().single();if(r.error){pmsg(r.error.message);return}document.getElementById('sraRouteTitle').value='';pmsg('Routing '+no+' जोड़ दिया गया।');await loadRoutes()}
+async function renameRoute(id,no){const title=prompt('Routing '+no+' का नया नाम:');if(!title)return;const r=await sb.from('routine_routes').update({title:title.trim()}).eq('id',id);if(r.error)pmsg(r.error.message);else await loadRoutes()}
+async function deleteRoute(id){if(!confirm('इस Routing को delete करना है?'))return;const r=await sb.from('routine_routes').delete().eq('id',id);if(r.error)pmsg(r.error.message);else await loadRoutes()}
+async function addTask(){const routeId=document.getElementById('sraRouteSelect').value,text=document.getElementById('sraTaskText').value.trim(),emoji=document.getElementById('sraEmoji').value.trim()||'⭐';if(!routeId||!text)return pmsg('Routing और Task दोनों भरें।');const r=await sb.from('routine_tasks').insert({route_id:routeId,text,emoji,owner_id:adminUser.id});if(r.error){pmsg(r.error.message);return}document.getElementById('sraTaskText').value='';pmsg('Task जोड़ दिया गया।')}
+window.openSecureMyRoutineAdmin=openAdmin;
+function addSecureButton(){document.querySelectorAll('.routine-switch-actions').forEach(bar=>{if(bar.querySelector('.secure-admin-open-btn'))return;const b=document.createElement('button');b.type='button';b.className='routine-manager-btn secure-admin-open-btn';b.textContent='⚙️';b.title='Secure Admin';b.onclick=openAdmin;bar.appendChild(b)})}
+function boot(){ui();addSecureButton()}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();setTimeout(boot,500);setTimeout(boot,1500);
+})();
+</script>
+
+<style id="secure-routine-final-lock-style">
+#routineManagerOverlay{display:none!important}
+.routine-switch-actions .routine-manager-btn:not(.secure-admin-open-btn),
+.routine-switch-actions .routine-dynamic-route-btn{display:none!important}
+</style>
+<script id="secure-routine-final-lock-script">
+(function(){
+'use strict';
+const CFG={url:(window.MY_ROUTINE_SUPABASE_CONFIG||{}).url||'PASTE_YOUR_SUPABASE_PROJECT_URL_HERE',key:(window.MY_ROUTINE_SUPABASE_CONFIG||{}).anonKey||'PASTE_YOUR_SUPABASE_ANON_KEY_HERE'};
+let client=null,remoteRoutes=[],remoteTasks=[];
+function ready(){return window.supabase&&CFG.url.indexOf('PASTE_')!==0&&CFG.key.indexOf('PASTE_')!==0}
+function ensureClient(){if(!client&&ready())client=window.supabase.createClient(CFG.url,CFG.key);return client}
+async function publicLoad(){if(!ensureClient())return;const r=await client.from('routine_routes').select('id,route_no,title').order('route_no');if(!r.error)remoteRoutes=r.data||[];window.__MY_ROUTINE_BASE_ROUTE_IDS={};remoteRoutes.forEach(x=>{if(Number(x.route_no)<=4)window.__MY_ROUTINE_BASE_ROUTE_IDS[String(x.route_no)]=x.id});const t=await client.from('routine_tasks').select('id,route_id,text,emoji').order('created_at');if(!t.error)remoteTasks=t.data||[];window.__MY_ROUTINE_REMOTE_TASKS=remoteTasks;renderPublicRouteButtons();renderRemoteTaskPanels();if(window.__renderBaseRemoteTasks)window.__renderBaseRemoteTasks()}
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function addBtn(bar,r){let b=bar.querySelector('.secure-remote-route-btn[data-route-no="'+r.route_no+'"]');if(b)return;b=document.createElement('button');b.type='button';b.className='routine-switch-number secure-remote-route-btn';b.dataset.routeNo=String(r.route_no);b.textContent=String(r.route_no);b.title=r.title||('Routing '+r.route_no);b.onclick=()=>openRemoteRoute(r.route_no);bar.appendChild(b)}
+function renderPublicRouteButtons(){document.querySelectorAll('.routine-switch-actions').forEach(bar=>remoteRoutes.forEach(r=>{if(Number(r.route_no)>4)addBtn(bar,r)}))}
+function makeScreen(r){const host=document.getElementById('myRoutineList');if(!host)return null;const id='secureRemoteRoute_'+r.route_no;let el=document.getElementById(id);if(!el){el=document.createElement('div');el.id=id;el.className='routine-extra-screen secure-remote-route-screen';el.style.display='none';el.innerHTML='<div class="routine-extra-head"><div class="routine-extra-mini-nav"><button type="button" class="routine-extra-back">← वापस</button></div><div class="routine-extra-title"></div><div class="routine-extra-actions"></div></div><div class="routine-dynamic-route-body"></div>';host.appendChild(el);el.querySelector('.routine-extra-back').onclick=closeRemoteRoute}el.querySelector('.routine-extra-title').textContent=(r.title||('Routing '+r.route_no))+' • Routing '+r.route_no;return el}
+function renderRemoteTaskPanels(){remoteRoutes.forEach(r=>{const el=makeScreen(r);if(!el)return;const body=el.querySelector('.routine-dynamic-route-body');body.innerHTML='';const arr=remoteTasks.filter(t=>String(t.route_id)===String(r.id));const box=document.createElement('div');box.className='routine-task-panel';box.innerHTML='<div class="routine-task-panel-head"><b>📝 Tasks</b></div><div class="routine-custom-task-list"></div>';const list=box.querySelector('.routine-custom-task-list');if(!arr.length)list.innerHTML='<div class="routine-custom-empty">अभी कोई Task नहीं है।</div>';arr.forEach((t,i)=>{const row=document.createElement('label');row.className='routine-custom-task-row';const cb=document.createElement('input');cb.type='checkbox';const key='secureRoutineDone_'+t.id; if(localStorage.getItem(key)==='1')row.style.display='none';const sp=document.createElement('span');sp.textContent=(i+1)+'. '+(t.emoji||'⭐')+' '+(t.text||'');cb.onchange=()=>{if(cb.checked){localStorage.setItem(key,'1');row.remove()}};row.append(cb,sp);list.appendChild(row)});body.appendChild(box)})}
+let parent='brahmanRoutineScreen';
+function openRemoteRoute(no){const r=remoteRoutes.find(x=>Number(x.route_no)===Number(no));if(!r)return;const bra=document.getElementById('brahmanRoutineScreen'),mis=document.getElementById('routineMissionScreen');parent=(bra&&getComputedStyle(bra).display!=='none')?'brahmanRoutineScreen':((mis&&getComputedStyle(mis).display!=='none')?'routineMissionScreen':'brahmanRoutineScreen');['myRoutineHome','routineMissionScreen','brahmanRoutineScreen','routineRoute4Screen','routineRoute5Screen'].forEach(id=>{const e=document.getElementById(id);if(e)e.style.display='none'});remoteRoutes.forEach(x=>{const e=document.getElementById('secureRemoteRoute_'+x.route_no);if(e)e.style.display='none'});const el=makeScreen(r);if(el)el.style.display='flex';renderRemoteTaskPanels()}
+function closeRemoteRoute(){remoteRoutes.forEach(x=>{const e=document.getElementById('secureRemoteRoute_'+x.route_no);if(e)e.style.display='none'});const p=document.getElementById(parent);if(p)p.style.display='flex';if(parent==='brahmanRoutineScreen'&&typeof window.renderMyRoutine==='function')window.renderMyRoutine()}
+function hideOldManager(){const old=document.getElementById('routineManagerOverlay');if(old)old.classList.remove('show');document.querySelectorAll('.routine-switch-actions .routine-manager-btn:not(.secure-admin-open-btn),.routine-switch-actions .routine-dynamic-route-btn').forEach(e=>e.style.display='none')}
+function boot(){hideOldManager();if(ready())publicLoad()}
+window.addEventListener('load',boot);if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else setTimeout(boot,100);setTimeout(boot,1200);setTimeout(boot,3000);
+window.openMyRoutineManager=window.openSecureMyRoutineAdmin;
+})();
+</script>
+
+<!-- FINAL: show Supabase Tasks inside existing Routing 1-4 screens too -->
+<script id="secure-base-route-task-render-final">
+(function(){
+'use strict';
+function renderBaseRemoteTasks(){
+  if(!window.__MY_ROUTINE_REMOTE_TASKS || !window.__MY_ROUTINE_BASE_ROUTE_IDS)return;
+  const tasks=window.__MY_ROUTINE_REMOTE_TASKS, ids=window.__MY_ROUTINE_BASE_ROUTE_IDS;
+  const targets={
+    1:'routineMissionScreen',
+    2:'routineMissionScreen',
+    3:'routineRoute4Screen',
+    4:'routineRoute5Screen'
+  };
+  Object.keys(targets).forEach(no=>{
+    const routeId=ids[no]; if(!routeId)return;
+    const host=document.getElementById(targets[no]); if(!host)return;
+    let box=document.getElementById('secureBaseTasks_'+no);
+    if(!box){box=document.createElement('div');box.id='secureBaseTasks_'+no;box.className='routine-task-panel';host.appendChild(box)}
+    box.innerHTML='';
+    const head=document.createElement('div');head.className='routine-task-panel-head';
+    const b=document.createElement('b');b.textContent='📝 Routing '+no+' के Added Tasks';head.appendChild(b);box.appendChild(head);
+    const list=document.createElement('div');list.className='routine-custom-task-list';box.appendChild(list);
+    const arr=tasks.filter(t=>String(t.route_id)===String(routeId));
+    if(!arr.length){list.innerHTML='<div class="routine-custom-empty">अभी कोई Added Task नहीं है।</div>';return}
+    arr.forEach((t,i)=>{
+      const row=document.createElement('label');row.className='routine-custom-task-row';
+      const key='secureRoutineDone_'+t.id;
+      if(localStorage.getItem(key)==='1')row.style.display='none';
+      const cb=document.createElement('input');cb.type='checkbox';
+      const sp=document.createElement('span');sp.textContent=(i+1)+'. '+(t.emoji||'⭐')+' '+(t.text||'');
+      cb.onchange=function(){if(!this.checked)return;localStorage.setItem(key,'1');row.remove();if(!list.children.length)list.innerHTML='<div class="routine-custom-empty">सारे Added Tasks पूरे हो चुके हैं।</div>'};
+      row.append(cb,sp);list.appendChild(row);
+    });
+  });
+}
+const oldPublicLoad=window.__myRoutineSecurePublicLoad;
+window.__myRoutineSecurePublicLoad=oldPublicLoad;
+window.__renderBaseRemoteTasks=renderBaseRemoteTasks;
+setTimeout(renderBaseRemoteTasks,1200);setTimeout(renderBaseRemoteTasks,3000);
+new MutationObserver(renderBaseRemoteTasks).observe(document.documentElement,{subtree:true,childList:true});
 })();
 </script>
