@@ -17135,3 +17135,118 @@ setTimeout(renderBaseRemoteTasks,1200);setTimeout(renderBaseRemoteTasks,3000);
 new MutationObserver(renderBaseRemoteTasks).observe(document.documentElement,{subtree:true,childList:true});
 })();
 </script>
+
+
+<!-- FINAL UI FIX: one PLUS manager button only; remove task Add buttons under routings -->
+<style id="final-routing-plus-cleanup">
+/* All per-routing inline Add Task buttons are removed from the routine screens. */
+.routine-task-add-btn,
+.routine-task-panel .routine-task-add-btn,
+.routine-extra-screen .routine-task-add-btn,
+.secure-remote-route-screen .routine-task-add-btn{display:none!important}
+/* The only manager control is the PLUS beside Routing 1-4. */
+.routine-switch-actions .secure-admin-open-btn{
+  display:inline-grid!important;
+  place-items:center!important;
+  width:42px!important;
+  min-width:42px!important;
+  height:42px!important;
+  padding:0!important;
+  border-radius:50%!important;
+  font-size:25px!important;
+  line-height:1!important;
+  font-weight:1000!important;
+  cursor:pointer!important;
+}
+</style>
+<script id="final-routing-plus-cleanup-script">
+(function(){
+'use strict';
+function fixPlus(){
+  document.querySelectorAll('.routine-switch-actions').forEach(function(bar){
+    /* Remove duplicate manager/settings buttons. */
+    const buttons=Array.from(bar.querySelectorAll('.secure-admin-open-btn'));
+    buttons.slice(1).forEach(function(b){b.remove()});
+    let b=buttons[0];
+    if(!b){
+      b=document.createElement('button');
+      b.type='button';
+      b.className='routine-manager-btn secure-admin-open-btn';
+      bar.appendChild(b);
+    }
+    b.textContent='＋';
+    b.title='Routing / Task जोड़ें';
+    b.setAttribute('aria-label','Routing / Task जोड़ें');
+    b.onclick=function(ev){
+      ev.preventDefault(); ev.stopPropagation();
+      if(typeof window.openSecureMyRoutineAdmin==='function'){
+        window.openSecureMyRoutineAdmin();
+      }else if(typeof window.openMyRoutineManager==='function'){
+        window.openMyRoutineManager();
+      }
+    };
+    /* Keep it immediately beside the four routing numbers. */
+    const nums=Array.from(bar.querySelectorAll('.routine-switch-number:not(.secure-remote-route-btn)'));
+    const last=nums[nums.length-1];
+    if(last && last.nextSibling!==b) last.insertAdjacentElement('afterend',b);
+  });
+  /* Remove every inline task-add control from every routing screen. */
+  document.querySelectorAll('.routine-task-add-btn').forEach(function(e){e.remove()});
+}
+function boot(){fixPlus();setTimeout(fixPlus,1200)}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();
+/* MutationObserver removed: it could re-trigger fixPlus continuously and freeze the page. */
+})();
+</script>
+
+
+<!-- FINAL ADMIN + ROUTING PLUS UI -->
+<style id="final-admin-plus-ui">
+.routine-switch-actions{display:flex!important;align-items:center!important;gap:7px!important;flex-wrap:nowrap!important}
+.routine-switch-actions .secure-admin-label-btn{
+ display:inline-flex!important;align-items:center!important;justify-content:center!important;
+ min-width:78px!important;height:38px!important;padding:0 13px!important;border:0!important;
+ border-radius:12px!important;font-size:15px!important;font-weight:900!important;
+ letter-spacing:.5px!important;color:#fff!important;cursor:pointer!important;
+ background:linear-gradient(135deg,#7c3aed,#ec4899,#f59e0b)!important;
+ box-shadow:0 4px 14px rgba(124,58,237,.35)!important
+}
+.routine-switch-actions .secure-admin-label-btn:active{transform:scale(.96)!important}
+.routine-switch-actions .secure-admin-open-btn{
+ display:inline-grid!important;place-items:center!important;width:42px!important;min-width:42px!important;
+ height:42px!important;padding:0!important;border-radius:50%!important;font-size:25px!important;
+ font-weight:1000!important;cursor:pointer!important
+}
+/* Plus opens ONLY the new-routing area; task management remains inside Admin. */
+#secureAdminPanel.plus-route-only .routine-manager-section:nth-of-type(2),
+#secureAdminPanel.plus-route-only .routine-manager-section:nth-of-type(3){display:none!important}
+</style>
+<script id="final-admin-plus-ui-script">
+(function(){
+'use strict';
+function setupAdminControls(){
+ document.querySelectorAll('.routine-switch-actions').forEach(function(bar){
+   var plus=bar.querySelector('.secure-admin-open-btn');
+   if(!plus){plus=document.createElement('button');plus.type='button';plus.className='routine-manager-btn secure-admin-open-btn';bar.appendChild(plus)}
+   plus.textContent='＋';plus.title='नया Routing जोड़ें';plus.setAttribute('aria-label','नया Routing जोड़ें');
+   plus.onclick=async function(ev){
+     ev.preventDefault();ev.stopPropagation();
+     if(typeof window.openSecureMyRoutineAdmin==='function'){
+       await window.openSecureMyRoutineAdmin();
+       var panel=document.getElementById('secureAdminPanel');
+       if(panel){panel.classList.add('plus-route-only');var inp=document.getElementById('sraRouteTitle');if(inp){setTimeout(function(){inp.focus()},150)}}
+     }
+   };
+   var admin=bar.querySelector('.secure-admin-label-btn');
+   if(!admin){
+     admin=document.createElement('button');admin.type='button';admin.className='secure-admin-label-btn';
+     admin.textContent='ADMIN';admin.title='Admin Settings';admin.setAttribute('aria-label','Admin Settings');
+     admin.onclick=function(ev){ev.preventDefault();ev.stopPropagation();var p=document.getElementById('secureAdminPanel');if(p)p.classList.remove('plus-route-only');if(typeof window.openSecureMyRoutineAdmin==='function')window.openSecureMyRoutineAdmin();};
+     bar.insertBefore(admin,plus);
+   }
+ });
+}
+function boot(){setupAdminControls();setTimeout(setupAdminControls,900);setTimeout(setupAdminControls,1800)}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();
+})();
+</script>
