@@ -16837,7 +16837,7 @@ window.addEventListener('load',()=>{const b=document.getElementById('routineRout
   .routine-task-panel{margin:7px 0 8px;border:1px solid rgba(59,130,246,.35);border-radius:12px;background:linear-gradient(135deg,rgba(8,35,78,.38),rgba(17,24,39,.3));padding:8px}
   .routine-task-panel-head{display:flex;align-items:center;gap:7px;margin-bottom:7px}
   .routine-task-panel-head b{flex:1;font-size:12px;color:#8ee7ff}
-  .routine-task-add-btn{border:0;border-radius:8px;padding:6px 8px;background:linear-gradient(135deg,#059669,#16a34a);color:#fff;font-weight:1000;font-size:11px;cursor:pointer}
+  .routine-task-add-btn{border:0;border-radius:8px;padding:6px 9px;background:linear-gradient(135deg,#059669,#16a34a);color:#fff;font-weight:1000;font-size:11px;cursor:pointer;white-space:nowrap;touch-action:manipulation}
   .routine-custom-task-list{display:flex;flex-direction:column;gap:4px}
   .routine-custom-task-row{display:flex;align-items:center;gap:8px;padding:7px 6px;border-bottom:1px solid rgba(255,255,255,.08);font-size:12px;font-weight:850}
   .routine-custom-task-row:last-child{border-bottom:0}
@@ -16917,9 +16917,9 @@ window.addEventListener('load',()=>{const b=document.getElementById('routineRout
     let panel=document.getElementById(id);
     if(panel)return panel;
     panel=document.createElement('div');panel.id=id;panel.className='routine-task-panel';panel.dataset.routeNo=String(no);
-    panel.innerHTML='<div class="routine-task-panel-head"><b></b><button class="routine-task-add-btn" type="button">＋ Task</button></div><div class="routine-custom-task-list"></div>';
+    panel.innerHTML='<div class="routine-task-panel-head"><b></b><button class="routine-task-add-btn" type="button">＋ Add</button></div><div class="routine-custom-task-list"></div>';
     panel.querySelector('.routine-task-panel-head b').textContent='📝 '+title+' के Extra Tasks';
-    panel.querySelector('button').onclick=()=>openManagerForTask(no);
+    panel.querySelector('button').title='इस Routing में Task या नया Routing जोड़ें';panel.querySelector('button').onclick=()=>openManagerForTask(no);
     return panel;
   }
   function renderTaskPanel(no,panel){
@@ -17006,10 +17006,14 @@ window.addEventListener('load',()=>{const b=document.getElementById('routineRout
 
 <!-- ===== SECURE MY ROUTINE CONFIG: replace ONLY these two values after setup ===== -->
 <script id="my-routine-supabase-config">
-window.MY_ROUTINE_SUPABASE_CONFIG={
-  url:'PASTE_YOUR_SUPABASE_PROJECT_URL_HERE',
-  anonKey:'PASTE_YOUR_SUPABASE_ANON_KEY_HERE'
-};
+/* Secure Admin config: project URL is known; public anon key can be stored once in this browser. */
+(function(){
+  const saved=localStorage.getItem('myRoutineSupabaseAnonKey')||'';
+  window.MY_ROUTINE_SUPABASE_CONFIG={
+    url:'https://psvszyroajzzqenafdxo.supabase.co',
+    anonKey:saved
+  };
+})();
 </script>
 <!-- ===== SECURE MY ROUTINE ADMIN MODE (SUPABASE + RLS) ===== -->
 <style id="secure-routine-admin-style">
@@ -17029,7 +17033,16 @@ window.MY_ROUTINE_SUPABASE_CONFIG={
 const SUPABASE_URL=(window.MY_ROUTINE_SUPABASE_CONFIG||{}).url||'PASTE_YOUR_SUPABASE_PROJECT_URL_HERE';
 const SUPABASE_ANON_KEY=(window.MY_ROUTINE_SUPABASE_CONFIG||{}).anonKey||'PASTE_YOUR_SUPABASE_ANON_KEY_HERE';
 let sb=null,adminUser=null;
-function configured(){return SUPABASE_URL.indexOf('PASTE_')!==0&&SUPABASE_ANON_KEY.indexOf('PASTE_')!==0&&window.supabase&&window.supabase.createClient}
+function configured(){return /^https:\/\/[^\s]+\.supabase\.co$/.test(SUPABASE_URL)&&!!SUPABASE_ANON_KEY&&SUPABASE_ANON_KEY.indexOf('PASTE_')!==0&&window.supabase&&window.supabase.createClient}
+function setupAnonKey(){
+  const k=prompt('Supabase PUBLIC ANON KEY डालें। service_role key बिल्कुल न डालें:');
+  if(!k)return false;
+  const key=k.trim();
+  if(!key||key.indexOf('PASTE_')===0){msg('Valid Public Anon Key डालें।');return false}
+  localStorage.setItem('myRoutineSupabaseAnonKey',key);
+  location.reload();
+  return true;
+}
 function ui(){
  if(document.getElementById('secureRoutineAdminLogin'))return;
  const x=document.createElement('div');x.id='secureRoutineAdminLogin';x.innerHTML='<div class="secure-admin-card"><h3>🔐 Admin Login</h3><p>Routing और Task बदलने के लिए Admin account से sign in करें। यह password HTML में सेव नहीं होता।</p><input id="sraEmail" class="secure-admin-input" type="email" autocomplete="username" placeholder="Admin email"><input id="sraPass" class="secure-admin-input" type="password" autocomplete="current-password" placeholder="Password"><div class="secure-admin-actions"><button id="sraLogin" class="secure-admin-btn">Login</button><button id="sraCancel" class="secure-admin-btn alt">Cancel</button></div><div id="sraMsg" class="secure-admin-msg"></div></div>';
@@ -17038,12 +17051,26 @@ function ui(){
  document.body.appendChild(p);p.querySelector('#sraClose').onclick=closePanel;p.querySelector('#sraLogout').onclick=logout;p.querySelector('#sraAddRoute').onclick=addRoute;p.querySelector('#sraAddTask').onclick=addTask;
 }
 function msg(t){const e=document.getElementById('sraMsg');if(e)e.textContent=t}function pmsg(t){const e=document.getElementById('sraPanelMsg');if(e)e.textContent=t}
-async function init(){ui();if(!configured())return;sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);const {data}=await sb.auth.getSession();adminUser=data.session&&data.session.user?data.session.user:null;}
-async function login(){if(!configured()){msg('पहले Supabase setup पूरा करना होगा।');return}const email=document.getElementById('sraEmail').value.trim(),password=document.getElementById('sraPass').value;if(!email||!password){msg('Email और password भरें।');return}msg('Login हो रहा है…');const r=await sb.auth.signInWithPassword({email,password});if(r.error){msg('Login failed: '+r.error.message);return}adminUser=r.data.user;document.getElementById('secureRoutineAdminLogin').classList.remove('show');await loadRoutes();document.getElementById('secureAdminPanel').classList.add('show')}
+async function init(){ui();if(!configured())return;try{sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);const {data}=await sb.auth.getSession();adminUser=data.session&&data.session.user?data.session.user:null;}catch(e){console.error('Supabase init error',e);}}
+async function login(){
+  if(!configured()){msg('Supabase Public Anon Key सेट नहीं है।');if(confirm('क्या अभी Public Anon Key सेट करना है?'))setupAnonKey();return}
+  const email=document.getElementById('sraEmail').value.trim(),password=document.getElementById('sraPass').value;
+  if(!email||!password){msg('Email और password भरें।');return}
+  msg('Login हो रहा है…');
+  try{
+    if(!sb)sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
+    const r=await sb.auth.signInWithPassword({email,password});
+    if(r.error){msg('Login failed: '+(r.error.message||'Unknown error'));console.error('Admin login error',r.error);return}
+    adminUser=r.data.user;
+    document.getElementById('secureRoutineAdminLogin').classList.remove('show');
+    await loadRoutes();
+    document.getElementById('secureAdminPanel').classList.add('show');
+  }catch(e){msg('Login error: '+(e.message||e));console.error('Admin login exception',e)}
+}
 async function logout(){if(sb)await sb.auth.signOut();adminUser=null;closePanel()}
 function closePanel(){const e=document.getElementById('secureAdminPanel');if(e)e.classList.remove('show')}
 async function adminCheck(){if(!sb)return false;const {data}=await sb.auth.getSession();if(!data.session){document.getElementById('secureRoutineAdminLogin').classList.add('show');return false}adminUser=data.session.user;return true}
-async function openAdmin(){ui();if(!configured()){document.getElementById('secureRoutineAdminLogin').classList.add('show');msg('HTML में Supabase URL/Anon Key अभी नहीं डाला गया है।');return}if(await adminCheck()){await loadRoutes();document.getElementById('secureAdminPanel').classList.add('show')}}
+async function openAdmin(){ui();if(!configured()){document.getElementById('secureRoutineAdminLogin').classList.add('show');msg('Supabase Public Anon Key सेट नहीं है।');return}if(!sb)sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);if(await adminCheck()){await loadRoutes();document.getElementById('secureAdminPanel').classList.add('show')}}
 async function loadRoutes(){const {data,error}=await sb.from('routine_routes').select('id,route_no,title').order('route_no');if(error){pmsg(error.message);return}const s=document.getElementById('sraRouteSelect'),list=document.getElementById('sraRouteList');s.innerHTML='';list.innerHTML='';(data||[]).forEach(r=>{const o=document.createElement('option');o.value=r.id;o.textContent=r.route_no+' — '+r.title;s.appendChild(o);const row=document.createElement('div');row.className='secure-admin-route-row';row.innerHTML='<b>'+r.route_no+'</b><span>'+esc(r.title)+'</span><button data-id="'+r.id+'" data-no="'+r.route_no+'">Rename</button><button class="danger" data-del="'+r.id+'">Delete</button>';list.appendChild(row)});list.querySelectorAll('[data-id]').forEach(b=>b.onclick=()=>renameRoute(b.dataset.id,b.dataset.no));list.querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>deleteRoute(b.dataset.del))}
 function esc(s){return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 async function addRoute(){const title=document.getElementById('sraRouteTitle').value.trim();if(!title)return pmsg('Routing का नाम लिखें।');const {data:mx}=await sb.from('routine_routes').select('route_no').order('route_no',{ascending:false}).limit(1);const no=Math.max(4,(mx&&mx[0]?Number(mx[0].route_no):4))+1;const r=await sb.from('routine_routes').insert({route_no:no,title,owner_id:adminUser.id}).select().single();if(r.error){pmsg(r.error.message);return}document.getElementById('sraRouteTitle').value='';pmsg('Routing '+no+' जोड़ दिया गया।');await loadRoutes()}
@@ -17052,7 +17079,7 @@ async function deleteRoute(id){if(!confirm('इस Routing को delete कर�
 async function addTask(){const routeId=document.getElementById('sraRouteSelect').value,text=document.getElementById('sraTaskText').value.trim(),emoji=document.getElementById('sraEmoji').value.trim()||'⭐';if(!routeId||!text)return pmsg('Routing और Task दोनों भरें।');const r=await sb.from('routine_tasks').insert({route_id:routeId,text,emoji,owner_id:adminUser.id});if(r.error){pmsg(r.error.message);return}document.getElementById('sraTaskText').value='';pmsg('Task जोड़ दिया गया।')}
 window.openSecureMyRoutineAdmin=openAdmin;
 function addSecureButton(){document.querySelectorAll('.routine-switch-actions').forEach(bar=>{if(bar.querySelector('.secure-admin-open-btn'))return;const b=document.createElement('button');b.type='button';b.className='routine-manager-btn secure-admin-open-btn';b.textContent='⚙️';b.title='Secure Admin';b.onclick=openAdmin;bar.appendChild(b)})}
-function boot(){ui();addSecureButton()}
+function boot(){ui();init();addSecureButton()}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();setTimeout(boot,500);setTimeout(boot,1500);
 })();
 </script>
