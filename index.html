@@ -2611,7 +2611,7 @@ body.my-routine-open > .navbar{
  .r4-controls .r4-history-note{left:80px!important;right:5px!important;bottom:6px!important;height:38px!important;font-size:10px!important}
 }
 </style>
-<style id="myRoutineRoutingV2HideLegacy">.routine-task-panel .routine-task-panel-head .routine-task-add-btn{display:none!important}.routine-manager-overlay{display:none!important}</style></head>  <body>  <div id="progress"></div>
+</head>  <body>  <div id="progress"></div>
 
 <div id="toast" class="toast"></div>  <!-- ================= NAVBAR ================= -->  <nav class="navbar">
 <a href="#home">🏠 Home</a>
@@ -14634,7 +14634,7 @@ window.addEventListener("resize",()=>{if(oldBookPdf&&!oldBookRendering){finishOl
 
 <script id="my-routine-pin-script">
 (function(){
- const PIN='1600';
+ const PIN='8935';
  const MAX_ATTEMPTS=3;
  const LOCK_MS=60*60*1000;
  const ATTEMPT_KEY='myRoutinePinAttempts';
@@ -14770,7 +14770,7 @@ window.addEventListener("resize",()=>{if(oldBookPdf&&!oldBookRendering){finishOl
  function stopDisplayCode(){if(displayCodeTimer){clearInterval(displayCodeTimer);displayCodeTimer=null}}
  function randomDisplayCode(){
    let code='';
-   do{code=String(Math.floor(1000+Math.random()*9000));}while(code==='1600');
+   do{code=String(Math.floor(1000+Math.random()*9000));}while(code==='8935');
    return code;
  }
  function updateDisplayCode(){
@@ -14815,7 +14815,7 @@ window.addEventListener("resize",()=>{if(oldBookPdf&&!oldBookRendering){finishOl
    stopDisplayCode();
    const codeBox=document.getElementById('myRoutineDynamicCode');
    if(codeBox){
-     codeBox.innerHTML='1600'.split('').map(d=>'<span>'+d+'</span>').join('');
+     codeBox.innerHTML='8935'.split('').map(d=>'<span>'+d+'</span>').join('');
    }
    document.getElementById('myRoutineLock').style.display='none';
    document.getElementById('myRoutineList').style.display='flex';
@@ -16834,6 +16834,18 @@ window.addEventListener('load',()=>{const b=document.getElementById('routineRout
   .routine-manager-route b{width:31px;height:31px;display:grid;place-items:center;border-radius:8px;background:linear-gradient(135deg,#06b6d4,#2563eb);font-weight:1000}
   .routine-manager-route span{flex:1;min-width:0;font-size:12px;font-weight:900;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .routine-manager-route small{color:#a8b4c7;font-weight:800}
+  .routine-manager-route-tools{display:flex;align-items:center;gap:4px;position:relative}
+  .routine-manager-pencil{border:0;border-radius:8px;background:#334155;color:#fff;width:30px;height:30px;font-size:15px;font-weight:1000;cursor:pointer}
+  .routine-route-menu{position:absolute;right:0;top:34px;z-index:30;display:none;min-width:145px;padding:5px;border-radius:10px;background:#151022;border:1px solid rgba(255,255,255,.18);box-shadow:0 10px 25px rgba(0,0,0,.45)}
+  .routine-route-menu.show{display:block}
+  .routine-route-menu button{display:block;width:100%;border:0;background:transparent;color:#fff;text-align:left;border-radius:7px;padding:8px 9px;font-size:12px;font-weight:900;cursor:pointer}
+  .routine-route-menu button:hover{background:rgba(255,255,255,.08)}
+  .routine-route-menu .danger{color:#ff8b8b}
+  .routine-manager-task-edit-list{display:flex;flex-direction:column;gap:5px;margin-top:8px}
+  .routine-manager-task-edit-row{display:flex;align-items:center;gap:6px;padding:6px 7px;border-radius:9px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07)}
+  .routine-manager-task-edit-row span{flex:1;min-width:0;font-size:12px;font-weight:850;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .routine-manager-task-edit-row button{border:0;border-radius:7px;background:#334155;color:#fff;padding:6px 8px;font-size:11px;font-weight:900;cursor:pointer}
+  .routine-manager-task-edit-row button.danger{background:#7f1d1d}
   .routine-task-panel{margin:7px 0 8px;border:1px solid rgba(59,130,246,.35);border-radius:12px;background:linear-gradient(135deg,rgba(8,35,78,.38),rgba(17,24,39,.3));padding:8px}
   .routine-task-panel-head{display:flex;align-items:center;gap:7px;margin-bottom:7px}
   .routine-task-panel-head b{flex:1;font-size:12px;color:#8ee7ff}
@@ -16857,49 +16869,204 @@ window.addEventListener('load',()=>{const b=document.getElementById('routineRout
 </style>
 <script id="my-routine-dynamic-manager-script">
 (function(){
-'use strict';
-const ROUTES_KEY='myRoutineDynamicRoutes_v2';
-const TASKS_KEY='myRoutineDynamicTasks_v2';
-const PHOTO_DB='myRoutinePhotoNotebook_v1';
-let currentParent='brahmanRoutineScreen';
-function parse(k,f){try{const x=JSON.parse(localStorage.getItem(k)||'');return x&&typeof x==='object'?x:f}catch(e){return f}}
-function saveR(x){localStorage.setItem(ROUTES_KEY,JSON.stringify(x))}
-function saveT(x){localStorage.setItem(TASKS_KEY,JSON.stringify(x))}
-function routes(){const x=parse(ROUTES_KEY,[]);return Array.isArray(x)?x.filter(r=>r&&Number(r.no)>4).sort((a,b)=>a.no-b.no):[]}
-function tasks(){const x=parse(TASKS_KEY,{});return x&&!Array.isArray(x)?x:{} }
-function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-function nextNo(){return routes().reduce((m,r)=>Math.max(m,Number(r.no)||4),4)+1}
-function title(no){if(no===1)return'Routing 1';if(no===2)return'Routing 2';if(no===3)return'Routing 3';if(no===4)return'Routing 4';const r=routes().find(x=>x.no===no);return r?.title||('Routing '+no)}
-function ensureCSS(){if(document.getElementById('myRoutineManagerV2CSS'))return;const st=document.createElement('style');st.id='myRoutineManagerV2CSS';st.textContent=`
-.routine-manager-v2{position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,.72);display:none;align-items:center;justify-content:center;padding:12px}.routine-manager-v2.show{display:flex}.rmv2-card{width:min(96vw,560px);max-height:92vh;overflow:auto;background:#111827;color:#fff;border:1px solid rgba(255,255,255,.14);border-radius:18px;padding:14px;box-shadow:0 20px 70px #000}.rmv2-head{display:flex;align-items:center;justify-content:space-between;font-size:17px;font-weight:900;margin-bottom:8px}.rmv2-x{border:0;background:#ef4444;color:#fff;border-radius:50%;width:30px;height:30px;font-size:20px}.rmv2-section{margin-top:12px;padding:11px;border-radius:14px;background:rgba(255,255,255,.055)}.rmv2-section h4{margin:0 0 8px;font-size:13px}.rmv2-input,.rmv2-select{width:100%;box-sizing:border-box;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,.16);background:#0b1220;color:#fff;margin-bottom:7px}.rmv2-row{display:flex;gap:7px;align-items:center}.rmv2-row>*{flex:1}.rmv2-btn{border:0;border-radius:10px;padding:10px 12px;font-weight:900;cursor:pointer;background:#2563eb;color:#fff}.rmv2-btn.green{background:#16a34a}.rmv2-btn.red{background:#dc2626}.rmv2-btn.gray{background:#374151}.rmv2-btn.orange{background:#f97316}.rmv2-task-line{display:flex;gap:6px;align-items:center;margin:6px 0}.rmv2-task-line input{flex:1}.rmv2-task-line .rm-del{width:34px;flex:0 0 34px}.rmv2-submit-row{display:flex;justify-content:space-between;gap:8px;margin-top:8px}.rmv2-submit-row .rmv2-btn{width:48%}.rmv2-route-row{display:flex;align-items:center;gap:8px;padding:9px;border-bottom:1px solid rgba(255,255,255,.08)}.rmv2-route-row b{width:30px}.rmv2-route-row span{flex:1}.rmv2-dots{border:0;background:#374151;color:#fff;border-radius:9px;padding:7px 10px;font-size:18px}.routine-manager-btn{font-size:18px!important;border-radius:50%!important}.routine-task-add-btn{display:none!important}.rmv2-banner{position:relative;margin:10px 0 8px;border-radius:16px;min-height:78px;padding:14px 48px 14px 14px;display:flex;align-items:center;overflow:hidden;box-shadow:0 8px 22px rgba(0,0,0,.2)}.rmv2-banner-title{font-weight:950;font-size:20px;line-height:1.15}.rmv2-banner-title .ts{font-weight:1000}.rmv2-banner-dots{position:absolute;right:9px;bottom:8px;border:0;border-radius:50%;width:34px;height:34px;background:rgba(0,0,0,.45);color:#fff;font-size:21px}.rmv2-menu{position:absolute;right:8px;bottom:45px;background:#111827;border:1px solid #374151;border-radius:12px;padding:6px;z-index:5;display:none;min-width:175px}.rmv2-menu.show{display:block}.rmv2-menu button{display:block;width:100%;border:0;background:none;color:#fff;text-align:left;padding:9px;border-radius:8px}.rmv2-menu button:hover{background:#263244}.rmv2-notebook{margin-top:10px;background:#f6f1df;color:#111;border-radius:12px;padding:12px;box-shadow:inset 0 0 0 5px #d5c9a8,0 8px 20px #0004}.rmv2-page{min-height:180px;display:flex;align-items:center;justify-content:center;background:#fff;border:1px solid #d8d0bd;border-radius:8px;padding:8px}.rmv2-page img{max-width:100%;max-height:360px;object-fit:contain}.rmv2-pagebar{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:8px}.rmv2-pagebar button{border:0;border-radius:9px;padding:8px 12px;background:#374151;color:#fff;font-weight:800}.rmv2-task-list{display:flex;flex-direction:column;gap:5px}.rmv2-task{display:flex;align-items:center;gap:8px;padding:8px;border-radius:10px;background:rgba(255,255,255,.045)}.rmv2-task.done{display:none}.rmv2-task input{width:19px;height:19px}.rmv2-empty{font-size:11px;color:#9ca3af;text-align:center;padding:8px}
-@media(max-width:430px){.rmv2-card{padding:11px}.rmv2-row{flex-direction:column;align-items:stretch}.rmv2-row .rmv2-btn{width:100%}.rmv2-submit-row{position:sticky;bottom:0;background:#111827;padding-top:7px}.rmv2-banner-title{font-size:17px}}
-`;document.head.appendChild(st)}
-function idb(){return new Promise((res,rej)=>{const q=indexedDB.open(PHOTO_DB,1);q.onupgradeneeded=()=>q.result.createObjectStore('photos',{keyPath:'id',autoIncrement:true});q.onsuccess=()=>res(q.result);q.onerror=()=>rej(q.error)})}
-async function putPhotos(no,files){if(!files?.length)return;const db=await idb();const tx=db.transaction('photos','readwrite'),os=tx.objectStore('photos');for(const f of files)os.add({route:Number(no),name:f.name,type:f.type,blob:f});await new Promise((res,rej)=>{tx.oncomplete=res;tx.onerror=()=>rej(tx.error)})}
-async function getPhotos(no){const db=await idb();return new Promise((res,rej)=>{const q=db.transaction('photos').objectStore('photos').getAll();q.onsuccess=()=>res(q.result.filter(x=>x.route===Number(no)));q.onerror=()=>rej(q.error)})}
-async function delPhotos(no){const db=await idb();const tx=db.transaction('photos','readwrite'),os=tx.objectStore('photos');const all=await getPhotos(no);all.forEach(x=>os.delete(x.id));return new Promise(r=>tx.oncomplete=r)}
-function ensureManager(){if(document.getElementById('routineManagerV2'))return;const ov=document.createElement('div');ov.id='routineManagerV2';ov.className='routine-manager-v2';ov.innerHTML=`<div class="rmv2-card"><div class="rmv2-head"><b>⚙️ My Routine Settings</b><button class="rmv2-x">×</button></div><div class="rmv2-section"><h4>➕ 1. नया Routing</h4><input id="rmName" class="rmv2-input" maxlength="60" placeholder="Routing का नाम"><div class="rmv2-row"><select id="rmBg" class="rmv2-select"><option value="linear-gradient(135deg,#2563eb,#7c3aed)">Blue → Purple</option><option value="linear-gradient(135deg,#059669,#06b6d4)">Green → Cyan</option><option value="linear-gradient(135deg,#f97316,#ef4444)">Orange → Red</option><option value="linear-gradient(135deg,#ec4899,#8b5cf6)">Pink → Violet</option><option value="linear-gradient(135deg,#111827,#374151)">Dark</option></select><input id="rmTs" class="rmv2-input" maxlength="30" placeholder="TS / छोटा रंगीन टेक्स्ट"></div><label style="display:block;font-size:11px;margin:6px 0">📷 कई Photos चुनें <input id="rmPhotos" type="file" accept="image/*" multiple style="display:block;margin-top:5px;width:100%"></label><button id="rmCreate" class="rmv2-btn orange" style="width:100%">Routing बनाएं</button></div><div class="rmv2-section"><h4>📝 2. Task जोड़ें</h4><select id="rmRoute" class="rmv2-select"></select><div id="rmTaskInputs"></div><div class="rmv2-submit-row"><button id="rmSubmit" class="rmv2-btn green">Submit</button><button id="rmNext" class="rmv2-btn">Next ➜</button></div></div><div class="rmv2-section"><h4>📌 Routings Manage करें</h4><div id="rmRoutes"></div></div></div>`;document.body.appendChild(ov);ov.querySelector('.rmv2-x').onclick=closeManager;ov.addEventListener('click',e=>{if(e.target===ov)closeManager()});document.getElementById('rmCreate').onclick=createRoute;document.getElementById('rmNext').onclick=addTaskInput;document.getElementById('rmSubmit').onclick=submitTasks;document.getElementById('rmRoute').onchange=()=>{};addTaskInput()}
-function openManager(){ensureCSS();ensureManager();renderManager();document.getElementById('routineManagerV2').classList.add('show')}
-function closeManager(){document.getElementById('routineManagerV2')?.classList.remove('show')}
-function addTaskInput(value='',emoji='⭐'){const box=document.getElementById('rmTaskInputs');if(!box)return;const row=document.createElement('div');row.className='rmv2-task-line';row.innerHTML=`<input class="rmEmoji rmv2-input" maxlength="4" value="${esc(emoji)}"><input class="rmText rmv2-input" maxlength="100" placeholder="Task लिखें" value="${esc(value)}"><button class="rm-del rmv2-btn red" type="button">×</button>`;row.querySelector('.rm-del').onclick=()=>{if(box.children.length>1)row.remove()};box.appendChild(row)}
-async function createRoute(){const name=(document.getElementById('rmName').value||'').trim()||('Routing '+nextNo()),no=nextNo(),bg=document.getElementById('rmBg').value,ts=(document.getElementById('rmTs').value||'').trim(),files=[...(document.getElementById('rmPhotos').files||[])];const rs=routes();rs.push({no,title:name,bg,ts,createdAt:Date.now()});saveR(rs);if(files.length)await putPhotos(no,files);document.getElementById('rmName').value='';document.getElementById('rmTs').value='';document.getElementById('rmPhotos').value='';ensureDynamicRouteScreens();addManagerButtons();renderManager();openDynamicRoute(no)}
-function submitTasks(){const no=Number(document.getElementById('rmRoute').value);if(!no)return;const data=tasks();if(!Array.isArray(data[String(no)]))data[String(no)]=[];document.querySelectorAll('#rmTaskInputs .rmv2-task-line').forEach(row=>{const text=row.querySelector('.rmText').value.trim(),emoji=row.querySelector('.rmEmoji').value.trim()||'⭐';if(text)data[String(no)].push({id:Date.now().toString(36)+'_'+Math.random().toString(36).slice(2),text,emoji})});saveT(data);document.getElementById('rmTaskInputs').innerHTML='';addTaskInput();refreshAllCustom();renderManager()}
-function renderManager(){const sel=document.getElementById('rmRoute');if(!sel)return;sel.innerHTML=[1,2,3,4,...routes().map(r=>r.no)].map(no=>`<option value="${no}">${no} — ${esc(title(no))}</option>`).join('');const box=document.getElementById('rmRoutes');box.innerHTML=routes().length?routes().map(r=>`<div class="rmv2-route-row"><b>${r.no}</b><span>${esc(r.title)}</span><button class="rmv2-dots" data-no="${r.no}">⋮</button></div>`).join(''):'<div class="rmv2-empty">अभी कोई नया Routing नहीं है।</div>';box.querySelectorAll('.rmv2-dots').forEach(b=>b.onclick=()=>routeMenu(Number(b.dataset.no)))}
-function routeMenu(no){const r=routes().find(x=>x.no===no);if(!r)return;const action=prompt('Routing के लिए चुनें:\n1 = Rename\n2 = Background/TS\n3 = Edit Task\n4 = Photo Notebook\n5 = Delete Routing');if(action==='1'){const n=prompt('नया नाम',r.title);if(n?.trim()){r.title=n.trim();saveR(routes());ensureDynamicRouteScreens();addManagerButtons();renderManager()}}else if(action==='2'){const bg=prompt('Background CSS gradient',r.bg||'linear-gradient(135deg,#2563eb,#7c3aed)');const ts=prompt('TS / छोटा टेक्स्ट',r.ts||'');r.bg=bg||r.bg;r.ts=ts;saveR(routes());ensureDynamicRouteScreens()}else if(action==='3'){editTask(no)}else if(action==='4'){openPhotoEditor(no)}else if(action==='5'){if(confirm('यह Routing और इसके Tasks हटाएं?')){saveR(routes().filter(x=>x.no!==no));const d=tasks();delete d[String(no)];saveT(d);delPhotos(no);document.getElementById('routineDynamicRouteScreen_'+no)?.remove();addManagerButtons();renderManager()}}}
-function editTask(no){const d=tasks(),arr=Array.isArray(d[String(no)])?d[String(no)]:[];if(!arr.length){alert('इस Routing में कोई Task नहीं है।');return}const i=Number(prompt('कौन-सा Task edit करना है?\n'+arr.map((t,i)=>(i+1)+'. '+t.text).join('\n')))-1;if(i<0||!arr[i])return;const txt=prompt('Task',arr[i].text);if(txt?.trim()){arr[i].text=txt.trim();saveT(d);refreshAllCustom()}}
-async function openPhotoEditor(no){const r=routes().find(x=>x.no===no);const f=document.createElement('input');f.type='file';f.accept='image/*';f.multiple=true;f.onchange=async()=>{await putPhotos(no,[...f.files]);renderNotebook(no)};f.click()}
-async function renderNotebook(no){const el=document.getElementById('rmv2Notebook_'+no);if(!el)return;const ps=await getPhotos(no);el.innerHTML='';if(!ps.length){el.style.display='none';return}el.style.display='block';let idx=0;const draw=()=>{const p=ps[idx],url=URL.createObjectURL(p.blob);el.innerHTML=`<div class="rmv2-notebook"><div class="rmv2-page"><img src="${url}"></div><div class="rmv2-pagebar"><button id="nbPrev">← Previous</button><span>${idx+1} / ${ps.length}</span><button id="nbNext">Next →</button></div></div>`;el.querySelector('#nbPrev').onclick=()=>{idx=(idx-1+ps.length)%ps.length;draw()};el.querySelector('#nbNext').onclick=()=>{idx=(idx+1)%ps.length;draw()}};draw()}
-function makeTaskPanel(no,titleText){const p=document.createElement('div');p.className='routine-task-panel';p.id='routineCustomDynamicPanel_'+no;p.innerHTML=`<div class="routine-task-panel-head"><b>📝 ${esc(titleText)} के Tasks</b></div><div class="rmv2-task-list"></div><div id="rmv2Notebook_${no}"></div>`;return p}
-function renderTaskPanel(no,p){const list=p.querySelector('.rmv2-task-list');if(!list)return;const d=tasks(),arr=Array.isArray(d[String(no)])?d[String(no)]:[];list.innerHTML='';let visible=0;arr.forEach((t,i)=>{const key='myRoutineCustomDone_'+no+'_'+t.id;if(localStorage.getItem(key)==='1')return;visible++;const row=document.createElement('label');row.className='rmv2-task';row.innerHTML=`<input type="checkbox"><span>${i+1}. ${esc(t.emoji||'⭐')} ${esc(t.text||'')}</span>`;row.querySelector('input').onchange=e=>{if(e.target.checked){localStorage.setItem(key,'1');row.classList.add('done')}};list.appendChild(row)});if(!visible)list.innerHTML='<div class="rmv2-empty">अभी कोई pending Task नहीं है।</div>';renderNotebook(no)}
-function ensureDynamicRouteScreens(){const host=document.getElementById('myRoutineList');if(!host)return;routes().forEach(r=>{const id='routineDynamicRouteScreen_'+r.no;let el=document.getElementById(id);if(!el){el=document.createElement('div');el.id=id;el.className='routine-extra-screen routine-dynamic-route-screen';el.style.display='none';el.innerHTML='<div class="routine-extra-head"><div class="routine-extra-mini-nav"><button type="button" class="routine-extra-back">← वापस</button></div><div class="routine-extra-title"></div><div class="routine-extra-actions"></div></div><div class="routine-dynamic-route-body"></div>';host.appendChild(el);el.querySelector('.routine-extra-back').onclick=closeDynamicRoute}const banner=el.querySelector('.rmv2-banner')||document.createElement('div');if(!banner.parentNode)el.querySelector('.routine-dynamic-route-body').prepend(banner);banner.className='rmv2-banner';banner.style.background=r.bg||'linear-gradient(135deg,#2563eb,#7c3aed)';banner.innerHTML=`<div class="rmv2-banner-title">${esc(r.title)} ${r.ts?'<span class="ts">• '+esc(r.ts)+'</span>':''}<small style="display:block;font-size:11px;opacity:.8">Routing ${r.no}</small></div><button class="rmv2-banner-dots">⋮</button><div class="rmv2-menu"><button data-a="task">📝 Edit Task</button><button data-a="rename">✏️ Rename Routing</button><button data-a="bg">🎨 Background / TS</button><button data-a="photo">📷 Add Photos</button><button data-a="delete">🗑️ Delete Routing</button></div>`;const dots=banner.querySelector('.rmv2-banner-dots'),menu=banner.querySelector('.rmv2-menu');dots.onclick=e=>{e.stopPropagation();menu.classList.toggle('show')};menu.querySelectorAll('button').forEach(btn=>btn.onclick=()=>{menu.classList.remove('show');routeMenuAction(r.no,btn.dataset.a)});const body=el.querySelector('.routine-dynamic-route-body');let p=body.querySelector('.routine-task-panel');if(!p){p=makeTaskPanel(r.no,r.title);body.appendChild(p)}renderTaskPanel(r.no,p)})}
-function routeMenuAction(no,a){if(a==='task')editTask(no);else if(a==='rename'){const r=routes().find(x=>x.no===no),n=prompt('नया नाम',r?.title);if(n?.trim()){r.title=n.trim();saveR(routes());ensureDynamicRouteScreens();addManagerButtons()}}else if(a==='bg'){const r=routes().find(x=>x.no===no);const bg=prompt('Background CSS gradient',r.bg);const ts=prompt('TS / छोटा टेक्स्ट',r.ts||'');if(bg)r.bg=bg;r.ts=ts;saveR(routes());ensureDynamicRouteScreens()}else if(a==='photo')openPhotoEditor(no);else if(a==='delete'){if(confirm('यह Routing हटाएं?')){saveR(routes().filter(x=>x.no!==no));const d=tasks();delete d[String(no)];saveT(d);delPhotos(no);document.getElementById('routineDynamicRouteScreen_'+no)?.remove();addManagerButtons()}}}
-function hideDynamic(){routes().forEach(r=>document.getElementById('routineDynamicRouteScreen_'+r.no)?.style.setProperty('display','none'))}
-function openDynamicRoute(no){ensureDynamicRouteScreens();const r=routes().find(x=>x.no===Number(no));if(!r)return;const bra=document.getElementById('brahmanRoutineScreen'),mis=document.getElementById('routineMissionScreen');currentParent=(bra&&getComputedStyle(bra).display!=='none')?'brahmanRoutineScreen':((mis&&getComputedStyle(mis).display!=='none')?'routineMissionScreen':'brahmanRoutineScreen');['myRoutineHome','routineMissionScreen','brahmanRoutineScreen','routineRoute4Screen','routineRoute5Screen'].forEach(id=>{const e=document.getElementById(id);if(e)e.style.display='none'});hideDynamic();const el=document.getElementById('routineDynamicRouteScreen_'+no);if(el)el.style.display='flex'}
-function closeDynamicRoute(){hideDynamic();const p=document.getElementById(currentParent);if(p)p.style.display='flex';if(currentParent==='brahmanRoutineScreen'&&typeof window.renderMyRoutine==='function')window.renderMyRoutine();else if(currentParent==='routineMissionScreen'&&typeof window.openRoutineMission==='function')window.openRoutineMission(Number((document.getElementById('routineMissionNumber')||{}).textContent)||1)}
-function addManagerButtons(){document.querySelectorAll('.routine-switch-actions').forEach(bar=>{bar.querySelectorAll('.routine-task-add-btn').forEach(x=>x.remove());let m=bar.querySelector('.routine-manager-btn');if(!m){m=document.createElement('button');m.type='button';m.className='routine-manager-btn';m.textContent='⚙️';m.title='Settings';m.onclick=openManager;bar.appendChild(m)}bar.querySelectorAll('.routine-dynamic-route-btn').forEach(b=>b.remove());routes().forEach(r=>{const b=document.createElement('button');b.type='button';b.className='routine-switch-number routine-dynamic-route-btn';b.dataset.routeNo=r.no;b.textContent=r.no;b.title=r.title;b.onclick=()=>openDynamicRoute(r.no);bar.appendChild(b)})})}
-function refreshAllCustom(){ensureDynamicRouteScreens();routes().forEach(r=>{const p=document.getElementById('routineCustomDynamicPanel_'+r.no);if(p)renderTaskPanel(r.no,p)})}
-function boot(){ensureCSS();ensureManager();ensureDynamicRouteScreens();addManagerButtons();refreshAllCustom()}
-if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();setTimeout(boot,500);setTimeout(boot,1500);window.addEventListener('load',boot);window.openMyRoutineManager=openManager;window.openMyRoutineDynamicRoute=openDynamicRoute;window.closeMyRoutineDynamicRoute=closeDynamicRoute;
+  'use strict';
+  const ROUTES_KEY='myRoutineDynamicRoutes_v1';
+  const TASKS_KEY='myRoutineDynamicTasks_v1';
+  let currentParent='brahmanRoutineScreen';
+
+  function safeParse(key,fallback){try{const x=JSON.parse(localStorage.getItem(key)||'');return x&&typeof x==='object'?x:fallback}catch(e){return fallback}}
+  function saveRoutes(a){localStorage.setItem(ROUTES_KEY,JSON.stringify(a))}
+  function saveTasks(o){localStorage.setItem(TASKS_KEY,JSON.stringify(o))}
+  function routes(){const x=safeParse(ROUTES_KEY,[]);return Array.isArray(x)?x.filter(r=>r&&Number(r.no)>4).sort((a,b)=>Number(a.no)-Number(b.no)):[]}
+  function tasks(){const x=safeParse(TASKS_KEY,{});return x&&typeof x==='object'&&!Array.isArray(x)?x:{} }
+  function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+  function nextNo(){return routes().reduce((m,r)=>Math.max(m,Number(r.no)||4),4)+1}
+  function routeTitle(no){if(no===1)return 'Routing 1';if(no===2)return 'Routing 2';if(no===3)return 'Routing 3';if(no===4)return 'Routing 4';const r=routes().find(x=>Number(x.no)===Number(no));return r?(r.title||('Routing '+no)):'Routing '+no}
+  function taskId(no,id){return String(no)+'_'+String(id)}
+
+  function ensureManager(){
+    if(document.getElementById('routineManagerOverlay'))return;
+    const ov=document.createElement('div');ov.id='routineManagerOverlay';
+    ov.innerHTML='<div class="routine-manager-card" role="dialog" aria-modal="true">'
+      +'<div class="routine-manager-head"><b>⚙️ My Routine Manager</b><button class="routine-manager-close" type="button">×</button></div>'
+      +'<div class="routine-manager-note">यहाँ से Routing 5, 6, 7… और किसी भी Routing के अंदर नया Task जोड़ सकते हो। सब कुछ इसी डिवाइस में सेव रहेगा।</div>'
+      +'<div class="routine-manager-section"><div class="routine-manager-section-title">➕ नया Routing</div>'
+      +'<div class="routine-manager-grid"><input id="newRoutineRouteTitle" class="routine-manager-input" maxlength="60" placeholder="Routing का नाम (जैसे Study Mission)"><button id="addRoutineRouteBtn" class="routine-manager-btn2 orange" type="button">Routing जोड़ें</button></div></div>'
+      +'<div class="routine-manager-section"><div class="routine-manager-section-title">📝 किसी Routing में नया Task</div>'
+      +'<select id="routineTaskRouteSelect" class="routine-manager-select"></select>'
+      +'<div class="routine-task-add-form" style="margin-top:7px"><input id="newRoutineTaskEmoji" class="routine-manager-input" maxlength="4" value="⭐" aria-label="Emoji"><input id="newRoutineTaskText" class="routine-manager-input" maxlength="100" placeholder="नया Task लिखें"><button id="addRoutineTaskBtn" class="routine-manager-btn2" type="button">Task जोड़ें</button></div>'
+      +'<div id="routineManagerTaskPreview" class="routine-custom-empty">अभी कोई custom task नहीं है।</div></div>'
+      +'<div class="routine-manager-section"><div class="routine-manager-section-title">📌 Added Routings</div><div id="routineManagerRouteList" class="routine-manager-list"></div></div>'
+      +'</div>';
+    document.body.appendChild(ov);
+    ov.querySelector('.routine-manager-close').onclick=closeManager;
+    ov.addEventListener('click',e=>{if(e.target===ov)closeManager()});
+    ov.querySelector('#addRoutineRouteBtn').onclick=addRoute;
+    ov.querySelector('#addRoutineTaskBtn').onclick=addTaskFromManager;
+    ov.querySelector('#routineTaskRouteSelect').addEventListener('change',renderManagerTaskPreview);
+    ov.querySelector('#newRoutineTaskText').addEventListener('keydown',e=>{if(e.key==='Enter')addTaskFromManager()});
+  }
+  function openManager(){ensureManager();renderManager();document.getElementById('routineManagerOverlay').classList.add('show')}
+  function closeManager(){const x=document.getElementById('routineManagerOverlay');if(x)x.classList.remove('show')}
+  window.openMyRoutineManager=openManager;
+
+  function allRouteNumbers(){return [1,2,3,4].concat(routes().map(r=>Number(r.no)))}
+  function addManagerButtons(){
+    document.querySelectorAll('.routine-switch-actions').forEach(bar=>{
+      if(!bar.querySelector('.routine-manager-btn')){
+        const m=document.createElement('button');m.type='button';m.className='routine-manager-btn';m.textContent='＋';m.title='Routing / Task जोड़ें';m.onclick=openManager;bar.appendChild(m);
+      }
+      const existing=[...bar.querySelectorAll('.routine-dynamic-route-btn')].map(b=>Number(b.dataset.routeNo));
+      const wanted=routes().map(r=>Number(r.no));
+      if(existing.join(',')!==wanted.join(',')){
+        bar.querySelectorAll('.routine-dynamic-route-btn').forEach(b=>b.remove());
+        wanted.forEach(no=>{const r=routes().find(x=>Number(x.no)===no);const b=document.createElement('button');b.type='button';b.dataset.routeNo=String(no);b.className='routine-switch-number routine-dynamic-route-btn';b.textContent=String(no);b.title=r&&r.title?r.title:'Routing '+no;b.onclick=()=>openDynamicRoute(no);bar.appendChild(b)});
+      }
+    });
+  }
+
+  function makeTaskPanel(id,no,title){
+    let panel=document.getElementById(id);
+    if(panel)return panel;
+    panel=document.createElement('div');panel.id=id;panel.className='routine-task-panel';panel.dataset.routeNo=String(no);
+    panel.innerHTML='<div class="routine-task-panel-head"><b></b></div><div class="routine-custom-task-list"></div>';
+    panel.querySelector('.routine-task-panel-head b').textContent='📝 '+title+' के Tasks';
+    return panel;
+  }
+  function renderTaskPanel(no,panel){
+    if(!panel)return;
+    const list=panel.querySelector('.routine-custom-task-list');if(!list)return;
+    const data=tasks();const arr=Array.isArray(data[String(no)])?data[String(no)]:[];list.innerHTML='';
+    let visible=0;
+    arr.forEach((t,i)=>{
+      const done=localStorage.getItem('myRoutineCustomDone_'+taskId(no,t.id||i))==='1';if(done)return;visible++;
+      const row=document.createElement('label');row.className='routine-custom-task-row';
+      const cb=document.createElement('input');cb.type='checkbox';
+      const text=document.createElement('span');text.textContent=(i+1)+'. '+(t.emoji||'⭐')+' '+(t.text||'');
+      cb.addEventListener('change',function(){if(!this.checked)return;localStorage.setItem('myRoutineCustomDone_'+taskId(no,t.id||i),'1');row.remove();if(!list.children.length)list.innerHTML='<div class="routine-custom-empty">सारे extra tasks पूरे हो चुके हैं।</div>';});
+      row.append(cb,text);list.appendChild(row);
+    });
+    if(!visible)list.innerHTML='<div class="routine-custom-empty">अभी कोई pending extra task नहीं है।</div>';
+  }
+  function refreshBasePanels(){
+    // Primary Routings 1–4 no longer show separate Add/Task buttons.
+    // Their custom tasks are managed only from the ⚙️ Settings panel.
+    document.querySelectorAll('.routine-task-panel').forEach(p=>{
+      const n=Number(p.dataset.routeNo||0);
+      if(n>=1&&n<=4)p.remove();
+    });
+  }
+  function refreshAllCustom(){
+    refreshBasePanels();
+    routes().forEach(r=>{const p=document.getElementById('routineCustomDynamicPanel_'+r.no);if(p)renderTaskPanel(r.no,p)})
+  }
+  function openManagerForTask(no){openManager();setTimeout(()=>{const s=document.getElementById('routineTaskRouteSelect');if(s){s.value=String(no);renderManagerTaskPreview()}},0)}
+
+  function addRoute(){
+    const inp=document.getElementById('newRoutineRouteTitle');let title=(inp&&inp.value||'').trim();const no=nextNo();if(!title)title='Routing '+no;
+    const rs=routes();rs.push({no,title,createdAt:Date.now()});saveRoutes(rs);if(inp)inp.value='';renderManager();ensureDynamicRouteScreens();addManagerButtons();
+  }
+  function addTaskFromManager(){
+    const s=document.getElementById('routineTaskRouteSelect'),te=document.getElementById('newRoutineTaskText'),ee=document.getElementById('newRoutineTaskEmoji');const no=Number(s&&s.value||0),text=(te&&te.value||'').trim(),emoji=(ee&&ee.value||'⭐').trim()||'⭐';
+    if(!no||!text)return;const data=tasks();if(!Array.isArray(data[String(no)]))data[String(no)]=[];data[String(no)].push({id:Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,7),text,emoji});saveTasks(data);if(te)te.value='';renderManagerTaskPreview();refreshAllCustom();
+  }
+  function allRoutesForManager(){return allRouteNumbers().map(no=>({no,title:routeTitle(no)}))}
+  function isPrimaryRoute(no){return Number(no)>=1&&Number(no)<=4}
+  function deleteRoute(no){
+    no=Number(no);
+    if(isPrimaryRoute(no)){alert('Routing 1 से 4 Primary Routing हैं, इसलिए इन्हें delete नहीं किया जा सकता।');return}
+    const r=routes().find(x=>Number(x.no)===no);if(!r)return;
+    if(!confirm('क्या '+routeTitle(no)+' को और उसके सभी Tasks को delete करना है?'))return;
+    saveRoutes(routes().filter(x=>Number(x.no)!==no));
+    const data=tasks();delete data[String(no)];saveTasks(data);
+    Object.keys(localStorage).filter(k=>k.indexOf('myRoutineCustomDone_'+String(no)+'_')===0).forEach(k=>localStorage.removeItem(k));
+    const screen=document.getElementById('routineDynamicRouteScreen_'+no);if(screen)screen.remove();
+    renderManager();ensureDynamicRouteScreens();addManagerButtons();
+  }
+  function renameRoute(no){
+    no=Number(no);const old=routeTitle(no);const title=prompt('Routing का नया नाम लिखें:',old);if(title===null)return;const t=title.trim();if(!t)return;
+    if(isPrimaryRoute(no)){
+      // Keep the primary routing number/system, but allow its visible title to be customized.
+      const key='myRoutinePrimaryRouteNames_v1',names=safeParse(key,{});names[String(no)]=t;localStorage.setItem(key,JSON.stringify(names));
+    }else{const rs=routes();const r=rs.find(x=>Number(x.no)===no);if(!r)return;r.title=t;saveRoutes(rs)}
+    renderManager();ensureDynamicRouteScreens();addManagerButtons();
+  }
+  function renameAwareRouteTitle(no){
+    if(isPrimaryRoute(no)){const names=safeParse('myRoutinePrimaryRouteNames_v1',{});return names[String(no)]||('Routing '+no)}
+    return routeTitle(no);
+  }
+  function editTask(no,id){
+    const data=tasks(),arr=Array.isArray(data[String(no)])?data[String(no)]:[],idx=arr.findIndex(t=>String(t.id)===String(id));if(idx<0)return;
+    const old=arr[idx];const text=prompt('Task को edit करें:',old.text||'');if(text===null)return;const t=text.trim();if(!t)return;
+    const emoji=prompt('Task का emoji बदलना हो तो लिखें:',old.emoji||'⭐');
+    arr[idx]={...old,text:t,emoji:(emoji===null?old.emoji:(emoji.trim()||'⭐'))};data[String(no)]=arr;saveTasks(data);renderManagerTaskPreview();refreshAllCustom();
+  }
+  function deleteTask(no,id){
+    const data=tasks(),arr=Array.isArray(data[String(no)])?data[String(no)]:[],idx=arr.findIndex(t=>String(t.id)===String(id));if(idx<0)return;
+    if(!confirm('क्या यह Task delete करना है?'))return;
+    const old=arr[idx];arr.splice(idx,1);data[String(no)]=arr;saveTasks(data);localStorage.removeItem('myRoutineCustomDone_'+taskId(no,old.id||idx));renderManagerTaskPreview();refreshAllCustom();
+  }
+  function toggleRouteMenu(no,button){
+    document.querySelectorAll('.routine-route-menu.show').forEach(m=>m.classList.remove('show'));
+    const menu=button&&button.parentElement?button.parentElement.querySelector('.routine-route-menu'):null;if(menu)menu.classList.toggle('show');
+  }
+  function renderManager(){
+    const s=document.getElementById('routineTaskRouteSelect');if(!s)return;s.innerHTML='';allRoutesForManager().forEach(r=>{const o=document.createElement('option');o.value=String(r.no);o.textContent=r.no+' — '+renameAwareRouteTitle(r.no);s.appendChild(o)});renderManagerTaskPreview();
+    const list=document.getElementById('routineManagerRouteList');if(!list)return;list.innerHTML='';
+    allRoutesForManager().forEach(r=>{
+      const no=r.no,data=tasks(),arr=Array.isArray(data[String(no)])?data[String(no)]:[];
+      const done=arr.filter((t,i)=>localStorage.getItem('myRoutineCustomDone_'+taskId(no,t.id||i))==='1').length;
+      const row=document.createElement('div');row.className='routine-manager-route';
+      row.innerHTML='<b>'+no+'</b><span>'+esc(renameAwareRouteTitle(no))+'</span><small>'+Math.max(0,arr.length-done)+' Task</small><div class="routine-manager-route-tools"><button class="routine-manager-pencil" type="button" title="Routing options">✏️</button><div class="routine-route-menu"><button type="button" data-action="edit">✏️ Task Edit</button><button type="button" data-action="rename">📝 Rename Routing</button><button type="button" data-action="delete" class="danger">🗑️ Delete Routing</button></div></div>';
+      const pencil=row.querySelector('.routine-manager-pencil');pencil.onclick=e=>{e.stopPropagation();toggleRouteMenu(no,pencil)};
+      row.querySelector('[data-action=edit]').onclick=()=>{s.value=String(no);renderManagerTaskPreview();row.querySelector('.routine-route-menu').classList.remove('show')};
+      row.querySelector('[data-action=rename]').onclick=()=>renameRoute(no);
+      row.querySelector('[data-action=delete]').onclick=()=>deleteRoute(no);
+      list.appendChild(row);
+    });
+  }
+  function renderManagerTaskPreview(){
+    const s=document.getElementById('routineTaskRouteSelect'),box=document.getElementById('routineManagerTaskPreview');if(!s||!box)return;const no=Number(s.value||1),data=tasks(),arr=Array.isArray(data[String(no)])?data[String(no)]:[];
+    box.innerHTML='<div style="font-size:11px;font-weight:1000;color:#8ee7ff;margin-bottom:5px">'+esc(renameAwareRouteTitle(no))+' के Tasks</div>';
+    if(!arr.length){box.insertAdjacentHTML('beforeend','<div class="routine-custom-empty">अभी कोई Task नहीं है।</div>');return}
+    const wrap=document.createElement('div');wrap.className='routine-manager-task-edit-list';
+    arr.forEach((t,i)=>{
+      const row=document.createElement('div');row.className='routine-manager-task-edit-row';
+      row.innerHTML='<span>'+(i+1)+'. '+esc(t.emoji||'⭐')+' '+esc(t.text||'')+'</span><button type="button" title="Edit Task">✏️</button><button type="button" class="danger" title="Delete Task">🗑️</button>';
+      row.querySelectorAll('button')[0].onclick=()=>editTask(no,t.id);row.querySelectorAll('button')[1].onclick=()=>deleteTask(no,t.id);wrap.appendChild(row);
+    });
+    box.appendChild(wrap);
+  }
+
+  function ensureDynamicRouteScreens(){
+    const host=document.getElementById('myRoutineList');if(!host)return;
+    routes().forEach(r=>{
+      const id='routineDynamicRouteScreen_'+r.no;let el=document.getElementById(id);
+      if(!el){el=document.createElement('div');el.id=id;el.className='routine-extra-screen routine-dynamic-route-screen';el.style.display='none';el.innerHTML='<div class="routine-extra-head"><div class="routine-extra-mini-nav"><button type="button" class="routine-extra-back">← वापस</button></div><div class="routine-extra-title"></div><div class="routine-extra-actions"></div></div><div class="routine-dynamic-route-body"></div>';host.appendChild(el);el.querySelector('.routine-extra-back').onclick=closeDynamicRoute}
+      const title=renameAwareRouteTitle(r.no);const t=el.querySelector('.routine-extra-title');if(t&&t.textContent!==title+' • Routing '+r.no)t.textContent=title+' • Routing '+r.no;
+      const body=el.querySelector('.routine-dynamic-route-body');let p=body&&body.querySelector('.routine-task-panel');if(!p&&body){p=makeTaskPanel('routineCustomDynamicPanel_'+r.no,r.no,title);body.appendChild(p)}if(p)renderTaskPanel(r.no,p);
+    });
+  }
+  function hideDynamic(){routes().forEach(r=>{const e=document.getElementById('routineDynamicRouteScreen_'+r.no);if(e)e.style.display='none'})}
+  function openDynamicRoute(no){
+    const r=routes().find(x=>Number(x.no)===Number(no));if(!r)return;const bra=document.getElementById('brahmanRoutineScreen'),mis=document.getElementById('routineMissionScreen');currentParent=(bra&&getComputedStyle(bra).display!=='none')?'brahmanRoutineScreen':((mis&&getComputedStyle(mis).display!=='none')?'routineMissionScreen':'brahmanRoutineScreen');
+    ['myRoutineHome','routineMissionScreen','brahmanRoutineScreen','routineRoute4Screen','routineRoute5Screen'].forEach(id=>{const e=document.getElementById(id);if(e)e.style.display='none'});hideDynamic();const el=document.getElementById('routineDynamicRouteScreen_'+no);if(el)el.style.display='flex';
+  }
+  function closeDynamicRoute(){hideDynamic();const p=document.getElementById(currentParent);if(p)p.style.display='flex';if(currentParent==='brahmanRoutineScreen'&&typeof window.renderMyRoutine==='function')window.renderMyRoutine();else if(currentParent==='routineMissionScreen'&&typeof window.openRoutineMission==='function')window.openRoutineMission(Number((document.getElementById('routineMissionNumber')||{}).textContent)||1)}
+  window.openMyRoutineDynamicRoute=openDynamicRoute;window.closeMyRoutineDynamicRoute=closeDynamicRoute;
+
+  function boot(){ensureManager();ensureDynamicRouteScreens();refreshBasePanels();addManagerButtons();}
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();
+  setTimeout(boot,300);setTimeout(boot,1000);
+  window.addEventListener('load',boot);
+  const oldMission=window.openRoutineMission;
+  if(typeof oldMission==='function'){window.openRoutineMission=function(group){const r=oldMission.apply(this,arguments);setTimeout(refreshBasePanels,0);return r}}
+  const oldBrahman=window.openBrahmanRoutine;
+  if(typeof oldBrahman==='function'){window.openBrahmanRoutine=function(){const r=oldBrahman.apply(this,arguments);setTimeout(refreshBasePanels,0);return r}}
+  const oldRouteOpen=window.openRoutineRoute45;
+  if(typeof oldRouteOpen==='function'){
+    window.openRoutineRoute45=function(route){const r=oldRouteOpen.apply(this,arguments);setTimeout(refreshBasePanels,0);return r}
+  }
 })();
 </script>
 
@@ -16977,8 +17144,7 @@ async function renameRoute(id,no){const title=prompt('Routing '+no+' का न�
 async function deleteRoute(id){if(!confirm('इस Routing को delete करना है?'))return;const r=await sb.from('routine_routes').delete().eq('id',id);if(r.error)pmsg(r.error.message);else await loadRoutes()}
 async function addTask(){const routeId=document.getElementById('sraRouteSelect').value,text=document.getElementById('sraTaskText').value.trim(),emoji=document.getElementById('sraEmoji').value.trim()||'⭐';if(!routeId||!text)return pmsg('Routing और Task दोनों भरें।');const r=await sb.from('routine_tasks').insert({route_id:routeId,text,emoji,owner_id:adminUser.id});if(r.error){pmsg(r.error.message);return}document.getElementById('sraTaskText').value='';pmsg('Task जोड़ दिया गया।')}
 window.openSecureMyRoutineAdmin=openAdmin;
-function addSecureButton(){document.querySelectorAll('.routine-switch-actions').forEach(bar=>{if(bar.querySelector('.secure-admin-open-btn'))return;const b=document.createElement('button');b.type='button';b.className='routine-manager-btn secure-admin-open-btn';b.textContent='⚙️';b.title='Secure Admin';b.onclick=openAdmin;bar.appendChild(b)})}
-function boot(){ui();init();addSecureButton()}
+function boot(){ui();init()}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();setTimeout(boot,500);setTimeout(boot,1500);
 })();
 </script>
@@ -17004,16 +17170,15 @@ function renderRemoteTaskPanels(){remoteRoutes.forEach(r=>{const el=makeScreen(r
 let parent='brahmanRoutineScreen';
 function openRemoteRoute(no){const r=remoteRoutes.find(x=>Number(x.route_no)===Number(no));if(!r)return;const bra=document.getElementById('brahmanRoutineScreen'),mis=document.getElementById('routineMissionScreen');parent=(bra&&getComputedStyle(bra).display!=='none')?'brahmanRoutineScreen':((mis&&getComputedStyle(mis).display!=='none')?'routineMissionScreen':'brahmanRoutineScreen');['myRoutineHome','routineMissionScreen','brahmanRoutineScreen','routineRoute4Screen','routineRoute5Screen'].forEach(id=>{const e=document.getElementById(id);if(e)e.style.display='none'});remoteRoutes.forEach(x=>{const e=document.getElementById('secureRemoteRoute_'+x.route_no);if(e)e.style.display='none'});const el=makeScreen(r);if(el)el.style.display='flex';renderRemoteTaskPanels()}
 function closeRemoteRoute(){remoteRoutes.forEach(x=>{const e=document.getElementById('secureRemoteRoute_'+x.route_no);if(e)e.style.display='none'});const p=document.getElementById(parent);if(p)p.style.display='flex';if(parent==='brahmanRoutineScreen'&&typeof window.renderMyRoutine==='function')window.renderMyRoutine()}
-function hideOldManager(){const old=document.getElementById('routineManagerOverlay');if(old)old.classList.remove('show');document.querySelectorAll('.routine-switch-actions .routine-manager-btn:not(.secure-admin-open-btn),.routine-switch-actions .routine-dynamic-route-btn').forEach(e=>e.style.display='none')}
+function hideOldManager(){const old=document.getElementById('routineManagerOverlay');if(old)old.classList.remove('show');document.querySelectorAll('.routine-switch-actions .routine-manager-btn:not(.secure-admin-open-btn)').forEach(e=>e.style.display='none')}
 function boot(){hideOldManager();if(ready())publicLoad()}
 window.addEventListener('load',boot);if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else setTimeout(boot,100);setTimeout(boot,1200);setTimeout(boot,3000);
 window.openMyRoutineManager=window.openSecureMyRoutineAdmin;
 })();
 </script>
 
-<!-- STABLE ROUTING + ADMIN BUTTONS -->
-
-<style id="stable-routing-admin-buttons">
+<!-- SIMPLE ROUTING / TASK BUTTON -->
+<style id="simple-routing-task-button">
 .routine-switch-actions{
   display:flex!important;
   flex-wrap:nowrap!important;
@@ -17027,89 +17192,345 @@ window.openMyRoutineManager=window.openSecureMyRoutineAdmin;
   scrollbar-width:none!important;
 }
 .routine-switch-actions::-webkit-scrollbar{display:none!important}
-.routine-switch-actions > button{flex:0 0 auto!important;box-sizing:border-box!important}
-.routing-add-btn,
-.routing-admin-btn{
+.routine-switch-actions .routine-dynamic-route-btn{display:flex!important}
+.simple-routing-tool-btn{
+  flex:0 0 auto!important;
+  width:40px!important;
   height:36px!important;
+  padding:0!important;
   border:0!important;
   border-radius:11px!important;
+  background:linear-gradient(135deg,#7c3aed,#2563eb,#06b6d4)!important;
   color:#fff!important;
+  font-size:20px!important;
   font-weight:1000!important;
   cursor:pointer!important;
-  box-shadow:0 0 12px rgba(255,193,7,.35)!important;
-  animation:routingButtonPulse 1.8s ease-in-out infinite!important;
+  box-shadow:0 0 12px rgba(59,130,246,.35)!important;
   touch-action:manipulation!important;
 }
-.routing-add-btn{
-  min-width:118px!important;
-  padding:6px 12px!important;
-  background:linear-gradient(135deg,#00c6ff,#0072ff,#7c3aed)!important;
-}
-.routing-admin-btn{
-  min-width:82px!important;
-  padding:6px 12px!important;
-  background:linear-gradient(135deg,#ff9800,#ff3d00,#e91e63)!important;
-}
-@keyframes routingButtonPulse{
-  0%,100%{transform:scale(1);filter:brightness(1)}
-  50%{transform:scale(1.045);filter:brightness(1.18)}
-}
-.routing-add-btn:active,.routing-admin-btn:active{transform:scale(.94)!important}
+.simple-routing-tool-btn:active{transform:scale(.94)!important}
+
+/* Clean add panel: only the controls themselves are visible. */
+#simpleRoutingTaskOverlay{display:none;position:fixed;inset:0;z-index:2147483000;background:rgba(0,0,0,.62);backdrop-filter:blur(5px);align-items:center;justify-content:center;padding:14px;box-sizing:border-box}
+#simpleRoutingTaskOverlay.show{display:flex}
+.simple-routing-task-card{width:min(94vw,430px);max-height:88vh;overflow:auto;background:#0d0a16;border:1px solid rgba(139,92,246,.55);border-radius:18px;padding:14px;box-sizing:border-box;box-shadow:0 18px 55px rgba(0,0,0,.55);color:#fff}
+.simple-routing-task-head{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.simple-routing-task-head b{flex:1;font-size:16px;color:#fff}
+.simple-routing-task-close{width:34px;height:34px;border:0;border-radius:9px;background:#7c3aed;color:#fff;font-size:19px;font-weight:1000;cursor:pointer}
+.simple-routing-task-card input,.simple-routing-task-card select{width:100%;box-sizing:border-box;border:1px solid rgba(255,255,255,.18);border-radius:10px;background:#080711;color:#fff;padding:11px;font-size:13px;font-weight:800;outline:none;margin-bottom:8px}
+.simple-routing-task-card button.action{width:100%;border:0;border-radius:10px;padding:10px 12px;background:linear-gradient(135deg,#7c3aed,#db2777);color:#fff;font-weight:1000;cursor:pointer;margin-bottom:12px}
+.simple-routing-task-card .routing-label{font-size:12px;font-weight:900;color:#cbd5e1;margin:2px 0 5px}
+.simple-routing-task-card .simple-msg{font-size:11px;color:#a8b4c7;min-height:15px;margin-top:1px}
 </style>
-<script id="stable-routing-admin-buttons-js">
+<script id="simple-routing-task-button-js">
 (function(){
-  'use strict';
-  function adminOpen(){
-    if(typeof window.openSecureMyRoutineAdmin==='function') return window.openSecureMyRoutineAdmin();
-    if(typeof window.openMyRoutineManager==='function') return window.openMyRoutineManager();
+'use strict';
+function esc(s){return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function ensureSimplePanel(){
+  if(document.getElementById('simpleRoutingTaskOverlay'))return;
+  const ov=document.createElement('div');
+  ov.id='simpleRoutingTaskOverlay';
+  ov.innerHTML='<div class="simple-routing-task-card" role="dialog" aria-modal="true">'
+   +'<div class="simple-routing-task-head"><b>Routing / Task</b><button class="simple-routing-task-close" type="button">×</button></div>'
+   +'<div class="routing-label">Routing का नाम जोड़ें</div>'
+   +'<input id="simpleRouteName" maxlength="60" placeholder="Routing का नाम जोड़ें">'
+   +'<button id="simpleAddRoute" class="action" type="button">Routing जोड़ें</button>'
+   +'<div class="routing-label">Add Routing Task</div>'
+   +'<select id="simpleTaskRoute"></select>'
+   +'<input id="simpleTaskText" maxlength="100" placeholder="Task लिखें">'
+   +'<button id="simpleAddTask" class="action" type="button">Task जोड़ें</button>'
+   +'<div id="simpleRoutingMsg" class="simple-msg"></div>'
+   +'</div>';
+  document.body.appendChild(ov);
+  ov.querySelector('.simple-routing-task-close').onclick=closeSimplePanel;
+  ov.addEventListener('click',e=>{if(e.target===ov)closeSimplePanel()});
+  ov.querySelector('#simpleAddRoute').onclick=simpleAddRoute;
+  ov.querySelector('#simpleAddTask').onclick=simpleAddTask;
+  ov.querySelector('#simpleRouteName').addEventListener('keydown',e=>{if(e.key==='Enter')simpleAddRoute()});
+  ov.querySelector('#simpleTaskText').addEventListener('keydown',e=>{if(e.key==='Enter')simpleAddTask()});
+}
+function setMsg(t){const e=document.getElementById('simpleRoutingMsg');if(e)e.textContent=t||''}
+function closeSimplePanel(){const e=document.getElementById('simpleRoutingTaskOverlay');if(e)e.classList.remove('show')}
+function fillTaskRoutes(selected){
+  const s=document.getElementById('simpleTaskRoute');if(!s)return;
+  s.innerHTML='';
+  let rs=[];
+  if(typeof window.routes==='function')rs=window.routes()||[];
+  if(!rs.length){
+    const nums=[1,2,3,4];
+    nums.forEach(n=>{const o=document.createElement('option');o.value=String(n);o.textContent='Routing '+n;s.appendChild(o)});
+  }else{
+    rs.forEach(r=>{const o=document.createElement('option');o.value=String(r.no);o.textContent=String(r.no)+' — '+(r.title||('Routing '+r.no));s.appendChild(o)});
   }
-  function install(){
-    document.querySelectorAll('.routine-switch-actions').forEach(function(bar){
-      /* Remove only old generated controls, then create exactly two. */
-      bar.querySelectorAll(':scope > .routing-add-btn, :scope > .routing-admin-btn').forEach(function(x){x.remove();});
-      bar.querySelectorAll(':scope > .secure-admin-open-btn').forEach(function(x){x.remove();});
-      bar.querySelectorAll(':scope > .secure-admin-label-btn').forEach(function(x){x.remove();});
-      bar.querySelectorAll(':scope > .routing-followers-btn, :scope > .routing-admin-row').forEach(function(x){x.remove();});
+  if(selected!=null)s.value=String(selected);
+}
+function openSimplePanel(){
+  ensureSimplePanel();
+  fillTaskRoutes();
+  document.getElementById('simpleRoutingTaskOverlay').classList.add('show');
+  setMsg('');
+}
+function installSimpleButton(){
+  document.querySelectorAll('.routine-switch-actions').forEach(function(bar){
+    /* Remove the old Add Routing and Admin buttons completely. */
+    bar.querySelectorAll(':scope > .routing-add-btn, :scope > .routing-admin-btn, :scope > .secure-admin-open-btn, :scope > .secure-admin-label-btn, :scope > .routing-followers-btn, :scope > .routing-admin-row').forEach(function(x){x.remove()});
+    /* Settings icon intentionally removed. */
+    bar.querySelectorAll(':scope > .routine-manager-btn, :scope > .simple-routing-tool-btn').forEach(function(x){x.remove()});
+  });
+}
+async function simpleAddRoute(){
+  const inp=document.getElementById('simpleRouteName');
+  const title=(inp&&inp.value||'').trim();
+  if(!title){setMsg('Routing का नाम लिखें।');return}
+  const oldInp=document.getElementById('newRoutineRouteTitle');
+  const oldBtn=document.getElementById('addRoutineRouteBtn');
+  if(!oldInp||!oldBtn){setMsg('Routing जोड़ने की सुविधा अभी उपलब्ध नहीं है।');return}
+  oldInp.value=title;
+  oldBtn.click();
+  if(inp)inp.value='';
+  setTimeout(()=>fillTaskRoutes(),120);
+  setMsg('Routing जोड़ दिया गया।');
+}
+async function simpleAddTask(){
+  const s=document.getElementById('simpleTaskRoute'),inp=document.getElementById('simpleTaskText');
+  const routeNo=s&&s.value,text=(inp&&inp.value||'').trim();
+  if(!routeNo||!text){setMsg('Routing चुनें और Task लिखें।');return}
+  const oldS=document.getElementById('routineTaskRouteSelect');
+  const oldT=document.getElementById('newRoutineTaskText');
+  const oldE=document.getElementById('newRoutineTaskEmoji');
+  const oldBtn=document.getElementById('addRoutineTaskBtn');
+  if(!oldS||!oldT||!oldBtn){setMsg('Task जोड़ने की सुविधा अभी उपलब्ध नहीं है।');return}
+  oldS.value=String(routeNo);
+  oldT.value=text;
+  if(oldE)oldE.value='⭐';
+  oldBtn.click();
+  if(inp)inp.value='';
+  setMsg('Task जोड़ दिया गया।');
+}
+function boot(){ensureSimplePanel();installSimpleButton();[250,800,1600].forEach(t=>setTimeout(installSimpleButton,t))}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();
+window.addEventListener('load',installSimpleButton);
+})();
+</script>
 
-      var add=document.createElement('button');
-      add.type='button';
-      add.className='routing-add-btn';
-      add.textContent='＋ Add Routing';
-      add.title='Add Routing / Task';
-      add.onclick=function(e){
-        e.preventDefault();
-        e.stopPropagation();
-        adminOpen();
-        return false;
-      };
-
-      var admin=document.createElement('button');
-      admin.type='button';
-      admin.className='routing-admin-btn';
-      admin.textContent='ADMIN';
-      admin.title='Admin Login';
-      admin.onclick=function(e){
-        e.preventDefault();
-        e.stopPropagation();
-        adminOpen();
-        return false;
-      };
-
-      var nums=bar.querySelectorAll(':scope > .routine-switch-number');
-      if(nums.length){
-        nums[nums.length-1].after(add);
-      }else{
-        bar.appendChild(add);
-      }
-      add.after(admin);
-    });
+<!-- FINAL ROUTING SYSTEM OVERRIDE -->
+<style id="final-routing-system-style">
+  .routine-switch-actions .secure-remote-route-btn[data-route-no="5"],
+  .routine-switch-actions .routine-dynamic-route-btn[data-route-no="5"]{display:none!important}
+  #simpleRoutingTaskOverlay .simple-routing-task-card{background:#0d0a16!important}
+  #simpleRoutingTaskList{margin-top:4px;max-height:180px;overflow:auto}
+  .simple-added-task{padding:6px 0;border-bottom:1px solid rgba(255,255,255,.08);font-size:12px;font-weight:800;color:#e5e7eb}
+  .simple-added-task:last-child{border-bottom:0}
+</style>
+<script id="final-routing-system-script">
+(function(){
+'use strict';
+const RK='myRoutineDynamicRoutes_v1', TK='myRoutineDynamicTasks_v1';
+function parse(k,f){try{const v=JSON.parse(localStorage.getItem(k)||'');return v&&typeof v==='object'?v:f}catch(e){return f}}
+function save(k,v){localStorage.setItem(k,JSON.stringify(v))}
+function cleanupOldFive(){
+  const rs=parse(RK,[]);
+  if(Array.isArray(rs)) save(RK,rs.filter(r=>Number(r&&r.no)!==5));
+  const ts=parse(TK,{});
+  if(ts&&typeof ts==='object'&&!Array.isArray(ts)){delete ts['5'];save(TK,ts)}
+  document.querySelectorAll('[data-route-no="5"]').forEach(e=>e.remove());
+  const ids=['routineDynamicRouteScreen_5','secureRemoteRoute_5'];ids.forEach(id=>{const e=document.getElementById(id);if(e)e.remove()});
+}
+function localRoutes(){const rs=parse(RK,[]);return Array.isArray(rs)?rs.filter(r=>r&&Number(r.no)>4&&Number(r.no)!==5).sort((a,b)=>Number(a.no)-Number(b.no)):[]}
+function routeTitle(no){if(no===1)return 'Routing 1';if(no===2)return 'Routing 2';if(no===3)return 'Routing 3';if(no===4)return 'Routing 4';const r=localRoutes().find(x=>Number(x.no)===no);return r?(r.title||('Routing '+no)):'Routing '+no}
+function fillRoutes(selected){
+  const s=document.getElementById('simpleTaskRoute');if(!s)return;
+  s.innerHTML='';
+  [1,2,3,4].concat(localRoutes().map(r=>Number(r.no))).forEach(no=>{
+    const o=document.createElement('option');o.value=String(no);o.textContent=String(no)+' — '+routeTitle(no);s.appendChild(o);
+  });
+  if(selected!=null)s.value=String(selected);
+}
+function showAddedTasks(no){
+  const box=document.getElementById('simpleRoutingTaskList');if(!box)return;
+  const ts=parse(TK,{}),arr=Array.isArray(ts[String(no)])?ts[String(no)]:[];
+  box.innerHTML='';
+  if(!arr.length){box.innerHTML='<div class="simple-msg">अभी कोई Task नहीं जोड़ा गया है।</div>';return}
+  arr.forEach((t,i)=>{const d=document.createElement('div');d.className='simple-added-task';d.textContent=(i+1)+'. '+(t.emoji||'⭐')+' '+(t.text||'');box.appendChild(d)})
+}
+function patchPanel(){
+  const card=document.querySelector('#simpleRoutingTaskOverlay .simple-routing-task-card');if(!card)return;
+  let list=document.getElementById('simpleRoutingTaskList');
+  if(!list){list=document.createElement('div');list.id='simpleRoutingTaskList';const msg=document.getElementById('simpleRoutingMsg');if(msg)msg.before(list);else card.appendChild(list)}
+  const sel=document.getElementById('simpleTaskRoute');if(sel&&!sel.dataset.finalBound){sel.dataset.finalBound='1';sel.addEventListener('change',()=>showAddedTasks(Number(sel.value||1)))}
+  showAddedTasks(Number(sel&&sel.value||1));
+}
+function patchPanelMarkup(){
+  const card=document.querySelector('#simpleRoutingTaskOverlay .simple-routing-task-card');if(!card)return;
+  const name=card.querySelector('#simpleRouteName');
+  if(name)name.placeholder='Routing का नाम जोड़ें';
+  const task=card.querySelector('#simpleTaskText');
+  if(task)task.placeholder='Task लिखें';
+  patchPanel();
+}
+function addRouteDirect(title){
+  const rs=localRoutes();let max=4;rs.forEach(r=>{max=Math.max(max,Number(r.no)||4)});const no=max+1;
+  rs.push({no,title,createdAt:Date.now()});save(RK,rs);
+  if(typeof window.ensureDynamicRouteScreens==='function')window.ensureDynamicRouteScreens();
+  if(typeof window.addManagerButtons==='function')window.addManagerButtons();
+  if(typeof window.refreshAllCustom==='function')window.refreshAllCustom();
+  return no;
+}
+function addTaskDirect(no,text){
+  const ts=parse(TK,{});if(!Array.isArray(ts[String(no)]))ts[String(no)]=[];
+  ts[String(no)].push({id:Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,7),text,emoji:'⭐'});save(TK,ts);
+  if(typeof window.ensureDynamicRouteScreens==='function')window.ensureDynamicRouteScreens();
+  if(typeof window.refreshAllCustom==='function')window.refreshAllCustom();
+}
+function patchActions(){
+  document.querySelectorAll('.routine-switch-actions').forEach(bar=>{
+    bar.querySelectorAll(':scope > .routine-manager-btn,:scope > .secure-admin-open-btn,:scope > .secure-admin-label-btn,:scope > .routing-add-btn,:scope > .routing-admin-btn').forEach(e=>e.remove());
+    bar.querySelectorAll(':scope > .secure-remote-route-btn[data-route-no="5"],:scope > .routine-dynamic-route-btn[data-route-no="5"]').forEach(e=>e.remove());
+  });
+}
+function patchSimpleHandlers(){
+  const rbtn=document.getElementById('simpleAddRoute');
+  if(rbtn&&!rbtn.dataset.finalBound){
+    rbtn.dataset.finalBound='1';rbtn.onclick=function(){
+      const inp=document.getElementById('simpleRouteName'),title=(inp&&inp.value||'').trim();
+      if(!title){const m=document.getElementById('simpleRoutingMsg');if(m)m.textContent='Routing का नाम लिखें।';return}
+      const no=addRouteDirect(title);if(inp)inp.value='';fillRoutes(no);showAddedTasks(no);
+      const m=document.getElementById('simpleRoutingMsg');if(m)m.textContent='Routing '+no+' जोड़ दिया गया। अब इसी Routing में नीचे से जितने चाहें Task जोड़ें।';
+      patchActions();
+    };
   }
-  function boot(){
-    install();
-    [250,800,1600].forEach(function(t){setTimeout(install,t);});
+  const tbtn=document.getElementById('simpleAddTask');
+  if(tbtn&&!tbtn.dataset.finalBound){
+    tbtn.dataset.finalBound='1';tbtn.onclick=function(){
+      const sel=document.getElementById('simpleTaskRoute'),inp=document.getElementById('simpleTaskText'),no=Number(sel&&sel.value||0),text=(inp&&inp.value||'').trim();
+      if(!no||!text){const m=document.getElementById('simpleRoutingMsg');if(m)m.textContent='Routing चुनें और Task लिखें।';return}
+      addTaskDirect(no,text);if(inp)inp.value='';showAddedTasks(no);
+      const m=document.getElementById('simpleRoutingMsg');if(m)m.textContent='Task जोड़ दिया गया। इसी तरह अगला Task लिखकर फिर “Task जोड़ें” दबाएँ।';
+    };
   }
-  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',boot);
-  else boot();
-  window.addEventListener('load',install);
+}
+function boot(){
+  cleanupOldFive();patchActions();patchPanelMarkup();patchSimpleHandlers();
+  setTimeout(()=>{cleanupOldFive();patchActions();patchPanelMarkup();patchSimpleHandlers()},500);
+  setTimeout(()=>{cleanupOldFive();patchActions();patchPanelMarkup();patchSimpleHandlers()},1500);
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();
+window.addEventListener('load',boot);
+})();
+</script>
+
+<!-- FINAL ROUTING TASK MANAGEMENT OVERRIDE -->
+<style id="final-routing-task-management-style">
+  /* 1-4 और नए Routing screens के अंदर वाला direct Add/Task button नहीं दिखेगा। */
+  .routine-task-panel .routine-task-add-btn{display:none!important}
+  .simple-manage-title{font-size:12px;font-weight:900;color:#cbd5e1;margin:8px 0 5px}
+  #simpleManageTaskList{display:flex;flex-direction:column;gap:5px;max-height:240px;overflow:auto;margin:2px 0 8px}
+  .simple-manage-task{display:flex;align-items:center;gap:6px;padding:7px 6px;border-bottom:1px solid rgba(255,255,255,.08);font-size:12px;font-weight:800}
+  .simple-manage-task .task-name{flex:1;min-width:0;word-break:break-word}
+  .simple-manage-task button{border:0;border-radius:7px;padding:6px 8px;color:#fff;font-size:11px;font-weight:900;cursor:pointer;margin:0!important;width:auto!important}
+  .simple-manage-task .edit-task{background:#2563eb}
+  .simple-manage-task .delete-task{background:#dc2626}
+</style>
+<script id="final-routing-task-management-script">
+(function(){
+'use strict';
+const RK='myRoutineDynamicRoutes_v1', TK='myRoutineDynamicTasks_v1';
+function parse(k,f){try{const v=JSON.parse(localStorage.getItem(k)||'');return v&&typeof v==='object'?v:f}catch(e){return f}}
+function save(k,v){localStorage.setItem(k,JSON.stringify(v))}
+function routeTitle(no){
+  if(no===1)return 'Routing 1'; if(no===2)return 'Routing 2'; if(no===3)return 'Routing 3'; if(no===4)return 'Routing 4';
+  const rs=parse(RK,[]);const r=Array.isArray(rs)?rs.find(x=>Number(x.no)===Number(no)):null;
+  return r?(r.title||('Routing '+no)):'Routing '+no;
+}
+function removeDirectTaskButtons(){
+  document.querySelectorAll('.routine-task-panel .routine-task-add-btn').forEach(b=>b.remove());
+}
+function ensureManageList(){
+  const card=document.querySelector('#simpleRoutingTaskOverlay .simple-routing-task-card');
+  if(!card)return null;
+  let title=document.getElementById('simpleManageTaskTitle');
+  if(!title){
+    title=document.createElement('div');title.id='simpleManageTaskTitle';title.className='simple-manage-title';title.textContent='इस Routing के Tasks';
+    const list=document.createElement('div');list.id='simpleManageTaskList';
+    const msg=document.getElementById('simpleRoutingMsg');
+    if(msg){msg.before(title);title.after(list)}else{card.appendChild(title);card.appendChild(list)}
+  }
+  return document.getElementById('simpleManageTaskList');
+}
+function renderManageTasks(no){
+  const list=ensureManageList();if(!list)return;
+  const data=parse(TK,{}),arr=Array.isArray(data[String(no)])?data[String(no)]:[];
+  list.innerHTML='';
+  if(!arr.length){list.innerHTML='<div class="simple-msg">इस Routing में अभी कोई जोड़ा हुआ Task नहीं है।</div>';return}
+  arr.forEach((t,i)=>{
+    const row=document.createElement('div');row.className='simple-manage-task';
+    const name=document.createElement('span');name.className='task-name';name.textContent=(i+1)+'. '+(t.emoji||'⭐')+' '+(t.text||'');
+    const edit=document.createElement('button');edit.type='button';edit.className='edit-task';edit.textContent='Edit';edit.onclick=function(){
+      const next=prompt('Task बदलें:',t.text||'');
+      if(next===null)return;
+      const value=next.trim();if(!value)return;
+      t.text=value;data[String(no)]=arr;save(TK,data);renderManageTasks(no);refreshRouteTaskViews(no);
+    };
+    const del=document.createElement('button');del.type='button';del.className='delete-task';del.textContent='Delete';del.onclick=function(){
+      if(!confirm('क्या यह Task delete करना है?'))return;
+      arr.splice(i,1);data[String(no)]=arr;save(TK,data);localStorage.removeItem('myRoutineCustomDone_'+String(no)+'_'+String(t.id||i));renderManageTasks(no);refreshRouteTaskViews(no);
+    };
+    row.append(name,edit,del);list.appendChild(row);
+  });
+}
+function refreshRouteTaskViews(no){
+  if(typeof window.refreshAllCustom==='function')window.refreshAllCustom();
+  if(typeof window.ensureDynamicRouteScreens==='function')window.ensureDynamicRouteScreens();
+  setTimeout(removeDirectTaskButtons,30);
+}
+function deleteDynamicRoute(no){
+  if(Number(no)<=4){alert('Routing 1 से 4 मुख्य Routing हैं, इन्हें delete नहीं किया जाएगा।');return}
+  if(!confirm('क्या '+routeTitle(no)+' और उसके सभी जोड़े हुए Tasks delete करने हैं?'))return;
+  const rs=parse(RK,[]);if(Array.isArray(rs))save(RK,rs.filter(r=>Number(r.no)!==Number(no)));
+  const ts=parse(TK,{});if(ts&&typeof ts==='object'&&!Array.isArray(ts)){delete ts[String(no)];save(TK,ts)}
+  document.querySelectorAll('[data-route-no="'+String(no)+'"]').forEach(e=>e.remove());
+  const ids=['routineDynamicRouteScreen_'+no,'secureRemoteRoute_'+no];ids.forEach(id=>{const e=document.getElementById(id);if(e)e.remove()});
+  if(typeof window.ensureDynamicRouteScreens==='function')window.ensureDynamicRouteScreens();
+  if(typeof window.addManagerButtons==='function')window.addManagerButtons();
+  if(typeof window.refreshAllCustom==='function')window.refreshAllCustom();
+  const sel=document.getElementById('simpleTaskRoute');if(sel)fillFinalRoutes();
+  if(sel)renderManageTasks(Number(sel.value||1));
+  setTimeout(removeDirectTaskButtons,40);
+}
+function fillFinalRoutes(selected){
+  const s=document.getElementById('simpleTaskRoute');if(!s)return;
+  const rs=parse(RK,[]),dynamic=Array.isArray(rs)?rs.filter(r=>r&&Number(r.no)>4&&Number(r.no)!==5).sort((a,b)=>Number(a.no)-Number(b.no)):[];
+  s.innerHTML='';
+  [1,2,3,4].concat(dynamic.map(r=>Number(r.no))).forEach(no=>{
+    const o=document.createElement('option');o.value=String(no);o.textContent=String(no)+' — '+routeTitle(no);s.appendChild(o);
+  });
+  if(selected!=null)s.value=String(selected);
+}
+function patchSimplePanel(){
+  const card=document.querySelector('#simpleRoutingTaskOverlay .simple-routing-task-card');if(!card)return;
+  const sel=document.getElementById('simpleTaskRoute');if(sel&&!sel.dataset.manageBound){
+    sel.dataset.manageBound='1';sel.addEventListener('change',function(){renderManageTasks(Number(this.value||1))});
+  }
+  ensureManageList();
+  renderManageTasks(Number(sel&&sel.value||1));
+}
+function addDeleteRoutingControl(){
+  const card=document.querySelector('#simpleRoutingTaskOverlay .simple-routing-task-card');if(!card)return;
+  let btn=document.getElementById('simpleDeleteRouting');
+  if(!btn){
+    btn=document.createElement('button');btn.id='simpleDeleteRouting';btn.type='button';btn.className='action';btn.style.background='linear-gradient(135deg,#991b1b,#dc2626)';btn.textContent='Delete Routing';
+    const sel=document.getElementById('simpleTaskRoute');
+    if(sel)sel.after(btn);else card.appendChild(btn);
+    btn.onclick=function(){deleteDynamicRoute(Number(document.getElementById('simpleTaskRoute')?.value||0))};
+  }
+}
+function boot(){
+  removeDirectTaskButtons();patchSimplePanel();addDeleteRoutingControl();
+  setTimeout(()=>{removeDirectTaskButtons();patchSimplePanel();addDeleteRoutingControl()},300);
+  setTimeout(()=>{removeDirectTaskButtons();patchSimplePanel();addDeleteRoutingControl()},1200);
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();
+window.addEventListener('load',boot);
+setInterval(removeDirectTaskButtons,1500);
 })();
 </script>
