@@ -15232,12 +15232,18 @@ window.addEventListener('load',()=>{const b=document.getElementById('routineRout
 (function(){
   const colors=['#ef174c','#f97316','#eab308','#16a34a','#2563eb','#6d28d9','#db2777','#0891b2','#e11d48','#f97316','#ca8a04','#15803d','#1d4ed8','#7c3aed','#be185d','#0e7490','#e11d48','#ea580c','#ca8a04','#047857'];
   const KEY='routine5DailyHindiDiary_v2', TOTAL_PAGES=5000;
-  let currentPage=1;
+  const PAGE_KEY='routine5DiaryLastPage_v1';
+  function readLastPage(){try{const n=parseInt(localStorage.getItem(PAGE_KEY)||'1',10);return Number.isFinite(n)?Math.max(1,Math.min(TOTAL_PAGES,n)):1}catch(e){return 1}}
+  function saveLastPage(page){try{localStorage.setItem(PAGE_KEY,String(Math.max(1,Math.min(TOTAL_PAGES,page))))}catch(e){}}
+  let currentPage=readLastPage();
   function todayKey(){const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+  /* Keep the diary's page dates anchored to the original first diary day, not today's date. */
+  const START_KEY='routine5DiaryStartDate_v1';
+  function diaryStartDate(){let v='';try{v=localStorage.getItem(START_KEY)||'';if(!v){v='2026-10-08';localStorage.setItem(START_KEY,v)}}catch(e){v='2026-10-08'}return v}
   function loadDiary(){try{return JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){return {}}}
   function saveDiary(data){try{localStorage.setItem(KEY,JSON.stringify(data))}catch(e){}}
   function pageKey(day,page){return day+'|page-'+page}
-  function dateForPage(page){const d=new Date();d.setHours(0,0,0,0);d.setDate(d.getDate()+(page-1));return d}
+  function dateForPage(page){const parts=diaryStartDate().split('-').map(Number);const d=new Date(parts[0],parts[1]-1,parts[2]);d.setHours(0,0,0,0);d.setDate(d.getDate()+(page-1));return d}
   function dateKeyForPage(page){const d=dateForPage(page);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
   function dateLabelForPage(page){return dateForPage(page).toLocaleDateString('hi-IN',{day:'2-digit',month:'long',year:'numeric'})}
   function renderPage(list,day,page,direction){
@@ -15246,8 +15252,12 @@ window.addEventListener('load',()=>{const b=document.getElementById('routineRout
     for(let i=1;i<=20;i++){
       const row=document.createElement('div');row.className='r5-row';
       const num=document.createElement('div');num.className='r5-num';num.textContent=i;num.style.background=colors[i-1];
-      const input=document.createElement('textarea');input.lang='hi';input.inputMode='text';input.autocomplete='off';input.spellcheck=true;input.rows=1;input.wrap='soft';input.className='r5-input';input.style.setProperty('--r5-line',colors[i-1]);input.style.setProperty('--r5-text',colors[i-1]);input.placeholder='यहाँ लिखें…';input.value=saved[String(i)]||'';
-      input.addEventListener('input',function(){const data=loadDiary();if(!data[pageKey(day,page)])data[pageKey(day,page)]={};data[pageKey(day,page)][String(i)]=input.value;saveDiary(data);input.style.height='auto';input.style.height=Math.max(32,input.scrollHeight)+'px'});
+      const input=document.createElement('textarea');input.lang='hi';input.inputMode='text';input.autocomplete='off';input.spellcheck=true;input.rows=1;input.wrap='soft';input.className='r5-input';input.style.setProperty('--r5-line',colors[i-1]);input.style.setProperty('--r5-text',colors[i-1]);input.value=saved[String(i)]||'';
+      const isToday=(day===todayKey());
+      input.placeholder=isToday?'आज यहाँ लिखें…':(day<todayKey()?'🔒 पुराना नोट — केवल पढ़ें':'⏳ इस तारीख पर अभी लिख नहीं सकते');
+      input.readOnly=!isToday;input.setAttribute('aria-readonly',String(!isToday));
+      if(!isToday){input.style.opacity='.9';input.style.cursor='default';input.title='पुराने नोट्स सुरक्षित हैं; इन्हें बदला नहीं जा सकता।'}
+      input.addEventListener('input',function(){if(!isToday)return;const data=loadDiary();if(!data[pageKey(day,page)])data[pageKey(day,page)]={};data[pageKey(day,page)][String(i)]=input.value;saveDiary(data);input.style.height='auto';input.style.height=Math.max(32,input.scrollHeight)+'px'});
       input.addEventListener('keydown',function(e){
         if(e.key==='Enter'){
           e.preventDefault(); e.stopPropagation();
@@ -15279,11 +15289,11 @@ window.addEventListener('load',()=>{const b=document.getElementById('routineRout
     const searchBtn=document.createElement('button');searchBtn.type='button';searchBtn.className='r5-search-btn';searchBtn.textContent='जाओ';
     searchWrap.append(search,searchBtn);
     function updateNav(){prev.disabled=currentPage<=1;next.disabled=currentPage>=TOTAL_PAGES;pageNo.textContent='📖 Page '+currentPage+' / '+TOTAL_PAGES;search.value=''}
-    function goToPage(target,direction){target=Math.max(1,Math.min(TOTAL_PAGES,parseInt(target,10)||1));direction=direction||(target>currentPage?'next':'prev');currentPage=target;const day=dateKeyForPage(currentPage);renderPage(list,day,currentPage,direction);date.textContent='📅 '+dateLabelForPage(currentPage);updateNav();list.scrollTop=0}
+    function goToPage(target,direction){target=Math.max(1,Math.min(TOTAL_PAGES,parseInt(target,10)||1));direction=direction||(target>currentPage?'next':'prev');currentPage=target;saveLastPage(currentPage);const day=dateKeyForPage(currentPage);renderPage(list,day,currentPage,direction);date.textContent='📅 '+dateLabelForPage(currentPage);updateNav();list.scrollTop=0}
     function go(dir){goToPage(currentPage+(dir==='next'?1:-1),dir)}
     prev.onclick=()=>go('prev');next.onclick=()=>go('next');searchBtn.onclick=()=>goToPage(search.value,'next');search.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();goToPage(search.value,'next')}});nav.append(prev,searchWrap,next);
-    const bottom=document.createElement('div');bottom.className='r5-bottom';const sign=document.createElement('div');sign.className='r5-sign';sign.textContent='राकेश मिश्रा';const hint=document.createElement('span');hint.className='r5-hint';hint.textContent='हर पेज की लिखाई अपने-आप सेव रहेगी। कुल 5000 पेज।';bottom.append(sign,hint);
-    page.append(top,list,nav,bottom);box.append(page);renderPage(list,dateKeyForPage(currentPage),currentPage,'next');updateNav();
+    const bottom=document.createElement('div');bottom.className='r5-bottom';const sign=document.createElement('div');sign.className='r5-sign';sign.textContent='राकेश मिश्रा';const hint=document.createElement('span');hint.className='r5-hint';hint.textContent='आज का नोट अपने-आप सेव होगा • पुराने पेज केवल पढ़ने के लिए • कुल 5000 पेज';bottom.append(sign,hint);
+    page.append(top,list,nav,bottom);box.append(page);currentPage=readLastPage();renderPage(list,dateKeyForPage(currentPage),currentPage,'next');updateNav();
   }
   const oldOpen=window.openRoutineRoute45;window.openRoutineRoute45=function(route){if(typeof oldOpen==='function')oldOpen(route);if(route===5)renderRoutine5()};
   window.addEventListener('load',function(){const b=document.getElementById('routineRoute5Screen');if(b)b.classList.remove('r5-diary-screen')});
