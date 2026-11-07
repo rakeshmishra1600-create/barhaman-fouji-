@@ -2634,6 +2634,7 @@ body.my-routine-open > .navbar{
 <button type="button" class="sub-item file-content-btn" onclick="openFileContent('currentAffairs');return false;">📰 Current Affairs</button>
 <button type="button" class="sub-item file-content-btn old-books-all-btn" onclick="openFileContent('oldBooks');return false;">📚 ALL • बचपन की यादें — Old Books (Class 1–8)</button>
 <button type="button" class="sub-item file-content-btn" onclick="openMyRoutine();return false;">🔐 My Routine</button>
+<button type="button" class="sub-item file-content-btn" onclick="openSaambJaap();return false;">🙏 साम्ब सदाशिव नाम-जाप</button>
 </div>
 </div></div></div>
 <button class="nav-music-btn" onclick="openFileContent('music');return false;">🎵 Music</button>
@@ -18238,3 +18239,114 @@ setInterval(removeDirectTaskButtons,1500);
  setInterval(fix,700);
 })();
 </script>
+
+
+<!-- ================= SAAMB SADASHIV JAAP COUNTER ================= -->
+<style id="saambJaapFeatureStyle">
+#saambJaapOverlay{position:fixed;inset:0;z-index:2147483600;display:none;overflow-y:auto;background:radial-gradient(ellipse at top,#38260b 0%,#100d08 43%,#050505 100%);color:#fff;padding:12px 10px 26px;font-family:Arial,sans-serif;box-sizing:border-box}
+#saambJaapOverlay.show{display:block}
+#saambJaapOverlay *{box-sizing:border-box}
+.sj-shell{width:min(100%,720px);margin:0 auto;padding-bottom:20px}
+.sj-top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:2px 0 14px}
+.sj-top-title{font-size:18px;font-weight:900;color:#ffe19a;text-align:center;flex:1;text-shadow:0 0 12px #d99b2c55}
+.sj-icon-btn{border:1px solid #9b762f;background:#17130c;color:#ffe4a6;border-radius:11px;min-height:38px;padding:7px 10px;font-weight:800;cursor:pointer}
+.sj-card{background:linear-gradient(145deg,rgba(38,29,15,.96),rgba(13,12,10,.98));border:1px solid rgba(222,177,83,.48);border-radius:17px;padding:14px;margin:10px 0;box-shadow:0 8px 24px #0007}
+.sj-mantra{text-align:center;color:#ffdc8a;font-family:serif;font-size:clamp(22px,5vw,31px);font-weight:900;letter-spacing:.4px;margin:3px 0 5px}
+.sj-sub{text-align:center;color:#c9b88e;font-size:12px;margin-bottom:12px}
+.sj-caption{text-align:center;color:#d5c6a4;font-size:13px;font-weight:700}
+.sj-count{font-size:clamp(44px,13vw,68px);line-height:1.12;text-align:center;font-weight:900;color:#fff2cb;font-variant-numeric:tabular-nums;text-shadow:0 2px 18px #d59b3740;margin:7px 0}
+.sj-goal-line{display:flex;justify-content:space-between;gap:8px;font-size:12px;color:#d6c49d;margin:12px 1px 6px}
+.sj-progress{height:10px;background:#3a3020;border-radius:20px;overflow:hidden;border:1px solid #6e562c}
+.sj-progress>i{display:block;height:100%;width:0;background:linear-gradient(90deg,#b77a1d,#ffe39a);border-radius:20px;transition:width .2s}
+.sj-tap{display:block;width:100%;min-height:112px;border:1px solid #ffe4a2;border-radius:18px;background:radial-gradient(circle at 50% 0%,#ffe7a9,#d79a2d 56%,#87500f);color:#211504;font-weight:900;margin:16px 0 10px;cursor:pointer;box-shadow:0 7px 0 #603b0d,0 12px 22px #0008;touch-action:manipulation}
+.sj-tap:active{transform:translateY(4px);box-shadow:0 3px 0 #603b0d,0 7px 14px #0008}
+.sj-tap b{display:block;font-size:42px;line-height:1.05}.sj-tap span{display:block;font-size:15px;margin-top:4px}
+.sj-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+.sj-action{border:1px solid #735a2e;background:#211b10;color:#f9e4b5;border-radius:11px;padding:10px 5px;min-height:43px;font-weight:800;font-size:12px;cursor:pointer}
+.sj-action.danger{border-color:#8b3b32;color:#ffc4b9;background:#291311}
+.sj-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.sj-stat{background:#17140e;border:1px solid #594522;border-radius:12px;padding:11px;min-width:0}
+.sj-stat small{display:block;color:#c6b58f;font-size:11px}.sj-stat strong{display:block;color:#ffe3a3;font-size:22px;margin-top:4px;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.sj-section-title{font-size:15px;color:#ffe0a0;font-weight:900;margin:0 0 10px}
+.sj-tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px;margin:12px 0}
+.sj-tab{border:1px solid #67502a;background:#17130d;color:#d8c69e;border-radius:9px;padding:10px 3px;font-size:12px;font-weight:800;cursor:pointer}
+.sj-tab.active{background:linear-gradient(135deg,#9c681c,#e3b85e);color:#1c1305;border-color:#ffe2a0}
+.sj-panel{display:none}.sj-panel.active{display:block}
+.sj-table{width:100%;border-collapse:collapse;font-size:12px}.sj-table th,.sj-table td{padding:9px 6px;border-bottom:1px solid #49391e;text-align:left}.sj-table th{color:#e9cd8e}.sj-table td:last-child,.sj-table th:last-child{text-align:right;font-variant-numeric:tabular-nums}
+.sj-muted{color:#b9aa8c;font-size:12px;line-height:1.5}
+.sj-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:8px 0}
+.sj-input{width:100%;min-width:0;border:1px solid #826633;border-radius:9px;background:#0d0c09;color:#fff1c9;padding:10px;font-size:15px}
+.sj-inline{display:flex;gap:7px;align-items:center}.sj-inline>*{flex:1;min-width:0}
+.sj-calendar{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}.sj-day,.sj-week{min-height:39px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:11px}.sj-week{color:#c5b58e;font-weight:900;min-height:25px}.sj-day{background:#17140e;border:1px solid #40341e;color:#eee0bd;position:relative;flex-direction:column;gap:1px}.sj-day.has{background:#4d3816;border-color:#c18a30;color:#fff0bf}.sj-day.today{outline:2px solid #f3ce79}.sj-day em{font-style:normal;font-size:8px;color:#f6d98f}
+.sj-bars{display:flex;align-items:end;gap:5px;height:150px;padding:10px 3px 0;border-bottom:1px solid #6c542d}.sj-bar-wrap{height:100%;flex:1;display:flex;flex-direction:column;justify-content:end;align-items:center;gap:5px;min-width:0}.sj-bar{width:100%;max-width:30px;min-height:2px;background:linear-gradient(180deg,#ffe29a,#a96b16);border-radius:5px 5px 0 0}.sj-bar-wrap small{font-size:9px;color:#c7b58e;white-space:nowrap}
+.sj-achievements{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.sj-ach{padding:10px;border-radius:10px;border:1px solid #4e4025;background:#17140e;color:#b6a887;font-size:12px}.sj-ach.done{border-color:#d5a64e;color:#ffe2a0;background:#33250f}.sj-ach b{display:block;font-size:14px;margin-bottom:3px}
+.sj-bottom-actions{display:flex;flex-wrap:wrap;gap:7px}.sj-bottom-actions button{flex:1 1 130px}
+#sjImportFile{display:none}
+@media(max-width:420px){#saambJaapOverlay{padding:8px 7px 20px}.sj-card{padding:11px}.sj-tabs{gap:3px}.sj-tab{font-size:10px;padding:9px 2px}.sj-actions{gap:5px}.sj-action{font-size:11px;padding:9px 3px}.sj-day{min-height:34px}}
+@media print{body>*:not(#saambJaapOverlay){display:none!important}#saambJaapOverlay{display:block!important;position:static;background:#fff;color:#111;padding:0}.sj-card{background:#fff;color:#111;border:1px solid #aaa;box-shadow:none;break-inside:avoid}.sj-mantra,.sj-section-title,.sj-stat strong{color:#222}.sj-muted,.sj-stat small,.sj-caption{color:#444}.sj-tabs,.sj-top button,.sj-tap,.sj-actions,.sj-bottom-actions{display:none!important}.sj-panel{display:block!important}.sj-stat{background:#fff;border-color:#ccc}.sj-stat strong{color:#111}}
+</style>
+<div id="saambJaapOverlay" aria-hidden="true">
+ <div class="sj-shell">
+  <div class="sj-top"><button class="sj-icon-btn" type="button" onclick="closeSaambJaap()">← वापस</button><div class="sj-top-title">नाम-जाप रिकॉर्ड</div><button class="sj-icon-btn" type="button" onclick="sjToggleTheme()" title="थीम बदलें">◐</button></div>
+  <section class="sj-card" id="sjMainCard">
+   <div class="sj-mantra">॥ साम्ब सदाशिव ॥</div><div class="sj-sub">नाम-जाप काउंटर</div>
+   <div class="sj-caption">आज का काउंटर</div><div class="sj-count" id="sjCurrent">0</div>
+   <div class="sj-goal-line"><span>दैनिक लक्ष्य</span><span id="sjGoalText">20,000</span></div><div class="sj-progress"><i id="sjGoalBar"></i></div>
+   <button class="sj-tap" type="button" onclick="sjTap()"><b>+1</b><span>जाप करें</span></button>
+   <div class="sj-actions"><button class="sj-action" type="button" onclick="sjUndo()">↶ Undo</button><button class="sj-action danger" type="button" onclick="sjResetToday()">↻ Reset</button><button class="sj-action" type="button" onclick="sjToggleSession()" id="sjSessionBtn">▶ सत्र शुरू</button></div>
+   <div class="sj-muted" id="sjStatus" style="text-align:center;margin-top:9px">आपका डेटा इस ब्राउज़र में अपने-आप सेव होगा।</div>
+  </section>
+  <section class="sj-card"><div class="sj-section-title">📊 जाप का पूरा हिसाब</div><div class="sj-stats">
+   <div class="sj-stat"><small>आज के कुल जाप</small><strong id="sjTodayTotal">0</strong></div><div class="sj-stat"><small>इस महीने</small><strong id="sjMonthTotal">0</strong></div><div class="sj-stat"><small>इस साल</small><strong id="sjYearTotal">0</strong></div><div class="sj-stat"><small>जीवनभर कुल जाप</small><strong id="sjLifetime">0</strong></div><div class="sj-stat"><small>जाप किए हुए दिन</small><strong id="sjDays">0</strong></div><div class="sj-stat"><small>लगातार दिन (Streak)</small><strong id="sjStreak">0</strong></div>
+  </div></section>
+  <div class="sj-tabs"><button class="sj-tab active" data-tab="history" type="button">इतिहास</button><button class="sj-tab" data-tab="calendar" type="button">कैलेंडर</button><button class="sj-tab" data-tab="reports" type="button">रिपोर्ट</button><button class="sj-tab" data-tab="goals" type="button">लक्ष्य</button></div>
+  <section class="sj-card sj-panel active" id="sjPanel-history"><div class="sj-section-title">📅 दैनिक इतिहास</div><div id="sjHistoryList"></div><div class="sj-section-title" style="margin-top:15px">🕉️ जाप सत्र</div><div id="sjSessionList" class="sj-muted">अभी कोई सत्र सेव नहीं है।</div></section>
+  <section class="sj-card sj-panel" id="sjPanel-calendar"><div class="sj-row"><button class="sj-icon-btn" type="button" onclick="sjChangeMonth(-1)">‹</button><b id="sjCalendarTitle" style="color:#ffe2a0"></b><button class="sj-icon-btn" type="button" onclick="sjChangeMonth(1)">›</button></div><div id="sjCalendar" class="sj-calendar"></div><p class="sj-muted">जिस दिन जाप हुआ है, उस तारीख पर जाप की संख्या भी दिखेगी।</p></section>
+  <section class="sj-card sj-panel" id="sjPanel-reports"><div class="sj-section-title">📈 पिछले 7 दिनों का जाप</div><div id="sjWeeklyBars" class="sj-bars"></div><div id="sjReportText" class="sj-muted" style="margin-top:12px"></div><div class="sj-section-title" style="margin-top:17px">🏆 उपलब्धियाँ</div><div id="sjAchievements" class="sj-achievements"></div></section>
+  <section class="sj-card sj-panel" id="sjPanel-goals"><div class="sj-section-title">🎯 अपना संकल्प लक्ष्य चुनें</div><label class="sj-muted" for="sjGoalInput">दैनिक जाप लक्ष्य</label><input class="sj-input" id="sjGoalInput" type="number" min="1" max="10000000" step="1" value="20000"><button class="sj-action" style="width:100%;margin-top:8px" type="button" onclick="sjSaveGoal()">लक्ष्य सेव करें</button><div class="sj-section-title" style="margin-top:18px">✨ जीवनभर का संकल्प</div><div class="sj-inline"><input class="sj-input" id="sjLifetimeGoal" type="number" min="1" max="1000000000" step="1" placeholder="जैसे 100000"><button class="sj-action" type="button" onclick="sjSaveLifetimeGoal()">सेव</button></div><div id="sjLifetimeGoalStatus" class="sj-muted" style="margin-top:8px"></div></section>
+  <section class="sj-card"><div class="sj-section-title">⚙️ डेटा और बैकअप</div><div class="sj-bottom-actions"><button class="sj-action" type="button" onclick="sjExport()">⬇ Backup डाउनलोड</button><button class="sj-action" type="button" onclick="document.getElementById('sjImportFile').click()">⬆ Backup वापस लाएँ</button><button class="sj-action" type="button" onclick="window.print()">▤ PDF / Print रिपोर्ट</button></div><input id="sjImportFile" type="file" accept="application/json,.json" onchange="sjImport(event)"><p class="sj-muted">फोन बदलने पर Backup डाउनलोड करके नई डिवाइस में Restore करें। डेटा अभी इसी ब्राउज़र में सेव होता है; अपने-आप क्लाउड सिंक तभी होगा जब वेबसाइट में सर्वर लॉगिन/डेटाबेस जोड़ा जाए।</p></section>
+ </div>
+</div>
+<script id="saambJaapFeature">
+(function(){
+ 'use strict';
+ const KEY='barhamanFouji_saambSadashivJaap_v1';
+ const $=id=>document.getElementById(id);
+ const fmt=n=>Math.max(0,Number(n)||0).toLocaleString('en-IN');
+ const dateKey=d=>{const y=d.getFullYear(),m=String(d.getMonth()+1).padStart(2,'0'),day=String(d.getDate()).padStart(2,'0');return y+'-'+m+'-'+day};
+ const today=()=>dateKey(new Date());
+ const blank=()=>({days:{},goal:20000,lifetimeGoal:100000,session:null,theme:'dark'});
+ let data=load(),calDate=new Date();
+ function load(){try{const x=JSON.parse(localStorage.getItem(KEY)||'null');if(x&&typeof x==='object'&&x.days)return Object.assign(blank(),x)}catch(e){}return blank()}
+ function save(){try{localStorage.setItem(KEY,JSON.stringify(data));$('sjStatus').textContent='✓ डेटा सुरक्षित हो गया'}catch(e){$('sjStatus').textContent='सेव नहीं हो पाया। ब्राउज़र स्टोरेज की जगह खाली करें।'}}
+ function day(k){if(!data.days[k])data.days[k]={total:0,current:0,sessions:[],resets:[]};const d=data.days[k];d.total=Number(d.total)||0;d.current=Number(d.current)||0;d.sessions=Array.isArray(d.sessions)?d.sessions:[];d.resets=Array.isArray(d.resets)?d.resets:[];return d}
+ function closeOldSessionIfNeeded(){if(data.session&&data.session.date!==today()){const old=day(data.session.date);old.sessions.push({start:data.session.start,end:new Date().toISOString(),count:data.session.count||0,autoClosed:true});data.session=null;save()}}
+ function allTotal(){return Object.values(data.days).reduce((a,d)=>a+(Number(d.total)||0),0)}
+ function totalFor(prefix){return Object.entries(data.days).reduce((a,[k,d])=>a+(k.startsWith(prefix)?Number(d.total)||0:0),0)}
+ function activeDays(){return Object.values(data.days).filter(d=>(Number(d.total)||0)>0).length}
+ function streak(){let n=0,d=new Date();if(!(day(today()).total>0))d.setDate(d.getDate()-1);for(let i=0;i<4000;i++){const k=dateKey(d);if((data.days[k]?.total||0)>0){n++;d.setDate(d.getDate()-1)}else break}return n}
+ function update(){closeOldSessionIfNeeded();const k=today(),d=day(k),now=new Date();$('sjCurrent').textContent=fmt(d.current);$('sjTodayTotal').textContent=fmt(d.total);$('sjMonthTotal').textContent=fmt(totalFor(k.slice(0,7)));$('sjYearTotal').textContent=fmt(totalFor(k.slice(0,4)));$('sjLifetime').textContent=fmt(allTotal());$('sjDays').textContent=fmt(activeDays());$('sjStreak').textContent=fmt(streak());$('sjGoalText').textContent=fmt(data.goal);$('sjGoalBar').style.width=Math.min(100,(d.current/Math.max(1,data.goal))*100)+'%';$('sjGoalInput').value=data.goal;$('sjLifetimeGoal').value=data.lifetimeGoal||'';$('sjSessionBtn').textContent=data.session?'■ सत्र समाप्त':'▶ सत्र शुरू';$('sjLifetimeGoalStatus').textContent=data.lifetimeGoal?'जीवनभर लक्ष्य: '+fmt(data.lifetimeGoal)+' • बाकी: '+fmt(Math.max(0,data.lifetimeGoal-allTotal())):'';renderHistory();renderCalendar();renderReports();renderSessions();document.getElementById('saambJaapOverlay').classList.toggle('sj-light',data.theme==='light')}
+ window.openSaambJaap=function(){closeOldSessionIfNeeded();$('saambJaapOverlay').classList.add('show');$('saambJaapOverlay').setAttribute('aria-hidden','false');document.body.style.overflow='hidden';update()};
+ window.closeSaambJaap=function(){$('saambJaapOverlay').classList.remove('show');$('saambJaapOverlay').setAttribute('aria-hidden','true');document.body.style.overflow=''};
+ window.sjTap=function(){const d=day(today());d.total++;d.current++;if(data.session){data.session.count=(data.session.count||0)+1}save();update()};
+ window.sjUndo=function(){const d=day(today());if(d.current<=0){$('sjStatus').textContent='आज के काउंटर में घटाने के लिए संख्या नहीं है।';return}d.current--;d.total=Math.max(0,d.total-1);if(data.session&&data.session.date===today())data.session.count=Math.max(0,(data.session.count||0)-1);save();update()};
+ window.sjResetToday=function(){const d=day(today());if(!d.current){$('sjStatus').textContent='आज का काउंटर पहले से शून्य है।';return}if(!confirm('आज का दिखने वाला काउंटर 0 करना है? आज का कुल इतिहास और जीवनभर का रिकॉर्ड सुरक्षित रहेगा।'))return;d.resets.push({at:new Date().toISOString(),from:d.current});d.current=0;save();update();$('sjStatus').textContent='आज का काउंटर 0 हुआ; पुराने जाप का इतिहास सुरक्षित है।'};
+ window.sjToggleSession=function(){if(data.session){const s=data.session,d=day(s.date);d.sessions.push({start:s.start,end:new Date().toISOString(),count:s.count||0});data.session=null}else{data.session={date:today(),start:new Date().toISOString(),count:0}}save();update()};
+ window.sjSaveGoal=function(){const v=Math.floor(Number($('sjGoalInput').value));if(!Number.isFinite(v)||v<1||v>10000000){alert('1 से 1 करोड़ के बीच सही लक्ष्य लिखें।');return}data.goal=v;save();update()};
+ window.sjSaveLifetimeGoal=function(){const v=Math.floor(Number($('sjLifetimeGoal').value));if(!Number.isFinite(v)||v<1||v>1000000000){alert('सही जीवनभर लक्ष्य लिखें।');return}data.lifetimeGoal=v;save();update()};
+ window.sjToggleTheme=function(){data.theme=data.theme==='light'?'dark':'light';save();update()};
+ document.querySelectorAll('.sj-tab').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.sj-tab').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.sj-panel').forEach(x=>x.classList.toggle('active',x.id==='sjPanel-'+b.dataset.tab));if(b.dataset.tab==='calendar')renderCalendar();if(b.dataset.tab==='reports')renderReports()}));
+ function renderHistory(){const box=$('sjHistoryList'),keys=Object.keys(data.days).filter(k=>(data.days[k].total||0)>0||data.days[k].resets?.length).sort().reverse().slice(0,60);if(!keys.length){box.innerHTML='<p class="sj-muted">अभी कोई जाप रिकॉर्ड नहीं है। +1 दबाते ही रिकॉर्ड बनना शुरू हो जाएगा।</p>';return}box.innerHTML='<table class="sj-table"><thead><tr><th>तारीख</th><th>कुल जाप</th><th>काउंटर</th></tr></thead><tbody>'+keys.map(k=>'<tr><td>'+k.split('-').reverse().join('-')+'</td><td>'+fmt(data.days[k].total)+'</td><td>'+fmt(data.days[k].current)+'</td></tr>').join('')+'</tbody></table>'+(keys.length>=60?'<p class="sj-muted">हाल के 60 दिन दिखाए गए हैं; बाकी डेटा भी सुरक्षित है।</p>':'')}
+ function renderSessions(){const box=$('sjSessionList'),rows=[];Object.keys(data.days).sort().reverse().forEach(k=>(data.days[k].sessions||[]).slice().reverse().forEach(s=>rows.push({date:k,...s})));if(data.session)rows.unshift({date:data.session.date,start:data.session.start,count:data.session.count||0,live:true});if(!rows.length){box.textContent='अभी कोई सत्र सेव नहीं है। सत्र शुरू करके जाप करें, फिर सत्र समाप्त करें।';return}box.innerHTML=rows.slice(0,20).map(s=>'<div style="padding:8px 0;border-bottom:1px solid #49391e"><b style="color:#f5d99b">'+s.date.split('-').reverse().join('-')+'</b> • '+fmt(s.count)+' जाप '+(s.live?'• अभी जारी है':'')+'<div style="font-size:10px;color:#b9aa8c">'+new Date(s.start).toLocaleTimeString('hi-IN',{hour:'2-digit',minute:'2-digit'})+(s.end?' – '+new Date(s.end).toLocaleTimeString('hi-IN',{hour:'2-digit',minute:'2-digit'}):'')+'</div></div>').join('')}
+ window.sjChangeMonth=function(delta){calDate.setMonth(calDate.getMonth()+delta);renderCalendar()};
+ function renderCalendar(){const y=calDate.getFullYear(),m=calDate.getMonth(),first=new Date(y,m,1).getDay(),count=new Date(y,m+1,0).getDate();$('sjCalendarTitle').textContent=calDate.toLocaleDateString('hi-IN',{month:'long',year:'numeric'});let h=['रवि','सोम','मंगल','बुध','गुरु','शुक्र','शनि'].map(x=>'<div class="sj-week">'+x+'</div>').join('');for(let i=0;i<first;i++)h+='<div></div>';for(let n=1;n<=count;n++){const k=dateKey(new Date(y,m,n)),v=data.days[k]?.total||0;h+='<div class="sj-day '+(v?'has ':'')+(k===today()?'today':'')+'">'+n+(v?'<em>'+fmt(v)+'</em>':'')+'</div>'}$('sjCalendar').innerHTML=h}
+ function renderReports(){const days=[];for(let i=6;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);const k=dateKey(d);days.push({k,v:data.days[k]?.total||0,label:d.toLocaleDateString('hi-IN',{day:'numeric',month:'short'})})}const max=Math.max(1,...days.map(x=>x.v));$('sjWeeklyBars').innerHTML=days.map(x=>'<div class="sj-bar-wrap"><div class="sj-bar" style="height:'+Math.max(2,x.v/max*100)+'%" title="'+fmt(x.v)+'"></div><small>'+x.label+'</small></div>').join('');const sum=days.reduce((a,x)=>a+x.v,0);$('sjReportText').textContent='पिछले 7 दिनों में कुल '+fmt(sum)+' जाप • प्रतिदिन औसत '+fmt(Math.round(sum/7))+' जाप।';const milestones=[1000,10000,50000,100000,500000,1000000,11000000],total=allTotal();$('sjAchievements').innerHTML=milestones.map(n=>'<div class="sj-ach '+(total>=n?'done':'')+'"><b>'+(total>=n?'🏅':'🔒')+' '+fmt(n)+' जाप</b>'+(total>=n?'उपलब्धि पूरी':'बाकी '+fmt(n-total))+'</div>').join('')}
+ window.sjExport=function(){const payload={app:'SaambSadashivJaap',version:1,exportedAt:new Date().toISOString(),data};const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='saamb-sadashiv-jaap-backup-'+today()+'.json';a.click();URL.revokeObjectURL(a.href)};
+ window.sjImport=function(ev){const file=ev.target.files&&ev.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=function(){try{const x=JSON.parse(reader.result),d=x.data||x;if(!d.days||typeof d.days!=='object')throw new Error('Invalid backup');if(!confirm('Backup restore करने पर इस डिवाइस का मौजूदा जाप डेटा बदल जाएगा। जारी रखें?'))return;data=Object.assign(blank(),d);save();update();alert('Backup सफलतापूर्वक Restore हो गया।')}catch(e){alert('यह सही नाम-जाप Backup फाइल नहीं है।')}ev.target.value=''};reader.readAsText(file)};
+ // Light theme is deliberately scoped to this counter only.
+ const st=document.createElement('style');st.textContent='#saambJaapOverlay.sj-light{background:linear-gradient(180deg,#fff8e8,#eee1c7);color:#2b2112}#saambJaapOverlay.sj-light .sj-card{background:#fffaf0;border-color:#c69c50}#saambJaapOverlay.sj-light .sj-stat,#saambJaapOverlay.sj-light .sj-day,#saambJaapOverlay.sj-light .sj-ach{background:#fff4dc;color:#38280e}#saambJaapOverlay.sj-light .sj-mantra,#saambJaapOverlay.sj-light .sj-section-title,#saambJaapOverlay.sj-light .sj-stat strong{color:#80520c}#saambJaapOverlay.sj-light .sj-count{color:#38280e}#saambJaapOverlay.sj-light .sj-tab{background:#f4e4c3;color:#51370f}#saambJaapOverlay.sj-light .sj-tab.active{background:#d9a441;color:#211504}#saambJaapOverlay.sj-light .sj-muted,#saambJaapOverlay.sj-light .sj-caption,#saambJaapOverlay.sj-light .sj-stat small{color:#6e5936}';document.head.appendChild(st);
+ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&$('saambJaapOverlay').classList.contains('show'))closeSaambJaap()});
+})();
+</script>
+<!-- ================= END SAAMB SADASHIV JAAP COUNTER ================= -->
+
