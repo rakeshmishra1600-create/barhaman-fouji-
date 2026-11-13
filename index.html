@@ -15248,7 +15248,7 @@ window.addEventListener('load',()=>{const b=document.getElementById('routineRout
 <script id="routine5-colorful-diary-script">
 (function(){
   const colors=['#ef174c','#f97316','#eab308','#16a34a','#2563eb','#6d28d9','#db2777','#0891b2','#e11d48','#f97316','#ca8a04','#15803d','#1d4ed8','#7c3aed','#be185d','#0e7490','#e11d48','#ea580c','#ca8a04','#047857'];
-  const OLD_KEY='routine5DailyHindiDiary_v3', KEY='routine5DailyHindiDiary_v4', TOTAL_PAGES=5000;
+  const OLD_KEY='routine5DailyHindiDiary_v3', KEY='routine5DailyHindiDiary_v4', TOTAL_PAGES=50000;
   const PAGE_KEY='routine5DiaryLastPage_v3';
   try{if(!localStorage.getItem('routine5ResetFor20261115_v2')){const old=localStorage.getItem(OLD_KEY),oldPage=localStorage.getItem('routine5DiaryLastPage_v2');if(old!==null)localStorage.setItem('routine5DailyHindiDiary_v3_backup_before_20261115',old);if(oldPage!==null)localStorage.setItem('routine5DiaryLastPage_v2_backup_before_20261115',oldPage);localStorage.removeItem(OLD_KEY);localStorage.removeItem('routine5DiaryLastPage_v2');localStorage.setItem('routine5ResetFor20261115_v2','1')}}catch(e){}
   function readLastPage(){try{const n=parseInt(localStorage.getItem(PAGE_KEY)||'1',10);return Number.isFinite(n)?Math.max(1,Math.min(TOTAL_PAGES,n)):1}catch(e){return 1}}
@@ -15310,17 +15310,19 @@ window.addEventListener('load',()=>{const b=document.getElementById('routineRout
        Short numeric input remains available for page-number search. */
     search.addEventListener('input',function(){
       const raw=search.value.trim();
-      if(/^\\d{1,8}$/.test(raw) && raw.length>4){
-        const digits=raw.slice(0,8);
-        search.value=digits.slice(0,2)+'/'+digits.slice(2,4)+(digits.length>4?'/'+digits.slice(4):'');
+      /* When eight date digits are entered, normalize to DD/MM/YYYY.
+         Keep shorter numeric values untouched for page-number search. */
+      const digits=raw.replace(/\D/g,'');
+      if(digits.length===8){
+        search.value=digits.slice(0,2)+'/'+digits.slice(2,4)+'/'+digits.slice(4,8);
       }
     });
     function updateNav(){prev.disabled=currentPage<=1;next.disabled=currentPage>=TOTAL_PAGES;pageNo.textContent='📖 Page '+currentPage+' / '+TOTAL_PAGES;search.value=''}
     function goToPage(target,direction){target=Math.max(1,Math.min(TOTAL_PAGES,parseInt(target,10)||1));direction=direction||(target>currentPage?'next':'prev');currentPage=target;saveLastPage(currentPage);const day=dateKeyForPage(currentPage);renderPage(list,day,currentPage,direction);date.textContent='📅 '+dateLabelForPage(currentPage);updateNav();list.scrollTop=0}
-    function searchDateOrPage(){const raw=search.value.trim();if(!raw)return;const m=raw.match(/^(\d{1,2})[-\/.](\d{1,2})[-\/.](\d{4})$/);if(m){const d=new Date(Number(m[3]),Number(m[2])-1,Number(m[1]));if(d.getFullYear()!==Number(m[3])||d.getMonth()!==Number(m[2])-1||d.getDate()!==Number(m[1])){alert('कृपया सही तारीख DD/MM/YYYY में लिखें।');return;}const start=dateForPage(1);const diff=Math.floor((new Date(d.getFullYear(),d.getMonth(),d.getDate())-new Date(start.getFullYear(),start.getMonth(),start.getDate()))/86400000);if(diff<0||diff>=TOTAL_PAGES){alert('यह तारीख 15/11/2026 से शुरू होने वाले 5000 पेज की सीमा में नहीं है।');return;}goToPage(diff+1);return;}if(/^\d+$/.test(raw)){goToPage(raw);return;}alert('तारीख DD/MM/YYYY में लिखें, जैसे 11/10/2028; या पेज नंबर लिखें।');}
+    function searchDateOrPage(){const raw=search.value.trim();if(!raw)return;const m=raw.match(/^(\d{1,2})[-\/.](\d{1,2})[-\/.](\d{4})$/);if(m){const d=new Date(Number(m[3]),Number(m[2])-1,Number(m[1]));if(d.getFullYear()!==Number(m[3])||d.getMonth()!==Number(m[2])-1||d.getDate()!==Number(m[1])){alert('कृपया सही तारीख DD/MM/YYYY में लिखें।');return;}const start=dateForPage(1);const diff=Math.floor((new Date(d.getFullYear(),d.getMonth(),d.getDate())-new Date(start.getFullYear(),start.getMonth(),start.getDate()))/86400000);if(diff<0||diff>=TOTAL_PAGES){alert('यह तारीख 15/11/2026 से शुरू होने वाले 50000 पेज की सीमा में नहीं है।');return;}goToPage(diff+1);return;}if(/^\d+$/.test(raw)){goToPage(raw);return;}alert('तारीख DD/MM/YYYY में लिखें, जैसे 11/10/2028; या पेज नंबर लिखें।');}
     function go(dir){goToPage(currentPage+(dir==='next'?1:-1),dir)}
     prev.onclick=()=>go('prev');next.onclick=()=>go('next');searchBtn.onclick=searchDateOrPage;search.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();searchDateOrPage()}});nav.append(prev,searchWrap,next);
-    const bottom=document.createElement('div');bottom.className='r5-bottom';const sign=document.createElement('div');sign.className='r5-sign';sign.textContent='राकेश मिश्रा';const hint=document.createElement('span');hint.className='r5-hint';hint.textContent='आज का नोट अपने-आप सेव होगा • पुराने पेज केवल पढ़ने के लिए • कुल 5000 पेज';bottom.append(sign,hint);
+    const bottom=document.createElement('div');bottom.className='r5-bottom';const sign=document.createElement('div');sign.className='r5-sign';sign.textContent='राकेश मिश्रा';const hint=document.createElement('span');hint.className='r5-hint';hint.textContent='आज का नोट अपने-आप सेव होगा • पुराने पेज केवल पढ़ने के लिए • कुल 50000 पेज';bottom.append(sign,hint);
     page.append(top,list,nav,bottom);box.append(page);currentPage=readLastPage();renderPage(list,dateKeyForPage(currentPage),currentPage,'next');updateNav();
   }
   const oldOpen=window.openRoutineRoute45;window.openRoutineRoute45=function(route){if(typeof oldOpen==='function')oldOpen(route);if(route===5)renderRoutine5()};
