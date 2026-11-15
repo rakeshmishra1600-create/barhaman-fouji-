@@ -14725,7 +14725,7 @@ window.addEventListener("resize",()=>{if(oldBookPdf&&!oldBookRendering){finishOl
  const STREAK_TOTAL=5000;
  function streakDateValue(d){return Date.UTC(d.getFullYear(),d.getMonth(),d.getDate());}
  function getStreakDay(){
-   const start=new Date('2026-10-08T00:00:00');
+   const start=new Date('2026-11-15T00:00:00');
    const now=new Date();
    if(Number.isNaN(start.getTime()))return 0;
    const days=Math.floor((streakDateValue(now)-streakDateValue(start))/86400000);
@@ -14746,7 +14746,7 @@ window.addEventListener("resize",()=>{if(oldBookPdf&&!oldBookRendering){finishOl
    wrapIds.forEach(id=>{const w=document.getElementById(id);if(w)w.classList.toggle('is-idle',!day);});
  }
  window.startOrShow5000Streak=function(){
-   localStorage.setItem(STREAK_KEY,'2026-10-08');
+   localStorage.setItem(STREAK_KEY,'2026-11-15');
    update5000Streak();
  };
  function render(){
