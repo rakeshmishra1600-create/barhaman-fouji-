@@ -14381,7 +14381,7 @@ window.addEventListener("resize",()=>{if(oldBookPdf&&!oldBookRendering){finishOl
           <button class="routine-switch-number routine-switch-five" onclick="openRoutineRoute45(5)">4</button>
         </div>
         <div class="routine-inline-title"><span id="routineMissionNumber">1</span> <span id="routineMissionTitle">साधना / भक्ति</span></div>
-        <div class="routine-streak-wrap" id="routineStreakWrap"><span id="routineStreakDate" class="routine-streak-date">8-10-2026</span><button type="button" id="routineStreakButton" class="routine-streak-button" onclick="startOrShow5000Streak()">🔥 Day 0 / 5000</button><span id="routineStreakPercent" class="routine-streak-percent">0%</span></div>
+        <div class="routine-streak-wrap" id="routineStreakWrap"><span id="routineStreakDate" class="routine-streak-date">20-11-2026</span><button type="button" id="routineStreakButton" class="routine-streak-button" onclick="startOrShow5000Streak()">🔥 Day 0 / 25000</button><span id="routineStreakPercent" class="routine-streak-percent">0%</span></div>
         <div id="routineTodayGoal" class="routine-today-goal"><span>🎯 Today's Goal</span><b id="routineTodayGoalCount">0 / 0</b><i><em id="routineTodayGoalBar"></em></i></div>
         <div id="routineMissionItems" class="routine-mission-items"></div>
       </div>
@@ -14395,7 +14395,7 @@ window.addEventListener("resize",()=>{if(oldBookPdf&&!oldBookRendering){finishOl
           <button class="routine-switch-number routine-switch-four" onclick="openRoutineRoute45(4)">3</button>
           <button class="routine-switch-number routine-switch-five" onclick="openRoutineRoute45(5)">4</button>
         </div>
-        <div class="routine-streak-wrap" id="brahmanStreakWrap"><span id="brahmanStreakDate" class="routine-streak-date">8-10-2026</span><button type="button" id="brahmanStreakButton" class="routine-streak-button" onclick="startOrShow5000Streak()">🔥 Day 0 / 5000</button><span id="brahmanStreakPercent" class="routine-streak-percent">0%</span></div>
+        <div class="routine-streak-wrap" id="brahmanStreakWrap"><span id="brahmanStreakDate" class="routine-streak-date">20-11-2026</span><button type="button" id="brahmanStreakButton" class="routine-streak-button" onclick="startOrShow5000Streak()">🔥 Day 0 / 25000</button><span id="brahmanStreakPercent" class="routine-streak-percent">0%</span></div>
         <div id="brahmanTodayGoal" class="routine-today-goal"><span>🎯 Today's Goal</span><b id="brahmanTodayGoalCount">0 / 52</b><i><em id="brahmanTodayGoalBar"></em></i></div>
         <div id="myRoutineItems"></div>
         <div class="my-routine-note">✓ चेक करने के बाद टास्क इसी लाइन में रहेगा और हमेशा के लिए लॉक रहेगा।</div>
@@ -14722,14 +14722,14 @@ window.addEventListener("resize",()=>{if(oldBookPdf&&!oldBookRendering){finishOl
    bar.style.width=pct+'%';
  }
  const STREAK_KEY='myRoutine5000DayStart';
- const STREAK_TOTAL=5000;
+ const STREAK_TOTAL=25000;
  function streakDateValue(d){return Date.UTC(d.getFullYear(),d.getMonth(),d.getDate());}
  function getStreakDay(){
-   const start=new Date('2026-11-15T00:00:00');
+   const start=new Date('2026-11-20T00:00:00');
    const now=new Date();
    if(Number.isNaN(start.getTime()))return 0;
    const days=Math.floor((streakDateValue(now)-streakDateValue(start))/86400000);
-   return Math.max(1,Math.min(STREAK_TOTAL,days+1));
+   return Math.max(0,Math.min(STREAK_TOTAL,days));
  }
  function update5000Streak(){
    const day=getStreakDay();
@@ -14739,14 +14739,14 @@ window.addEventListener("resize",()=>{if(oldBookPdf&&!oldBookRendering){finishOl
    const wrapIds=['routineStreakWrap','brahmanStreakWrap'];
    const pct=day?Math.round(day*100/STREAK_TOTAL):0;
    const now=new Date();
-   const dateText='15-11-2026';
+   const dateText='20-11-2026';
    buttonIds.forEach(id=>{const b=document.getElementById(id);if(b)b.textContent='🔥 Day '+day+' / '+STREAK_TOTAL;});
    dateIds.forEach(id=>{const x=document.getElementById(id);if(x)x.textContent=dateText;});
    percentIds.forEach(id=>{const x=document.getElementById(id);if(x)x.textContent=pct+'%';});
    wrapIds.forEach(id=>{const w=document.getElementById(id);if(w)w.classList.toggle('is-idle',!day);});
  }
  window.startOrShow5000Streak=function(){
-   localStorage.setItem(STREAK_KEY,'2026-11-15');
+   localStorage.setItem(STREAK_KEY,'2026-11-20');
    update5000Streak();
  };
  function render(){
@@ -15148,10 +15148,10 @@ window.addEventListener("resize",()=>{if(oldBookPdf&&!oldBookRendering){finishOl
 <script id="routine4-final-fix-script">
 (function(){
 'use strict';
-const START={y:2026,m:10,d:15};
+const START={y:2026,m:10,d:20};
 const OLD_KEY='routine4RunningDates_v4';
 const KEY='routine4RunningDates_v5';
-try{if(!localStorage.getItem('routine4ResetFor20261115_v2')){const old=localStorage.getItem(OLD_KEY);if(old!==null)localStorage.setItem('routine4RunningDates_v4_backup_before_20261115',old);localStorage.removeItem(OLD_KEY);localStorage.removeItem('routine4RunningDates_v3');localStorage.setItem('routine4ResetFor20261115_v2','1')}}catch(e){}
+try{if(!localStorage.getItem('routine4ResetFor20261120_v3')){const old=localStorage.getItem(OLD_KEY);if(old!==null)localStorage.setItem('routine4RunningDates_v4_backup_before_20261120',old);localStorage.removeItem(OLD_KEY);localStorage.removeItem('routine4RunningDates_v3');localStorage.setItem('routine4ResetFor20261120_v3','1')}}catch(e){}
 const months=['जनवरी','फरवरी','मार्च','अप्रैल','मई','जून','जुलाई','अगस्त','सितंबर','अक्टूबर','नवंबर','दिसंबर'];
 const days=['रवि','सोम','मंगल','बुध','गुरु','शुक्र','शनि'];
 const colors=['#0877df','#8425d5','#dd650b','#0a91c7','#bd28d2','#0b9b76','#e07b12','#246ee8','#9b2be0','#0a8fca','#c85a12','#2d7ce8'];
@@ -15166,7 +15166,7 @@ function todayDate(){const t=new Date();return new Date(t.getFullYear(),t.getMon
 function canClick(y,m,d){const dt=new Date(y,m,d),t=todayDate();return started(y,m,d)&&dt.getTime()===t.getTime()}
 function done(k){return !!load()[k]}
 function setDone(k){const x=load();x[k]=1;save(x)}
-function monthStats(y,m){let total=daysInMonth(y,m);if(y===2026&&m===10) total=16;let n=0;const x=load();for(let d=1;d<=daysInMonth(y,m);d++){if(y===2026&&m===10&&d<15)continue;if(x[iso(y,m,d)])n++}return {done:n,total,pct:total?Math.round(n*100/total):0}}
+function monthStats(y,m){let total=daysInMonth(y,m);if(y===2026&&m===10) total=11;let n=0;const x=load();for(let d=1;d<=daysInMonth(y,m);d++){if(y===2026&&m===10&&d<20)continue;if(x[iso(y,m,d)])n++}return {done:n,total,pct:total?Math.round(n*100/total):0}}
 function yearStats(y){let total=0,n=0;for(let m=0;m<12;m++){const s=monthStats(y,m);total+=s.total;n+=s.done}return {done:n,total,pct:total?Math.round(n*100/total):0}}
 function el(tag,cls,text){const e=document.createElement(tag);if(cls)e.className=cls;if(text!=null)e.textContent=text;return e}
 function render(){
@@ -15195,8 +15195,8 @@ function render(){
  scroll.append(controls);
  const firstCardMonth=state.year===2026?10:0;
  for(let m=firstCardMonth;m<12;m++){const s=monthStats(state.year,m),card=el('div','r4-month-card'+(m===state.month?' active':''));card.dataset.month=m;const nm=el('div','r4-month-name','📅 '+months[m]+' '+state.year);const body=el('div','r4-month-body');const ring=el('div','r4-ring');ring.style.setProperty('--p',s.pct+'%');ring.append(el('b',null,s.done+'/'+s.total));const mini=el('div','r4-mini');mini.innerHTML='<strong>'+s.pct+'%</strong>'+s.total+' Days';body.append(ring,mini,el('span','r4-run','🏃'));card.append(nm,body);card.onclick=()=>{state.month=m;render()};strip.append(card)}
- const s=monthStats(state.year,state.month);const main=el('div','r4-main');const mh=el('div','r4-main-head');const mt=el('div');mt.append(el('div','r4-main-title','📅 '+months[state.month]+' '+state.year));let rangeStart=state.year===2026&&state.month===10?'15 नवंबर':'1 '+months[state.month];mt.append(el('span','r4-range',rangeStart+' – '+daysInMonth(state.year,state.month)+' '+months[state.month]));const mr=el('div','r4-main-ring');const rr=el('div','r4-ring');rr.style.setProperty('--p',s.pct+'%');rr.append(el('b',null,s.done+'/'+s.total));mr.append(rr,el('span','r4-run','🏃'));mh.append(mt,mr);main.append(mh);
- const grid=el('div','r4-date-grid');const data=load();for(let d=1;d<=daysInMonth(state.year,state.month);d++){if(state.year===2026&&state.month===10&&d<15)continue;const k=iso(state.year,state.month,d);const row=el('label','r4-date');if(data[k]){row.classList.add('done');continue}const active=canClick(state.year,state.month,d);if(active)row.classList.add('active');else row.classList.add('locked');const cb=document.createElement('input');cb.type='checkbox';cb.disabled=!active;cb.checked=false;cb.onchange=()=>{if(cb.checked&&active){setDone(k);render()}};const info=el('div','r4-date-info');info.append(el('div','r4-date-main',d+'-'+pad(state.month+1)+'-'+state.year));info.append(el('div','r4-date-day',days[new Date(state.year,state.month,d).getDay()]));row.append(cb,info,el('span','r4-run','🏃'));grid.append(row)}main.append(grid);const legend=el('div','r4-legend');legend.append(el('div',null,'🟢 Completed'),el('div',null,'⬜ Pending'),el('div',null,'🏃 Today'),el('div',null,'🏃 Future Date'));main.append(legend);scroll.append(main);
+ const s=monthStats(state.year,state.month);const main=el('div','r4-main');const mh=el('div','r4-main-head');const mt=el('div');mt.append(el('div','r4-main-title','📅 '+months[state.month]+' '+state.year));let rangeStart=state.year===2026&&state.month===10?'20 नवंबर':'1 '+months[state.month];mt.append(el('span','r4-range',rangeStart+' – '+daysInMonth(state.year,state.month)+' '+months[state.month]));const mr=el('div','r4-main-ring');const rr=el('div','r4-ring');rr.style.setProperty('--p',s.pct+'%');rr.append(el('b',null,s.done+'/'+s.total));mr.append(rr,el('span','r4-run','🏃'));mh.append(mt,mr);main.append(mh);
+ const grid=el('div','r4-date-grid');const data=load();for(let d=1;d<=daysInMonth(state.year,state.month);d++){if(state.year===2026&&state.month===10&&d<20)continue;const k=iso(state.year,state.month,d);const row=el('label','r4-date');if(data[k]){row.classList.add('done');continue}const active=canClick(state.year,state.month,d);if(active)row.classList.add('active');else row.classList.add('locked');const cb=document.createElement('input');cb.type='checkbox';cb.disabled=!active;cb.checked=false;cb.onchange=()=>{if(cb.checked&&active){setDone(k);render()}};const info=el('div','r4-date-info');info.append(el('div','r4-date-main',d+'-'+pad(state.month+1)+'-'+state.year));info.append(el('div','r4-date-day',days[new Date(state.year,state.month,d).getDay()]));row.append(cb,info,el('span','r4-run','🏃'));grid.append(row)}main.append(grid);const legend=el('div','r4-legend');legend.append(el('div',null,'🟢 Completed'),el('div',null,'⬜ Pending'),el('div',null,'🏃 Today'),el('div',null,'🏃 Future Date'));main.append(legend);scroll.append(main);
  app.append(scroll);box.append(app);
  setTimeout(()=>{const active=strip.querySelector('.active');if(active)active.scrollIntoView({behavior:'auto',block:'nearest',inline:'center'})},0);
 }
@@ -15250,14 +15250,14 @@ window.addEventListener('load',()=>{const b=document.getElementById('routineRout
   const colors=['#ef174c','#f97316','#eab308','#16a34a','#2563eb','#6d28d9','#db2777','#0891b2','#e11d48','#f97316','#ca8a04','#15803d','#1d4ed8','#7c3aed','#be185d','#0e7490','#e11d48','#ea580c','#ca8a04','#047857'];
   const OLD_KEY='routine5DailyHindiDiary_v3', KEY='routine5DailyHindiDiary_v4', TOTAL_PAGES=5000;
   const PAGE_KEY='routine5DiaryLastPage_v3';
-  try{if(!localStorage.getItem('routine5ResetFor20261115_v2')){const old=localStorage.getItem(OLD_KEY),oldPage=localStorage.getItem('routine5DiaryLastPage_v2');if(old!==null)localStorage.setItem('routine5DailyHindiDiary_v3_backup_before_20261115',old);if(oldPage!==null)localStorage.setItem('routine5DiaryLastPage_v2_backup_before_20261115',oldPage);localStorage.removeItem(OLD_KEY);localStorage.removeItem('routine5DiaryLastPage_v2');localStorage.setItem('routine5ResetFor20261115_v2','1')}}catch(e){}
+  try{if(!localStorage.getItem('routine5ResetFor20261120_v3')){const old=localStorage.getItem(OLD_KEY),oldPage=localStorage.getItem('routine5DiaryLastPage_v2');if(old!==null)localStorage.setItem('routine5DailyHindiDiary_v3_backup_before_20261120',old);if(oldPage!==null)localStorage.setItem('routine5DiaryLastPage_v2_backup_before_20261120',oldPage);localStorage.removeItem(OLD_KEY);localStorage.removeItem('routine5DiaryLastPage_v2');localStorage.setItem('routine5ResetFor20261120_v3','1')}}catch(e){}
   function readLastPage(){try{const n=parseInt(localStorage.getItem(PAGE_KEY)||'1',10);return Number.isFinite(n)?Math.max(1,Math.min(TOTAL_PAGES,n)):1}catch(e){return 1}}
   function saveLastPage(page){try{localStorage.setItem(PAGE_KEY,String(Math.max(1,Math.min(TOTAL_PAGES,page))))}catch(e){}}
   let currentPage=readLastPage();
   function todayKey(){const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
   /* Keep the diary's page dates anchored to the original first diary day, not today's date. */
   const START_KEY='routine5DiaryStartDate_v2';
-  function diaryStartDate(){const v='2026-11-15';try{localStorage.setItem(START_KEY,v)}catch(e){}return v}
+  function diaryStartDate(){const v='2026-11-20';try{localStorage.setItem(START_KEY,v)}catch(e){}return v}
   function loadDiary(){try{return JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){return {}}}
   function saveDiary(data){try{localStorage.setItem(KEY,JSON.stringify(data))}catch(e){}}
   function pageKey(day,page){return day+'|page-'+page}
@@ -15319,7 +15319,7 @@ window.addEventListener('load',()=>{const b=document.getElementById('routineRout
     });
     function updateNav(){prev.disabled=currentPage<=1;next.disabled=currentPage>=TOTAL_PAGES;pageNo.textContent='📖 Page '+currentPage+' / '+TOTAL_PAGES;search.value=''}
     function goToPage(target,direction){target=Math.max(1,Math.min(TOTAL_PAGES,parseInt(target,10)||1));direction=direction||(target>currentPage?'next':'prev');currentPage=target;saveLastPage(currentPage);const day=dateKeyForPage(currentPage);renderPage(list,day,currentPage,direction);date.textContent='📅 '+dateLabelForPage(currentPage);updateNav();list.scrollTop=0}
-    function searchDateOrPage(){const raw=search.value.trim();if(!raw)return;const m=raw.match(/^(\d{1,2})[-\/.](\d{1,2})[-\/.](\d{4})$/);if(m){const d=new Date(Number(m[3]),Number(m[2])-1,Number(m[1]));if(d.getFullYear()!==Number(m[3])||d.getMonth()!==Number(m[2])-1||d.getDate()!==Number(m[1])){alert('कृपया सही तारीख DD/MM/YYYY में लिखें।');return;}const start=dateForPage(1);const diff=Math.floor((new Date(d.getFullYear(),d.getMonth(),d.getDate())-new Date(start.getFullYear(),start.getMonth(),start.getDate()))/86400000);if(diff<0||diff>=TOTAL_PAGES){alert('यह तारीख 15/11/2026 से शुरू होने वाले 5000 पेज की सीमा में नहीं है।');return;}goToPage(diff+1);return;}if(/^\d+$/.test(raw)){goToPage(raw);return;}alert('तारीख DD/MM/YYYY में लिखें, जैसे 11/10/2028; या पेज नंबर लिखें।');}
+    function searchDateOrPage(){const raw=search.value.trim();if(!raw)return;const m=raw.match(/^(\d{1,2})[-\/.](\d{1,2})[-\/.](\d{4})$/);if(m){const d=new Date(Number(m[3]),Number(m[2])-1,Number(m[1]));if(d.getFullYear()!==Number(m[3])||d.getMonth()!==Number(m[2])-1||d.getDate()!==Number(m[1])){alert('कृपया सही तारीख DD/MM/YYYY में लिखें।');return;}const start=dateForPage(1);const diff=Math.floor((new Date(d.getFullYear(),d.getMonth(),d.getDate())-new Date(start.getFullYear(),start.getMonth(),start.getDate()))/86400000);if(diff<0||diff>=TOTAL_PAGES){alert('यह तारीख 20/11/2026 से शुरू होने वाले 5000 पेज की सीमा में नहीं है।');return;}goToPage(diff+1);return;}if(/^\d+$/.test(raw)){goToPage(raw);return;}alert('तारीख DD/MM/YYYY में लिखें, जैसे 11/10/2028; या पेज नंबर लिखें।');}
     function go(dir){goToPage(currentPage+(dir==='next'?1:-1),dir)}
     prev.onclick=()=>go('prev');next.onclick=()=>go('next');searchBtn.onclick=searchDateOrPage;search.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();searchDateOrPage()}});nav.append(prev,searchWrap,next);
     const bottom=document.createElement('div');bottom.className='r5-bottom';const sign=document.createElement('div');sign.className='r5-sign';sign.textContent='राकेश मिश्रा';const hint=document.createElement('span');hint.className='r5-hint';hint.textContent='आज का नोट अपने-आप सेव होगा • पुराने पेज केवल पढ़ने के लिए • कुल 5000 पेज';bottom.append(sign,hint);
@@ -16734,7 +16734,7 @@ window.addEventListener('load',()=>{const b=document.getElementById('routineRout
 <script id="final-fixed-date-day-counter">
 (function(){
   'use strict';
-  var Y=2026, M=10, D=15, TOTAL=5000; // 15-11-2026 = Day 1
+  var Y=2026, M=10, D=20, TOTAL=25000; // 20-11-2026 = Day 0
   function midnight(d){ return new Date(d.getFullYear(),d.getMonth(),d.getDate()).getTime(); }
   function dayNumber(){
     var start=new Date(Y,M,D);
@@ -16748,16 +16748,16 @@ window.addEventListener('load',()=>{const b=document.getElementById('routineRout
       var el=document.getElementById(id);
       if(el) el.textContent='🔥 Day '+day+' / '+TOTAL;
     });
-    // The displayed start date is permanently fixed at 15-11-2026.
+    // The displayed start date is permanently fixed at 20-11-2026.
     ['routineStreakDate','brahmanStreakDate'].forEach(function(id){
       var el=document.getElementById(id);
-      if(el) el.textContent='15-11-2026';
+      if(el) el.textContent='20-11-2026';
     });
     ['routineStreakPercent','brahmanStreakPercent'].forEach(function(id){
       var el=document.getElementById(id);
       if(el) el.textContent=pct+'%';
     });
-    try{ localStorage.setItem('myRoutine5000DayStart','2026-11-15'); }catch(e){}
+    try{ localStorage.setItem('myRoutine5000DayStart','2026-11-20'); }catch(e){}
   }
   function boot(){ refresh(); setTimeout(refresh,100); setTimeout(refresh,500); }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',boot);
@@ -17062,19 +17062,19 @@ window.addEventListener('load',()=>{const b=document.getElementById('routineRout
 (function(){
   'use strict';
 
-  /* 5000-day mission: 15 Nov 2026 is Day 1. */
+  /* 25000-day mission: 20 Nov 2026 is Day 0. */
   function routineDateOnly(d){ return new Date(d.getFullYear(),d.getMonth(),d.getDate()).getTime(); }
   function update5000DayFinal(){
-    var start = new Date(2026,10,15); // 15 November 2026
+    var start = new Date(2026,10,20); // 20 November 2026
     var now = new Date();
     var diff = Math.floor((routineDateOnly(now)-routineDateOnly(start))/86400000);
-    var day = Math.max(0, Math.min(5000, diff + 1));
-    var pct = Math.round(day * 100 / 5000);
+    var day = Math.max(0, Math.min(25000, diff));
+    var pct = Math.round(day * 100 / 25000);
     ['routineStreakButton','brahmanStreakButton'].forEach(function(id){
-      var e=document.getElementById(id); if(e) e.textContent='🔥 Day '+day+' / 5000';
+      var e=document.getElementById(id); if(e) e.textContent='🔥 Day '+day+' / 25000';
     });
     ['routineStreakDate','brahmanStreakDate'].forEach(function(id){
-      var e=document.getElementById(id); if(e) e.textContent='15-11-2026';
+      var e=document.getElementById(id); if(e) e.textContent='20-11-2026';
     });
     ['routineStreakPercent','brahmanStreakPercent'].forEach(function(id){
       var e=document.getElementById(id); if(e) e.textContent=pct+'%';
