@@ -14381,7 +14381,7 @@ window.addEventListener("resize",()=>{if(oldBookPdf&&!oldBookRendering){finishOl
           <button class="routine-switch-number routine-switch-five" onclick="openRoutineRoute45(5)">4</button>
         </div>
         <div class="routine-inline-title"><span id="routineMissionNumber">1</span> <span id="routineMissionTitle">साधना / भक्ति</span></div>
-        <div class="routine-streak-wrap" id="routineStreakWrap"><span id="routineStreakDate" class="routine-streak-date">20-11-2026</span><button type="button" id="routineStreakButton" class="routine-streak-button" onclick="startOrShow5000Streak()">🔥 Day 0 / 25000</button><span id="routineStreakPercent" class="routine-streak-percent">0%</span></div>
+        <div class="routine-streak-wrap" id="routineStreakWrap"><span id="routineStreakDate" class="routine-streak-date">20-11-2026</span><button type="button" id="routineStreakButton" class="routine-streak-button" onclick="startOrShow5000Streak()">🔥 Day 1 / 25000</button><span id="routineStreakPercent" class="routine-streak-percent">0%</span></div>
         <div id="routineTodayGoal" class="routine-today-goal"><span>🎯 Today's Goal</span><b id="routineTodayGoalCount">0 / 0</b><i><em id="routineTodayGoalBar"></em></i></div>
         <div id="routineMissionItems" class="routine-mission-items"></div>
       </div>
@@ -14395,7 +14395,7 @@ window.addEventListener("resize",()=>{if(oldBookPdf&&!oldBookRendering){finishOl
           <button class="routine-switch-number routine-switch-four" onclick="openRoutineRoute45(4)">3</button>
           <button class="routine-switch-number routine-switch-five" onclick="openRoutineRoute45(5)">4</button>
         </div>
-        <div class="routine-streak-wrap" id="brahmanStreakWrap"><span id="brahmanStreakDate" class="routine-streak-date">20-11-2026</span><button type="button" id="brahmanStreakButton" class="routine-streak-button" onclick="startOrShow5000Streak()">🔥 Day 0 / 25000</button><span id="brahmanStreakPercent" class="routine-streak-percent">0%</span></div>
+        <div class="routine-streak-wrap" id="brahmanStreakWrap"><span id="brahmanStreakDate" class="routine-streak-date">20-11-2026</span><button type="button" id="brahmanStreakButton" class="routine-streak-button" onclick="startOrShow5000Streak()">🔥 Day 1 / 25000</button><span id="brahmanStreakPercent" class="routine-streak-percent">0%</span></div>
         <div id="brahmanTodayGoal" class="routine-today-goal"><span>🎯 Today's Goal</span><b id="brahmanTodayGoalCount">0 / 52</b><i><em id="brahmanTodayGoalBar"></em></i></div>
         <div id="myRoutineItems"></div>
         <div class="my-routine-note">✓ चेक करने के बाद टास्क इसी लाइन में रहेगा और हमेशा के लिए लॉक रहेगा।</div>
@@ -14729,7 +14729,7 @@ window.addEventListener("resize",()=>{if(oldBookPdf&&!oldBookRendering){finishOl
    const now=new Date();
    if(Number.isNaN(start.getTime()))return 0;
    const days=Math.floor((streakDateValue(now)-streakDateValue(start))/86400000);
-   return Math.max(0,Math.min(STREAK_TOTAL,days));
+   return Math.max(0,Math.min(STREAK_TOTAL,days+1));
  }
  function update5000Streak(){
    const day=getStreakDay();
@@ -16734,7 +16734,7 @@ window.addEventListener('load',()=>{const b=document.getElementById('routineRout
 <script id="final-fixed-date-day-counter">
 (function(){
   'use strict';
-  var Y=2026, M=10, D=20, TOTAL=25000; // 20-11-2026 = Day 0
+  var Y=2026, M=10, D=20, TOTAL=25000; // 20-11-2026 = Day 1
   function midnight(d){ return new Date(d.getFullYear(),d.getMonth(),d.getDate()).getTime(); }
   function dayNumber(){
     var start=new Date(Y,M,D);
@@ -17062,13 +17062,13 @@ window.addEventListener('load',()=>{const b=document.getElementById('routineRout
 (function(){
   'use strict';
 
-  /* 25000-day mission: 20 Nov 2026 is Day 0. */
+  /* 25000-day mission: 20 Nov 2026 is Day 1. */
   function routineDateOnly(d){ return new Date(d.getFullYear(),d.getMonth(),d.getDate()).getTime(); }
   function update5000DayFinal(){
     var start = new Date(2026,10,20); // 20 November 2026
     var now = new Date();
     var diff = Math.floor((routineDateOnly(now)-routineDateOnly(start))/86400000);
-    var day = Math.max(0, Math.min(25000, diff));
+    var day = Math.max(0, Math.min(25000, diff + 1));
     var pct = Math.round(day * 100 / 25000);
     ['routineStreakButton','brahmanStreakButton'].forEach(function(id){
       var e=document.getElementById(id); if(e) e.textContent='🔥 Day '+day+' / 25000';
